@@ -1,12 +1,12 @@
 import numpy
 import scipy
 import main
+import constants
 
 def computeSw(DTR,LTR):
     data_list = main.getClassMatrix(DTR,LTR)
-    num_classes = 2
     Sw = 0
-    for i in range(0,num_classes):
+    for i in range(0,constants.NUM_CLASSES):
         _,CVi = main.computeMeanCovMatrix(data_list[i])
         Sw += data_list[i].shape[1] * CVi 
 
@@ -18,9 +18,8 @@ def computeSb(DTR,LTR):
     data_list = main.getClassMatrix(DTR,LTR)
     Sb = 0
     mu_all = main.vcol(DTR.mean(1))
-    num_classes = 2
 
-    for i in range(0,num_classes):
+    for i in range(0,constants.NUM_CLASSES):
         mu = main.vcol(data_list[i].mean(1))
         diff = mu - mu_all
         product = numpy.dot(diff,diff.T)

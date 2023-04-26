@@ -3,7 +3,7 @@ import main
 
 def PCA_projection(DTR,m):
     
-    _,C = main.computeMeanCovMatrix(DTR)
+    _, C = main.computeMeanCovMatrix(DTR)
 
     s, U = numpy.linalg.eigh(C)
 

@@ -1,8 +1,10 @@
 import numpy
 import scipy
 import scipy.linalg
+from scipy import special
 import main
-import math
+import constants
+import lda
 
 def computeNumCorrectPredictions(SPost,LTE):
     prediction = numpy.argmax(SPost,axis=0)
@@ -12,85 +14,129 @@ def computeNumCorrectPredictions(SPost,LTE):
     err = 1 - acc
     print(acc)
     print(err)
+    print()
     return numpy.sum(bool_val)
 
+def computeNaiveSw(DTR,LTR):
+    data_list = main.getClassMatrix(DTR,LTR)
+    Sw = 0
+    for i in range(0,constants.NUM_CLASSES):
+        _,CVi = main.computeMeanCovMatrix(data_list[i])
+        CVi = CVi * numpy.identity(data_list[i].shape[0])
+        Sw += data_list[i].shape[1] * CVi 
+
+    Sw = Sw/DTR.shape[1]
+    
+    return Sw
+
 def logpdf_GAU_ND(X, mu, C): 
-    # compute logN for each xi (x)
-    M = X.shape[0]
-    N = X.shape[1]
-    Y = numpy.empty((1,N))
-
-    for i in range(N):
+    P = numpy.linalg.inv(C)  
+    const = -0.5 * X.shape[0] * numpy.log(2*numpy.pi) 
+    const += -0.5 * numpy.linalg.slogdet(C)[1] 
+    
+    Y = []
+    for i in range(X.shape[1]):
         x = X[:, i:i+1]
-        firstTerm = -M/2 * numpy.log(2 * math.pi)
-        _,mod = numpy.linalg.slogdet(C)
-        secondTerm = -1/2 * mod
-        diff = x - mu.reshape((10,1))
-        thirdTerm = -1/2 * numpy.dot(diff.T,numpy.dot(numpy.linalg.inv(C),diff))
-        Y[:,i] = firstTerm + secondTerm + thirdTerm
+        diff = x - mu.reshape((10,1)) #WITHOUT RESHAPING THE MEAN FROM (10, ) TO (10,1) WE GET AN ERROR
+        res = const + -0.5 * numpy.dot( diff.T, numpy.dot(P, diff))
+        Y.append(res)
+        
+    return numpy.array(Y).ravel()  
 
-    return Y.ravel()
-
-def computeMLestimates(DTR,LTR):
+def computeMLestimates(DTR, LTR):
     DP0,DP1 = main.getClassMatrix(DTR,LTR)
 
     dataset_list = [DP0,DP1]
-    num_classes = 2
     mu_list = []
     cov_list = []
-    for i in range(0,num_classes):
-        mu,C = main.computeMeanCovMatrix(dataset_list[i])
-        #print(mu)
-        #print(C)
+    for i in range(0,constants.NUM_CLASSES):
+        mu, C = main.computeMeanCovMatrix(dataset_list[i])
         mu_list.append(mu)
         cov_list.append(C)
     
-    return mu_list,cov_list
+    return mu_list, cov_list
 
-def MVG_log_classifier(DTR,LTR,DTE,LTE):
-    mu_list,cov_list = computeMLestimates(DTR,LTR)
-    # Classification
-    # prior = vector of prior probabilities (1/2 since we have 2 classes)     S = Score Matrix    
-    prior = main.vcol(numpy.log(numpy.ones(2)/2.0))
-    likelihood_array = []
-    num_classes = 2
-    for i in range(0,num_classes):
-        # from the parameter of the class, compute the log density with the test set
-        likelihood = logpdf_GAU_ND(DTE,mu_list[i],cov_list[i])
-        likelihood = main.vrow(likelihood)
-        #print(likelihood)
-        likelihood_array.append(likelihood)
-    S = numpy.vstack(likelihood_array)
-    # SJoint = Matrix of joint densities    SMarginal = Marginal Densities    SPost = array of class posterior probabilities
-    logSJoint = S + prior
-    logSMarginal = main.vrow(scipy.special.logsumexp(logSJoint, axis=0))
-    logSPost = logSJoint - logSMarginal
-    return computeNumCorrectPredictions(logSPost,LTE)
+def computeNaiveMLestimates(DTR, LTR):
+    DP0,DP1 = main.getClassMatrix(DTR,LTR)
 
-'''
-def MVG_log_classifier(DTR, LTR, DTE, LTE):
-    classDepMU = []
-    classDepCOV = []
-    num_classes = len(set(LTR))
-    for i in range(0,num_classes):
-        mu,C = main.computeMeanCovMatrix(DTR[:, LTR==i])
-        classDepMU.append(mu) 
-        classDepCOV.append(C)
+    dataset_list = [DP0,DP1]
+    mu_list = []
+    cov_list = []
+    for i in range(0,constants.NUM_CLASSES):
+        mu, C = main.computeMeanCovMatrix(dataset_list[i])
+        mu_list.append(mu)
+        cov_list.append(C*numpy.identity(dataset_list[i].shape[0]))
     
-    #S = numpy.zeros((num_classes, DTE.shape[1]))
-    likelihood_array = []
+    return mu_list, cov_list
 
-    for i in range(0,num_classes):
+#MODELS:
+def MVG_log_classifier(DTR, LTR, DTE, LTE):
+    classDepMU, classDepCOV = computeMLestimates(DTR,LTR)
+    S = numpy.zeros((constants.NUM_CLASSES, DTE.shape[1]))
+
+    for i in range(0,constants.NUM_CLASSES):
         for j, sample in enumerate(DTE.T): 
             sample = main.vcol(sample)
-            likelihood = main.vrow(logpdf_GAU_ND(sample, classDepMU[i], classDepCOV[i]))  
-            likelihood_array.append(likelihood)
+            S[i, j] = logpdf_GAU_ND(sample, classDepMU[i], classDepCOV[i]) 
     
-    S = numpy.vstack(likelihood_array)
-    logSJoint = numpy.log(1/3) + S  
+    logSJoint = numpy.log(1/3) + S 
+    logSMarginal = scipy.special.logsumexp(logSJoint, axis=0)
+    logSPost = logSJoint - logSMarginal
+
+    # return number of correct predictions
+    return computeNumCorrectPredictions(logSPost, LTE)
+
+
+
+def NaiveBayesGaussianClassifier_log(DTR, LTR, DTE, LTE):
+    classDepMU, classDepCOV = computeNaiveMLestimates(DTR, LTR)
+    S = numpy.zeros((constants.NUM_CLASSES, DTE.shape[1]))
+
+    for i in range(0,constants.NUM_CLASSES):
+        for j, sample in enumerate(DTE.T):  
+            sample = main.vcol(sample)
+            S[i, j] = logpdf_GAU_ND(sample, classDepMU[i], classDepCOV[i]) 
+    
+    logSJoint = numpy.log(1/3) + S 
     logSMarginal = scipy.special.logsumexp(logSJoint, axis=0) 
     logSPost = logSJoint - logSMarginal
 
     # return number of correct predictions
-    return computeNumCorrectPredictions(logSPost,LTE)
-'''
+    return computeNumCorrectPredictions(logSPost, LTE)
+    
+
+
+def TiedCovarianceGaussianClassifier_log(DTR, LTR, DTE, LTE):
+    classDepMU, classDepCOV = computeMLestimates(DTR,LTR)
+    Sw = lda.computeSw(DTR,LTR)
+    S = numpy.zeros((constants.NUM_CLASSES, DTE.shape[1]))
+
+    for i in range(0,constants.NUM_CLASSES):
+        for j, sample in enumerate(DTE.T):  
+            sample = main.vcol(sample)
+            S[i, j] = logpdf_GAU_ND(sample, classDepMU[i], Sw)  
+    
+    logSJoint = numpy.log(1/3) + S  
+    logSMarginal = scipy.special.logsumexp(logSJoint, axis=0) 
+    logSPost = logSJoint - logSMarginal 
+   
+    # return number of correct predictions
+    return computeNumCorrectPredictions(logSPost, LTE)
+
+
+def TiedNaiveBayesGaussianClassifier_log(DTR, LTR, DTE, LTE):
+    classDepMU, classDepCOV = computeNaiveMLestimates(DTR, LTR)
+    Sw = computeNaiveSw(DTR,LTR)
+    S = numpy.zeros((constants.NUM_CLASSES, DTE.shape[1]))
+
+    for i in range(0,constants.NUM_CLASSES):
+        for j, sample in enumerate(DTE.T):  
+            sample = main.vcol(sample)
+            S[i, j] = logpdf_GAU_ND(sample, classDepMU[i], Sw)  
+    
+    logSJoint = numpy.log(1/3) + S  
+    logSMarginal = scipy.special.logsumexp(logSJoint, axis=0) 
+    logSPost = logSJoint - logSMarginal 
+   
+    # return number of correct predictions
+    return computeNumCorrectPredictions(logSPost, LTE)

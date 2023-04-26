@@ -3,20 +3,21 @@ import matplotlib.pyplot as plt
 import pca
 import lda
 import generative_models
+import constants
 
 #change the shape of an array from horizontal to vertical, so obtain a column vector
 def vcol(array):
-    return array.reshape((array.size,1))
+    return array.reshape((array.size, 1))
 
 #change the shape of an array from horizontal to vertical, so obtain a row vector
 def vrow(array):
-    return array.reshape((1,array.size))
+    return array.reshape((1, array.size))
 
 def computeMeanCovMatrix(DTR):
     mu = DTR.mean(1)
     DC = DTR - vcol(mu)
     C = numpy.dot(DC,DC.T)/DTR.shape[1]
-    return mu,C
+    return mu, C
 
 def getClassMatrix(DP,LTR):
     # 'spoofed-fingerprint' : name = 0 'authentic-fingerprint' : name = 1 
@@ -28,12 +29,11 @@ def getClassMatrix(DP,LTR):
 def load(fname): 
     DList = [] 
     labelsList = [] 
-    num_features = 10
  
     with open(fname) as f: 
         for line in f: 
             try:  
-                attrs = line.split(',')[0:num_features]  
+                attrs = line.split(',')[0:constants.NUM_FEATURES]  
                 attrs = vcol(numpy.array([float(i) for i in attrs]))   
                 name = line.split(',')[-1].strip()
                 # 'spoofed-fingerprint' : name = 0 'authentic-fingerprint' : name = 1 
@@ -48,7 +48,7 @@ def load(fname):
 
 
 if __name__ == '__main__':
-    # DTR = matrix of 10 rows(num_features) times 2325 samples
+    # DTR = matrix of 10 rows(NUM_FEATURES) times 2325 samples
     # LTR = unidimensional array of 2325 labels, 1 for each sample
     DTR,LTR = load("Train.txt")
     DTE,LTE = load("Test.txt")
@@ -62,3 +62,6 @@ if __name__ == '__main__':
     # ---------------   GENERATIVE MODELS   -----------------------
     # MVG_LOG_CLASSIFIER
     generative_models.MVG_log_classifier(DTR,LTR,DTE,LTE)
+    generative_models.NaiveBayesGaussianClassifier_log(DTR,LTR,DTE,LTE)
+    generative_models.TiedCovarianceGaussianClassifier_log(DTR,LTR,DTE,LTE)
+    generative_models.TiedNaiveBayesGaussianClassifier_log(DTR,LTR,DTE,LTE)
