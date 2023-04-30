@@ -79,7 +79,7 @@ def MVG_log_classifier(DTR, LTR, DTE, LTE):
             sample = main.vcol(sample)
             S[i, j] = logpdf_GAU_ND(sample, classDepMU[i], classDepCOV[i]) 
     
-    logSJoint = numpy.log(1/3) + S 
+    logSJoint = numpy.log(1/constants.NUM_CLASSES) + S 
     logSMarginal = scipy.special.logsumexp(logSJoint, axis=0)
     logSPost = logSJoint - logSMarginal
 
@@ -97,7 +97,7 @@ def NaiveBayesGaussianClassifier_log(DTR, LTR, DTE, LTE):
             sample = main.vcol(sample)
             S[i, j] = logpdf_GAU_ND(sample, classDepMU[i], classDepCOV[i]) 
     
-    logSJoint = numpy.log(1/3) + S 
+    logSJoint = numpy.log(1/constants.NUM_CLASSES) + S 
     logSMarginal = scipy.special.logsumexp(logSJoint, axis=0) 
     logSPost = logSJoint - logSMarginal
 
@@ -116,7 +116,7 @@ def TiedCovarianceGaussianClassifier_log(DTR, LTR, DTE, LTE):
             sample = main.vcol(sample)
             S[i, j] = logpdf_GAU_ND(sample, classDepMU[i], Sw)  
     
-    logSJoint = numpy.log(1/3) + S  
+    logSJoint = numpy.log(1/constants.NUM_CLASSES) + S  
     logSMarginal = scipy.special.logsumexp(logSJoint, axis=0) 
     logSPost = logSJoint - logSMarginal 
    
@@ -134,7 +134,7 @@ def TiedNaiveBayesGaussianClassifier_log(DTR, LTR, DTE, LTE):
             sample = main.vcol(sample)
             S[i, j] = logpdf_GAU_ND(sample, classDepMU[i], Sw)  
     
-    logSJoint = numpy.log(1/3) + S  
+    logSJoint = numpy.log(1/constants.NUM_CLASSES) + S  
     logSMarginal = scipy.special.logsumexp(logSJoint, axis=0) 
     logSPost = logSJoint - logSMarginal 
    
