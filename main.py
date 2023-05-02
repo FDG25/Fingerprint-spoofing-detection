@@ -4,6 +4,7 @@ import pca
 import lda
 import generative_models
 import constants
+import plot
 
 #change the shape of an array from horizontal to vertical, so obtain a column vector
 def vcol(array):
@@ -19,17 +20,16 @@ def computeMeanCovMatrix(DTR):
     C = numpy.dot(DC,DC.T)/DTR.shape[1]
     return mu, C
 
-def getClassMatrix(DP,LTR):
+def getClassMatrix(DTRP,LTR):
     # 'spoofed-fingerprint' : name = 0 'authentic-fingerprint' : name = 1 
-    DP0 = DP[:, LTR==0]   
-    DP1 = DP[:, LTR==1]   
+    DP0 = DTRP[:, LTR==0]   
+    DP1 = DTRP[:, LTR==1]   
     
     return DP0,DP1
 
 def load(fname): 
     DList = [] 
     labelsList = [] 
- 
     with open(fname) as f: 
         for line in f: 
             try:  
@@ -42,26 +42,58 @@ def load(fname):
                 labelsList.append(label) 
             except: 
                 pass 
- 
     return numpy.hstack(DList), numpy.array(labelsList, dtype=numpy.int32)
 
-
+def K_Fold(D,L,K):
+    # Leave-One-Out Approach Con K=2325: 
+    fold_dimension = int(D.shape[1]/K)  # size of each fold
+    fold_indices = numpy.arange(0, K*fold_dimension, fold_dimension)  # indices to split the data into folds
+    classifiers = [(generative_models.MVG_log_classifier, "Multivariate Gaussian Classifier"), (generative_models.NaiveBayesGaussianClassifier_log, "Naive Bayes"), (generative_models.TiedCovarianceGaussianClassifier_log, "Tied Covariance"), (generative_models.TiedNaiveBayesGaussianClassifier_log, "Tied Naive Bayes")] 
+ 
+    for classifier_function, classifier_name in classifiers: 
+        nWrongPrediction = 0 
+        # Run k-fold cross-validation
+        for i in range(K):    
+            # Split the data into training and validation sets
+            mask = numpy.zeros(D.shape[1], dtype=bool)
+            mask[fold_indices[i]:fold_indices[i]+fold_dimension] = True
+            DTR = D[:,~mask]
+            LTR = L[~mask]
+            DVA = D[:,mask]
+            LVA = L[mask]
+            nSamples = DVA.shape[1]  
+            nCorrectPrediction = classifier_function(DTR, LTR, DVA, LVA) 
+            nWrongPrediction += nSamples - nCorrectPrediction 
+        errorRate = nWrongPrediction/D.shape[1] 
+        accuracy = 1 - errorRate
+        print(f"{classifier_name} results:\nAccuracy: {round(accuracy*100, 2)}%\nError rate: {round(errorRate*100, 2)}%\n")  
 
 if __name__ == '__main__':
     # DTR = matrix of 10 rows(NUM_FEATURES) times 2325 samples
     # LTR = unidimensional array of 2325 labels, 1 for each sample
     DTR,LTR = load("Train.txt")
     DTE,LTE = load("Test.txt")
+    # ---------------   PLOT BEFORE DIMENSIONALITY REDUCTION   -----------------------
+    plot.plot_hist(DTR,LTR)
+    plot.plot_scatter(DTR,LTR)
     # PCA
-    # DP = projected dataset obtained by projecting our original dataset over a m-dimensional subspace
-    DP = pca.PCA_projection(DTR,m=8)
+    # DTRP = projected training set obtained by projecting our original training set over a m-dimensional subspace
+    # DTEP = projected test set obtained by projecting our original test set over a m-dimensional subspace
+    m = 2
+    DTRP = pca.PCA_projection(DTR,m)
+    #plot.plot_scatter_projected_data_pca(DTRP,LTR)
     # LDA
     Sw = lda.computeSw(DTR,LTR)
     Sb = lda.computeSb(DTR,LTR)
-    DP = lda.LDA1(m=1,Sb=Sb,Sw=Sw,DTR=DTR)
+    DTRP = lda.LDA1(m=1,Sb=Sb,Sw=Sw,D=DTR)
+    #plot.plot_hist_projected_data_lda(DTRP,LTR)
     # ---------------   GENERATIVE MODELS   -----------------------
     # MVG_LOG_CLASSIFIER
-    generative_models.MVG_log_classifier(DTR,LTR,DTE,LTE)
-    generative_models.NaiveBayesGaussianClassifier_log(DTR,LTR,DTE,LTE)
-    generative_models.TiedCovarianceGaussianClassifier_log(DTR,LTR,DTE,LTE)
-    generative_models.TiedNaiveBayesGaussianClassifier_log(DTR,LTR,DTE,LTE)
+    # generative_models.MVG_log_classifier(DTR,LTR,DTE,LTE)
+    # generative_models.NaiveBayesGaussianClassifier_log(DTR,LTR,DTE,LTE)
+    # generative_models.TiedCovarianceGaussianClassifier_log(DTR,LTR,DTE,LTE)
+    # generative_models.TiedNaiveBayesGaussianClassifier_log(DTR,LTR,DTE,LTE)
+    print("K_Fold with K = 5")
+    K_Fold(DTR,LTR,K=5)
+    print("Leave One Out (K = 2325)")
+    K_Fold(DTR,LTR,K=2325)

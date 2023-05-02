@@ -12,9 +12,9 @@ def computeNumCorrectPredictions(SPost,LTE):
     n_samples = prediction.size
     acc = numpy.sum(bool_val)/n_samples
     err = 1 - acc
-    print(acc)
-    print(err)
-    print()
+    #print(acc)
+    #print(err)
+    #print()
     return numpy.sum(bool_val)
 
 def computeNaiveSw(DTR,LTR):
