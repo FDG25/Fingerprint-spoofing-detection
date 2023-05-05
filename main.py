@@ -74,8 +74,8 @@ if __name__ == '__main__':
     DTR,LTR = load("Train.txt")
     DTE,LTE = load("Test.txt")
     # ---------------   PLOT BEFORE DIMENSIONALITY REDUCTION   -----------------------
-    plot.plot_hist(DTR,LTR)
-    plot.plot_scatter(DTR,LTR)
+    #plot.plot_hist(DTR,LTR)
+    #plot.plot_scatter(DTR,LTR)
     # PCA
     # DTRP = projected training set obtained by projecting our original training set over a m-dimensional subspace
     # DTEP = projected test set obtained by projecting our original test set over a m-dimensional subspace
@@ -86,7 +86,7 @@ if __name__ == '__main__':
     Sw = lda.computeSw(DTR,LTR)
     Sb = lda.computeSb(DTR,LTR)
     DTRP = lda.LDA1(m=1,Sb=Sb,Sw=Sw,D=DTR)
-    #plot.plot_hist_projected_data_lda(DTRP,LTR)
+    plot.plot_hist_projected_data_lda(DTRP,LTR)
     # ---------------   GENERATIVE MODELS   -----------------------
     # MVG_LOG_CLASSIFIER
     # generative_models.MVG_log_classifier(DTR,LTR,DTE,LTE)
