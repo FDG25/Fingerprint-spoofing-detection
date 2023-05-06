@@ -61,6 +61,9 @@ def K_Fold(D,L,K):
             LTR = L[~mask]
             DVA = D[:,mask]
             LVA = L[mask]
+            # apply PCA on current fold DTR,DVA
+            #DTR,P = pca.PCA_projection(DTR,m=8)
+            #DVA = numpy.dot(P.T, DVA)
             nSamples = DVA.shape[1]  
             nCorrectPrediction = classifier_function(DTR, LTR, DVA, LVA) 
             nWrongPrediction += nSamples - nCorrectPrediction 
@@ -74,13 +77,13 @@ if __name__ == '__main__':
     DTR,LTR = load("Train.txt")
     DTE,LTE = load("Test.txt")
     # ---------------   PLOT BEFORE DIMENSIONALITY REDUCTION   -----------------------
-    #plot.plot_hist(DTR,LTR)
-    #plot.plot_scatter(DTR,LTR)
-    # PCA
+    plot.plot_hist(DTR,LTR)
+    plot.plot_scatter(DTR,LTR)
+    # PCA (NON HA SENSO FARLO PRIMA)
     # DTRP = projected training set obtained by projecting our original training set over a m-dimensional subspace
     # DTEP = projected test set obtained by projecting our original test set over a m-dimensional subspace
-    m = 2
-    DTRP = pca.PCA_projection(DTR,m)
+    #m = 2
+    #DTRP,_ = pca.PCA_projection(DTR,m)
     #plot.plot_scatter_projected_data_pca(DTRP,LTR)
     # LDA
     Sw = lda.computeSw(DTR,LTR)
@@ -93,7 +96,18 @@ if __name__ == '__main__':
     # generative_models.NaiveBayesGaussianClassifier_log(DTR,LTR,DTE,LTE)
     # generative_models.TiedCovarianceGaussianClassifier_log(DTR,LTR,DTE,LTE)
     # generative_models.TiedNaiveBayesGaussianClassifier_log(DTR,LTR,DTE,LTE)
+    # RANDOMIZE DATASET BEFORE K-FOLD
+    numpy.random.seed(0) 
+    indexes = numpy.random.permutation(DTR.shape[1])
+    DTR_RAND = numpy.zeros((constants.NUM_FEATURES, DTR.shape[1]))
+    LTR_RAND = numpy.zeros((LTR.size,))
+    index = 0
+    for rand_index in indexes:
+        DTR_RAND[:,index] = DTR[:,rand_index]
+        LTR_RAND[index] = LTR[rand_index]
+        index+=1
+
     print("K_Fold with K = 5")
-    K_Fold(DTR,LTR,K=5)
+    K_Fold(DTR_RAND,LTR_RAND,K=5)
     print("Leave One Out (K = 2325)")
-    K_Fold(DTR,LTR,K=2325)
+    K_Fold(DTR_RAND,LTR_RAND,K=2325)

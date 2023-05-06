@@ -11,5 +11,5 @@ def PCA_projection(D,m):
     
     DP = numpy.dot(P.T, D)
     
-    # return the projected dataset
-    return DP
+    # return the projected dataset and the projection matrix
+    return DP,P

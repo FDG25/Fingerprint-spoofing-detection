@@ -37,7 +37,7 @@ def logpdf_GAU_ND(X, mu, C):
     Y = []
     for i in range(X.shape[1]):
         x = X[:, i:i+1]
-        diff = x - mu.reshape((10,1)) #WITHOUT RESHAPING THE MEAN FROM (10, ) TO (10,1) WE GET AN ERROR
+        diff = x - mu.reshape((X.shape[0],1)) #WITHOUT RESHAPING THE MEAN FROM (X.shape[0], ) TO (X.shape[0],1) WE GET AN ERROR X.shape[0] => N° of Features
         res = const + -0.5 * numpy.dot( diff.T, numpy.dot(P, diff))
         Y.append(res)
         
