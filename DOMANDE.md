@@ -1,15 +1,20 @@
 # DOMANDE
 
-- Avendo 2 classi, ha comunque senso adottare un approccio con la class posterio probability, o valutiamo solo il log likelihood ratio ?
-- serve fare una validation con un partizionamento fisso (usando la split 2to1 del lab5) oppure basta fare la k fold cross validation (k fold è già più robusto di per sè) ?
-- LDA approccio 1 si può fare se Sw è definita positiva, lo possiamo assumere o ci poniamo il problema e usiamo l'altro metodo ?
-- E' necessario plottare dopo PCA/LDA, dopo pCA con m=2 quindi parecchio ridotto può aver senso ?
-Nuove:
-- se facciamo il PCA dentro il kfold, dobbiamo farlo anche coi dati di validazione che usiamo ad ogni iterazione? 
+- conviene randomizzare il dataset all'inizio oppure dentro la funzione del k-fold ?
 
 # NOTE / COSE DA FARE
 1) fare pca dopo il partizionamento del k-fold (usare la stessa matrice P sia per training set che validation set)
 2) Verificare che gli error rate si abbassino, dovrebbero essere più bassi e il modello multivariato più basso del naive bayes
+3) modificare e utilizzare il log likelihood ratio soltanto
+4) randomizzare il dataset per abbassare errore k-fold con k=5
+
+# RISPOSTE
+- Avendo 2 classi, ha comunque senso adottare un approccio con la class posterio probability, o valutiamo solo il log likelihood ratio (log likelihood solo conviene)
+- serve fare una validation con un partizionamento fisso (usando la split 2to1 del lab5) oppure basta fare la k fold cross validation (k fold è già più robusto di per sè) (solo k fold è meglio)
+- LDA approccio 1 si può fare se Sw è definita positiva, lo possiamo assumere o ci poniamo il problema e usiamo l'altro metodo (possiamo assumere sw positiva)
+- E' necessario plottare dopo PCA/LDA, dopo pCA con m=2 quindi parecchio ridotto può aver senso ?
+Nuove:
+- se facciamo il PCA dentro il kfold, dobbiamo farlo anche coi dati di validazione che usiamo ad ogni iterazione? (anche per validazione, usiamo la stessa matrice P sia per training che validation)
 
 # COSE FATTE
 1) Fare 10 istogrammi dei dati caricati feature per feature - - > vedere se si riescono a estrarre informazioni interessanti
