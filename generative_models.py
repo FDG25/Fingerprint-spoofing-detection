@@ -6,8 +6,14 @@ import main
 import constants
 import lda
 
-def computeNumCorrectPredictionsGenerative(SPost,LTE):
-    prediction = numpy.argmax(SPost,axis=0)
+def computeNumCorrectPredictionsGenerative(S,LTE):
+    prediction = []
+    for col in range(0,S.shape[1]):
+        if S[0,col] > S[1,col]:
+            prediction.append(0)
+        else:
+            prediction.append(1)
+    prediction = numpy.array(prediction)
     bool_val = numpy.array(prediction==LTE)
     n_samples = prediction.size
     acc = numpy.sum(bool_val)/n_samples
@@ -76,12 +82,12 @@ def MVG_log_classifier(DTR, LTR, DTE, LTE):
             sample = main.vcol(sample)
             S[i, j] = logpdf_GAU_ND(sample, classDepMU[i], classDepCOV[i]) 
     
-    logSJoint = numpy.log(1/constants.NUM_CLASSES) + S 
-    logSMarginal = scipy.special.logsumexp(logSJoint, axis=0)
-    logSPost = logSJoint - logSMarginal
+    #logSJoint = numpy.log(1/constants.NUM_CLASSES) + S 
+    #logSMarginal = scipy.special.logsumexp(logSJoint, axis=0)
+    #logSPost = logSJoint - logSMarginal
 
     # return number of correct predictions
-    return computeNumCorrectPredictionsGenerative(logSPost, LTE)
+    return computeNumCorrectPredictionsGenerative(S, LTE)
 
 
 
@@ -94,12 +100,12 @@ def NaiveBayesGaussianClassifier_log(DTR, LTR, DTE, LTE):
             sample = main.vcol(sample)
             S[i, j] = logpdf_GAU_ND(sample, classDepMU[i], classDepCOV[i]) 
     
-    logSJoint = numpy.log(1/constants.NUM_CLASSES) + S 
-    logSMarginal = scipy.special.logsumexp(logSJoint, axis=0) 
-    logSPost = logSJoint - logSMarginal
+    #logSJoint = numpy.log(1/constants.NUM_CLASSES) + S 
+    #logSMarginal = scipy.special.logsumexp(logSJoint, axis=0) 
+    #logSPost = logSJoint - logSMarginal
 
     # return number of correct predictions
-    return computeNumCorrectPredictionsGenerative(logSPost, LTE)
+    return computeNumCorrectPredictionsGenerative(S, LTE)
     
 
 
@@ -113,12 +119,12 @@ def TiedCovarianceGaussianClassifier_log(DTR, LTR, DTE, LTE):
             sample = main.vcol(sample)
             S[i, j] = logpdf_GAU_ND(sample, classDepMU[i], Sw)  
     
-    logSJoint = numpy.log(1/constants.NUM_CLASSES) + S  
-    logSMarginal = scipy.special.logsumexp(logSJoint, axis=0) 
-    logSPost = logSJoint - logSMarginal 
+    #logSJoint = numpy.log(1/constants.NUM_CLASSES) + S  
+    #logSMarginal = scipy.special.logsumexp(logSJoint, axis=0) 
+    #logSPost = logSJoint - logSMarginal 
    
     # return number of correct predictions
-    return computeNumCorrectPredictionsGenerative(logSPost, LTE)
+    return computeNumCorrectPredictionsGenerative(S, LTE)
 
 
 def TiedNaiveBayesGaussianClassifier_log(DTR, LTR, DTE, LTE):
@@ -131,9 +137,9 @@ def TiedNaiveBayesGaussianClassifier_log(DTR, LTR, DTE, LTE):
             sample = main.vcol(sample)
             S[i, j] = logpdf_GAU_ND(sample, classDepMU[i], Sw)  
     
-    logSJoint = numpy.log(1/constants.NUM_CLASSES) + S  
-    logSMarginal = scipy.special.logsumexp(logSJoint, axis=0) 
-    logSPost = logSJoint - logSMarginal 
+    #logSJoint = numpy.log(1/constants.NUM_CLASSES) + S  
+    #logSMarginal = scipy.special.logsumexp(logSJoint, axis=0) 
+    #logSPost = logSJoint - logSMarginal 
    
     # return number of correct predictions
-    return computeNumCorrectPredictionsGenerative(logSPost, LTE)
+    return computeNumCorrectPredictionsGenerative(S, LTE)
