@@ -6,15 +6,12 @@ import main
 import constants
 import lda
 
-def computeNumCorrectPredictions(SPost,LTE):
+def computeNumCorrectPredictionsGenerative(SPost,LTE):
     prediction = numpy.argmax(SPost,axis=0)
     bool_val = numpy.array(prediction==LTE)
     n_samples = prediction.size
     acc = numpy.sum(bool_val)/n_samples
     err = 1 - acc
-    #print(acc)
-    #print(err)
-    #print()
     return numpy.sum(bool_val)
 
 def computeNaiveSw(DTR,LTR):
@@ -84,7 +81,7 @@ def MVG_log_classifier(DTR, LTR, DTE, LTE):
     logSPost = logSJoint - logSMarginal
 
     # return number of correct predictions
-    return computeNumCorrectPredictions(logSPost, LTE)
+    return computeNumCorrectPredictionsGenerative(logSPost, LTE)
 
 
 
@@ -102,7 +99,7 @@ def NaiveBayesGaussianClassifier_log(DTR, LTR, DTE, LTE):
     logSPost = logSJoint - logSMarginal
 
     # return number of correct predictions
-    return computeNumCorrectPredictions(logSPost, LTE)
+    return computeNumCorrectPredictionsGenerative(logSPost, LTE)
     
 
 
@@ -121,7 +118,7 @@ def TiedCovarianceGaussianClassifier_log(DTR, LTR, DTE, LTE):
     logSPost = logSJoint - logSMarginal 
    
     # return number of correct predictions
-    return computeNumCorrectPredictions(logSPost, LTE)
+    return computeNumCorrectPredictionsGenerative(logSPost, LTE)
 
 
 def TiedNaiveBayesGaussianClassifier_log(DTR, LTR, DTE, LTE):
@@ -139,4 +136,4 @@ def TiedNaiveBayesGaussianClassifier_log(DTR, LTR, DTE, LTE):
     logSPost = logSJoint - logSMarginal 
    
     # return number of correct predictions
-    return computeNumCorrectPredictions(logSPost, LTE)
+    return computeNumCorrectPredictionsGenerative(logSPost, LTE)

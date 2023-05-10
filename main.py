@@ -1,10 +1,13 @@
 import numpy
+import scipy
 import matplotlib.pyplot as plt
+
 import pca
 import lda
 import generative_models
 import constants
 import plot
+import discriminative_models
 
 #change the shape of an array from horizontal to vertical, so obtain a column vector
 def vcol(array):
@@ -48,7 +51,7 @@ def K_Fold(D,L,K):
     # Leave-One-Out Approach Con K=2325: 
     fold_dimension = int(D.shape[1]/K)  # size of each fold
     fold_indices = numpy.arange(0, K*fold_dimension, fold_dimension)  # indices to split the data into folds
-    classifiers = [(generative_models.MVG_log_classifier, "Multivariate Gaussian Classifier"), (generative_models.NaiveBayesGaussianClassifier_log, "Naive Bayes"), (generative_models.TiedCovarianceGaussianClassifier_log, "Tied Covariance"), (generative_models.TiedNaiveBayesGaussianClassifier_log, "Tied Naive Bayes")] 
+    classifiers = [(generative_models.MVG_log_classifier, "Multivariate Gaussian Classifier"), (generative_models.NaiveBayesGaussianClassifier_log, "Naive Bayes"), (generative_models.TiedCovarianceGaussianClassifier_log, "Tied Covariance"), (generative_models.TiedNaiveBayesGaussianClassifier_log, "Tied Naive Bayes"),(discriminative_models.LogisticRegression, "Logistic Regression")] 
  
     for classifier_function, classifier_name in classifiers: 
         nWrongPrediction = 0 
@@ -66,7 +69,7 @@ def K_Fold(D,L,K):
             #DVA = numpy.dot(P.T, DVA)
             nSamples = DVA.shape[1]  
             nCorrectPrediction = classifier_function(DTR, LTR, DVA, LVA) 
-            nWrongPrediction += nSamples - nCorrectPrediction 
+            nWrongPrediction += nSamples - nCorrectPrediction
         errorRate = nWrongPrediction/D.shape[1] 
         accuracy = 1 - errorRate
         print(f"{classifier_name} results:\nAccuracy: {round(accuracy*100, 2)}%\nError rate: {round(errorRate*100, 2)}%\n")  
@@ -77,8 +80,8 @@ if __name__ == '__main__':
     DTR,LTR = load("Train.txt")
     DTE,LTE = load("Test.txt")
     # ---------------   PLOT BEFORE DIMENSIONALITY REDUCTION   -----------------------
-    plot.plot_hist(DTR,LTR)
-    plot.plot_scatter(DTR,LTR)
+    #plot.plot_hist(DTR,LTR)
+    #plot.plot_scatter(DTR,LTR)
     # PCA (NON HA SENSO FARLO PRIMA)
     # DTRP = projected training set obtained by projecting our original training set over a m-dimensional subspace
     # DTEP = projected test set obtained by projecting our original test set over a m-dimensional subspace
@@ -89,7 +92,7 @@ if __name__ == '__main__':
     Sw = lda.computeSw(DTR,LTR)
     Sb = lda.computeSb(DTR,LTR)
     DTRP = lda.LDA1(m=1,Sb=Sb,Sw=Sw,D=DTR)
-    plot.plot_hist_projected_data_lda(DTRP,LTR)
+    #plot.plot_hist_projected_data_lda(DTRP,LTR)
     # ---------------   GENERATIVE MODELS   -----------------------
     # MVG_LOG_CLASSIFIER
     # generative_models.MVG_log_classifier(DTR,LTR,DTE,LTE)
