@@ -6,9 +6,7 @@
 - siccome PCA lo abbiamo fatto nel k-fold, i plot PCA/LDA prima del k-fold applicati sui dati di partenza hanno comunque senso ? 
 
 # NOTE / COSE DA FARE
-1) fare pca dopo il partizionamento del k-fold (usare la stessa matrice P sia per training set che validation set)
-2) Verificare che gli error rate si abbassino, dovrebbero essere più bassi e il modello multivariato più basso del naive bayes
-3) modificare e utilizzare il log likelihood ratio soltanto
+1) Fare Logistic Regression Binary nel Caso Quadratico
 
 # RISPOSTE
 - Avendo 2 classi, ha comunque senso adottare un approccio con la class posterio probability, o valutiamo solo il log likelihood ratio (log likelihood solo conviene)
@@ -27,6 +25,8 @@ Nuove:
 3) fare istogrammi su 3 dimensioni plottando a 2 a 2 delle coppie di features per vedere se si possono estrarre info interessanti (fatto con scatter plot)
 4) pca con m=2 per vedere se si riescono a estrarre info interessanti
 5) randomizzare il dataset per abbassare errore k-fold con k=5
+6) fare pca dopo il partizionamento del k-fold (usare la stessa matrice P sia per training set che validation set)
+7) Verificare che gli error rate si abbassino, dovrebbero essere più bassi e il modello multivariato più basso del naive bayes
 
 # Note 04/05/2023
 COSE DETTE DAL PROF A LAURA:
