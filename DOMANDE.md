@@ -17,6 +17,9 @@
 - E' necessario plottare dopo PCA/LDA, dopo pCA con m=2 quindi parecchio ridotto può aver senso ?
 Nuove:
 - se facciamo il PCA dentro il kfold, dobbiamo farlo anche coi dati di validazione che usiamo ad ogni iterazione? (anche per validazione, usiamo la stessa matrice P sia per training che validation)
+- Nel progetto anziché fare logistic regression multiclass
+- K va bene 5
+- Shuffle per come lo abbiamo fatto va bene
 
 # COSE FATTE
 1) Fare 10 istogrammi dei dati caricati feature per feature - - > vedere se si riescono a estrarre informazioni interessanti
