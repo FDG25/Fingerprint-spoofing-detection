@@ -1,5 +1,6 @@
 import numpy
 import scipy 
+import main
 
 def logreg_obj_wrap(DTR, LTR, lambd):
     def logreg_obj(v):
@@ -41,6 +42,39 @@ def computeScores(DTE,LTE,v):
     #print("Accuracy: " + str(round(acc*100, 1)) + "%")
     #print("Error rate: " + str(round(err*100, 1)) + "%")
     return nCorrectPredictions
+
+def computeScores_quad(DTR, LTR, DTE, LTE):
+    def vec(A):
+        # Get the number of rows and columns in A
+        m, n = A.shape
+
+        # Reshape the transpose of A into a column vector
+        return numpy.reshape(numpy.transpose(A), (m * n, 1))
+
+    DP0,DP1 = main.getClassMatrix(DTR,LTR)
+    mu0,C0 = main.computeMeanCovMatrix(DP0)
+    mu1,C1 = main.computeMeanCovMatrix(DP1)
+    l0 = (numpy.linalg.inv(C0))
+    l1 = (numpy.linalg.inv(C1))
+    A = -0.5 * (l1-l0)
+    b = numpy.dot(l1,mu1) - numpy.dot(l0,mu0)
+    c = -0.5 * numpy.dot( mu1.T, numpy.dot(l1, mu1)) - numpy.dot( mu0.T, numpy.dot(l0, mu0)) + 0.5*(numpy.linalg.slogdet(l1)[1]-numpy.linalg.slogdet(l0)[1])
+    #w = [vec(A),b.reshape((10,1))]
+    w_t = [vec(A).T,b.reshape((10,1)).T]
+    LP = []
+    for i in range(0,DTE.shape[1]):
+        x = DTE[:,i]
+        x = x.reshape((10,1))
+        res = vec(numpy.dot(x,x.T))
+        phi = [res , x]
+        s_i = numpy.dot(w_t[0],phi[0]) + numpy.dot(w_t[1],phi[1]) + c
+        if s_i > 0:
+            LP.append(1)
+        else:
+            LP.append(0)
+    nCorrectPredictions = computeNumCorrectPredictionsDiscriminative(numpy.array(LP),LTE)
+    return nCorrectPredictions
+
 
 def LogisticRegression(DTR,LTR,DTE,LTE):
     lambd = 0.1

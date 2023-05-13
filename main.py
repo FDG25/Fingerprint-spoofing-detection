@@ -51,7 +51,7 @@ def K_Fold(D,L,K):
     # Leave-One-Out Approach Con K=2325: 
     fold_dimension = int(D.shape[1]/K)  # size of each fold
     fold_indices = numpy.arange(0, K*fold_dimension, fold_dimension)  # indices to split the data into folds
-    classifiers = [(generative_models.MVG_log_classifier, "Multivariate Gaussian Classifier"), (generative_models.NaiveBayesGaussianClassifier_log, "Naive Bayes"), (generative_models.TiedCovarianceGaussianClassifier_log, "Tied Covariance"), (generative_models.TiedNaiveBayesGaussianClassifier_log, "Tied Naive Bayes"),(discriminative_models.LogisticRegression, "Logistic Regression")] 
+    classifiers = [(generative_models.MVG_log_classifier, "Multivariate Gaussian Classifier"), (generative_models.NaiveBayesGaussianClassifier_log, "Naive Bayes"), (generative_models.TiedCovarianceGaussianClassifier_log, "Tied Covariance"), (generative_models.TiedNaiveBayesGaussianClassifier_log, "Tied Naive Bayes"),(discriminative_models.LogisticRegression, "Logistic Regression"),(discriminative_models.computeScores_quad, "Quadratic Logistic Regression")] 
  
     for classifier_function, classifier_name in classifiers: 
         nWrongPrediction = 0 
@@ -114,3 +114,4 @@ if __name__ == '__main__':
     K_Fold(DTR_RAND,LTR_RAND,K=5)
     print("Leave One Out (K = 2325)")
     K_Fold(DTR_RAND,LTR_RAND,K=2325)
+    

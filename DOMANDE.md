@@ -1,12 +1,13 @@
 # DOMANDE
 
-- conviene randomizzare il dataset all'inizio oppure dentro la funzione del k-fold ?
+- objective function della logistic regression caso binario come nel lab va bene o dobbiamo usare questa pesata (slide 30 blocco 7)
+- objective function caso quadratico capire
 - con PCA (applicato dentro il K-Fold) notiamo un leggero miglioramento (sia con 5 che con 8), è plausibile ?
 - come PCA, anche LDA dev'essere fatto all'interno del k-fold ?
 - siccome PCA lo abbiamo fatto nel k-fold, i plot PCA/LDA prima del k-fold applicati sui dati di partenza hanno comunque senso ? 
 
 # NOTE / COSE DA FARE
-1) Fare Logistic Regression Binary nel Caso Quadratico
+1) Correggere Logistic Regression Binary nel Caso Quadratico
 
 # RISPOSTE
 - Avendo 2 classi, ha comunque senso adottare un approccio con la class posterio probability, o valutiamo solo il log likelihood ratio (log likelihood solo conviene)
@@ -18,6 +19,7 @@ Nuove:
 - Nel progetto anziché fare logistic regression multiclass
 - K va bene 5
 - Shuffle per come lo abbiamo fatto va bene
+- conviene randomizzare il dataset all'inizio oppure dentro la funzione del k-fold (conviene all'inizio)
 
 # COSE FATTE
 1) Fare 10 istogrammi dei dati caricati feature per feature - - > vedere se si riescono a estrarre informazioni interessanti
