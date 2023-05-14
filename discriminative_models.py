@@ -24,7 +24,7 @@ def logreg_obj_wrap_weighted(DTR, LTR, lambd):
         n = DTR.shape[1]
         first_term = (lambd/2) * (numpy.linalg.norm(w)**2)
         DP0,DP1 = main.getClassMatrix(DTR,LTR)
-        app_prior = 1/constants.NUM_CLASSES
+        app_prior = constants.PRIOR_PROBABILITY
         # riga 30 e 33 come Laura la prior
         # (non ha senso è gia data così i 2 weight sono uguali, come se facessi il non weighted con 1/n dato che dai stesso peso infatti viene uguale)
         #app_prior = DP1.shape[1]/DTR.shape[1]
