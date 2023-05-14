@@ -1,6 +1,7 @@
 import numpy
 import scipy 
 import main
+import constants
 
 def logreg_obj_wrap(DTR, LTR, lambd):
     def logreg_obj(v):
@@ -16,6 +17,34 @@ def logreg_obj_wrap(DTR, LTR, lambd):
             third_term += numpy.logaddexp(0,-z_i*((numpy.dot(w.T,x_i))+b))
         return first_term + second_term * third_term
     return logreg_obj
+
+def logreg_obj_wrap_weighted(DTR, LTR, lambd):
+    def logreg_obj_weighted(v):
+        w, b = v[0:-1], v[-1]
+        n = DTR.shape[1]
+        first_term = (lambd/2) * (numpy.linalg.norm(w)**2)
+        DP0,DP1 = main.getClassMatrix(DTR,LTR)
+        app_prior = 1/constants.NUM_CLASSES
+        # riga 30 e 33 come Laura la prior
+        # (non ha senso è gia data così i 2 weight sono uguali, come se facessi il non weighted con 1/n dato che dai stesso peso infatti viene uguale)
+        #app_prior = DP1.shape[1]/DTR.shape[1]
+        weight_0 = (1-app_prior)/DP0.shape[1]
+        weight_1 = app_prior/DP1.shape[1]
+        #print(weight_0 == weight_1)
+        loss_0 = 0
+        loss_1 = 0
+        for i in range(0,n):
+            c_i = LTR[i]
+            z_i = 2*c_i-1
+            x_i = DTR[:,i]
+            if z_i == -1:
+                # class 0
+                loss_0 += numpy.logaddexp(0,-z_i*((numpy.dot(w.T,x_i))+b))
+            else:
+                # class 1
+                loss_1 += numpy.logaddexp(0,-z_i*((numpy.dot(w.T,x_i))+b))
+        return first_term + weight_1 * loss_1 + weight_0 * loss_0
+    return logreg_obj_weighted
 
 def computeNumCorrectPredictionsDiscriminative(LP,LTE):
     bool_val = numpy.array(LP==LTE)
@@ -85,4 +114,13 @@ def LogisticRegression(DTR,LTR,DTE,LTE):
     #print("Lambda=" + str(lambd)) 
     #print(f"The objective value at the minimum (J(w*,b*)) is: {round(f, 7)}") 
     return computeScores(DTE, LTE, x) 
-        
+
+def LogisticRegressionWeighted(DTR,LTR,DTE,LTE):
+    lambd = 0.1
+    #lambda_values = [0.000001, 0.001, 0.1, 1.0] 
+    #for lambd in lambda_values: 
+    logreg_obj_weighted = logreg_obj_wrap_weighted(DTR, LTR, lambd) 
+    (x, f, d) = scipy.optimize.fmin_l_bfgs_b(logreg_obj_weighted, numpy.zeros(DTR.shape[0] + 1), approx_grad=True)
+    #print("Lambda=" + str(lambd)) 
+    #print(f"The objective value at the minimum (J(w*,b*)) is: {round(f, 7)}") 
+    return computeScores(DTE, LTE, x)       
