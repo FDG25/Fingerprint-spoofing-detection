@@ -44,16 +44,17 @@ IL PCA NON VA FATTO PRIMA MA DOPO IL CLASSIFICATORE. ???  PRIMA K FOLD E POI 
 CON IL TIED APPLICATO SUI CAMPIONI ORIGINALI OTTENIAMO LO STESSO RISULTATO (LA SEPARAZIONE CHE SI EFFETTUA) CHE OTTENIAMO CON L’LDA.
 TIED + LDA  è LA STESSA COSA CHE FA IL TIED (IL PROF DICE CHE BASTA SCRIVERE QUESTO NEL REPORT)  POSSIAMO FARLO PURCHé NEL REPORT DICIAMO CHE STIAMO FACENDO LA STESSA COSA (LO FACCIAMO GIUSTO PER MOSTRARE I PASSAGGI INTERMEDI, COME P.E. L’LDA).
 
-# NOTE 18/05/2023 (RISPOSTE DATE DAL PROF)
-1) Nel Logistic regression quadratico, che funzione bisogna passare al minimizzatore? La stessa del caso lineare, solo che passiamo fi(x) anziché x. 
-2)Come facciamo a scegliere un valore di lambda opportuno per logistic regression? (Provare logistic regression con valori valori di lambda e vari valori di PCA) 
-Proviamo con pca alto vari valori di lambda. Poi proviamo questi valori di lambda. Se vediamo che con pca 8 e pca 7 otteniamo più o meno gli stessi risultati (comunque non migliorano), il pca non vale la pena usarlo 
-3)Domanda slide 28-29 - - > visto che nel progetto abbiamo usato una versione regolarizzata del modello (che non è invariante rispetto a trasformazioni lineari dei campioni), non dobbiamo porci il problema di effettuare strategie di preprocessing come centrare i dati, standardizzare le varianze, normalizzare, etc...?
-Con mvg non ha senso farlo, con logistic regression invece vale la pena provare. 
-4)Come tenere in considerazione i costi? Sia per i generative models che per i discriminative models (logistic regression con la formula pesata, in cui compaiono le priors probability), ci basta calcolare pi tilde guardando la formula sulle slide (blocco 8 slide 21)  - - > per problemi binari possiamo sempre far convergere l'applicazione reale a quella con costi unitari (possiamo sempre ragionare come se i costi fossero 1 indipendentemente dal modello)
-Sostanzialmente possiamo sempre effettuare questa trasformazione e ricondurci a costi identici (unitari) 
-
 -PLOTTANDO I 10 ISTOGRAMMI PER LE 10 FEATURE CHE ABBIAMO, AVEVAMO NOTATO CHE QUESTI AVEVANO UN ANDAMENTO ABBASTANZA VICINO A QUELLO DI UNA GAUSSIANA.
 HA SENSO ALLORA Già TRARRE LE PRIME CONSIDERAZIONI E DIRE CHE TUTTO SOMMATO I MODELLI GAUSSIANI SI PRESTERANNO BENE? IL PROF DICE NO, XK NELLE PROSSIME LEZIONI VEDREMO CHE CAMBIERANNO UN PO’ LE COSE.
 
 DOMANI FACCIAMO VEDERE GLI ISTOGRAMMI CHE ABBIAMO OTTENUTO AL PROF!
+
+
+# NOTE 18/05/2023 (RISPOSTE DATE DAL PROF)
+1) Nel Logistic regression quadratico, che funzione bisogna passare al minimizzatore? La stessa del caso lineare, solo che passiamo fi(x) anziché x. 
+2) Come facciamo a scegliere un valore di lambda opportuno per logistic regression? (Provare logistic regression con valori valori di lambda e vari valori di PCA) 
+Proviamo con pca alto vari valori di lambda. Poi proviamo questi valori di lambda. Se vediamo che con pca 8 e pca 7 otteniamo più o meno gli stessi risultati (comunque non migliorano), il pca non vale la pena usarlo 
+3) Domanda slide 28-29 - - > visto che nel progetto abbiamo usato una versione regolarizzata del modello (che non è invariante rispetto a trasformazioni lineari dei campioni), non dobbiamo porci il problema di effettuare strategie di preprocessing come centrare i dati, standardizzare le varianze, normalizzare, etc...?
+Con mvg non ha senso farlo, con logistic regression invece vale la pena provare. 
+4) Come tenere in considerazione i costi? Sia per i generative models che per i discriminative models (logistic regression con la formula pesata, in cui compaiono le priors probability), ci basta calcolare pi tilde guardando la formula sulle slide (blocco 8 slide 21)  - - > per problemi binari possiamo sempre far convergere l'applicazione reale a quella con costi unitari (possiamo sempre ragionare come se i costi fossero 1 indipendentemente dal modello)
+Sostanzialmente possiamo sempre effettuare questa trasformazione e ricondurci a costi identici (unitari) 
