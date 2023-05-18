@@ -49,3 +49,59 @@ TIED + LDA  è LA STESSA COSA CHE FA IL TIED (IL PROF DICE CHE BASTA SCRIVERE
 HA SENSO ALLORA Già TRARRE LE PRIME CONSIDERAZIONI E DIRE CHE TUTTO SOMMATO I MODELLI GAUSSIANI SI PRESTERANNO BENE? IL PROF DICE NO, XK NELLE PROSSIME LEZIONI VEDREMO CHE CAMBIERANNO UN PO’ LE COSE.
 
 DOMANI FACCIAMO VEDERE GLI ISTOGRAMMI CHE ABBIAMO OTTENUTO AL PROF!
+
+# ROBE LATEX
+
+\begin{table}
+\centering
+\begin{tabular}{ccc}
+\subfloat{\includegraphics[width = 1.3in]{ScatterPlots/Feature1 Feature2.png}} &
+\subfloat{\includegraphics[width = 1.3in]{ScatterPlots/Feature1 Feature3.png}} &
+\subfloat{\includegraphics[width = 1.3in]{ScatterPlots/Feature1 Feature4.png}} \\
+\subfloat{\includegraphics[width = 1.3in]{ScatterPlots/Feature1 Feature5.png}} &
+\subfloat{\includegraphics[width = 1.3in]{ScatterPlots/Feature1 Feature6.png}} &
+\subfloat{\includegraphics[width = 1.3in]{ScatterPlots/Feature1 Feature7.png}} \\
+\subfloat{\includegraphics[width = 1.3in]{ScatterPlots/Feature1 Feature8.png}} &
+\subfloat{\includegraphics[width = 1.3in]{ScatterPlots/Feature1 Feature9.png}} &
+\subfloat{\includegraphics[width = 1.3in]{ScatterPlots/Feature1 Feature10.png}} \\
+\subfloat{\includegraphics[width = 1.3in]{ScatterPlots/Feature2 Feature3.png}} &
+\subfloat{\includegraphics[width = 1.3in]{ScatterPlots/Feature2 Feature4.png}} &
+\subfloat{\includegraphics[width = 1.3in]{ScatterPlots/Feature2 Feature5.png}} \\
+\subfloat{\includegraphics[width = 1.3in]{ScatterPlots/Feature2 Feature6.png}} &
+\subfloat{\includegraphics[width = 1.3in]{ScatterPlots/Feature2 Feature7.png}} &
+\subfloat{\includegraphics[width = 1.3in]{ScatterPlots/Feature2 Feature8.png}} \\
+\subfloat{\includegraphics[width = 1.3in]{ScatterPlots/Feature2 Feature9.png}} &
+\subfloat{\includegraphics[width = 1.3in]{ScatterPlots/Feature2 Feature10.png}} &
+\subfloat{\includegraphics[width = 1.3in]{ScatterPlots/Feature3 Feature4.png}} \\
+\subfloat{\includegraphics[width = 1.3in]{ScatterPlots/Feature3 Feature5.png}} &
+\subfloat{\includegraphics[width = 1.3in]{ScatterPlots/Feature3 Feature6.png}} &
+\subfloat{\includegraphics[width = 1.3in]{ScatterPlots/Feature3 Feature7.png}} \\
+\subfloat{\includegraphics[width = 1.3in]{ScatterPlots/Feature3 Feature8.png}} &
+\subfloat{\includegraphics[width = 1.3in]{ScatterPlots/Feature3 Feature9.png}} &
+\subfloat{\includegraphics[width = 1.3in]{ScatterPlots/Feature3 Feature10.png}} \\
+\subfloat{\includegraphics[width = 1.3in]{ScatterPlots/Feature4 Feature5.png}} &
+\subfloat{\includegraphics[width = 1.3in]{ScatterPlots/Feature4 Feature6.png}} &
+\subfloat{\includegraphics[width = 1.3in]{ScatterPlots/Feature4 Feature7.png}} \\
+\subfloat{\includegraphics[width = 1.3in]{ScatterPlots/Feature4 Feature8.png}} &
+\subfloat{\includegraphics[width = 1.3in]{ScatterPlots/Feature4 Feature9.png}} &
+\subfloat{\includegraphics[width = 1.3in]{ScatterPlots/Feature4 Feature10.png}} \\
+\subfloat{\includegraphics[width = 1.3in]{ScatterPlots/Feature5 Feature6.png}} &
+\subfloat{\includegraphics[width = 1.3in]{ScatterPlots/Feature5 Feature7.png}} &
+\subfloat{\includegraphics[width = 1.3in]{ScatterPlots/Feature5 Feature8.png}} \\
+\subfloat{\includegraphics[width = 1.3in]{ScatterPlots/Feature5 Feature9.png}} &
+\subfloat{\includegraphics[width = 1.3in]{ScatterPlots/Feature5 Feature10.png}} &
+\subfloat{\includegraphics[width = 1.3in]{ScatterPlots/Feature6 Feature7.png}} \\
+\subfloat{\includegraphics[width = 1.3in]{ScatterPlots/Feature6 Feature8.png}} &
+\subfloat{\includegraphics[width = 1.3in]{ScatterPlots/Feature6 Feature9.png}} &
+\subfloat{\includegraphics[width = 1.3in]{ScatterPlots/Feature6 Feature10.png}} \\
+\subfloat{\includegraphics[width = 1.3in]{ScatterPlots/Feature7 Feature8.png}} &
+\subfloat{\includegraphics[width = 1.3in]{ScatterPlots/Feature7 Feature9.png}} &
+\subfloat{\includegraphics[width = 1.3in]{ScatterPlots/Feature7 Feature10.png}} \\
+\subfloat{\includegraphics[width = 1.3in]{ScatterPlots/Feature8 Feature9.png}} &
+\subfloat{\includegraphics[width = 1.3in]{ScatterPlots/Feature8 Feature10.png}} &
+\subfloat{\includegraphics[width = 1.3in]{ScatterPlots/Feature9 Feature10.png}} \\
+
+\end{tabular}
+\caption{Histogram of the given dataset features (training set). 
+Red histograms refer to authentic fingerprints, blue histograms to spoofed fingerprints.}
+\end{table}
