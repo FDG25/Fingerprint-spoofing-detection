@@ -53,9 +53,9 @@ DOMANI FACCIAMO VEDERE GLI ISTOGRAMMI CHE ABBIAMO OTTENUTO AL PROF!
 1) Nel Logistic regression quadratico, che funzione bisogna passare al minimizzatore? La stessa del caso lineare, solo che passiamo fi(x) anziché x. 
 2) Come facciamo a scegliere un valore di lambda opportuno per logistic regression? (Provare logistic regression con valori valori di lambda e vari valori di PCA) 
 Proviamo con pca alto vari valori di lambda. Poi proviamo questi valori di lambda. Se vediamo che con pca 8 e pca 7 otteniamo più o meno gli stessi risultati (comunque non migliorano), il pca non vale la pena usarlo 
-3) Domanda slide 28-29 - - > visto che nel progetto abbiamo usato una versione regolarizzata del modello (che non è invariante rispetto a trasformazioni lineari dei campioni), non dobbiamo porci il problema di effettuare strategie di preprocessing come centrare i dati, standardizzare le varianze, normalizzare, etc...?
-Con mvg non ha senso farlo, con logistic regression invece vale la pena provare. 
-4) Come tenere in considerazione i costi? Sia per i generative models che per i discriminative models (logistic regression con la formula pesata, in cui compaiono le priors probability), ci basta calcolare pi tilde guardando la formula sulle slide (blocco 8 slide 21)  - - > per problemi binari possiamo sempre far convergere l'applicazione reale a quella con costi unitari (possiamo sempre ragionare come se i costi fossero 1 indipendentemente dal modello)
+3) Domanda slide 28-29 BLOCCO 7 - - > visto che nel progetto abbiamo usato una versione regolarizzata del modello (che non è invariante rispetto a trasformazioni lineari dei campioni), non dobbiamo porci il problema di effettuare strategie di preprocessing come centrare i dati, standardizzare le varianze, normalizzare, etc...?
+Con mvg non ha senso farlo (NON HA SENSO APPLICARE STRATEGIE DI PREPROCESSING), con logistic regression invece vale la pena provare. 
+4) Come tenere in considerazione i costi? Sia per i generative models che per i discriminative models (logistic regression con la formula pesata, in cui compaiono le priors probability), ci basta calcolare pi tilde guardando la formula sulle slide (blocco 8 slide 19)  - - > per problemi binari possiamo sempre far convergere l'applicazione reale a quella con costi unitari (possiamo sempre ragionare come se i costi fossero 1 indipendentemente dal modello)
 Sostanzialmente possiamo sempre effettuare questa trasformazione e ricondurci a costi identici (unitari) 
 
 # ROBE LATEX
