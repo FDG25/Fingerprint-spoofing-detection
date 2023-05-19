@@ -1,11 +1,6 @@
 # DOMANDE
-- AVENDO FATTO LR WEIGHTED PER CASO LINEARE E QUADRATICO, POSSIAMO FARE A MENO DI USARE LA FORMULA NORMALE CHE AVEVAMO USATO NEL LAB CHE NON TIENE CONTO DELLE PRIOR?
-- Valori di Lambda significativi (per cui si registra un cambiamento) : 0.000001, 0.1, 1
-- SE NOTIAMO CHE PER ALCUNI MODELLI IL PCA CONVIENE MENTRE PER ALTRI NO, POSSIAMO CONFRONTARE TUTTI I VARI MODELLI USANDO PER ALCUNI IL PCA E PER ALTRI NO?
 - CONTROLLARE SE EFFECTIVE PRIOR VA BENE X COME L'ABBIAMO INSERITA NEI GENERATIVE E NEI DISCRIMINATIVE MODELS. --> X COME ABBIAMO FATTO CON LE EFFECTIVE PRIORS OTTENIAMO ERROR RATE TANTO + ALTI --> ARRIVIAMO AD AVERE ERROR RATE FINO AL 33% per il tied naive bayes
-- z normalization dà errori di 30-40% (provando singolarmente a centrare i dati, standardizzarli e a fare tutte e 2 le cose insieme con la z normalization)
-- Whitening transformation --> come facciamo A*xi --> A è 2x2 mentre xi è (10,1) 
-- LENGTH NORMALIZATION SI AVVICINA ADDIRITTURA AL 50% DI ERROR-RATE
+
 # NOTE / COSE DA FARE
 
 # RISPOSTE
@@ -24,6 +19,7 @@ Nuove:
 - con PCA (applicato dentro il K-Fold) notiamo un leggero miglioramento (sia con 5 che con 8), è plausibile ?
 - come PCA, anche LDA dev'essere fatto all'interno del k-fold ?
 - siccome PCA lo abbiamo fatto nel k-fold, i plot PCA/LDA prima del k-fold applicati sui dati di partenza hanno comunque senso ? 
+- RISOLTO DA NOI: z normalization dà errori di 30-40% (provando singolarmente a centrare i dati, standardizzarli e a fare tutte e 2 le cose insieme con la z normalization) --> AVEVAMO SCORDATO DI TRASFORMARE ANCHE IL TEST SET.
 
 # COSE FATTE
 1) Fare 10 istogrammi dei dati caricati feature per feature - - > vedere se si riescono a estrarre informazioni interessanti
@@ -63,6 +59,12 @@ Proviamo con pca alto vari valori di lambda. Poi proviamo questi valori di lambd
 Con mvg non ha senso farlo (NON HA SENSO APPLICARE STRATEGIE DI PREPROCESSING), con logistic regression invece vale la pena provare. 
 4) Come tenere in considerazione i costi? Sia per i generative models che per i discriminative models (logistic regression con la formula pesata, in cui compaiono le priors probability), ci basta calcolare pi tilde guardando la formula sulle slide (blocco 8 slide 19)  - - > per problemi binari possiamo sempre far convergere l'applicazione reale a quella con costi unitari (possiamo sempre ragionare come se i costi fossero 1 indipendentemente dal modello)
 Sostanzialmente possiamo sempre effettuare questa trasformazione e ricondurci a costi identici (unitari) 
+
+# NOTE 19/05/2023 (RISPOSTE DATE DAL PROF)
+- AVENDO FATTO LR WEIGHTED PER CASO LINEARE E QUADRATICO, POSSIAMO FARE A MENO DI USARE LA FORMULA NORMALE CHE AVEVAMO USATO NEL LAB CHE NON TIENE CONTO DELLE PRIOR? BASTA USARE QUELLA PESATA --> QUELLA ORIGINALE (QUELLA CHE AVEVAMO USATO AL LAB7, CHE NON TIENE CONTO DEI PESI) SI PUò OTTENERE SEMPLICEMENTE CONSIDERANDO piT = 0.5 E nt=nf
+- SE NOTIAMO CHE PER ALCUNI MODELLI IL PCA CONVIENE MENTRE PER ALTRI NO, POSSIAMO CONFRONTARE TUTTI I VARI MODELLI USANDO PER ALCUNI IL PCA E PER ALTRI NO? MVG E PCA + MVG COSì COME LR E PCA + LR SONO MODELLI SEPARATI --> A NOI INTERESSA QUELLO CHE PERFORMA MEGLIO! 
+- Whitening transformation --> come facciamo A*xi --> A è 2x2 mentre xi è (10,1) --> A NON è 2X2 MA è 10X10, DOVE 10 è IL NUMERO DI FEATURES! --> PERTANTO LE DIMENSIONI SONO COMPATIBILI! --> HA DETTO CHE PER CALCOLARE LA MATRICE DI COVARIANZA ^-1/2 DOBBIAMO USARE SVD, MA CI SONO ALTRI MODI CHE PERò NON HA DETTO.
+
 
 # ROBE LATEX
 
