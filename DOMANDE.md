@@ -3,7 +3,8 @@
 - Valori di Lambda significativi (per cui si registra un cambiamento) : 0.000001, 0.1, 1
 - SE NOTIAMO CHE PER ALCUNI MODELLI IL PCA CONVIENE MENTRE PER ALTRI NO, POSSIAMO CONFRONTARE TUTTI I VARI MODELLI USANDO PER ALCUNI IL PCA E PER ALTRI NO?
 - CONTROLLARE SE EFFECTIVE PRIOR VA BENE X COME L'ABBIAMO INSERITA NEI GENERATIVE E NEI DISCRIMINATIVE MODELS. --> X COME ABBIAMO FATTO CON LE EFFECTIVE PRIORS OTTENIAMO ERROR RATE TANTO + ALTI --> ARRIVIAMO AD AVERE ERROR RATE FINO AL 33% per il tied naive bayes
-- 
+- z normalization dà errori di 30-40% (provando singolarmente a centrare i dati, standardizzarli e a fare tutte e 2 le cose insieme con la z normalization)
+- Whitening transformation --> come facciamo A*xi --> A è 2x2 mentre xi è (10,1) 
 # NOTE / COSE DA FARE
 
 # RISPOSTE
