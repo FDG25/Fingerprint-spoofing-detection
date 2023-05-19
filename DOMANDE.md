@@ -5,6 +5,7 @@
 - CONTROLLARE SE EFFECTIVE PRIOR VA BENE X COME L'ABBIAMO INSERITA NEI GENERATIVE E NEI DISCRIMINATIVE MODELS. --> X COME ABBIAMO FATTO CON LE EFFECTIVE PRIORS OTTENIAMO ERROR RATE TANTO + ALTI --> ARRIVIAMO AD AVERE ERROR RATE FINO AL 33% per il tied naive bayes
 - z normalization dà errori di 30-40% (provando singolarmente a centrare i dati, standardizzarli e a fare tutte e 2 le cose insieme con la z normalization)
 - Whitening transformation --> come facciamo A*xi --> A è 2x2 mentre xi è (10,1) 
+- LENGTH NORMALIZATION SI AVVICINA ADDIRITTURA AL 50% DI ERROR-RATE
 # NOTE / COSE DA FARE
 
 # RISPOSTE
