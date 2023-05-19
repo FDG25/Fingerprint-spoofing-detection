@@ -9,6 +9,7 @@ import lda
 def computeNumCorrectPredictionsGenerative(S,LTE):
     prediction = []
     for col in range(0,S.shape[1]):
+        #if (S[0,col]-S[1,col]) > -numpy.log(constants.EFFECTIVE_PRIOR/(1-constants.EFFECTIVE_PRIOR)):
         if S[0,col] > S[1,col]:
             prediction.append(0)
         else:

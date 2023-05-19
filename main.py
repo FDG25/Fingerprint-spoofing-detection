@@ -51,8 +51,7 @@ def K_Fold(D,L,K):
     # Leave-One-Out Approach Con K=2325: 
     fold_dimension = int(D.shape[1]/K)  # size of each fold
     fold_indices = numpy.arange(0, K*fold_dimension, fold_dimension)  # indices to split the data into folds
-    classifiers = [(generative_models.MVG_log_classifier, "Multivariate Gaussian Classifier"), (generative_models.NaiveBayesGaussianClassifier_log, "Naive Bayes"), (generative_models.TiedCovarianceGaussianClassifier_log, "Tied Covariance"), (generative_models.TiedNaiveBayesGaussianClassifier_log, "Tied Naive Bayes"),(discriminative_models.LogisticRegression, "Logistic Regression"),(discriminative_models.LogisticRegressionWeighted, "Logistic Regression Weighted"),(discriminative_models.computeScores_quad, "Quadratic Logistic Regression")] 
- 
+    classifiers = [(generative_models.MVG_log_classifier, "Multivariate Gaussian Classifier"), (generative_models.NaiveBayesGaussianClassifier_log, "Naive Bayes"), (generative_models.TiedCovarianceGaussianClassifier_log, "Tied Covariance"), (generative_models.TiedNaiveBayesGaussianClassifier_log, "Tied Naive Bayes"),(discriminative_models.LogisticRegressionWeighted, "Logistic Regression Weighted"),(discriminative_models.LogisticRegressionWeightedQuadratic, "Logistic Regression Quadratic Weighted")] 
     for classifier_function, classifier_name in classifiers: 
         nWrongPrediction = 0 
         # Run k-fold cross-validation
@@ -65,8 +64,8 @@ def K_Fold(D,L,K):
             DVA = D[:,mask]
             LVA = L[mask]
             # apply PCA on current fold DTR,DVA
-            #DTR,P = pca.PCA_projection(DTR,m=8)
-            #DVA = numpy.dot(P.T, DVA)
+            DTR,P = pca.PCA_projection(DTR,m = constants.M)
+            DVA = numpy.dot(P.T, DVA)
             nSamples = DVA.shape[1]  
             nCorrectPrediction = classifier_function(DTR, LTR, DVA, LVA) 
             nWrongPrediction += nSamples - nCorrectPrediction
@@ -111,6 +110,8 @@ if __name__ == '__main__':
         index+=1
 
     print("K_Fold with K = 5")
+    print("PCA with m = " + str(constants.M))
+    print("lambda :" + str(constants.LAMDBA))
     K_Fold(DTR_RAND,LTR_RAND,K=5)
     #print("Leave One Out (K = 2325)")
     #K_Fold(DTR_RAND,LTR_RAND,K=2325)
