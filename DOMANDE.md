@@ -1,5 +1,4 @@
 # DOMANDE
-- CONTROLLARE SE EFFECTIVE PRIOR VA BENE X COME L'ABBIAMO INSERITA NEI GENERATIVE E NEI DISCRIMINATIVE MODELS. --> X COME ABBIAMO FATTO CON LE EFFECTIVE PRIORS OTTENIAMO ERROR RATE TANTO + ALTI --> ARRIVIAMO AD AVERE ERROR RATE FINO AL 33% per il tied naive bayes
 - AVEVAMO INIZIALMENTE RANDOMIZZATO IL DATASET PER INTERO MISCHIANDO A CASO TUTTE E 2 LE CLASSI. ADESSO ABBIAMO PROVATO A RANDOMIZZARE SEPARATAMETE I CAMPIONI DELLE 2 CLASSI E POI A STACKARLI IN PROPORZIONE 2:1, VISTO CHE LA CLASSE 0 HA IL DOPPIO DEI CAMPIONI DELLA CLASSE 1 --> COSì ABBIAMO ALCUNI ERROR RATE CHE SONO MIGLIORATI E ALTRI CHE SONO PEGGIORATI, MENTRE L'MVG E IL NAIVE BAYES VENGONO UGUALI. CHE DOBBIAMO FARE?
 
 # NOTE / COSE DA FARE
@@ -10,17 +9,13 @@ TESTARE PCA SOTTO AL 7 (A PARTIRE DA 6 CON TUTTI E 7 I VALORI DI LAMBDA CHE ABBI
 - serve fare una validation con un partizionamento fisso (usando la split 2to1 del lab5) oppure basta fare la k fold cross validation (k fold è già più robusto di per sè) (solo k fold è meglio)
 - LDA approccio 1 si può fare se Sw è definita positiva, lo possiamo assumere o ci poniamo il problema e usiamo l'altro metodo (possiamo assumere sw positiva)
 - E' necessario plottare dopo PCA/LDA, dopo pCA con m=2 quindi parecchio ridotto può aver senso ?
-Nuove:
 - se facciamo il PCA dentro il kfold, dobbiamo farlo anche coi dati di validazione che usiamo ad ogni iterazione? (anche per validazione, usiamo la stessa matrice P sia per training che validation)
-- Nel progetto anziché fare logistic regression multiclass
 - K va bene 5
 - Shuffle per come lo abbiamo fatto va bene
 - conviene randomizzare il dataset all'inizio oppure dentro la funzione del k-fold (conviene all'inizio)
-
-
-- con PCA (applicato dentro il K-Fold) notiamo un leggero miglioramento (sia con 5 che con 8), è plausibile ?
-- come PCA, anche LDA dev'essere fatto all'interno del k-fold ?
-- siccome PCA lo abbiamo fatto nel k-fold, i plot PCA/LDA prima del k-fold applicati sui dati di partenza hanno comunque senso ? 
+- con PCA (applicato dentro il K-Fold) notiamo un leggero miglioramento (sia con 5 che con 8), è plausibile ? SCRITTO DA DAVIDE: DOVREBBE
+- come PCA, anche LDA dev'essere fatto all'interno del k-fold ? SCRITTO DA DAVIDE: DOVREBBE
+- siccome PCA lo abbiamo fatto nel k-fold, i plot PCA/LDA prima del k-fold applicati sui dati di partenza hanno comunque senso ?  SCRITTO DA DAVIDE: Sì
 - RISOLTO DA NOI: z normalization dà errori di 30-40% (provando singolarmente a centrare i dati, standardizzarli e a fare tutte e 2 le cose insieme con la z normalization) --> AVEVAMO SCORDATO DI TRASFORMARE ANCHE IL TEST SET.
 
 # COSE FATTE
@@ -69,6 +64,7 @@ Sostanzialmente possiamo sempre effettuare questa trasformazione e ricondurci a 
 - Whitening transformation --> come facciamo A*xi --> A è 2x2 mentre xi è (10,1) --> A NON è 2X2 MA è 10X10, DOVE 10 è IL NUMERO DI FEATURES! --> PERTANTO LE DIMENSIONI SONO COMPATIBILI! --> HA DETTO CHE PER CALCOLARE LA MATRICE DI COVARIANZA ^-1/2 DOBBIAMO USARE SVD, MA CI SONO ALTRI MODI CHE PERò NON HA DETTO.
 
 - DETTO A LAURA DAL PROF: NOI AVEVAMO RANDOMIZZATO IL DATASET DI PARTENZA A CASO, MA è MEGLIO RANDOMIZZARE PRIMA TUTTI I CAMPIONI DELLA CLASSE 0, POI I CAMPIONI DELLA CLASSE 1, DOPODICHé ANDARE A COSTRUIRE A POCO A POCO IL NUOVO DATASET RANDOMIZZANDO PRENDENDO 2 CAMPIONI DAL SET RANDOMIZZATO DELLA CLASSE 0 E 1 CAMPIONE DAL SET RANDOMIZZATO DELLA CLASSE 1 (DOVE PER CLASSE 0 INTENDIAMO QUELLA PER CUI ABBIAMO + CAMPIONI IN PROPORZIONE 2/3)
+- DETTO A LAURA DAL PROF: CONTROLLARE SE EFFECTIVE PRIOR VA BENE X COME L'ABBIAMO INSERITA NEI GENERATIVE E NEI DISCRIMINATIVE MODELS. --> X COME ABBIAMO FATTO CON LE EFFECTIVE PRIORS OTTENIAMO ERROR RATE TANTO + ALTI --> ARRIVIAMO AD AVERE ERROR RATE FINO AL 33% per il tied naive bayes --> RISPOSTA DATA DAL PROF A LAURA: QUESTA COSA VISTA A SLIDE 19 BLOCCO 8 SERVE PER IL DCF, NON PER ALTRE COSE
 
 
 # ROBE LATEX
