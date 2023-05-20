@@ -32,7 +32,8 @@ Nuove:
 6) fare pca dopo il partizionamento del k-fold (usare la stessa matrice P sia per training set che validation set)
 7) Verificare che gli error rate si abbassino, dovrebbero essere più bassi e il modello multivariato più basso del naive bayes
 
-# Note 04/05/2023
+# RISPOSTE DATE DAL PROF
+## Note 04/05/2023
 COSE DETTE DAL PROF A LAURA:
 LA LDA RIDUCE A 1 DIMENSIONE  POI IL CLASSIFICATORE NON HA SENSO.
 IL TIED CI Dà LO STESSO RISULTATO DELL’LDA.
@@ -53,7 +54,7 @@ HA SENSO ALLORA Già TRARRE LE PRIME CONSIDERAZIONI E DIRE CHE TUTTO SOMMATO I M
 
 DOMANI FACCIAMO VEDERE GLI ISTOGRAMMI CHE ABBIAMO OTTENUTO AL PROF!
 
-# NOTE 18/05/2023 (RISPOSTE DATE DAL PROF)
+## NOTE 18/05/2023 (RISPOSTE DATE DAL PROF)
 1) Nel Logistic regression quadratico, che funzione bisogna passare al minimizzatore? La stessa del caso lineare, solo che passiamo fi(x) anziché x. 
 2) Come facciamo a scegliere un valore di lambda opportuno per logistic regression? (Provare logistic regression con valori valori di lambda e vari valori di PCA) 
 Proviamo con pca alto vari valori di lambda. Poi proviamo questi valori di lambda. Se vediamo che con pca 8 e pca 7 otteniamo più o meno gli stessi risultati (comunque non migliorano), il pca non vale la pena usarlo 
@@ -62,7 +63,7 @@ Con mvg non ha senso farlo (NON HA SENSO APPLICARE STRATEGIE DI PREPROCESSING), 
 4) Come tenere in considerazione i costi? Sia per i generative models che per i discriminative models (logistic regression con la formula pesata, in cui compaiono le priors probability), ci basta calcolare pi tilde guardando la formula sulle slide (blocco 8 slide 19)  - - > per problemi binari possiamo sempre far convergere l'applicazione reale a quella con costi unitari (possiamo sempre ragionare come se i costi fossero 1 indipendentemente dal modello)
 Sostanzialmente possiamo sempre effettuare questa trasformazione e ricondurci a costi identici (unitari) 
 
-# NOTE 19/05/2023 (RISPOSTE DATE DAL PROF)
+## NOTE 19/05/2023 (RISPOSTE DATE DAL PROF)
 - AVENDO FATTO LR WEIGHTED PER CASO LINEARE E QUADRATICO, POSSIAMO FARE A MENO DI USARE LA FORMULA NORMALE CHE AVEVAMO USATO NEL LAB CHE NON TIENE CONTO DELLE PRIOR? BASTA USARE QUELLA PESATA --> QUELLA ORIGINALE (QUELLA CHE AVEVAMO USATO AL LAB7, CHE NON TIENE CONTO DEI PESI) SI PUò OTTENERE SEMPLICEMENTE CONSIDERANDO piT = 0.5 E nt=nf
 - SE NOTIAMO CHE PER ALCUNI MODELLI IL PCA CONVIENE MENTRE PER ALTRI NO, POSSIAMO CONFRONTARE TUTTI I VARI MODELLI USANDO PER ALCUNI IL PCA E PER ALTRI NO? MVG E PCA + MVG COSì COME LR E PCA + LR SONO MODELLI SEPARATI --> A NOI INTERESSA QUELLO CHE PERFORMA MEGLIO! 
 - Whitening transformation --> come facciamo A*xi --> A è 2x2 mentre xi è (10,1) --> A NON è 2X2 MA è 10X10, DOVE 10 è IL NUMERO DI FEATURES! --> PERTANTO LE DIMENSIONI SONO COMPATIBILI! --> HA DETTO CHE PER CALCOLARE LA MATRICE DI COVARIANZA ^-1/2 DOBBIAMO USARE SVD, MA CI SONO ALTRI MODI CHE PERò NON HA DETTO.
