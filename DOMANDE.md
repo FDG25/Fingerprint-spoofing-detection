@@ -2,10 +2,10 @@
 - AVEVAMO INIZIALMENTE RANDOMIZZATO IL DATASET PER INTERO MISCHIANDO A CASO TUTTE E 2 LE CLASSI. ADESSO ABBIAMO PROVATO A RANDOMIZZARE SEPARATAMETE I CAMPIONI DELLE 2 CLASSI E POI A STACKARLI IN PROPORZIONE 2:1, VISTO CHE LA CLASSE 0 HA IL DOPPIO DEI CAMPIONI DELLA CLASSE 1 --> COSì ABBIAMO ALCUNI ERROR RATE CHE SONO MIGLIORATI E ALTRI CHE SONO PEGGIORATI, MENTRE L'MVG E IL NAIVE BAYES VENGONO UGUALI. (il modello multivariato DOVREBBE AVERE UN ERROR RATE più basso del naive bayes, NO?) CHE DOBBIAMO FARE?
 
 # NOTE / COSE DA FARE
-TESTARE PCA SOTTO AL 7 PER LOGISTIC REGRESSION (A PARTIRE DA 6 CON TUTTI E 7 I VALORI DI LAMBDA CHE ABBIAMO VISTO
-PRESE DA ALCUNE SEZIONI SOTTOSTANTI DI QUESTO FILE:
--lda per vedere se dall'unica dimensione si riescono a estrarre informazioni interessanti (ci sono info interessanti)
--pca con m=2 per vedere se si riescono a estrarre info interessanti
+- TESTARE PCA SOTTO AL 7 PER LOGISTIC REGRESSION (A PARTIRE DA 6 CON TUTTI E 7 I VALORI DI LAMBDA CHE ABBIAMO VISTO
+- PRESE DA ALCUNE SEZIONI SOTTOSTANTI DI QUESTO FILE:
+1) lda per vedere se dall'unica dimensione si riescono a estrarre informazioni interessanti (ci sono info interessanti)
+2) pca con m=2 per vedere se si riescono a estrarre info interessanti
 
 # RISPOSTE
 - Avendo 2 classi, ha comunque senso adottare un approccio con la class posterio probability, o valutiamo solo il log likelihood ratio (log likelihood solo conviene)
