@@ -86,14 +86,20 @@ def LogisticRegressionWeighted(DTR,LTR,DTE,LTE):
     #for lambd in lambda_values:
 
     # ---------------- NORMALIZING APPROACHES ---------------------
-    T_DTR = normalization.zNormalizingData(DTR)
-    T_DTE = normalization.zNormalizingData(DTE)
-    
-    logreg_obj_weighted = logreg_obj_wrap_weighted(T_DTR, LTR, lambd) 
+    #T_DTR = normalization.zNormalizingData(DTR)
+    #T_DTE = normalization.zNormalizingData(DTE)
+    C_DTR = normalization.centeringData(DTR)
+    C_DTE = normalization.centeringData(DTE)
+    W_DTR = normalization.whiteningData(C_DTR)
+    W_DTE = normalization.whiteningData(C_DTE)
+    L2_DTR = normalization.l2NormalizingData(W_DTR)
+    L2_DTE = normalization.l2NormalizingData(W_DTE)
+
+    logreg_obj_weighted = logreg_obj_wrap_weighted(L2_DTR, LTR, lambd) 
     (x, f, d) = scipy.optimize.fmin_l_bfgs_b(logreg_obj_weighted, numpy.zeros(DTR.shape[0] + 1), approx_grad=True)
     #print("Lambda=" + str(lambd)) 
     #print(f"The objective value at the minimum (J(w*,b*)) is: {round(f, 7)}") 
-    return computeScores(T_DTE, LTE, x)       
+    return computeScores(L2_DTE, LTE, x)       
 
 def LogisticRegressionWeightedQuadratic(DTR,LTR,DTE,LTE):
     lambd = constants.LAMDBA

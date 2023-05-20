@@ -47,6 +47,62 @@ def load(fname):
                 pass 
     return numpy.hstack(DList), numpy.array(labelsList, dtype=numpy.int32)
 
+def randomize(DTR,LTR):
+    numpy.random.seed(0) 
+    indexes = numpy.random.permutation(DTR.shape[1])
+    DTR_RAND = numpy.zeros((constants.NUM_FEATURES, DTR.shape[1]))
+    LTR_RAND = numpy.zeros((LTR.size,))
+    index = 0
+    for rand_index in indexes:
+        DTR_RAND[:,index] = DTR[:,rand_index]
+        LTR_RAND[index] = LTR[rand_index]
+        index+=1
+    return DTR_RAND,LTR_RAND
+
+def randomize_weighted(DTR,LTR):
+    # GET TWO DATASET FOR EACH CLASS
+    DT0,DT1 = getClassMatrix(DTR,LTR)
+    # RANDOMIZE DT0 AND DT1
+    numpy.random.seed(0) 
+    indexes = numpy.random.permutation(DT0.shape[1])
+    DT0_RAND = numpy.zeros((constants.NUM_FEATURES, DT0.shape[1]))
+    index = 0
+    for rand_index in indexes:
+        DT0_RAND[:,index] = DT0[:,rand_index]
+        index+=1
+    indexes = numpy.random.permutation(DT1.shape[1])
+    DT1_RAND = numpy.zeros((constants.NUM_FEATURES, DT1.shape[1]))
+    index = 0
+    for rand_index in indexes:
+        DT1_RAND[:,index] = DT1[:,rand_index]
+        index+=1
+    # PUT ALL TOGETHER IN THE FINAL RANDOMIZED DATASET
+    DTR_RAND = numpy.zeros((constants.NUM_FEATURES, DTR.shape[1]))
+    LTR_RAND = numpy.zeros((LTR.size,))
+    index_0 = 0
+    index_1 = 0
+    i = 0
+    while i < DTR.shape[1]:
+        if i <= 2172:
+            DTR_RAND[:,i] = DT0_RAND[:,index_0]
+            LTR_RAND[i] = 0
+            DTR_RAND[:,i+1] = DT0_RAND[:,index_0+1]
+            LTR_RAND[i+1] = 0
+            DTR_RAND[:,i+2] = DT1_RAND[:,index_1]
+            LTR_RAND[i+2] = 1
+            i+=3
+            index_0+=2
+            index_1+=1
+        else:
+            DTR_RAND[:,i] = DT0_RAND[:,index_0]
+            LTR_RAND[i] = 0
+            DTR_RAND[:,i+1] = DT1_RAND[:,index_1]
+            LTR_RAND[i+1] = 1
+            i+=2
+            index_0+=1
+            index_1+=1
+    return DTR_RAND,LTR_RAND
+
 def K_Fold(D,L,K):
     # Leave-One-Out Approach Con K=2325: 
     fold_dimension = int(D.shape[1]/K)  # size of each fold
@@ -99,15 +155,7 @@ if __name__ == '__main__':
     # generative_models.TiedCovarianceGaussianClassifier_log(DTR,LTR,DTE,LTE)
     # generative_models.TiedNaiveBayesGaussianClassifier_log(DTR,LTR,DTE,LTE)
     # RANDOMIZE DATASET BEFORE K-FOLD
-    numpy.random.seed(0) 
-    indexes = numpy.random.permutation(DTR.shape[1])
-    DTR_RAND = numpy.zeros((constants.NUM_FEATURES, DTR.shape[1]))
-    LTR_RAND = numpy.zeros((LTR.size,))
-    index = 0
-    for rand_index in indexes:
-        DTR_RAND[:,index] = DTR[:,rand_index]
-        LTR_RAND[index] = LTR[rand_index]
-        index+=1
+    DTR_RAND,LTR_RAND = randomize(DTR,LTR)
 
     print("K_Fold with K = 5")
     print("PCA with m = " + str(constants.M))
