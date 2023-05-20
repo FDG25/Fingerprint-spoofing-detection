@@ -3,6 +3,9 @@
 
 # NOTE / COSE DA FARE
 TESTARE PCA SOTTO AL 7 PER LOGISTIC REGRESSION (A PARTIRE DA 6 CON TUTTI E 7 I VALORI DI LAMBDA CHE ABBIAMO VISTO
+PRESE DA ALCUNE SEZIONI SOTTOSTANTI DI QUESTO FILE:
+-lda per vedere se dall'unica dimensione si riescono a estrarre informazioni interessanti (ci sono info interessanti)
+-pca con m=2 per vedere se si riescono a estrarre info interessanti
 
 # RISPOSTE
 - Avendo 2 classi, ha comunque senso adottare un approccio con la class posterio probability, o valutiamo solo il log likelihood ratio (log likelihood solo conviene)
