@@ -4,6 +4,9 @@
 - 25-05-23 --> 15:41-15:42 dice cose utili per il progetto - > per svm saranno necessarie
 - 25-05-23 --> 15:48-16:01 circa dice cose utili per il progetto
 - 25-02-23 --> MODEL FUSION --> è UN PLUS SE LO IMPLEMENTIAMO --> ASCOLTA DA 16:03 A 16:09
+-
+
+- Iperparametro C provare con k fold cambiando ordine di grandezza di 10 in 10
 
 # NOTE / COSE DA FARE
 - TESTARE PCA SOTTO AL 7 PER LOGISTIC REGRESSION (A PARTIRE DA 6 CON TUTTI E 7 I VALORI DI LAMBDA CHE ABBIAMO VISTO
