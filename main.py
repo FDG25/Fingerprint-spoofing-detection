@@ -123,8 +123,8 @@ def K_Fold(D,L,K):
             DVA = D[:,mask]
             LVA = L[mask]
             # apply PCA on current fold DTR,DVA
-            #DTR,P = pca.PCA_projection(DTR,m = constants.M)
-            #DVA = numpy.dot(P.T, DVA)
+            DTR,P = pca.PCA_projection(DTR,m = constants.M)
+            DVA = numpy.dot(P.T, DVA)
             nSamples = DVA.shape[1]  
             scores_i,nCorrectPrediction = classifier_function(DTR, LTR, DVA, LVA) 
             nWrongPrediction += nSamples - nCorrectPrediction
@@ -172,7 +172,7 @@ if __name__ == '__main__':
     DTR_RAND,LTR_RAND = randomize(DTR,LTR)
     DTE_RAND,LTE_RAND = randomize(DTE,LTE)
     print("K_Fold with K = 5")
-    #print("PCA with m = " + str(constants.M))
+    print("PCA with m = " + str(constants.M))
     print("lambda :" + str(constants.LAMDBA))
     K_Fold(DTR_RAND,LTR_RAND,K=5)
     #print("Leave One Out (K = 2325)")
