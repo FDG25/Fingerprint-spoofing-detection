@@ -3,7 +3,45 @@
 - AVEVAMO INIZIALMENTE RANDOMIZZATO IL DATASET PER INTERO MISCHIANDO A CASO TUTTE E 2 LE CLASSI. ADESSO ABBIAMO PROVATO A RANDOMIZZARE SEPARATAMETE I CAMPIONI DELLE 2 CLASSI E POI A STACKARLI IN PROPORZIONE 2:1, VISTO CHE LA CLASSE 0 HA IL DOPPIO DEI CAMPIONI DELLA CLASSE 1 --> COSì ABBIAMO ALCUNI ERROR RATE CHE SONO MIGLIORATI E ALTRI CHE SONO PEGGIORATI, MENTRE L'MVG E IL NAIVE BAYES VENGONO UGUALI. CHE DOBBIAMO FARE?
 
 # NOTE / COSE DA FARE
-
+- controlle minDCF se fatte bene
+- fare plot al variare di lambda come laura
+```python
+def lambda_estimation(D,L):    
+    Ds =(np.array_split(D, 5, axis=1))
+    Ls = (np.array_split(L, 5))   
+    priors = [0.5, 0.9, 0.1]
+    #lambda from 10^-5 to 10^5
+    lambdas=np.logspace(-5, 5, num=30)    
+    llrs = []   
+    minDcf=[]
+    for i in range(len(priors)):
+        print("prior:",priors[i])        
+        for l in lambdas:
+            print("lambda:",l)            
+            for j in range(5):
+                print("K:",j)                
+                Dtr,Ltr = np.hstack(Ds[:j]+ Ds[j+1:]), np.hstack(Ls[:j] + Ls[j+1:])            
+                Dts,Lts = np.asarray(Ds[j]) , np.asarray(Ls[j])            
+                _,llr=logReg_class(Dtr, Ltr, Dts, Lts,l)        
+                llrs.append(llr)
+                minDcf.append(computeMinDCF(priors[i], 1, 10, np.hstack(llrs), Lts))       
+                llrs=[]
+                plotDCF(lambdas,minDcf,"lambda")
+                    
+def plotDCF(x, y, xlabel):   
+    plt.figure()
+    plt.plot(x, y[0:len(x)], label='min DCF prior=0.5', color='b')    
+    plt.plot(x, y[len(x): 2*len(x)], label='min DCF prior=0.9', color='r')
+    plt.plot(x, y[2*len(x): 3*len(x)], label='min DCF prior=0.1', color='g')    
+    plt.xlim([min(x), max(x)])
+    plt.xscale("log")    
+    plt.legend(["min DCF prior=0.5", "min DCF prior=0.9", "min DCF prior=0.1"])
+    plt.xlabel(xlabel)    
+    plt.ylabel("min DCF")
+    plt.savefig('./images/dcf_lamba' + '.jpg')    
+    return
+```
+- integrare lab 9 e 10
 # RISPOSTE
 - Avendo 2 classi, ha comunque senso adottare un approccio con la class posterio probability, o valutiamo solo il log likelihood ratio (log likelihood solo conviene)
 - serve fare una validation con un partizionamento fisso (usando la split 2to1 del lab5) oppure basta fare la k fold cross validation (k fold è già più robusto di per sè) (solo k fold è meglio)
