@@ -4,12 +4,13 @@
 - 25-05-23 --> 15:41-15:42 dice cose utili per il progetto - > per svm saranno necessarie
 - 25-05-23 --> 15:48-16:01 circa dice cose utili per il progetto
 - 25-02-23 --> MODEL FUSION --> è UN PLUS SE LO IMPLEMENTIAMO --> ASCOLTA DA 16:03 A 16:09
--i 3 punti precedenti dovrebbero essere gli stessi che ti ha detto domenico nei vocali wa in quello stesso giorno
+-i 3 punti precedenti dovrebbero essere gli stessi che ti ha detto domenico nei vocali wa in quello stesso giorno (e dovrebbe averli già fatti lui - - > controlla che siano corretti anche se si è già confrontato con Laura) 
 
 - Iperparametro C provare con k fold cambiando ordine di grandezza di 10 in 10
 - il prof ha detto che non occorre fare data preprocessing (né con LR né svm)
 - implementare svm nel progetto
 - nella lezione 01/06 il prof ha fatto vedere come calcolare il gradiente a mano per velocizzare i conti -> vedi le due foto inviate a Domenico su wa in quello stesso giorno
+- implementare lab9 e 10 nel progetto
 
 # NOTE / COSE DA FARE
 - TESTARE PCA SOTTO AL 7 PER LOGISTIC REGRESSION (A PARTIRE DA 6 CON TUTTI E 7 I VALORI DI LAMBDA CHE ABBIAMO VISTO
