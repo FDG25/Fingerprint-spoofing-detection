@@ -44,6 +44,7 @@ def plotDCF(x, y, xlabel):
 - integrare lab 9 e 10
 # RISPOSTE
 - Avendo 2 classi, ha comunque senso adottare un approccio con la class posterio probability, o valutiamo solo il log likelihood ratio (log likelihood solo conviene)
+- rendere kfold generico con i classificatori in input in modo da testare i singoli modelli al variare di lambda (lr) e C (svm)
 - serve fare una validation con un partizionamento fisso (usando la split 2to1 del lab5) oppure basta fare la k fold cross validation (k fold è già più robusto di per sè) (solo k fold è meglio)
 - LDA approccio 1 si può fare se Sw è definita positiva, lo possiamo assumere o ci poniamo il problema e usiamo l'altro metodo (possiamo assumere sw positiva)
 - E' necessario plottare dopo PCA/LDA, dopo pCA con m=2 quindi parecchio ridotto può aver senso ?
