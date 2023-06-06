@@ -8,7 +8,7 @@
 
 - Iperparametro C provare con k fold cambiando ordine di grandezza di 10 in 10
 - il prof ha detto che non occorre fare data preprocessing (né con LR né svm)
-- implementare svm nel progetto
+- implementare svm nel progetto --> AGGIUNGERE COSE VISTE A SLIDE 59 BLOCCO 9 (VISTO CHE IL NOSTRO DATASET è SBILANCIATO) CHE NEL LAB NON SONO TRATTATE?
 - nella lezione 01/06 il prof ha fatto vedere come calcolare il gradiente a mano per velocizzare i conti -> vedi le due foto inviate a Domenico su wa in quello stesso giorno
 - implementare lab9 e 10 nel progetto
 
