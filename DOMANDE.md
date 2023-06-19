@@ -16,7 +16,10 @@
 - 09/06 --> HA DETTO ALTRE COSE CHE NON OCCORRE FARE NEL PROGETTO --> RIVEDI LEZIONE FINO A SUBITO PRIMA CHE INIZIA A SPIEGARE IL LAB!
 - 09/06 --> ha fatto vedere come si può calcolare in modo veloce il mindcf, essendo che di norma ci sta tanto --> vedi foto inviata a me su telegram da domenico in questa data --> Score sortati calcoliamo label sortate allo stesso modo
 - INFORMATI SULLA SCORE CALIBRATION --> VEDI MESSAGGI 11 GIUGNO 2023 GRUPPO TELEGRAM ML - - > dicono che l'ha spiegato alla fine della lezione sul minCDF
-
+- DA TELEGRAM: Iob Gabriele:
+sapete se ha mai spiegato il procedimento di gaussianizzazione delle feature o la z-score? Un ragazzo ha risposto:
+A me non sembra proprio che l'abbia mai spiegate queste cose
+- NOMI DI RAGAZZI CHE STANNO FACENDO IL NOSTRO STESSO PROGETTO: ANDREA DRAPPO, RICCARDO CARDONA
 
 # NOTE / COSE DA FARE
 - TESTARE PCA SOTTO AL 7 PER LOGISTIC REGRESSION (A PARTIRE DA 6 CON TUTTI E 7 I VALORI DI LAMBDA CHE ABBIAMO VISTO
