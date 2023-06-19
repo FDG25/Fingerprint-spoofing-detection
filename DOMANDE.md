@@ -15,7 +15,7 @@
 - 09/06 --> mentre mostravo l'esempio di progetto --> Se faccio capire che ho trovato il valore buono di lambda e provo con pca non c'è bisogno di plottare anche i vari pca 
 - 09/06 --> HA DETTO ALTRE COSE CHE NON OCCORRE FARE NEL PROGETTO --> RIVEDI LEZIONE FINO A SUBITO PRIMA CHE INIZIA A SPIEGARE IL LAB!
 - 09/06 --> ha fatto vedere come si può calcolare in modo veloce il mindcf, essendo che di norma ci sta tanto --> vedi foto inviata a me su telegram da domenico in questa data --> Score sortati calcoliamo label sortate allo stesso modo
-- INFORMATI SULLA SCORE CALIBRATION --> VEDI MESSAGGI 11 GIUGNO 2023 GRUPPO TELEGRAM ML
+- INFORMATI SULLA SCORE CALIBRATION --> VEDI MESSAGGI 11 GIUGNO 2023 GRUPPO TELEGRAM ML - - > dicono che l'ha spiegato alla fine della lezione sul minCDF
 
 
 # NOTE / COSE DA FARE
