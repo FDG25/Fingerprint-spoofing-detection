@@ -18,7 +18,8 @@
 - INFORMATI SULLA SCORE CALIBRATION --> VEDI MESSAGGI 11 GIUGNO 2023 GRUPPO TELEGRAM ML - - > dicono che l'ha spiegato alla fine della lezione sul minCDF
 - DA TELEGRAM: Iob Gabriele:
 sapete se ha mai spiegato il procedimento di gaussianizzazione delle feature o la z-score? Un ragazzo ha risposto:
-A me non sembra proprio che l'abbia mai spiegate queste cose
+A me non sembra proprio che l'abbia mai spiegate queste cose.
+La gaussianizzazione ha detto che non si fa. 
 - NOMI DI RAGAZZI CHE STANNO FACENDO IL NOSTRO STESSO PROGETTO: ANDREA DRAPPO, RICCARDO CARDONA
 
 # NOTE / COSE DA FARE
