@@ -20,7 +20,7 @@
 sapete se ha mai spiegato il procedimento di gaussianizzazione delle feature o la z-score? Un ragazzo ha risposto:
 A me non sembra proprio che l'abbia mai spiegate queste cose.
 La gaussianizzazione ha detto che non si fa. 
-- NOMI DI RAGAZZI CHE STANNO FACENDO IL NOSTRO STESSO PROGETTO: ANDREA DRAPPO, RICCARDO CARDONA
+- NOMI DI RAGAZZI CHE STANNO FACENDO IL NOSTRO STESSO PROGETTO: ANDREA DRAPPO, RICCARDO CARDONA, BÁLINT BUJTOR
 
 # NOTE / COSE DA FARE
 - TESTARE PCA SOTTO AL 7 PER LOGISTIC REGRESSION (A PARTIRE DA 6 CON TUTTI E 7 I VALORI DI LAMBDA CHE ABBIAMO VISTO
