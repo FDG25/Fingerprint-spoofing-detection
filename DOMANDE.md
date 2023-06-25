@@ -19,7 +19,8 @@
 - DA TELEGRAM: Iob Gabriele:
 sapete se ha mai spiegato il procedimento di gaussianizzazione delle feature o la z-score? Un ragazzo ha risposto:
 A me non sembra proprio che l'abbia mai spiegate queste cose.
-La gaussianizzazione ha detto che non si fa. 
+La gaussianizzazione ha detto che non si fa.
+- Is there someone else who has a model that overfits?  Good results on validation set but bad on evaluation - - > OLTRE A MISURARE L'ACCURACY DEI MODELLI CON LA CROSS VALIDATION, DOVREMMO ANCHE TESTARE I MODELLI SUL TEST SET PER VEDERE COME SI COMPORTANO - - > POTREMMO AVERE OVERFITTING! 
 - NOMI DI RAGAZZI CHE STANNO FACENDO IL NOSTRO STESSO PROGETTO: ANDREA DRAPPO, RICCARDO CARDONA, BÁLINT BUJTOR
 
 # NOTE / COSE DA FARE
