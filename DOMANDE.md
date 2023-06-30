@@ -3,7 +3,7 @@
 - LOGISTIC REGRESSION FORMULA WEIGHTED --> PER PI GRECA DI T ABBIAMO CONSIDERATO LA PRIOR CHE CI VIENE DATA DALLA CONSEGNA, MA PER QUANTO RIGUARDA nt ed nf, DOBBIAMO CALCOLARLI A PARTIRE DAL TRAINING SET O DAL TEST SET --> RISPOSTA CHE CI SIAMO DATI: è GIUSTO USARE IL TRAINING XK ADDESTRIAMO IL MODELLO IN QUELLA PARTE
 - 25-05-23 --> 15:41-15:42 dice cose utili per il progetto - > per svm saranno necessarie
 - 25-05-23 --> 15:48-16:01 circa dice cose utili per il progetto
-- 25-02-23 --> MODEL FUSION --> è UN PLUS SE LO IMPLEMENTIAMO --> ASCOLTA DA 16:03 A 16:09
+- 25-05-23 --> MODEL FUSION --> è UN PLUS SE LO IMPLEMENTIAMO --> ASCOLTA DA 16:03 A 16:09
 -i 3 punti precedenti dovrebbero essere gli stessi che ti ha detto domenico nei vocali wa in quello stesso giorno (e dovrebbe averli già fatti lui - - > controlla che siano corretti anche se si è già confrontato con Laura) 
 - Iperparametro C provare con k fold cambiando ordine di grandezza di 10 in 10 (PURE PER LAMBDA PROVIAMO VARI VALORI COL KFOLD)
 - il prof ha detto che non occorre fare data preprocessing (né con LR né svm) -> DETTO DAL PROF: PER ALCUNI MODELLI NON SERVE XK SONO INVARIANTI, MENTRE PER ALTRI MODELLI SERVE. CI HA DETTO CHE HA SENSO FARLO SE ABBIAMO MIGLIORAMENTI. (PER POTERLO FARE SU LR, DEV'ESSERE NELLA FORMA REGOLARIZZATA --> SE NON è REGOLARIZZATA DOVREMMO OTTENERE SEMPRE GLI STESSI RISULTATI). PER L'MVG NON HA SENSO INVECE.
