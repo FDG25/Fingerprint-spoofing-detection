@@ -11,6 +11,8 @@
 - nella lezione 01/06 il prof ha fatto vedere come calcolare il gradiente a mano per velocizzare i conti -> vedi le due foto inviate a Domenico su wa in quello stesso giorno --> SONO SBAGLIATE, VEDI DIRETTAMENTE QUELLE DI LAURA!
 - DAL GRUPPO TELEGRAM: Hi, does anyone know how to overcome the probable overflow, noticed by the fast increase of costs, that presents in 2nd grade kernel SVM implemented in dual version when C are small (around 10^-5)? (NON SO SE ANCHE NOI INCONTREREMO QUESTO PROBLEMA)
 - implementare GMM (LAB10) nel progetto
+
+- LEZIONE 08-06-23 --> DA 1:26:38 SPIEGA L'ESEMPIO DI PROGETTO DEL 2023 (NON PROJECT AVILA) E DICE COSE UTILI. CONTINUA NELLA LEZIONE DEL 09-06-23 DA INIZIO FINO A 40:50
 - 08/06 --> LAURA HA CHIESTO AL PROF SE NEL PROGETTO PER PIGRECA DI T QUANDO FACCIAMO PER ESEMPIO L'LR PESATO, DOBBIAMO USARE L'APPLICATION PRIOR (QUELLA CHE CI Dà LA CONSEGNA PARI A 0.5) O L'EMPIRICAL PRIOR (QUELLA CHE DERIVIAMO NOI DAL TRAINING SET IN BASE AL NUMERO DI CAMPIONI DELLA CLASSE TRUE E DELLA CLASSE FALSE) --> IL PROF NON HA FATTO CAPIRE QUALE è BENE USARE!
 - 09/06 --> mentre mostravo l'esempio di progetto --> Se faccio capire che ho trovato il valore buono di lambda e provo con pca non c'è bisogno di plottare anche i vari pca 
 - 09/06 --> HA DETTO ALTRE COSE CHE NON OCCORRE FARE NEL PROGETTO --> RIVEDI LEZIONE FINO A SUBITO PRIMA CHE INIZIA A SPIEGARE IL LAB!
@@ -22,7 +24,7 @@ A me non sembra proprio che l'abbia mai spiegate queste cose.
 La gaussianizzazione ha detto che non si fa.
 - Is there someone else who has a model that overfits?  Good results on validation set but bad on evaluation - - > OLTRE A MISURARE L'ACCURACY DEI MODELLI CON LA CROSS VALIDATION, DOVREMMO ANCHE TESTARE I MODELLI SUL TEST SET PER VEDERE COME SI COMPORTANO - - > POTREMMO AVERE OVERFITTING! 
 - NOMI DI RAGAZZI CHE STANNO FACENDO IL NOSTRO STESSO PROGETTO: ANDREA DRAPPO, RICCARDO CARDONA, BÁLINT BUJTOR
-- LEZIONE 08-06-23 --> DA 1:26:38 SPIEGA L'ESEMPIO DI PROGETTO DEL 2023 (NON PROJECT AVILA) E DICE COSE UTILI. CONTINUA NELLA LEZIONE DEL 09-06-23 DA INIZIO FINO A 40:50
+
 
 # NOTE / COSE DA FARE
 - controlle minDCF se fatte bene
