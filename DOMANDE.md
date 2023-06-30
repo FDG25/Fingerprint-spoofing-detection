@@ -24,6 +24,46 @@ La gaussianizzazione ha detto che non si fa.
 - NOMI DI RAGAZZI CHE STANNO FACENDO IL NOSTRO STESSO PROGETTO: ANDREA DRAPPO, RICCARDO CARDONA, BÁLINT BUJTOR
 
 # NOTE / COSE DA FARE
+- controlle minDCF se fatte bene
+- fare plot al variare di lambda come laura
+```python
+def lambda_estimation(D,L):    
+    Ds =(np.array_split(D, 5, axis=1))
+    Ls = (np.array_split(L, 5))   
+    priors = [0.5, 0.9, 0.1]
+    #lambda from 10^-5 to 10^5
+    lambdas=np.logspace(-5, 5, num=30)    
+    llrs = []   
+    minDcf=[]
+    for i in range(len(priors)):
+        print("prior:",priors[i])        
+        for l in lambdas:
+            print("lambda:",l)            
+            for j in range(5):
+                print("K:",j)                
+                Dtr,Ltr = np.hstack(Ds[:j]+ Ds[j+1:]), np.hstack(Ls[:j] + Ls[j+1:])            
+                Dts,Lts = np.asarray(Ds[j]) , np.asarray(Ls[j])            
+                _,llr=logReg_class(Dtr, Ltr, Dts, Lts,l)        
+                llrs.append(llr)
+                minDcf.append(computeMinDCF(priors[i], 1, 10, np.hstack(llrs), Lts))       
+                llrs=[]
+                plotDCF(lambdas,minDcf,"lambda")
+                    
+def plotDCF(x, y, xlabel):   
+    plt.figure()
+    plt.plot(x, y[0:len(x)], label='min DCF prior=0.5', color='b')    
+    plt.plot(x, y[len(x): 2*len(x)], label='min DCF prior=0.9', color='r')
+    plt.plot(x, y[2*len(x): 3*len(x)], label='min DCF prior=0.1', color='g')    
+    plt.xlim([min(x), max(x)])
+    plt.xscale("log")    
+    plt.legend(["min DCF prior=0.5", "min DCF prior=0.9", "min DCF prior=0.1"])
+    plt.xlabel(xlabel)    
+    plt.ylabel("min DCF")
+    plt.savefig('./images/dcf_lamba' + '.jpg')    
+    return
+```
+- integrare lab 9 e 10
+- rendere kfold generico con i classificatori in input in modo da testare i singoli modelli al variare di lambda (lr) e C (svm)
 - TESTARE PCA SOTTO AL 7 PER LOGISTIC REGRESSION (A PARTIRE DA 6 CON TUTTI E 7 I VALORI DI LAMBDA CHE ABBIAMO VISTO
 - PRESE DA ALCUNE SEZIONI SOTTOSTANTI DI QUESTO FILE:
 1) lda per vedere se dall'unica dimensione si riescono a estrarre informazioni interessanti (ci sono info interessanti)

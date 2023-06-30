@@ -8,7 +8,10 @@ import lda
 
 def computeNumCorrectPredictionsGenerative(S,LTE):
     prediction = []
+    llrs = []
     for col in range(0,S.shape[1]):
+        llr=numpy.log(numpy.exp(S[1,col])/numpy.exp(S[0,col]))
+        llrs.append(llr)
         #if (S[0,col]-S[1,col]) > -numpy.log(constants.EFFECTIVE_PRIOR/(1-constants.EFFECTIVE_PRIOR)):
         if S[0,col] > S[1,col]:
             prediction.append(0)
@@ -19,7 +22,7 @@ def computeNumCorrectPredictionsGenerative(S,LTE):
     n_samples = prediction.size
     acc = numpy.sum(bool_val)/n_samples
     err = 1 - acc
-    return numpy.sum(bool_val)
+    return numpy.array(llrs),numpy.sum(bool_val)
 
 def computeNaiveSw(DTR,LTR):
     data_list = main.getClassMatrix(DTR,LTR)

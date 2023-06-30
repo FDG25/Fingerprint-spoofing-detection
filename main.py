@@ -8,6 +8,7 @@ import generative_models
 import constants
 import plot
 import discriminative_models
+import optimal_decision
 
 #change the shape of an array from horizontal to vertical, so obtain a column vector
 def vcol(array):
@@ -109,7 +110,9 @@ def K_Fold(D,L,K):
     fold_indices = numpy.arange(0, K*fold_dimension, fold_dimension)  # indices to split the data into folds
     classifiers = [(generative_models.MVG_log_classifier, "Multivariate Gaussian Classifier"), (generative_models.NaiveBayesGaussianClassifier_log, "Naive Bayes"), (generative_models.TiedCovarianceGaussianClassifier_log, "Tied Covariance"), (generative_models.TiedNaiveBayesGaussianClassifier_log, "Tied Naive Bayes"),(discriminative_models.LogisticRegressionWeighted, "Logistic Regression Weighted"),(discriminative_models.LogisticRegressionWeightedQuadratic, "Logistic Regression Quadratic Weighted")] 
     for classifier_function, classifier_name in classifiers: 
-        nWrongPrediction = 0 
+        nWrongPrediction = 0
+        scores = numpy.array([])
+        labels = numpy.array([])
         # Run k-fold cross-validation
         for i in range(K):    
             # Split the data into training and validation sets
@@ -123,11 +126,22 @@ def K_Fold(D,L,K):
             DTR,P = pca.PCA_projection(DTR,m = constants.M)
             DVA = numpy.dot(P.T, DVA)
             nSamples = DVA.shape[1]  
-            nCorrectPrediction = classifier_function(DTR, LTR, DVA, LVA) 
+            scores_i,nCorrectPrediction = classifier_function(DTR, LTR, DVA, LVA) 
             nWrongPrediction += nSamples - nCorrectPrediction
+            scores = numpy.append(scores,scores_i)
+            labels = numpy.append(labels,LVA)
         errorRate = nWrongPrediction/D.shape[1] 
         accuracy = 1 - errorRate
-        print(f"{classifier_name} results:\nAccuracy: {round(accuracy*100, 2)}%\nError rate: {round(errorRate*100, 2)}%\n")  
+        print(f"{classifier_name} results:\nAccuracy: {round(accuracy*100, 2)}%\nError rate: {round(errorRate*100, 2)}%\n",end="")
+        print(f"Min DCF for {classifier_name}: {optimal_decision.computeMinDCF(0.5,1,10,scores,labels)}\n") 
+
+def optimalDecision(DTR,LTR,DTE,LTE):
+    classifiers = [(generative_models.MVG_log_classifier, "Multivariate Gaussian Classifier"), (generative_models.NaiveBayesGaussianClassifier_log, "Naive Bayes"), (generative_models.TiedCovarianceGaussianClassifier_log, "Tied Covariance"), (generative_models.TiedNaiveBayesGaussianClassifier_log, "Tied Naive Bayes"),(discriminative_models.LogisticRegressionWeighted, "Logistic Regression Weighted"),(discriminative_models.LogisticRegressionWeightedQuadratic, "Logistic Regression Quadratic Weighted")] 
+    for classifier_function, classifier_name in classifiers:
+        LP,_ = classifier_function(DTR,LTR,DTE,LTE)
+        # se sorto i log likelihoods mi dà problemi tutte le minDCF a 0
+        # LP = numpy.sort(LP)
+        print(f"Min DCF for {classifier_name}: {optimal_decision.computeMinDCF(0.5,1,10,LP,LTE)}")
 
 if __name__ == '__main__':
     # DTR = matrix of 10 rows(NUM_FEATURES) times 2325 samples
@@ -144,9 +158,9 @@ if __name__ == '__main__':
     #DTRP,_ = pca.PCA_projection(DTR,m)
     #plot.plot_scatter_projected_data_pca(DTRP,LTR)
     # LDA
-    Sw = lda.computeSw(DTR,LTR)
-    Sb = lda.computeSb(DTR,LTR)
-    DTRP = lda.LDA1(m=1,Sb=Sb,Sw=Sw,D=DTR)
+    #Sw = lda.computeSw(DTR,LTR)
+    #Sb = lda.computeSb(DTR,LTR)
+    #DTRP = lda.LDA1(m=1,Sb=Sb,Sw=Sw,D=DTR)
     #plot.plot_hist_projected_data_lda(DTRP,LTR)
     # ---------------   GENERATIVE MODELS   -----------------------
     # MVG_LOG_CLASSIFIER
@@ -156,7 +170,7 @@ if __name__ == '__main__':
     # generative_models.TiedNaiveBayesGaussianClassifier_log(DTR,LTR,DTE,LTE)
     # RANDOMIZE DATASET BEFORE K-FOLD
     DTR_RAND,LTR_RAND = randomize(DTR,LTR)
-
+    DTE_RAND,LTE_RAND = randomize(DTE,LTE)
     print("K_Fold with K = 5")
     print("PCA with m = " + str(constants.M))
     print("lambda :" + str(constants.LAMDBA))
@@ -167,3 +181,27 @@ if __name__ == '__main__':
     #discriminative_models.LogisticRegressionWeighted(DTR,LTR,DTE,LTE)
     #print("Weight")
     #discriminative_models.LogisticRegression(DTR,LTR,DTE,LTE)
+
+    # ------------------ OPTIMAL DECISION --------------------------
+    #optimalDecision(DTR_RAND,LTR_RAND,DTE_RAND,LTE_RAND)
+    #We now turn our attention at evaluating the predictions made by our classifier R for a target application
+    #with prior and costs given by (π1, Cfn, Cfp).
+    #LP,_ = generative_models.MVG_log_classifier(DTR_RAND, LTR_RAND, DTE_RAND, LTE_RAND)
+    #LP = numpy.sort(LP)
+    #print("MVG minDCF: " + str(optimal_decision.computeMinDCF(0.5,1,10,LP,LTE_RAND))) 
+    #LP,_ = generative_models.NaiveBayesGaussianClassifier_log(DTR_RAND, LTR_RAND, DTE_RAND, LTE_RAND)
+    #àLP = numpy.sort(LP)
+    #print("Naive Bayes minDCF: " + str(optimal_decision.computeMinDCF(0.5,1,10,LP,LTE_RAND)))
+    #LP,_ = generative_models.TiedCovarianceGaussianClassifier_log(DTR_RAND, LTR_RAND, DTE_RAND, LTE_RAND)
+    #LP = numpy.sort(LP)
+    #print("Tied minDCF: " + str(optimal_decision.computeMinDCF(0.5,1,10,LP,LTE_RAND))) 
+    #LP,_ = generative_models.TiedNaiveBayesGaussianClassifier_log(DTR_RAND, LTR_RAND, DTE_RAND, LTE_RAND)
+    #LP = numpy.sort(LP)
+    #print("Tied Naive minDCF: " + str(optimal_decision.computeMinDCF(0.5,1,10,LP,LTE_RAND))) 
+    #LP,_ = discriminative_models.LogisticRegressionWeighted(DTR_RAND, LTR_RAND, DTE_RAND, LTE_RAND)
+    #LP = numpy.sort(LP)
+    #print("Logistic Regression Weighted minDCF: " + str(optimal_decision.computeMinDCF(0.5,1,10,LP,LTE_RAND))) 
+    #LP,_ = discriminative_models.LogisticRegressionWeightedQuadratic(DTR_RAND, LTR_RAND, DTE_RAND, LTE_RAND)
+    #LP = numpy.sort(LP)
+    #print("Logistic Regression Weighted Quadratic minDCF: " + str(optimal_decision.computeMinDCF(0.5,1,10,LP,LTE_RAND))) 
+

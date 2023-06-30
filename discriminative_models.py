@@ -55,10 +55,12 @@ def computeScores(DTE,LTE,v):
     w, b = v[0:-1], v[-1]
     n = DTE.shape[1]
     LP = []
+    llrs = []
     for i in range(0,n):
         x_t = DTE[:,i]
         s_i = numpy.dot(w.T,x_t)
         s_i+=b
+        llrs.append(s_i)
         if s_i > 0:
             LP.append(1)
         else:
@@ -68,7 +70,7 @@ def computeScores(DTE,LTE,v):
     #err = 1 - acc
     #print("Accuracy: " + str(round(acc*100, 1)) + "%")
     #print("Error rate: " + str(round(err*100, 1)) + "%")
-    return nCorrectPredictions
+    return numpy.array(llrs),nCorrectPredictions
 '''
 def LogisticRegression(DTR,LTR,DTE,LTE):
     lambd = constants.LAMDBA
