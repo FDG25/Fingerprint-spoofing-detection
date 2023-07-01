@@ -1,3 +1,5 @@
+import numpy
+import scipy
 import matplotlib.pyplot as plt
 import constants
 import main 
@@ -71,4 +73,48 @@ def plot_hist_projected_data_lda(DP,L):
     plt.hist(DP1[0, :], bins = 10, density = True, alpha = 0.4, label = 'Authentic')
     
     plt.legend()
+    plt.show()
+
+# ------    PEARSON CORRELATION PLOTS   ----------
+
+# pearson for the whole dataset
+
+def plot_Heatmap_Whole_Dataset(DTR):
+    heatmap = numpy.zeros((DTR.shape[0],DTR.shape[0]))
+    for f1 in range(DTR.shape[0]):
+        for f2 in range(DTR.shape[0]):
+                if f2 <= f1:
+                    heatmap[f1][f2] = abs(scipy.stats.pearsonr(DTR[f1, :], DTR[f2, :])[0])
+                    heatmap[f2][f1] = heatmap[f1][f2]
+    plt.figure() 
+    plt.title('Pearson Correlation of the Whole Dataset')
+    plt.xticks(numpy.arange(0,constants.NUM_FEATURES),numpy.arange(1,constants.NUM_FEATURES + 1))  
+    plt.yticks(numpy.arange(0,constants.NUM_FEATURES),numpy.arange(1,constants.NUM_FEATURES + 1))              
+    plt.imshow(heatmap, cmap='Greys')
+    plt.show()
+
+# pearson for single class
+# 'spoofed-fingerprint' : L = 0 (Red Color)
+# 'authentic-fingerprint' : L = 1 (Blue Color)
+
+def plot_Heatmap_Spoofed_Authentic(DTR, LTR, Class_Label):   
+    heatmap = numpy.zeros((DTR.shape[0],DTR.shape[0]))
+    for f1 in range(DTR.shape[0]):
+        for f2 in range(DTR.shape[0]):
+                if f2 <= f1:
+                    heatmap[f1][f2] = abs(scipy.stats.pearsonr(DTR[:,LTR==Class_Label][f1, :], DTR[:,LTR==Class_Label][f2, :])[0])
+                    heatmap[f2][f1] = heatmap[f1][f2]
+    plt.figure()              
+    plt.xticks(numpy.arange(0,constants.NUM_FEATURES),numpy.arange(1,constants.NUM_FEATURES + 1))  
+    plt.yticks(numpy.arange(0,constants.NUM_FEATURES),numpy.arange(1,constants.NUM_FEATURES + 1))
+    color = ''
+    title = ''
+    if Class_Label == 0:
+        title = 'spoofed-fingerprint' 
+        color = 'Reds'
+    else:
+        title = 'authentic-fingerprint' 
+        color = 'Blues'
+    plt.title(title)
+    plt.imshow(heatmap, cmap=color )
     plt.show()

@@ -104,11 +104,10 @@ def randomize_weighted(DTR,LTR):
             index_1+=1
     return DTR_RAND,LTR_RAND
 
-def K_Fold(D,L,K):
+def K_Fold(D,L,K,classifiers):
     # Leave-One-Out Approach Con K=2325: 
     fold_dimension = int(D.shape[1]/K)  # size of each fold
-    fold_indices = numpy.arange(0, K*fold_dimension, fold_dimension)  # indices to split the data into folds
-    classifiers = [(generative_models.MVG_log_classifier, "Multivariate Gaussian Classifier"), (generative_models.NaiveBayesGaussianClassifier_log, "Naive Bayes"), (generative_models.TiedCovarianceGaussianClassifier_log, "Tied Covariance"), (generative_models.TiedNaiveBayesGaussianClassifier_log, "Tied Naive Bayes"),(discriminative_models.LogisticRegressionWeighted, "Logistic Regression Weighted"),(discriminative_models.LogisticRegressionWeightedQuadratic, "Logistic Regression Quadratic Weighted")] 
+    fold_indices = numpy.arange(0, K*fold_dimension, fold_dimension)  # indices to split the data into folds 
     for classifier_function, classifier_name in classifiers: 
         nWrongPrediction = 0
         scores = numpy.array([])
@@ -162,6 +161,9 @@ if __name__ == '__main__':
     #Sb = lda.computeSb(DTR,LTR)
     #DTRP = lda.LDA1(m=1,Sb=Sb,Sw=Sw,D=DTR)
     #plot.plot_hist_projected_data_lda(DTRP,LTR)
+    plot.plot_Heatmap_Whole_Dataset(DTR)
+    plot.plot_Heatmap_Spoofed_Authentic(DTR,LTR,Class_Label=0)
+    plot.plot_Heatmap_Spoofed_Authentic(DTR,LTR,Class_Label=1)
     # ---------------   GENERATIVE MODELS   -----------------------
     # MVG_LOG_CLASSIFIER
     # generative_models.MVG_log_classifier(DTR,LTR,DTE,LTE)
@@ -174,7 +176,9 @@ if __name__ == '__main__':
     print("K_Fold with K = 5")
     print("PCA with m = " + str(constants.M))
     print("lambda :" + str(constants.LAMDBA))
-    K_Fold(DTR_RAND,LTR_RAND,K=5)
+    classifiers = [(generative_models.MVG_log_classifier, "Multivariate Gaussian Classifier"), (generative_models.NaiveBayesGaussianClassifier_log, "Naive Bayes"), (generative_models.TiedCovarianceGaussianClassifier_log, "Tied Covariance"), (generative_models.TiedNaiveBayesGaussianClassifier_log, "Tied Naive Bayes"),(discriminative_models.LogisticRegressionWeighted, "Logistic Regression Weighted"),(discriminative_models.LogisticRegressionWeightedQuadratic, "Logistic Regression Quadratic Weighted")]
+    K_Fold(DTR_RAND,LTR_RAND,K=5,classifiers=classifiers)
+
     #print("Leave One Out (K = 2325)")
     #K_Fold(DTR_RAND,LTR_RAND,K=2325)
     #print("No Weight")
