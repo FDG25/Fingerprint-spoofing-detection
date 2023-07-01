@@ -82,29 +82,25 @@ def LogisticRegression(DTR,LTR,DTE,LTE):
     #print(f"The objective value at the minimum (J(w*,b*)) is: {round(f, 7)}") 
     return computeScores(DTE, LTE, x) 
 '''
-def LogisticRegressionWeighted(DTR,LTR,DTE,LTE):
-    lambd = constants.LAMDBA
-    #lambda_values = [0.000001, 0.00001, 0.0001, 0.001, 0.1, 1.0] 
-    #for lambd in lambda_values:
-
+def LogisticRegressionWeighted(DTR,LTR,DTE,LTE,lambd):
+    
     # ---------------- NORMALIZING APPROACHES ---------------------
     #T_DTR = normalization.zNormalizingData(DTR)
     #T_DTE = normalization.zNormalizingData(DTE)
-    C_DTR = normalization.centeringData(DTR)
-    C_DTE = normalization.centeringData(DTE)
-    W_DTR = normalization.whiteningData(C_DTR)
-    W_DTE = normalization.whiteningData(C_DTE)
-    L2_DTR = normalization.l2NormalizingData(W_DTR)
-    L2_DTE = normalization.l2NormalizingData(W_DTE)
+    #C_DTR = normalization.centeringData(DTR)
+    #C_DTE = normalization.centeringData(DTE)
+    #W_DTR = normalization.whiteningData(C_DTR)
+    #W_DTE = normalization.whiteningData(C_DTE)
+    #L2_DTR = normalization.l2NormalizingData(W_DTR)
+    #L2_DTE = normalization.l2NormalizingData(W_DTE)
 
-    logreg_obj_weighted = logreg_obj_wrap_weighted(L2_DTR, LTR, lambd) 
+    logreg_obj_weighted = logreg_obj_wrap_weighted(DTR, LTR, lambd) 
     (x, f, d) = scipy.optimize.fmin_l_bfgs_b(logreg_obj_weighted, numpy.zeros(DTR.shape[0] + 1), approx_grad=True)
     #print("Lambda=" + str(lambd)) 
     #print(f"The objective value at the minimum (J(w*,b*)) is: {round(f, 7)}") 
-    return computeScores(L2_DTE, LTE, x)       
+    return computeScores(DTE, LTE, x)       
 
-def LogisticRegressionWeightedQuadratic(DTR,LTR,DTE,LTE):
-    lambd = constants.LAMDBA
+def LogisticRegressionWeightedQuadratic(DTR,LTR,DTE,LTE,lambd):
 
     def vecxxT(x):
         x = x[:,None]
@@ -117,8 +113,6 @@ def LogisticRegressionWeightedQuadratic(DTR,LTR,DTE,LTE):
 
     phi_DTE = numpy.array(numpy.vstack([trasformed_DTE,DTE]))
 
-    #lambda_values = [0.000001, 0.001, 0.1, 1.0] 
-    #for lambd in lambda_values: 
     logreg_obj_quadratic_weighted = logreg_obj_wrap_weighted(phi_DTR, LTR, lambd) 
     (x, f, d) = scipy.optimize.fmin_l_bfgs_b(logreg_obj_quadratic_weighted, numpy.zeros(phi_DTR.shape[0] + 1), approx_grad=True)
     #print("Lambda=" + str(lambd)) 

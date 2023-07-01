@@ -87,7 +87,7 @@ def plot_Heatmap_Whole_Dataset(DTR):
                     heatmap[f1][f2] = abs(scipy.stats.pearsonr(DTR[f1, :], DTR[f2, :])[0])
                     heatmap[f2][f1] = heatmap[f1][f2]
     plt.figure() 
-    plt.title('Pearson Correlation of the Whole Dataset')
+    plt.title('Pearson Correlation Coefficient of the Whole Dataset')
     plt.xticks(numpy.arange(0,constants.NUM_FEATURES),numpy.arange(1,constants.NUM_FEATURES + 1))  
     plt.yticks(numpy.arange(0,constants.NUM_FEATURES),numpy.arange(1,constants.NUM_FEATURES + 1))              
     plt.imshow(heatmap, cmap='Greys')
@@ -110,11 +110,27 @@ def plot_Heatmap_Spoofed_Authentic(DTR, LTR, Class_Label):
     color = ''
     title = ''
     if Class_Label == 0:
-        title = 'spoofed-fingerprint' 
+        title = 'Pearson Correlation Coefficient of the spoofed-fingerprint class' 
         color = 'Reds'
     else:
-        title = 'authentic-fingerprint' 
+        title = 'Pearson Correlation Coefficient of the authentic-fingerprint class' 
         color = 'Blues'
     plt.title(title)
     plt.imshow(heatmap, cmap=color )
     plt.show()
+
+# -------   DCF PLOT    --------------
+def plotDCF(x, y, xlabel):   
+    plt.figure()
+    plt.plot(x, y[0:len(x)], label='min DCF prior=0.5', color='b')    
+    #plt.plot(x, y[len(x): 2*len(x)], label='min DCF prior=0.9', color='r')
+    #plt.plot(x, y[2*len(x): 3*len(x)], label='min DCF prior=0.1', color='g')    
+    plt.xlim([min(x), max(x)])
+    plt.xscale("log")    
+    #plt.legend(["min DCF prior=0.5", "min DCF prior=0.9", "min DCF prior=0.1"])
+    plt.legend(["min DCF prior=0.5"])
+    plt.xlabel(xlabel)    
+    plt.ylabel("min DCF")
+    plt.show()
+    #plt.savefig('./images/dcf_lamba' + '.jpg')    
+    return

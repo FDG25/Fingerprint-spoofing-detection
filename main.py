@@ -104,10 +104,11 @@ def randomize_weighted(DTR,LTR):
             index_1+=1
     return DTR_RAND,LTR_RAND
 
-def K_Fold(D,L,K,classifiers):
+def K_Fold_Generative(D,L,K):
     # Leave-One-Out Approach Con K=2325: 
     fold_dimension = int(D.shape[1]/K)  # size of each fold
-    fold_indices = numpy.arange(0, K*fold_dimension, fold_dimension)  # indices to split the data into folds 
+    fold_indices = numpy.arange(0, K*fold_dimension, fold_dimension)  # indices to split the data into folds
+    classifiers = [(generative_models.MVG_log_classifier, "Multivariate Gaussian Classifier"), (generative_models.NaiveBayesGaussianClassifier_log, "Naive Bayes"), (generative_models.TiedCovarianceGaussianClassifier_log, "Tied Covariance"), (generative_models.TiedNaiveBayesGaussianClassifier_log, "Tied Naive Bayes")] 
     for classifier_function, classifier_name in classifiers: 
         nWrongPrediction = 0
         scores = numpy.array([])
@@ -132,15 +133,63 @@ def K_Fold(D,L,K,classifiers):
         errorRate = nWrongPrediction/D.shape[1] 
         accuracy = 1 - errorRate
         print(f"{classifier_name} results:\nAccuracy: {round(accuracy*100, 2)}%\nError rate: {round(errorRate*100, 2)}%\n",end="")
-        print(f"Min DCF for {classifier_name}: {optimal_decision.computeMinDCF(0.5,1,10,scores,labels)}\n") 
+        print(f"Min DCF for {classifier_name}: {optimal_decision.computeMinDCF(constants.PRIOR_PROBABILITY,constants.CFN,constants.CFP,scores,labels)}\n") 
+
+def K_Fold_Discriminative(D,L,K,classifiers,hyperParameter):
+    # Leave-One-Out Approach Con K=2325: 
+    fold_dimension = int(D.shape[1]/K)  # size of each fold
+    fold_indices = numpy.arange(0, K*fold_dimension, fold_dimension)  # indices to split the data into folds
+    minDcfs = []
+    for classifier_function, classifier_name in classifiers: 
+        nWrongPrediction = 0
+        scores = numpy.array([])
+        labels = numpy.array([])
+        # Run k-fold cross-validation
+        for i in range(K):    
+            # Split the data into training and validation sets
+            mask = numpy.zeros(D.shape[1], dtype=bool)
+            mask[fold_indices[i]:fold_indices[i]+fold_dimension] = True
+            DTR = D[:,~mask]
+            LTR = L[~mask]
+            DVA = D[:,mask]
+            LVA = L[mask]
+            # apply PCA on current fold DTR,DVA
+            #DTR,P = pca.PCA_projection(DTR,m = constants.M)
+            #DVA = numpy.dot(P.T, DVA)
+            nSamples = DVA.shape[1]  
+            scores_i,nCorrectPrediction = classifier_function(DTR, LTR, DVA, LVA, hyperParameter) 
+            nWrongPrediction += nSamples - nCorrectPrediction
+            scores = numpy.append(scores,scores_i)
+            labels = numpy.append(labels,LVA)
+        errorRate = nWrongPrediction/D.shape[1] 
+        accuracy = 1 - errorRate
+        print(f"{classifier_name} results:\nAccuracy: {round(accuracy*100, 2)}%\nError rate: {round(errorRate*100, 2)}%\n",end="")
+        minDcf = optimal_decision.computeMinDCF(constants.PRIOR_PROBABILITY,constants.CFN,constants.CFP,scores,labels)
+        minDcfs.append(minDcf)
+        print(f"Min DCF for {classifier_name}: {minDcf}\n")
+    return minDcfs 
 
 def optimalDecision(DTR,LTR,DTE,LTE):
     classifiers = [(generative_models.MVG_log_classifier, "Multivariate Gaussian Classifier"), (generative_models.NaiveBayesGaussianClassifier_log, "Naive Bayes"), (generative_models.TiedCovarianceGaussianClassifier_log, "Tied Covariance"), (generative_models.TiedNaiveBayesGaussianClassifier_log, "Tied Naive Bayes"),(discriminative_models.LogisticRegressionWeighted, "Logistic Regression Weighted"),(discriminative_models.LogisticRegressionWeightedQuadratic, "Logistic Regression Quadratic Weighted")] 
     for classifier_function, classifier_name in classifiers:
         LP,_ = classifier_function(DTR,LTR,DTE,LTE)
         # se sorto i log likelihoods mi dà problemi tutte le minDCF a 0
-        # LP = numpy.sort(LP)
-        print(f"Min DCF for {classifier_name}: {optimal_decision.computeMinDCF(0.5,1,10,LP,LTE)}")
+        LP = numpy.sort(LP)
+        print(f"Min DCF for {classifier_name}: {optimal_decision.computeMinDCF(constants.PRIOR_PROBABILITY,constants.CFN,constants.CFP,LP,LTE)}")
+
+def model_parameter_testing(DTR,LTR,parameter_values,parameter_name,classifier):    
+    #priors = [0.5, 0.9, 0.1]
+    priors = [constants.PRIOR_PROBABILITY]
+    minDcfs=[]
+    for i in range(len(priors)):
+        print("prior:",priors[i])        
+        for value in parameter_values:
+            print(parameter_name + ": " + str(value))
+            minDcf = K_Fold_Discriminative(DTR,LTR,K=5,classifiers=classifier,hyperParameter=value)
+            minDcfs.append(minDcf)
+    # PLOT
+    plot.plotDCF(parameter_values,minDcfs,parameter_name)
+    
 
 if __name__ == '__main__':
     # DTR = matrix of 10 rows(NUM_FEATURES) times 2325 samples
@@ -161,9 +210,9 @@ if __name__ == '__main__':
     #Sb = lda.computeSb(DTR,LTR)
     #DTRP = lda.LDA1(m=1,Sb=Sb,Sw=Sw,D=DTR)
     #plot.plot_hist_projected_data_lda(DTRP,LTR)
-    plot.plot_Heatmap_Whole_Dataset(DTR)
-    plot.plot_Heatmap_Spoofed_Authentic(DTR,LTR,Class_Label=0)
-    plot.plot_Heatmap_Spoofed_Authentic(DTR,LTR,Class_Label=1)
+    #plot.plot_Heatmap_Whole_Dataset(DTR)
+    #plot.plot_Heatmap_Spoofed_Authentic(DTR,LTR,Class_Label=0)
+    #plot.plot_Heatmap_Spoofed_Authentic(DTR,LTR,Class_Label=1)
     # ---------------   GENERATIVE MODELS   -----------------------
     # MVG_LOG_CLASSIFIER
     # generative_models.MVG_log_classifier(DTR,LTR,DTE,LTE)
@@ -173,12 +222,17 @@ if __name__ == '__main__':
     # RANDOMIZE DATASET BEFORE K-FOLD
     DTR_RAND,LTR_RAND = randomize(DTR,LTR)
     DTE_RAND,LTE_RAND = randomize(DTE,LTE)
+    #print("K_Fold with K = 5")
+    #print("PCA with m = " + str(constants.M))
+    #K_Fold_Generative(DTR_RAND,LTR_RAND,K=5)
+
+    # ---------------   DISCRIMINATIVE MODELS   -----------------------
+    # CALL K-FOLD AND TEST THE HYPERPARAMETER
     print("K_Fold with K = 5")
     print("PCA with m = " + str(constants.M))
-    print("lambda :" + str(constants.LAMDBA))
-    classifiers = [(generative_models.MVG_log_classifier, "Multivariate Gaussian Classifier"), (generative_models.NaiveBayesGaussianClassifier_log, "Naive Bayes"), (generative_models.TiedCovarianceGaussianClassifier_log, "Tied Covariance"), (generative_models.TiedNaiveBayesGaussianClassifier_log, "Tied Naive Bayes"),(discriminative_models.LogisticRegressionWeighted, "Logistic Regression Weighted"),(discriminative_models.LogisticRegressionWeightedQuadratic, "Logistic Regression Quadratic Weighted")]
-    K_Fold(DTR_RAND,LTR_RAND,K=5,classifiers=classifiers)
-
+    lambda_values = [0.00001, 0.0001, 0.001, 0.01, 0.1, 1.0, 10.0]
+    classifier = [(discriminative_models.LogisticRegressionWeighted, "Logistic Regression Weighted")]
+    model_parameter_testing(DTR_RAND,LTR_RAND,lambda_values,'lambda',classifier)
     #print("Leave One Out (K = 2325)")
     #K_Fold(DTR_RAND,LTR_RAND,K=2325)
     #print("No Weight")

@@ -1,5 +1,4 @@
 # DOMANDE
-- AVEVAMO INIZIALMENTE RANDOMIZZATO IL DATASET PER INTERO MISCHIANDO A CASO TUTTE E 2 LE CLASSI. ADESSO ABBIAMO PROVATO A RANDOMIZZARE SEPARATAMENTE I CAMPIONI DELLE 2 CLASSI E POI A STACKARLI IN PROPORZIONE 2:1, VISTO CHE LA CLASSE 0 HA IL DOPPIO DEI CAMPIONI DELLA CLASSE 1 --> COSì ABBIAMO ALCUNI ERROR RATE CHE SONO MIGLIORATI E ALTRI CHE SONO PEGGIORATI, MENTRE L'MVG E IL NAIVE BAYES VENGONO UGUALI. (il modello multivariato DOVREBBE AVERE UN ERROR RATE più basso del naive bayes, NO?) CHE DOBBIAMO FARE? *VA BENE RANDOMIZZARE CASUALMEMTE COME AVEVAMO FATTO ALL'INIZIO*
 - LOGISTIC REGRESSION FORMULA WEIGHTED --> PER PI GRECA DI T ABBIAMO CONSIDERATO LA PRIOR CHE CI VIENE DATA DALLA CONSEGNA, MA PER QUANTO RIGUARDA nt ed nf, DOBBIAMO CALCOLARLI A PARTIRE DAL TRAINING SET O DAL TEST SET --> RISPOSTA CHE CI SIAMO DATI: è GIUSTO USARE IL TRAINING XK ADDESTRIAMO IL MODELLO IN QUELLA PARTE
 - 25-05-23 --> 15:41-15:42 dice cose utili per il progetto - > per svm saranno necessarie
 - 25-05-23 --> 15:48-16:01 circa dice cose utili per il progetto
@@ -7,10 +6,8 @@
 -i 3 punti precedenti dovrebbero essere gli stessi che ti ha detto domenico nei vocali wa in quello stesso giorno (e dovrebbe averli già fatti lui - - > controlla che siano corretti anche se si è già confrontato con Laura) 
 - Iperparametro C provare con k fold cambiando ordine di grandezza di 10 in 10 (PURE PER LAMBDA PROVIAMO VARI VALORI COL KFOLD)
 - il prof ha detto che non occorre fare data preprocessing (né con LR né svm) -> DETTO DAL PROF: PER ALCUNI MODELLI NON SERVE XK SONO INVARIANTI, MENTRE PER ALTRI MODELLI SERVE. CI HA DETTO CHE HA SENSO FARLO SE ABBIAMO MIGLIORAMENTI. (PER POTERLO FARE SU LR, DEV'ESSERE NELLA FORMA REGOLARIZZATA --> SE NON è REGOLARIZZATA DOVREMMO OTTENERE SEMPRE GLI STESSI RISULTATI). PER L'MVG NON HA SENSO INVECE.
-- implementare SVM (LAB9) nel progetto --> AGGIUNGERE COSE VISTE A SLIDE 59 BLOCCO 9 (VISTO CHE IL NOSTRO DATASET è SBILANCIATO) CHE NEL LAB NON SONO TRATTATE?
 - nella lezione 01/06 il prof ha fatto vedere come calcolare il gradiente a mano per velocizzare i conti -> vedi le due foto inviate a Domenico su wa in quello stesso giorno --> SONO SBAGLIATE, VEDI DIRETTAMENTE QUELLE DI LAURA!
 - DAL GRUPPO TELEGRAM: Hi, does anyone know how to overcome the probable overflow, noticed by the fast increase of costs, that presents in 2nd grade kernel SVM implemented in dual version when C are small (around 10^-5)? (NON SO SE ANCHE NOI INCONTREREMO QUESTO PROBLEMA)
-- implementare GMM (LAB10) nel progetto
 
 - LEZIONE 08-06-23 --> DA 1:26:38 SPIEGA L'ESEMPIO DI PROGETTO DEL 2023 (NON PROJECT AVILA) E DICE COSE UTILI. CONTINUA NELLA LEZIONE DEL 09-06-23 DA INIZIO FINO A 40:50
 - 08/06 --> LAURA HA CHIESTO AL PROF SE NEL PROGETTO PER PIGRECA DI T QUANDO FACCIAMO PER ESEMPIO L'LR PESATO, DOBBIAMO USARE L'APPLICATION PRIOR (QUELLA CHE CI Dà LA CONSEGNA PARI A 0.5) O L'EMPIRICAL PRIOR (QUELLA CHE DERIVIAMO NOI DAL TRAINING SET IN BASE AL NUMERO DI CAMPIONI DELLA CLASSE TRUE E DELLA CLASSE FALSE) --> IL PROF NON HA FATTO CAPIRE QUALE è BENE USARE!
@@ -27,46 +24,10 @@ La gaussianizzazione ha detto che non si fa.
 
 
 # NOTE / COSE DA FARE
-- controlle minDCF se fatte bene
-- fare plot al variare di lambda come laura
-```python
-def lambda_estimation(D,L):    
-    Ds =(np.array_split(D, 5, axis=1))
-    Ls = (np.array_split(L, 5))   
-    priors = [0.5, 0.9, 0.1]
-    #lambda from 10^-5 to 10^5
-    lambdas=np.logspace(-5, 5, num=30)    
-    llrs = []   
-    minDcf=[]
-    for i in range(len(priors)):
-        print("prior:",priors[i])        
-        for l in lambdas:
-            print("lambda:",l)            
-            for j in range(5):
-                print("K:",j)                
-                Dtr,Ltr = np.hstack(Ds[:j]+ Ds[j+1:]), np.hstack(Ls[:j] + Ls[j+1:])            
-                Dts,Lts = np.asarray(Ds[j]) , np.asarray(Ls[j])            
-                _,llr=logReg_class(Dtr, Ltr, Dts, Lts,l)        
-                llrs.append(llr)
-                minDcf.append(computeMinDCF(priors[i], 1, 10, np.hstack(llrs), Lts))       
-                llrs=[]
-                plotDCF(lambdas,minDcf,"lambda")
-                    
-def plotDCF(x, y, xlabel):   
-    plt.figure()
-    plt.plot(x, y[0:len(x)], label='min DCF prior=0.5', color='b')    
-    plt.plot(x, y[len(x): 2*len(x)], label='min DCF prior=0.9', color='r')
-    plt.plot(x, y[2*len(x): 3*len(x)], label='min DCF prior=0.1', color='g')    
-    plt.xlim([min(x), max(x)])
-    plt.xscale("log")    
-    plt.legend(["min DCF prior=0.5", "min DCF prior=0.9", "min DCF prior=0.1"])
-    plt.xlabel(xlabel)    
-    plt.ylabel("min DCF")
-    plt.savefig('./images/dcf_lamba' + '.jpg')    
-    return
-```
-- integrare lab 9 e 10
-- rendere kfold generico con i classificatori in input in modo da testare i singoli modelli al variare di lambda (lr) e C (svm)
+- implementare SVM (LAB9) nel progetto --> AGGIUNGERE COSE VISTE A SLIDE 59 BLOCCO 9 (VISTO CHE IL NOSTRO DATASET è SBILANCIATO) CHE NEL LAB NON SONO TRATTATE?
+- fare gradiente lr quadratico per velocizzare
+- implementare GMM (LAB10) nel progetto
+- ![image](./gradiente.jpg)
 - TESTARE PCA SOTTO AL 7 PER LOGISTIC REGRESSION (A PARTIRE DA 6 CON TUTTI E 7 I VALORI DI LAMBDA CHE ABBIAMO VISTO
 - PRESE DA ALCUNE SEZIONI SOTTOSTANTI DI QUESTO FILE:
 1) lda per vedere se dall'unica dimensione si riescono a estrarre informazioni interessanti (ci sono info interessanti)
