@@ -23,7 +23,7 @@ sapete se ha mai spiegato il procedimento di gaussianizzazione delle feature o l
 A me non sembra proprio che l'abbia mai spiegate queste cose.
 La gaussianizzazione ha detto che non si fa.
 - Is there someone else who has a model that overfits?  Good results on validation set but bad on evaluation - - > OLTRE A MISURARE L'ACCURACY DEI MODELLI CON LA CROSS VALIDATION, DOVREMMO ANCHE TESTARE I MODELLI SUL TEST SET PER VEDERE COME SI COMPORTANO - - > POTREMMO AVERE OVERFITTING! 
-- NOMI DI RAGAZZI CHE STANNO FACENDO IL NOSTRO STESSO PROGETTO: ANDREA DRAPPO, RICCARDO CARDONA, BÁLINT BUJTOR
+- NOMI DI RAGAZZI CHE STANNO FACENDO IL NOSTRO STESSO PROGETTO: ANDREA DRAPPO, RICCARDO CARDONA, BÁLINT BUJTOR (ANDREA DRAPPO E GUIDO STANNO CONSEGNANDO AL PRIMO APPELLO DI LUGLIO 2023, MA NON SO CHE PROGETTO HANNO FATTO)
 
 
 # NOTE / COSE DA FARE
