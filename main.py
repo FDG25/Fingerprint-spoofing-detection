@@ -231,7 +231,7 @@ if __name__ == '__main__':
     print("K_Fold with K = 5")
     print("PCA with m = " + str(constants.M))
     lambda_values = [0.00001, 0.0001, 0.001, 0.01, 0.1, 1.0, 10.0]
-    classifier = [(discriminative_models.LogisticRegressionWeighted, "Logistic Regression Weighted")]
+    classifier = [(discriminative_models.LogisticRegressionWeighted, "Logistic Regression Weighted"),(discriminative_models.LogisticRegressionWeightedQuadratic, "Logistic Regression Weighted Quadratic")]
     model_parameter_testing(DTR_RAND,LTR_RAND,lambda_values,'lambda',classifier)
     #print("Leave One Out (K = 2325)")
     #K_Fold(DTR_RAND,LTR_RAND,K=2325)

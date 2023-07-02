@@ -6,7 +6,6 @@
 -i 3 punti precedenti dovrebbero essere gli stessi che ti ha detto domenico nei vocali wa in quello stesso giorno (e dovrebbe averli già fatti lui - - > controlla che siano corretti anche se si è già confrontato con Laura) 
 - Iperparametro C provare con k fold cambiando ordine di grandezza di 10 in 10 (PURE PER LAMBDA PROVIAMO VARI VALORI COL KFOLD)
 - il prof ha detto che non occorre fare data preprocessing (né con LR né svm) -> DETTO DAL PROF: PER ALCUNI MODELLI NON SERVE XK SONO INVARIANTI, MENTRE PER ALTRI MODELLI SERVE. CI HA DETTO CHE HA SENSO FARLO SE ABBIAMO MIGLIORAMENTI. (PER POTERLO FARE SU LR, DEV'ESSERE NELLA FORMA REGOLARIZZATA --> SE NON è REGOLARIZZATA DOVREMMO OTTENERE SEMPRE GLI STESSI RISULTATI). PER L'MVG NON HA SENSO INVECE.
-- nella lezione 01/06 il prof ha fatto vedere come calcolare il gradiente a mano per velocizzare i conti -> vedi le due foto inviate a Domenico su wa in quello stesso giorno --> SONO SBAGLIATE, VEDI DIRETTAMENTE QUELLE DI LAURA!
 - DAL GRUPPO TELEGRAM: Hi, does anyone know how to overcome the probable overflow, noticed by the fast increase of costs, that presents in 2nd grade kernel SVM implemented in dual version when C are small (around 10^-5)? (NON SO SE ANCHE NOI INCONTREREMO QUESTO PROBLEMA)
 
 - LEZIONE 08-06-23 --> DA 1:26:38 SPIEGA L'ESEMPIO DI PROGETTO DEL 2023 (NON PROJECT AVILA) E DICE COSE UTILI. CONTINUA NELLA LEZIONE DEL 09-06-23 DA INIZIO FINO A 40:50
@@ -25,9 +24,7 @@ La gaussianizzazione ha detto che non si fa.
 
 # NOTE / COSE DA FARE
 - implementare SVM (LAB9) nel progetto --> AGGIUNGERE COSE VISTE A SLIDE 59 BLOCCO 9 (VISTO CHE IL NOSTRO DATASET è SBILANCIATO) CHE NEL LAB NON SONO TRATTATE?
-- fare gradiente lr quadratico per velocizzare
 - implementare GMM (LAB10) nel progetto
-- ![image](./gradiente.jpg)
 - TESTARE PCA SOTTO AL 7 PER LOGISTIC REGRESSION (A PARTIRE DA 6 CON TUTTI E 7 I VALORI DI LAMBDA CHE ABBIAMO VISTO
 - PRESE DA ALCUNE SEZIONI SOTTOSTANTI DI QUESTO FILE:
 1) lda per vedere se dall'unica dimensione si riescono a estrarre informazioni interessanti (ci sono info interessanti)

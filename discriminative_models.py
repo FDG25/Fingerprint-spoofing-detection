@@ -4,6 +4,8 @@ import main
 import constants
 import normalization
 
+'''
+# non weighted without gradient version of the model not used
 def logreg_obj_wrap(DTR, LTR, lambd):
     def logreg_obj(v):
         w, b = v[0:-1], v[-1]
@@ -18,7 +20,10 @@ def logreg_obj_wrap(DTR, LTR, lambd):
             third_term += numpy.logaddexp(0,-z_i*((numpy.dot(w.T,x_i))+b))
         return first_term + second_term * third_term
     return logreg_obj
+'''
 
+'''
+# to use with approx_grad = true, but way too slower with quadratic model so the gradient version is used
 def logreg_obj_wrap_weighted(DTR, LTR, lambd):
     def logreg_obj_weighted(v):
         w, b = v[0:-1], v[-1]
@@ -43,6 +48,7 @@ def logreg_obj_wrap_weighted(DTR, LTR, lambd):
                 loss_1 += numpy.logaddexp(0,-z_i*((numpy.dot(w.T,x_i))+b))
         return first_term + weight_1 * loss_1 + weight_0 * loss_0
     return logreg_obj_weighted
+'''
 
 def computeNumCorrectPredictionsDiscriminative(LP,LTE):
     bool_val = numpy.array(LP==LTE)
@@ -94,8 +100,12 @@ def LogisticRegressionWeighted(DTR,LTR,DTE,LTE,lambd):
     #L2_DTR = normalization.l2NormalizingData(W_DTR)
     #L2_DTE = normalization.l2NormalizingData(W_DTE)
 
-    logreg_obj_weighted = logreg_obj_wrap_weighted(DTR, LTR, lambd) 
-    (x, f, d) = scipy.optimize.fmin_l_bfgs_b(logreg_obj_weighted, numpy.zeros(DTR.shape[0] + 1), approx_grad=True)
+    # ----- WITHOUT GRADIENT CALL   -------
+    #logreg_obj_weighted = logreg_obj_wrap_weighted(DTR, LTR, lambd) 
+    #(x, f, d) = scipy.optimize.fmin_l_bfgs_b(logreg_obj_weighted, numpy.zeros(DTR.shape[0] + 1), approx_grad=True)
+    # ----- WITH GRADIENT, SO WITHOUT APPROX_GRAD=TRUE  ------
+    logreg_obj_quadratic_weighted_gradient = logreg_obj_wrap_weighted_gradient(DTR, LTR, lambd) 
+    (x, f, d) = scipy.optimize.fmin_l_bfgs_b(logreg_obj_quadratic_weighted_gradient, numpy.zeros(DTR.shape[0] + 1))
     #print("Lambda=" + str(lambd)) 
     #print(f"The objective value at the minimum (J(w*,b*)) is: {round(f, 7)}") 
     return computeScores(DTE, LTE, x)       
@@ -113,8 +123,50 @@ def LogisticRegressionWeightedQuadratic(DTR,LTR,DTE,LTE,lambd):
 
     phi_DTE = numpy.array(numpy.vstack([trasformed_DTE,DTE]))
 
-    logreg_obj_quadratic_weighted = logreg_obj_wrap_weighted(phi_DTR, LTR, lambd) 
-    (x, f, d) = scipy.optimize.fmin_l_bfgs_b(logreg_obj_quadratic_weighted, numpy.zeros(phi_DTR.shape[0] + 1), approx_grad=True)
+    # ----- WITH GRADIENT, SO WITHOUT APPROX_GRAD=TRUE  ------
+    logreg_obj_quadratic_weighted_gradient = logreg_obj_wrap_weighted_gradient(phi_DTR, LTR, lambd) 
+    (x, f, d) = scipy.optimize.fmin_l_bfgs_b(logreg_obj_quadratic_weighted_gradient, numpy.zeros(phi_DTR.shape[0] + 1))
+    # ----- WITHOUT GRADIENT CALL   -------
+    #(x, f, d) = scipy.optimize.fmin_l_bfgs_b(logreg_obj_quadratic_weighted, numpy.zeros(phi_DTR.shape[0] + 1), approx_grad=True)
     #print("Lambda=" + str(lambd)) 
     #print(f"The objective value at the minimum (J(w*,b*)) is: {round(f, 7)}") 
     return computeScores(phi_DTE, LTE, x) 
+
+def logreg_obj_wrap_weighted_gradient(DTR, LTR, lambd):
+    def logreg_obj_weighted_gradient(v):
+        w, b = v[0:-1], v[-1]
+        n = DTR.shape[1]
+        first_term = (lambd / 2) * (numpy.linalg.norm(w) ** 2)
+        DP0, DP1 = main.getClassMatrix(DTR, LTR)
+        app_prior = constants.PRIOR_PROBABILITY
+        weight_0 = (1 - app_prior) / DP0.shape[1]
+        weight_1 = app_prior / DP1.shape[1]
+        loss_0 = 0
+        loss_1 = 0
+        G1 = lambd * w
+        G2 = 0
+
+        for i in range(n):
+            c_i = LTR[i]
+            z_i = 2 * c_i - 1
+            x_i = DTR[:, i]
+            term = numpy.exp(-z_i * ((numpy.dot(w.T, x_i)) + b))
+            loss_derivative = term / (1 + term)
+
+            if z_i == -1:
+                # class 0
+                loss_0 += numpy.logaddexp(0, -z_i * ((numpy.dot(w.T, x_i)) + b))
+                G1 += weight_0 * (-z_i * x_i) * loss_derivative
+                G2 += weight_0 * (-z_i) * loss_derivative
+            else:
+                # class 1
+                loss_1 += numpy.logaddexp(0, -z_i * ((numpy.dot(w.T, x_i)) + b))
+                G1 += weight_1 * (-z_i * x_i) * loss_derivative
+                G2 += weight_1 * (-z_i) * loss_derivative
+
+        function = first_term + weight_1 * loss_1 + weight_0 * loss_0
+        gradient = numpy.concatenate((G1, [G2]))
+
+        return function, gradient
+
+    return logreg_obj_weighted_gradient
