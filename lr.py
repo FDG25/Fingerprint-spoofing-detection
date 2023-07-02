@@ -4,6 +4,11 @@ import main
 import constants
 import normalization
 
+#   --------------      LOGISTIC REGRESSION MODEL   --------------
+
+
+
+
 '''
 # non weighted without gradient version of the model not used
 def logreg_obj_wrap(DTR, LTR, lambd):
@@ -52,9 +57,9 @@ def logreg_obj_wrap_weighted(DTR, LTR, lambd):
 
 def computeNumCorrectPredictionsDiscriminative(LP,LTE):
     bool_val = numpy.array(LP==LTE)
-    n_samples = LTE.size
-    acc = numpy.sum(bool_val)/n_samples
-    err = 1 - acc
+    #n_samples = LTE.size
+    #acc = numpy.sum(bool_val)/n_samples
+    #err = 1 - acc
     return numpy.sum(bool_val)
 
 def computeScores(DTE,LTE,v):

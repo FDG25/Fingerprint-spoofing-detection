@@ -24,6 +24,8 @@ La gaussianizzazione ha detto che non si fa.
 
 # NOTE / COSE DA FARE
 - implementare SVM (LAB9) nel progetto --> AGGIUNGERE COSE VISTE A SLIDE 59 BLOCCO 9 (VISTO CHE IL NOSTRO DATASET è SBILANCIATO) CHE NEL LAB NON SONO TRATTATE?
+    - hyperparameter c per kernel 2a e gamma per kernel 2b (da testare e far variare con k fold)
+    - for K for C (for cpiccolo per 2a e for gammapiccolo per 2b) 
 - implementare GMM (LAB10) nel progetto
 - TESTARE PCA SOTTO AL 7 PER LOGISTIC REGRESSION (A PARTIRE DA 6 CON TUTTI E 7 I VALORI DI LAMBDA CHE ABBIAMO VISTO
 - PRESE DA ALCUNE SEZIONI SOTTOSTANTI DI QUESTO FILE:

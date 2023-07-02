@@ -19,9 +19,9 @@ def computeNumCorrectPredictionsGenerative(S,LTE):
             prediction.append(1)
     prediction = numpy.array(prediction)
     bool_val = numpy.array(prediction==LTE)
-    n_samples = prediction.size
-    acc = numpy.sum(bool_val)/n_samples
-    err = 1 - acc
+    #n_samples = prediction.size
+    #acc = numpy.sum(bool_val)/n_samples
+    #err = 1 - acc
     return numpy.array(llrs),numpy.sum(bool_val)
 
 def computeNaiveSw(DTR,LTR):
