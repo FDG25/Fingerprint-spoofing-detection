@@ -1,13 +1,14 @@
 # DOMANDE
+- <h2>DOMANDE NUOVE:</h2>
+    - chiedere se in svm K,d (polynomial kernel) sono hyperparameters
+    - capire quali valori utilizzare (d sempre 2 ?, c_piccolo 0,1 ?)
 - LOGISTIC REGRESSION FORMULA WEIGHTED --> PER PI GRECA DI T ABBIAMO CONSIDERATO LA PRIOR CHE CI VIENE DATA DALLA CONSEGNA, MA PER QUANTO RIGUARDA nt ed nf, DOBBIAMO CALCOLARLI A PARTIRE DAL TRAINING SET O DAL TEST SET --> RISPOSTA CHE CI SIAMO DATI: è GIUSTO USARE IL TRAINING XK ADDESTRIAMO IL MODELLO IN QUELLA PARTE
 - 25-05-23 --> 15:41-15:42 dice cose utili per il progetto - > per svm saranno necessarie
 - 25-05-23 --> 15:48-16:01 circa dice cose utili per il progetto
 - 25-05-23 --> MODEL FUSION --> è UN PLUS SE LO IMPLEMENTIAMO --> ASCOLTA DA 16:03 A 16:09
 -i 3 punti precedenti dovrebbero essere gli stessi che ti ha detto domenico nei vocali wa in quello stesso giorno (e dovrebbe averli già fatti lui - - > controlla che siano corretti anche se si è già confrontato con Laura) 
-- Iperparametro C provare con k fold cambiando ordine di grandezza di 10 in 10 (PURE PER LAMBDA PROVIAMO VARI VALORI COL KFOLD)
 - il prof ha detto che non occorre fare data preprocessing (né con LR né svm) -> DETTO DAL PROF: PER ALCUNI MODELLI NON SERVE XK SONO INVARIANTI, MENTRE PER ALTRI MODELLI SERVE. CI HA DETTO CHE HA SENSO FARLO SE ABBIAMO MIGLIORAMENTI. (PER POTERLO FARE SU LR, DEV'ESSERE NELLA FORMA REGOLARIZZATA --> SE NON è REGOLARIZZATA DOVREMMO OTTENERE SEMPRE GLI STESSI RISULTATI). PER L'MVG NON HA SENSO INVECE.
 - DAL GRUPPO TELEGRAM: Hi, does anyone know how to overcome the probable overflow, noticed by the fast increase of costs, that presents in 2nd grade kernel SVM implemented in dual version when C are small (around 10^-5)? (NON SO SE ANCHE NOI INCONTREREMO QUESTO PROBLEMA)
-
 - LEZIONE 08-06-23 --> DA 1:26:38 SPIEGA L'ESEMPIO DI PROGETTO DEL 2023 (NON PROJECT AVILA) E DICE COSE UTILI. CONTINUA NELLA LEZIONE DEL 09-06-23 DA INIZIO FINO A 40:50
 - 08/06 --> LAURA HA CHIESTO AL PROF SE NEL PROGETTO PER PIGRECA DI T QUANDO FACCIAMO PER ESEMPIO L'LR PESATO, DOBBIAMO USARE L'APPLICATION PRIOR (QUELLA CHE CI Dà LA CONSEGNA PARI A 0.5) O L'EMPIRICAL PRIOR (QUELLA CHE DERIVIAMO NOI DAL TRAINING SET IN BASE AL NUMERO DI CAMPIONI DELLA CLASSE TRUE E DELLA CLASSE FALSE) --> IL PROF NON HA FATTO CAPIRE QUALE è BENE USARE!
 - 09/06 --> mentre mostravo l'esempio di progetto --> Se faccio capire che ho trovato il valore buono di lambda e provo con pca non c'è bisogno di plottare anche i vari pca 
@@ -23,9 +24,7 @@ La gaussianizzazione ha detto che non si fa.
 
 
 # NOTE / COSE DA FARE
-- implementare SVM (LAB9) nel progetto --> AGGIUNGERE COSE VISTE A SLIDE 59 BLOCCO 9 (VISTO CHE IL NOSTRO DATASET è SBILANCIATO) CHE NEL LAB NON SONO TRATTATE?
-    - hyperparameter c per kernel 2a e gamma per kernel 2b (da testare e far variare con k fold)
-    - for K for C (for cpiccolo per 2a e for gammapiccolo per 2b) 
+- aggiustare i plot delle svm (plot.minDCF aggiustare parametri passati per la shape)
 - implementare GMM (LAB10) nel progetto
 - TESTARE PCA SOTTO AL 7 PER LOGISTIC REGRESSION (A PARTIRE DA 6 CON TUTTI E 7 I VALORI DI LAMBDA CHE ABBIAMO VISTO
 - PRESE DA ALCUNE SEZIONI SOTTOSTANTI DI QUESTO FILE:
