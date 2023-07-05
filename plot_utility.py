@@ -33,6 +33,9 @@ class PlotUtility:
   
   def getminDcf(self):
     return self.minDcf
+  
+  def getC(self):
+    return self.C
 
 # -- USAGE EXAMPLE ---
 

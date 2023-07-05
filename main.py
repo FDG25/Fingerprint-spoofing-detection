@@ -304,19 +304,23 @@ def svm_linear_K_C_parameters_testing(DTR,LTR,k_values,C_values):
                 minDcf = K_Fold_SVM_linear(DTR,LTR,K=5,hyperParameter_K=k_value,hyperParameter_C=C)
                 plotUtility_list.append(PlotUtility(prior=prior,k=k_value,C=C,minDcf=minDcf))
     
-    k_1 = filter(lambda PlotElement: PlotElement.is_k(1), plotUtility_list)
+    # ----  SINGLE PLOT FOR K = 1,10,100  -----
+    k_1 = list(filter(lambda PlotElement: PlotElement.is_k(1), plotUtility_list))
     minDcfs_k_1 = [PlotElement.getminDcf() for PlotElement in k_1]
+    C_values_1 = [PlotElement.getC() for PlotElement in k_1]
 
-    k_10 = filter(lambda PlotElement: PlotElement.is_k(10), plotUtility_list)
-    minDcfs_k_10 = [PlotElement.getminDcf() for PlotElement in k_1]
+    k_10 = list(filter(lambda PlotElement: PlotElement.is_k(10), plotUtility_list))
+    minDcfs_k_10 = [PlotElement.getminDcf() for PlotElement in k_10]
+    C_values_10 = [PlotElement.getC() for PlotElement in k_10]
 
-    labels = ['K = 1','K = 10']
-    colors = ['b','g']
-    
-    plot.plotDCF([C_values,C_values],[minDcfs_k_1,minDcfs_k_10],labels,colors,'C')
-    # PLOT for each K value (TODO: FIX)
-    #print("plot for k value : " + str(k_value))
-    #plot.plotDCF(C_values,minDcfs,'C')
+    k_100 = list(filter(lambda PlotElement: PlotElement.is_k(100), plotUtility_list))
+    minDcfs_k_100 = [PlotElement.getminDcf() for PlotElement in k_100]
+    C_values_100 = [PlotElement.getC() for PlotElement in k_100]
+
+    labels = ['K = 1','K = 10','K = 100']
+    colors = ['b','g','y']
+    #base colors: r, g, b, m, y, c, k, w
+    plot.plotDCF([C_values_1,C_values_10,C_values_100],[minDcfs_k_1,minDcfs_k_10,minDcfs_k_100],labels,colors,'C')
 
 def svm_kernel_polynomial_K_C_c_d_parameter_testing(DTR,LTR,k_values,C_values,c_values,d_values):
     priors = [constants.PRIOR_PROBABILITY]
@@ -333,9 +337,74 @@ def svm_kernel_polynomial_K_C_c_d_parameter_testing(DTR,LTR,k_values,C_values,c_
                         print("d value : " + str(d))
                         minDcf = K_Fold_SVM_kernel_polynomial(DTR,LTR,K=5,hyperParameter_K=k_value,hyperParameter_C=C,hyperParameter_c=c,hyperParameter_d=d)
                         plotUtility_list.append(PlotUtility(prior=prior,k=k_value,C=C,c=c,d=d,minDcf=minDcf))
-    # PLOT for each k,C,c,d value (TODO: FIX)
-    #print("plot for k,C,c,d value : " + str(k_value) + ' , ' + str(C) + ' , ' + str(c) + ' , ' + str(d))
-    #plot.plotDCF(C_values,minDcfs,'C')
+    
+    # ----- PLOT FOR K = 1 ------
+    k_1_c_0_d_2 = list(filter(lambda PlotElement: PlotElement.is_k(1) and PlotElement.is_c(0) and PlotElement.is_d(2), plotUtility_list))
+    minDcfs_k_1_c_0_d_2 = [PlotElement.getminDcf() for PlotElement in k_1_c_0_d_2]
+    C_values_k_1_c_0_d_2 = [PlotElement.getC() for PlotElement in k_1_c_0_d_2]
+
+    k_1_c_0_d_4 = list(filter(lambda PlotElement: PlotElement.is_k(1) and PlotElement.is_c(0) and PlotElement.is_d(4), plotUtility_list))
+    minDcfs_k_1_c_0_d_4 = [PlotElement.getminDcf() for PlotElement in k_1_c_0_d_4]
+    C_values_k_1_c_0_d_4 = [PlotElement.getC() for PlotElement in k_1_c_0_d_4]
+
+    k_1_c_1_d_2 = list(filter(lambda PlotElement: PlotElement.is_k(1) and PlotElement.is_c(1) and PlotElement.is_d(2), plotUtility_list))
+    minDcfs_k_1_c_1_d_2 = [PlotElement.getminDcf() for PlotElement in k_1_c_1_d_2]
+    C_values_k_1_c_1_d_2 = [PlotElement.getC() for PlotElement in k_1_c_1_d_2]
+
+    k_1_c_1_d_4 = list(filter(lambda PlotElement: PlotElement.is_k(1) and PlotElement.is_c(1) and PlotElement.is_d(4), plotUtility_list))
+    minDcfs_k_1_c_1_d_4 = [PlotElement.getminDcf() for PlotElement in k_1_c_1_d_4]
+    C_values_k_1_c_1_d_4 = [PlotElement.getC() for PlotElement in k_1_c_1_d_4]
+
+    labels = ['K = 1,c = 0,D = 2','K = 1,c = 0,D = 4','K = 1,c = 1,D = 2','K = 1,c = 1,D = 4']
+    colors = ['b','g','y','c']
+    #base colors: r, g, b, m, y, c, k, w
+    plot.plotDCF([C_values_k_1_c_0_d_2,C_values_k_1_c_0_d_4,C_values_k_1_c_1_d_2,C_values_k_1_c_1_d_4],[minDcfs_k_1_c_0_d_2,minDcfs_k_1_c_0_d_4,minDcfs_k_1_c_1_d_2,minDcfs_k_1_c_1_d_4],labels,colors,'C')
+
+
+    # ----- PLOT FOR K = 10 ------
+    k_10_c_0_d_2 = list(filter(lambda PlotElement: PlotElement.is_k(10) and PlotElement.is_c(0) and PlotElement.is_d(2), plotUtility_list))
+    minDcfs_k_10_c_0_d_2 = [PlotElement.getminDcf() for PlotElement in k_10_c_0_d_2]
+    C_values_k_10_c_0_d_2 = [PlotElement.getC() for PlotElement in k_10_c_0_d_2]
+
+    k_10_c_0_d_4 = list(filter(lambda PlotElement: PlotElement.is_k(10) and PlotElement.is_c(0) and PlotElement.is_d(4), plotUtility_list))
+    minDcfs_k_10_c_0_d_4 = [PlotElement.getminDcf() for PlotElement in k_10_c_0_d_4]
+    C_values_k_10_c_0_d_4 = [PlotElement.getC() for PlotElement in k_10_c_0_d_4]
+
+    k_10_c_1_d_2 = list(filter(lambda PlotElement: PlotElement.is_k(10) and PlotElement.is_c(1) and PlotElement.is_d(2), plotUtility_list))
+    minDcfs_k_10_c_1_d_2 = [PlotElement.getminDcf() for PlotElement in k_10_c_1_d_2]
+    C_values_k_10_c_1_d_2 = [PlotElement.getC() for PlotElement in k_10_c_1_d_2]
+
+    k_10_c_1_d_4 = list(filter(lambda PlotElement: PlotElement.is_k(10) and PlotElement.is_c(1) and PlotElement.is_d(4), plotUtility_list))
+    minDcfs_k_10_c_1_d_4 = [PlotElement.getminDcf() for PlotElement in k_10_c_1_d_4]
+    C_values_k_10_c_1_d_4 = [PlotElement.getC() for PlotElement in k_10_c_1_d_4]
+
+    labels = ['K = 10,c = 0,D = 2','K = 10,c = 0,D = 4','K = 10,c = 1,D = 2','K = 10,c = 1,D = 4']
+    colors = ['b','g','y','c']
+    #base colors: r, g, b, m, y, c, k, w
+    plot.plotDCF([C_values_k_10_c_0_d_2,C_values_k_10_c_0_d_4,C_values_k_10_c_1_d_2,C_values_k_10_c_1_d_4],[minDcfs_k_10_c_0_d_2,minDcfs_k_10_c_0_d_4,minDcfs_k_10_c_1_d_2,minDcfs_k_10_c_1_d_4],labels,colors,'C')
+
+    
+    # ----- PLOT FOR K = 100 ------
+    k_100_c_0_d_2 = list(filter(lambda PlotElement: PlotElement.is_k(100) and PlotElement.is_c(0) and PlotElement.is_d(2), plotUtility_list))
+    minDcfs_k_100_c_0_d_2 = [PlotElement.getminDcf() for PlotElement in k_100_c_0_d_2]
+    C_values_k_100_c_0_d_2 = [PlotElement.getC() for PlotElement in k_100_c_0_d_2]
+
+    k_100_c_0_d_4 = list(filter(lambda PlotElement: PlotElement.is_k(100) and PlotElement.is_c(0) and PlotElement.is_d(4), plotUtility_list))
+    minDcfs_k_100_c_0_d_4 = [PlotElement.getminDcf() for PlotElement in k_100_c_0_d_4]
+    C_values_k_100_c_0_d_4 = [PlotElement.getC() for PlotElement in k_100_c_0_d_4]
+
+    k_100_c_1_d_2 = list(filter(lambda PlotElement: PlotElement.is_k(100) and PlotElement.is_c(1) and PlotElement.is_d(2), plotUtility_list))
+    minDcfs_k_100_c_1_d_2 = [PlotElement.getminDcf() for PlotElement in k_100_c_1_d_2]
+    C_values_k_100_c_1_d_2 = [PlotElement.getC() for PlotElement in k_100_c_1_d_2]
+
+    k_100_c_1_d_4 = list(filter(lambda PlotElement: PlotElement.is_k(100) and PlotElement.is_c(1) and PlotElement.is_d(4), plotUtility_list))
+    minDcfs_k_100_c_1_d_4 = [PlotElement.getminDcf() for PlotElement in k_100_c_1_d_4]
+    C_values_k_100_c_1_d_4 = [PlotElement.getC() for PlotElement in k_100_c_1_d_4]
+
+    labels = ['K = 100,c = 0,D = 2','K = 100,c = 0,D = 4','K = 100,c = 1,D = 2','K = 100,c = 1,D = 4']
+    colors = ['b','g','y','c']
+    #base colors: r, g, b, m, y, c, k, w
+    plot.plotDCF([C_values_k_100_c_0_d_2,C_values_k_100_c_0_d_4,C_values_k_100_c_1_d_2,C_values_k_100_c_1_d_4],[minDcfs_k_100_c_0_d_2,minDcfs_k_100_c_0_d_4,minDcfs_k_100_c_1_d_2,minDcfs_k_100_c_1_d_4],labels,colors,'C')
 
 def svm_kernel_rbf_K_C_gamma_parameter_testing(DTR,LTR,k_values,C_values,gamma_values):
     priors = [constants.PRIOR_PROBABILITY]
@@ -350,9 +419,59 @@ def svm_kernel_rbf_K_C_gamma_parameter_testing(DTR,LTR,k_values,C_values,gamma_v
                     print("gamma value : " + str(gamma))
                     minDcf = K_Fold_SVM_kernel_rbf(DTR,LTR,K=5,hyperParameter_K=k_value,hyperParameter_C=C,hyperParameter_gamma=gamma)
                     plotUtility_list.append(PlotUtility(prior=prior,k=k_value,C=C,gamma=gamma,minDcf=minDcf))
-    # PLOT for each k,C,gamma value (TODO: FIX)
-    #print("plot for k,C,gamma value : " + str(k_value) + ' , ' + str(C) + ' , ' + str(gamma))
-    #plot.plotDCF(C_values,minDcfs,'C')
+    
+    # ---- PLOT FOR K = 0 -----
+    k_0_gamma_1e1 = list(filter(lambda PlotElement: PlotElement.is_k(0) and PlotElement.is_gamma(1/numpy.exp(1)), plotUtility_list))
+    minDcfs_k_0_gamma_1e1 = [PlotElement.getminDcf() for PlotElement in k_0_gamma_1e1]
+    C_values_k_0_gamma_1e1 = [PlotElement.getC() for PlotElement in k_0_gamma_1e1]
+
+    k_0_gamma_1e2 = list(filter(lambda PlotElement: PlotElement.is_k(0) and PlotElement.is_gamma(1/numpy.exp(2)), plotUtility_list))
+    minDcfs_k_0_gamma_1e2 = [PlotElement.getminDcf() for PlotElement in k_0_gamma_1e2]
+    C_values_k_0_gamma_1e2 = [PlotElement.getC() for PlotElement in k_0_gamma_1e2]
+
+    k_0_gamma_1e3 = list(filter(lambda PlotElement: PlotElement.is_k(0) and PlotElement.is_gamma(1/numpy.exp(3)), plotUtility_list))
+    minDcfs_k_0_gamma_1e3 = [PlotElement.getminDcf() for PlotElement in k_0_gamma_1e3]
+    C_values_k_0_gamma_1e3 = [PlotElement.getC() for PlotElement in k_0_gamma_1e3]
+
+    k_0_gamma_1e4 = list(filter(lambda PlotElement: PlotElement.is_k(0) and PlotElement.is_gamma(1/numpy.exp(4)), plotUtility_list))
+    minDcfs_k_0_gamma_1e4 = [PlotElement.getminDcf() for PlotElement in k_0_gamma_1e4]
+    C_values_k_0_gamma_1e4 = [PlotElement.getC() for PlotElement in k_0_gamma_1e4]
+
+    k_0_gamma_1e5 = list(filter(lambda PlotElement: PlotElement.is_k(0) and PlotElement.is_gamma(1/numpy.exp(5)), plotUtility_list))
+    minDcfs_k_0_gamma_1e5 = [PlotElement.getminDcf() for PlotElement in k_0_gamma_1e5]
+    C_values_k_0_gamma_1e5 = [PlotElement.getC() for PlotElement in k_0_gamma_1e5]
+
+    labels = ['K = 0,gamma = 1/e','K = 0,gamma = 1/e^2','K = 0,gamma = 1/e^3','K = 0,gamma = 1/e^4','K = 0,gamma = 1/e^5']
+    colors = ['b','g','y','c','r']
+    #base colors: r, g, b, m, y, c, k, w
+    plot.plotDCF([C_values_k_0_gamma_1e1,C_values_k_0_gamma_1e2,C_values_k_0_gamma_1e3,C_values_k_0_gamma_1e4,C_values_k_0_gamma_1e5],[minDcfs_k_0_gamma_1e1,minDcfs_k_0_gamma_1e2,minDcfs_k_0_gamma_1e3,minDcfs_k_0_gamma_1e4,minDcfs_k_0_gamma_1e5],labels,colors,'C')
+
+
+    # ---- PLOT FOR K = 1 -----
+    k_1_gamma_1e1 = list(filter(lambda PlotElement: PlotElement.is_k(1) and PlotElement.is_gamma(1/numpy.exp(1)), plotUtility_list))
+    minDcfs_k_1_gamma_1e1 = [PlotElement.getminDcf() for PlotElement in k_1_gamma_1e1]
+    C_values_k_1_gamma_1e1 = [PlotElement.getC() for PlotElement in k_1_gamma_1e1]
+
+    k_1_gamma_1e2 = list(filter(lambda PlotElement: PlotElement.is_k(1) and PlotElement.is_gamma(1/numpy.exp(2)), plotUtility_list))
+    minDcfs_k_1_gamma_1e2 = [PlotElement.getminDcf() for PlotElement in k_1_gamma_1e2]
+    C_values_k_1_gamma_1e2 = [PlotElement.getC() for PlotElement in k_1_gamma_1e2]
+
+    k_1_gamma_1e3 = list(filter(lambda PlotElement: PlotElement.is_k(1) and PlotElement.is_gamma(1/numpy.exp(3)), plotUtility_list))
+    minDcfs_k_1_gamma_1e3 = [PlotElement.getminDcf() for PlotElement in k_1_gamma_1e3]
+    C_values_k_1_gamma_1e3 = [PlotElement.getC() for PlotElement in k_1_gamma_1e3]
+
+    k_1_gamma_1e4 = list(filter(lambda PlotElement: PlotElement.is_k(1) and PlotElement.is_gamma(1/numpy.exp(4)), plotUtility_list))
+    minDcfs_k_1_gamma_1e4 = [PlotElement.getminDcf() for PlotElement in k_1_gamma_1e4]
+    C_values_k_1_gamma_1e4 = [PlotElement.getC() for PlotElement in k_1_gamma_1e4]
+
+    k_1_gamma_1e5 = list(filter(lambda PlotElement: PlotElement.is_k(1) and PlotElement.is_gamma(1/numpy.exp(5)), plotUtility_list))
+    minDcfs_k_1_gamma_1e5 = [PlotElement.getminDcf() for PlotElement in k_1_gamma_1e5]
+    C_values_k_1_gamma_1e5 = [PlotElement.getC() for PlotElement in k_1_gamma_1e5]
+
+    labels = ['K = 1,gamma = 1/e','K = 1,gamma = 1/e^2','K = 1,gamma = 1/e^3','K = 1,gamma = 1/e^4','K = 1,gamma = 1/e^5']
+    colors = ['b','g','y','c','r']
+    #base colors: r, g, b, m, y, c, k, w
+    plot.plotDCF([C_values_k_1_gamma_1e1,C_values_k_1_gamma_1e2,C_values_k_1_gamma_1e3,C_values_k_1_gamma_1e4,C_values_k_1_gamma_1e5],[minDcfs_k_1_gamma_1e1,minDcfs_k_1_gamma_1e2,minDcfs_k_1_gamma_1e3,minDcfs_k_1_gamma_1e4,minDcfs_k_1_gamma_1e5],labels,colors,'C')
 
 if __name__ == '__main__':
     # DTR = matrix of 10 rows(NUM_FEATURES) times 2325 samples
@@ -391,11 +510,11 @@ if __name__ == '__main__':
 
     # ---------------   LR MODELS   -----------------------
     # CALL K-FOLD AND TEST THE HYPERPARAMETER
-    #print("K_Fold with K = 5")
+    print("K_Fold with K = 5\n\n")
     #print("PCA with m = " + str(constants.M))
-    #lambda_values = [0.00001, 0.0001, 0.001, 0.01, 0.1, 1.0, 10.0]
-    #classifier = [(lr.LogisticRegressionWeighted, "Logistic Regression Weighted"),(lr.LogisticRegressionWeightedQuadratic, "Logistic Regression Weighted Quadratic")]
-    #lr_lambda_parameter_testing(DTR_RAND,LTR_RAND,lambda_values,classifier)
+    lambda_values = [0.00001, 0.0001, 0.001, 0.01, 0.1, 1.0, 10.0]
+    classifier = [(lr.LogisticRegressionWeighted, "Logistic Regression Weighted"),(lr.LogisticRegressionWeightedQuadratic, "Logistic Regression Weighted Quadratic")]
+    lr_lambda_parameter_testing(DTR_RAND,LTR_RAND,lambda_values,classifier)
     #print("No Weight")
     #lr.LogisticRegressionWeighted(DTR,LTR,DTE,LTE)
     #print("Weight")
@@ -404,22 +523,23 @@ if __name__ == '__main__':
 
     # ---------------   SVM MODELS   -----------------------
     print("SVM LINEAR HYPERPARAMETERS K AND C TESTING:")
-    K_values = [1, 10]
-    C_values = [0.1, 1.0, 10.0, 100.0]
+    K_values = [1, 10, 100]
+    C_values = [0.000001, 0.00001, 0.0001, 0.001, 0.01, 0.1, 1.0, 10.0, 100.0]
     svm_linear_K_C_parameters_testing(DTR_RAND,LTR_RAND,K_values,C_values)
     
-    # print("SVM POLYNOMIAL K,C,c,d TESTING:")
-    # K_values = [1, 10]
-    # C_values = [0.1, 1.0, 10.0, 100.0] # for C <= 10^-6 there is a significative worsening in performance 
-    # c_values = [ 0,1 ]
-    # d_values = [2.0]
-    # svm_kernel_polynomial_K_C_c_d_parameter_testing(DTR_RAND,LTR_RAND,K_values,C_values,c_values,d_values)
+    print("SVM POLYNOMIAL K,C,c,d TESTING:")
+    K_values = [1, 10, 100]
+    C_values = [0.000001, 0.00001, 0.0001, 0.001, 0.01, 0.1, 1.0, 10.0, 100.0] # for C <= 10^-6 there is a significative worsening in performance 
+    c_values = [0, 1]
+    d_values = [2.0, 4.0]
+    svm_kernel_polynomial_K_C_c_d_parameter_testing(DTR_RAND,LTR_RAND,K_values,C_values,c_values,d_values)
 
-    # print("SVM RADIAL BASIS FUNCTION (RBF) K,C,gamma TESTING:")
-    # K_values = [0.0, 1.0]
-    # C_values = [1.0]
-    # gamma_values = [1.0, 10.0] #hyper-parameter
-    # svm_kernel_rbf_K_C_gamma_parameter_testing(DTR_RAND,LTR_RAND,K_values,C_values,gamma_values)
+    print("SVM RADIAL BASIS FUNCTION (RBF) K,C,gamma TESTING:")
+    K_values = [0.0, 1.0]
+    C_values = [0.000001, 0.00001, 0.0001, 0.001, 0.01, 0.1, 1.0, 10.0, 100.0]
+    # we want log(gamma), so we pass gamma value for which log(gamma) = -1,-2,-3,-4,-5
+    gamma_values = [1.0/numpy.exp(1), 1.0/numpy.exp(2), 1.0/numpy.exp(3), 1.0/numpy.exp(4), 1.0/numpy.exp(5)] #hyper-parameter
+    svm_kernel_rbf_K_C_gamma_parameter_testing(DTR_RAND,LTR_RAND,K_values,C_values,gamma_values)
     # ------------------ OPTIMAL DECISION --------------------------
     #optimalDecision(DTR_RAND,LTR_RAND,DTE_RAND,LTE_RAND)
     #We now turn our attention at evaluating the predictions made by our classifier R for a target application

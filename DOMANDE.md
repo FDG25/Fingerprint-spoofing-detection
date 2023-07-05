@@ -1,4 +1,5 @@
 # DOMANDE
+- Prima decidiamo il valore di PCA migliore e poi proviamo i vari hyperparameter oppure vari m di PCA con tutti gli hyperparameter
 - <h2>DOMANDE NUOVE:</h2>
     - chiedere se in svm K,d (polynomial kernel) sono hyperparameters
     - capire quali valori utilizzare (d sempre 2 ?, c_piccolo 0,1 ?)
@@ -93,7 +94,43 @@ Sostanzialmente possiamo sempre effettuare questa trasformazione e ricondurci a 
 - DETTO A LAURA DAL PROF: NOI AVEVAMO RANDOMIZZATO IL DATASET DI PARTENZA A CASO, MA è MEGLIO RANDOMIZZARE PRIMA TUTTI I CAMPIONI DELLA CLASSE 0, POI I CAMPIONI DELLA CLASSE 1, DOPODICHé ANDARE A COSTRUIRE A POCO A POCO IL NUOVO DATASET RANDOMIZZANDO PRENDENDO 2 CAMPIONI DAL SET RANDOMIZZATO DELLA CLASSE 0 E 1 CAMPIONE DAL SET RANDOMIZZATO DELLA CLASSE 1 (DOVE PER CLASSE 0 INTENDIAMO QUELLA PER CUI ABBIAMO + CAMPIONI IN PROPORZIONE 2/3)
 - DETTO A LAURA DAL PROF: CONTROLLARE SE EFFECTIVE PRIOR VA BENE X COME L'ABBIAMO INSERITA NEI GENERATIVE E NEI DISCRIMINATIVE MODELS. --> X COME ABBIAMO FATTO CON LE EFFECTIVE PRIORS OTTENIAMO ERROR RATE TANTO + ALTI --> ARRIVIAMO AD AVERE ERROR RATE FINO AL 33% per il tied naive bayes --> RISPOSTA DATA DAL PROF A LAURA: QUESTA COSA VISTA A SLIDE 19 BLOCCO 8 SERVE PER IL DCF, NON PER ALTRE COSE
 
+# PLOT
+## LINEAR 
+2 plot: 1 solo plot per tutto
+    K
+    1
+    10
+    100
 
+## POLYNOMIAL 
+8 combinazioni: raggruppati per k, quindi 3 plot
+    K    C    D
+    1    0    2
+    1    0    4
+    1    1    2
+    1    1    4
+    10    0    2
+    10    0    4
+    10    1    2
+    10    1    4
+    100    0    2
+    100    0    4
+    100    1    2
+    100    1    4
+
+## RADIAL
+4 plot: raggruppati per k, quindi 2 plot
+    K    gamma
+    0    1/e
+    0    1/e^2
+    0    1/e^3
+    0    1/e^4
+    0    1/e^5
+    1    1/e
+    1    1/e^2
+    1    1/e^3
+    1    1/e^4
+    1    1/e^5
 # ROBE LATEX
 
 \begin{table}
