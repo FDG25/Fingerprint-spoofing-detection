@@ -386,7 +386,7 @@ if __name__ == '__main__':
     print("PCA with m = " + str(constants.M))
     lambda_values = [0.00001, 0.0001, 0.001, 0.01, 0.1, 1.0, 10.0]
     classifier = [(lr.LogisticRegressionWeighted, "Logistic Regression Weighted"),(lr.LogisticRegressionWeightedQuadratic, "Logistic Regression Weighted Quadratic")]
-    lr_lambda_parameter_testing(DTR_RAND,LTR_RAND,lambda_values,'lambda',classifier)
+    lr_lambda_parameter_testing(DTR_RAND,LTR_RAND,lambda_values,classifier)
     #print("No Weight")
     #lr.LogisticRegressionWeighted(DTR,LTR,DTE,LTE)
     #print("Weight")
