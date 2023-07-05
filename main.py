@@ -9,6 +9,7 @@ import constants
 import plot
 import lr
 import optimal_decision
+from plot_utility import PlotUtility
 
 #change the shape of an array from horizontal to vertical, so obtain a column vector
 def vcol(array):
@@ -293,24 +294,35 @@ def lr_lambda_parameter_testing(DTR,LTR,lambda_values,classifier):
     
 def svm_linear_K_C_parameters_testing(DTR,LTR,k_values,C_values):  
     priors = [constants.PRIOR_PROBABILITY]
-    minDcfs=[]
-    for i in range(len(priors)):
-        print("prior:",priors[i])        
+    plotUtility_list=[]
+    for prior in priors:
+        print("prior:",prior)        
         for k_value in k_values:
             print("k value : " + str(k_value))
             for C in C_values:
                 print("C value : " + str(C))
                 minDcf = K_Fold_SVM_linear(DTR,LTR,K=5,hyperParameter_K=k_value,hyperParameter_C=C)
-                minDcfs.append(minDcf)
-            # PLOT for each K value (TODO: FIX)
-            #print("plot for k value : " + str(k_value))
-            #plot.plotDCF(C_values,minDcfs,'C')
+                plotUtility_list.append(PlotUtility(prior=prior,k=k_value,C=C,minDcf=minDcf))
+    
+    k_1 = filter(lambda PlotElement: PlotElement.is_k(1), plotUtility_list)
+    minDcfs_k_1 = [PlotElement.getminDcf() for PlotElement in k_1]
+
+    k_10 = filter(lambda PlotElement: PlotElement.is_k(10), plotUtility_list)
+    minDcfs_k_10 = [PlotElement.getminDcf() for PlotElement in k_1]
+
+    labels = ['K = 1','K = 10']
+    colors = ['b','g']
+    
+    plot.plotDCF([C_values,C_values],[minDcfs_k_1,minDcfs_k_10],labels,colors,'C')
+    # PLOT for each K value (TODO: FIX)
+    #print("plot for k value : " + str(k_value))
+    #plot.plotDCF(C_values,minDcfs,'C')
 
 def svm_kernel_polynomial_K_C_c_d_parameter_testing(DTR,LTR,k_values,C_values,c_values,d_values):
     priors = [constants.PRIOR_PROBABILITY]
-    minDcfs=[]
-    for i in range(len(priors)):
-        print("prior:",priors[i])        
+    plotUtility_list=[]
+    for prior in priors:
+        print("prior:",prior)        
         for k_value in k_values:
             print("k value : " + str(k_value))
             for C in C_values:
@@ -320,16 +332,16 @@ def svm_kernel_polynomial_K_C_c_d_parameter_testing(DTR,LTR,k_values,C_values,c_
                     for d in d_values:
                         print("d value : " + str(d))
                         minDcf = K_Fold_SVM_kernel_polynomial(DTR,LTR,K=5,hyperParameter_K=k_value,hyperParameter_C=C,hyperParameter_c=c,hyperParameter_d=d)
-                        minDcfs.append(minDcf)
-                        # PLOT for each k,C,c,d value (TODO: FIX)
-                        #print("plot for k,C,c,d value : " + str(k_value) + ' , ' + str(C) + ' , ' + str(c) + ' , ' + str(d))
-                        #plot.plotDCF(C_values,minDcfs,'C')
+                        plotUtility_list.append(PlotUtility(prior=prior,k=k_value,C=C,c=c,d=d,minDcf=minDcf))
+    # PLOT for each k,C,c,d value (TODO: FIX)
+    #print("plot for k,C,c,d value : " + str(k_value) + ' , ' + str(C) + ' , ' + str(c) + ' , ' + str(d))
+    #plot.plotDCF(C_values,minDcfs,'C')
 
 def svm_kernel_rbf_K_C_gamma_parameter_testing(DTR,LTR,k_values,C_values,gamma_values):
     priors = [constants.PRIOR_PROBABILITY]
-    minDcfs=[]
-    for i in range(len(priors)):
-        print("prior:",priors[i])        
+    plotUtility_list=[]
+    for prior in priors:
+        print("prior:",prior)        
         for k_value in k_values:
             print("k value : " + str(k_value))
             for C in C_values:
@@ -337,10 +349,10 @@ def svm_kernel_rbf_K_C_gamma_parameter_testing(DTR,LTR,k_values,C_values,gamma_v
                 for gamma in gamma_values:
                     print("gamma value : " + str(gamma))
                     minDcf = K_Fold_SVM_kernel_rbf(DTR,LTR,K=5,hyperParameter_K=k_value,hyperParameter_C=C,hyperParameter_gamma=gamma)
-                    minDcfs.append(minDcf)
-                    # PLOT for each k,C,gamma value (TODO: FIX)
-                    #print("plot for k,C,gamma value : " + str(k_value) + ' , ' + str(C) + ' , ' + str(gamma))
-                    #plot.plotDCF(C_values,minDcfs,'C')
+                    plotUtility_list.append(PlotUtility(prior=prior,k=k_value,C=C,gamma=gamma,minDcf=minDcf))
+    # PLOT for each k,C,gamma value (TODO: FIX)
+    #print("plot for k,C,gamma value : " + str(k_value) + ' , ' + str(C) + ' , ' + str(gamma))
+    #plot.plotDCF(C_values,minDcfs,'C')
 
 if __name__ == '__main__':
     # DTR = matrix of 10 rows(NUM_FEATURES) times 2325 samples
@@ -379,11 +391,11 @@ if __name__ == '__main__':
 
     # ---------------   LR MODELS   -----------------------
     # CALL K-FOLD AND TEST THE HYPERPARAMETER
-    print("K_Fold with K = 5")
-    print("PCA with m = " + str(constants.M))
-    lambda_values = [0.00001, 0.0001, 0.001, 0.01, 0.1, 1.0, 10.0]
-    classifier = [(lr.LogisticRegressionWeighted, "Logistic Regression Weighted"),(lr.LogisticRegressionWeightedQuadratic, "Logistic Regression Weighted Quadratic")]
-    lr_lambda_parameter_testing(DTR_RAND,LTR_RAND,lambda_values,classifier)
+    #print("K_Fold with K = 5")
+    #print("PCA with m = " + str(constants.M))
+    #lambda_values = [0.00001, 0.0001, 0.001, 0.01, 0.1, 1.0, 10.0]
+    #classifier = [(lr.LogisticRegressionWeighted, "Logistic Regression Weighted"),(lr.LogisticRegressionWeightedQuadratic, "Logistic Regression Weighted Quadratic")]
+    #lr_lambda_parameter_testing(DTR_RAND,LTR_RAND,lambda_values,classifier)
     #print("No Weight")
     #lr.LogisticRegressionWeighted(DTR,LTR,DTE,LTE)
     #print("Weight")
@@ -396,18 +408,18 @@ if __name__ == '__main__':
     C_values = [0.1, 1.0, 10.0, 100.0]
     svm_linear_K_C_parameters_testing(DTR_RAND,LTR_RAND,K_values,C_values)
     
-    print("SVM POLYNOMIAL K,C,c,d TESTING:")
-    K_values = [1, 10]
-    C_values = [0.1, 1.0, 10.0, 100.0] # for C <= 10^-6 there is a significative worsening in performance 
-    c_values = [ 0,1 ]
-    d_values = [2.0]
-    svm_kernel_polynomial_K_C_c_d_parameter_testing(DTR_RAND,LTR_RAND,K_values,C_values,c_values,d_values)
+    # print("SVM POLYNOMIAL K,C,c,d TESTING:")
+    # K_values = [1, 10]
+    # C_values = [0.1, 1.0, 10.0, 100.0] # for C <= 10^-6 there is a significative worsening in performance 
+    # c_values = [ 0,1 ]
+    # d_values = [2.0]
+    # svm_kernel_polynomial_K_C_c_d_parameter_testing(DTR_RAND,LTR_RAND,K_values,C_values,c_values,d_values)
 
-    print("SVM RADIAL BASIS FUNCTION (RBF) K,C,gamma TESTING:")
-    K_values = [0.0, 1.0]
-    C_values = [1.0]
-    gamma_values = [1.0, 10.0] #hyper-parameter
-    svm_kernel_rbf_K_C_gamma_parameter_testing(DTR_RAND,LTR_RAND,K_values,C_values,gamma_values)
+    # print("SVM RADIAL BASIS FUNCTION (RBF) K,C,gamma TESTING:")
+    # K_values = [0.0, 1.0]
+    # C_values = [1.0]
+    # gamma_values = [1.0, 10.0] #hyper-parameter
+    # svm_kernel_rbf_K_C_gamma_parameter_testing(DTR_RAND,LTR_RAND,K_values,C_values,gamma_values)
     # ------------------ OPTIMAL DECISION --------------------------
     #optimalDecision(DTR_RAND,LTR_RAND,DTE_RAND,LTE_RAND)
     #We now turn our attention at evaluating the predictions made by our classifier R for a target application

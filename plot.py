@@ -120,17 +120,14 @@ def plot_Heatmap_Spoofed_Authentic(DTR, LTR, Class_Label):
     plt.show()
 
 # -------   DCF PLOT    --------------
-def plotDCF(x, y, xlabel):   
+def plotDCF(x, y, labels, colors, xlabel):   
     plt.figure()
-    plt.plot(x, y[0:len(x)], label='min DCF prior=0.5', color='b')    
-    #plt.plot(x, y[len(x): 2*len(x)], label='min DCF prior=0.9', color='r')
-    #plt.plot(x, y[2*len(x): 3*len(x)], label='min DCF prior=0.1', color='g')    
-    plt.xlim([min(x), max(x)])
+    for i in range(0,len(x)):
+        plt.plot(x[i], y[i], label=labels[i], color=colors[i])
+        plt.xlim([min(x[i]), max(x[i])])
+        #plt.ylim([0,max(y[i])+1])
     plt.xscale("log")    
-    #plt.legend(["min DCF prior=0.5", "min DCF prior=0.9", "min DCF prior=0.1"])
-    plt.legend(["min DCF prior=0.5"])
+    plt.legend()
     plt.xlabel(xlabel)    
     plt.ylabel("min DCF")
     plt.show()
-    #plt.savefig('./images/dcf_lamba' + '.jpg')    
-    return
