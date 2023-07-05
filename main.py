@@ -169,108 +169,105 @@ def K_Fold_LR(D,L,K,classifiers,hyperParameter):
         print(f"Min DCF for {classifier_name}: {minDcf}\n")
     return minDcfs 
 
-def K_Fold_SVM_linear(D,L,K,classifiers,hyperParameter_K,hyperParameter_C):
+def K_Fold_SVM_linear(D,L,K,hyperParameter_K,hyperParameter_C):
     # Leave-One-Out Approach Con K=2325: 
     fold_dimension = int(D.shape[1]/K)  # size of each fold
     fold_indices = numpy.arange(0, K*fold_dimension, fold_dimension)  # indices to split the data into folds
     minDcfs = []
-    for classifier_function, classifier_name in classifiers: 
-        nWrongPrediction = 0
-        scores = numpy.array([])
-        labels = numpy.array([])
-        # Run k-fold cross-validation
-        for i in range(K):    
-            # Split the data into training and validation sets
-            mask = numpy.zeros(D.shape[1], dtype=bool)
-            mask[fold_indices[i]:fold_indices[i]+fold_dimension] = True
-            DTR = D[:,~mask]
-            LTR = L[~mask]
-            DVA = D[:,mask]
-            LVA = L[mask]
-            # apply PCA on current fold DTR,DVA
-            #DTR,P = pca.PCA_projection(DTR,m = constants.M)
-            #DVA = numpy.dot(P.T, DVA)
-            nSamples = DVA.shape[1]  
-            scores_i,nCorrectPrediction = classifier_function(DTR, LTR, DVA, LVA, hyperParameter_K,hyperParameter_C) 
-            nWrongPrediction += nSamples - nCorrectPrediction
-            scores = numpy.append(scores,scores_i)
-            labels = numpy.append(labels,LVA)
-        errorRate = nWrongPrediction/D.shape[1] 
-        accuracy = 1 - errorRate
-        print(f"{classifier_name} results:\nAccuracy: {round(accuracy*100, 2)}%\nError rate: {round(errorRate*100, 2)}%\n",end="")
-        minDcf = optimal_decision.computeMinDCF(constants.PRIOR_PROBABILITY,constants.CFN,constants.CFP,scores,labels)
-        minDcfs.append(minDcf)
-        print(f"Min DCF for {classifier_name}: {minDcf}\n")
+    nWrongPrediction = 0
+    scores = numpy.array([])
+    labels = numpy.array([])
+    # Run k-fold cross-validation
+    for i in range(K):    
+        # Split the data into training and validation sets
+        mask = numpy.zeros(D.shape[1], dtype=bool)
+        mask[fold_indices[i]:fold_indices[i]+fold_dimension] = True
+        DTR = D[:,~mask]
+        LTR = L[~mask]
+        DVA = D[:,mask]
+        LVA = L[mask]
+        # apply PCA on current fold DTR,DVA
+        #DTR,P = pca.PCA_projection(DTR,m = constants.M)
+        #DVA = numpy.dot(P.T, DVA)
+        nSamples = DVA.shape[1]  
+        scores_i,nCorrectPrediction = svm.linear_svm(DTR, LTR, DVA, LVA, hyperParameter_K,hyperParameter_C) 
+        nWrongPrediction += nSamples - nCorrectPrediction
+        scores = numpy.append(scores,scores_i)
+        labels = numpy.append(labels,LVA)
+    errorRate = nWrongPrediction/D.shape[1] 
+    accuracy = 1 - errorRate
+    print(f"Linear SVM results:\nAccuracy: {round(accuracy*100, 2)}%\nError rate: {round(errorRate*100, 2)}%\n",end="")
+    minDcf = optimal_decision.computeMinDCF(constants.PRIOR_PROBABILITY,constants.CFN,constants.CFP,scores,labels)
+    minDcfs.append(minDcf)
+    print(f"Min DCF for Linear SVM: {minDcf}\n")
     return minDcfs
 
-def K_Fold_SVM_kernel_polynomial(D,L,K,classifiers,hyperParameter_K,hyperParameter_C,hyperParameter_c,hyperParameter_d):
+def K_Fold_SVM_kernel_polynomial(D,L,K,hyperParameter_K,hyperParameter_C,hyperParameter_c,hyperParameter_d):
     # Leave-One-Out Approach Con K=2325: 
     fold_dimension = int(D.shape[1]/K)  # size of each fold
     fold_indices = numpy.arange(0, K*fold_dimension, fold_dimension)  # indices to split the data into folds
     minDcfs = []
-    for classifier_function, classifier_name in classifiers: 
-        nWrongPrediction = 0
-        scores = numpy.array([])
-        labels = numpy.array([])
-        # Run k-fold cross-validation
-        for i in range(K): 
-            # Split the data into training and validation sets
-            mask = numpy.zeros(D.shape[1], dtype=bool)
-            mask[fold_indices[i]:fold_indices[i]+fold_dimension] = True
-            DTR = D[:,~mask]
-            LTR = L[~mask]
-            DVA = D[:,mask]
-            LVA = L[mask]
-            # apply PCA on current fold DTR,DVA
-            #DTR,P = pca.PCA_projection(DTR,m = constants.M)
-            #DVA = numpy.dot(P.T, DVA)
-            nSamples = DVA.shape[1]  
-            scores_i,nCorrectPrediction = classifier_function(DTR, LTR, DVA, LVA, hyperParameter_K,hyperParameter_C,hyperParameter_c,hyperParameter_d) 
-            nWrongPrediction += nSamples - nCorrectPrediction
-            print("Correct: " + str(nCorrectPrediction))
-            print("Wrong: " + str(nWrongPrediction))
-            scores = numpy.append(scores,scores_i)
-            labels = numpy.append(labels,LVA)
-        errorRate = nWrongPrediction/D.shape[1] 
-        accuracy = 1 - errorRate
-        print(f"{classifier_name} results:\nAccuracy: {round(accuracy*100, 2)}%\nError rate: {round(errorRate*100, 2)}%\n",end="")
-        minDcf = optimal_decision.computeMinDCF(constants.PRIOR_PROBABILITY,constants.CFN,constants.CFP,scores,labels)
-        minDcfs.append(minDcf)
-        print(f"Min DCF for {classifier_name}: {minDcf}\n")
+    nWrongPrediction = 0
+    scores = numpy.array([])
+    labels = numpy.array([])
+    # Run k-fold cross-validation
+    for i in range(K): 
+        # Split the data into training and validation sets
+        mask = numpy.zeros(D.shape[1], dtype=bool)
+        mask[fold_indices[i]:fold_indices[i]+fold_dimension] = True
+        DTR = D[:,~mask]
+        LTR = L[~mask]
+        DVA = D[:,mask]
+        LVA = L[mask]
+        # apply PCA on current fold DTR,DVA
+        #DTR,P = pca.PCA_projection(DTR,m = constants.M)
+        #DVA = numpy.dot(P.T, DVA)
+        nSamples = DVA.shape[1]  
+        scores_i,nCorrectPrediction = svm.kernel_svm_polynomial(DTR, LTR, DVA, LVA, hyperParameter_K,hyperParameter_C,hyperParameter_c,hyperParameter_d) 
+        nWrongPrediction += nSamples - nCorrectPrediction
+        #print("Correct: " + str(nCorrectPrediction))
+        #print("Wrong: " + str(nWrongPrediction))
+        scores = numpy.append(scores,scores_i)
+        labels = numpy.append(labels,LVA)
+    errorRate = nWrongPrediction/D.shape[1] 
+    accuracy = 1 - errorRate
+    print(f"Polynomial Kernel SVM results:\nAccuracy: {round(accuracy*100, 2)}%\nError rate: {round(errorRate*100, 2)}%\n",end="")
+    minDcf = optimal_decision.computeMinDCF(constants.PRIOR_PROBABILITY,constants.CFN,constants.CFP,scores,labels)
+    minDcfs.append(minDcf)
+    print(f"Min DCF for Polynomial Kernel SVM: {minDcf}\n")
     return minDcfs
 
-def K_Fold_SVM_kernel_rbf(D,L,K,classifiers,hyperParameter_K,hyperParameter_C,hyperParameter_gamma):
+def K_Fold_SVM_kernel_rbf(D,L,K,hyperParameter_K,hyperParameter_C,hyperParameter_gamma):
     # Leave-One-Out Approach Con K=2325: 
     fold_dimension = int(D.shape[1]/K)  # size of each fold
     fold_indices = numpy.arange(0, K*fold_dimension, fold_dimension)  # indices to split the data into folds
     minDcfs = []
-    for classifier_function, classifier_name in classifiers: 
-        nWrongPrediction = 0
-        scores = numpy.array([])
-        labels = numpy.array([])
-        # Run k-fold cross-validation
-        for i in range(K): 
-            # Split the data into training and validation sets
-            mask = numpy.zeros(D.shape[1], dtype=bool)
-            mask[fold_indices[i]:fold_indices[i]+fold_dimension] = True
-            DTR = D[:,~mask]
-            LTR = L[~mask]
-            DVA = D[:,mask]
-            LVA = L[mask]
-            # apply PCA on current fold DTR,DVA
-            #DTR,P = pca.PCA_projection(DTR,m = constants.M)
-            #DVA = numpy.dot(P.T, DVA)
-            nSamples = DVA.shape[1]  
-            scores_i,nCorrectPrediction = classifier_function(DTR, LTR, DVA, LVA, hyperParameter_K,hyperParameter_C,hyperParameter_gamma) 
-            nWrongPrediction += nSamples - nCorrectPrediction
-            scores = numpy.append(scores,scores_i)
-            labels = numpy.append(labels,LVA)
-        errorRate = nWrongPrediction/D.shape[1] 
-        accuracy = 1 - errorRate
-        print(f"{classifier_name} results:\nAccuracy: {round(accuracy*100, 2)}%\nError rate: {round(errorRate*100, 2)}%\n",end="")
-        minDcf = optimal_decision.computeMinDCF(constants.PRIOR_PROBABILITY,constants.CFN,constants.CFP,scores,labels)
-        minDcfs.append(minDcf)
-        print(f"Min DCF for {classifier_name}: {minDcf}\n")
+    nWrongPrediction = 0
+    scores = numpy.array([])
+    labels = numpy.array([])
+    # Run k-fold cross-validation
+    for i in range(K): 
+        # Split the data into training and validation sets
+        mask = numpy.zeros(D.shape[1], dtype=bool)
+        mask[fold_indices[i]:fold_indices[i]+fold_dimension] = True
+        DTR = D[:,~mask]
+        LTR = L[~mask]
+        DVA = D[:,mask]
+        LVA = L[mask]
+        # apply PCA on current fold DTR,DVA
+        #DTR,P = pca.PCA_projection(DTR,m = constants.M)
+        #DVA = numpy.dot(P.T, DVA)
+        nSamples = DVA.shape[1]  
+        scores_i,nCorrectPrediction = svm.kernel_svm_radial(DTR, LTR, DVA, LVA, hyperParameter_K,hyperParameter_C,hyperParameter_gamma) 
+        nWrongPrediction += nSamples - nCorrectPrediction
+        scores = numpy.append(scores,scores_i)
+        labels = numpy.append(labels,LVA)
+    errorRate = nWrongPrediction/D.shape[1] 
+    accuracy = 1 - errorRate
+    print(f"RADIAL BASIS FUNCTION (RBF) Kernel SVM results:\nAccuracy: {round(accuracy*100, 2)}%\nError rate: {round(errorRate*100, 2)}%\n",end="")
+    minDcf = optimal_decision.computeMinDCF(constants.PRIOR_PROBABILITY,constants.CFN,constants.CFP,scores,labels)
+    minDcfs.append(minDcf)
+    print(f"Min DCF for RADIAL BASIS FUNCTION (RBF) Kernel SVM: {minDcf}\n")
     return minDcfs
 
 def optimalDecision(DTR,LTR,DTE,LTE):
@@ -294,7 +291,7 @@ def lr_lambda_parameter_testing(DTR,LTR,lambda_values,classifier):
     # PLOT
     plot.plotDCF(lambda_values,minDcfs,'lambda')
     
-def svm_linear_K_C_parameters_testing(DTR,LTR,k_values,C_values,classifier):  
+def svm_linear_K_C_parameters_testing(DTR,LTR,k_values,C_values):  
     priors = [constants.PRIOR_PROBABILITY]
     minDcfs=[]
     for i in range(len(priors)):
@@ -303,13 +300,13 @@ def svm_linear_K_C_parameters_testing(DTR,LTR,k_values,C_values,classifier):
             print("k value : " + str(k_value))
             for C in C_values:
                 print("C value : " + str(C))
-                minDcf = K_Fold_SVM_linear(DTR,LTR,K=5,classifiers=classifier,hyperParameter_K=k_value,hyperParameter_C=C)
+                minDcf = K_Fold_SVM_linear(DTR,LTR,K=5,hyperParameter_K=k_value,hyperParameter_C=C)
                 minDcfs.append(minDcf)
             # PLOT for each K value (TODO: FIX)
             #print("plot for k value : " + str(k_value))
             #plot.plotDCF(C_values,minDcfs,'C')
 
-def svm_kernel_polynomial_K_C_c_d_parameter_testing(DTR,LTR,k_values,C_values,c_values,d_values,classifier):
+def svm_kernel_polynomial_K_C_c_d_parameter_testing(DTR,LTR,k_values,C_values,c_values,d_values):
     priors = [constants.PRIOR_PROBABILITY]
     minDcfs=[]
     for i in range(len(priors)):
@@ -322,13 +319,13 @@ def svm_kernel_polynomial_K_C_c_d_parameter_testing(DTR,LTR,k_values,C_values,c_
                     print("c value : " + str(c))
                     for d in d_values:
                         print("d value : " + str(d))
-                        minDcf = K_Fold_SVM_kernel_polynomial(DTR,LTR,K=5,classifiers=classifier,hyperParameter_K=k_value,hyperParameter_C=C,hyperParameter_c=c,hyperParameter_d=d)
+                        minDcf = K_Fold_SVM_kernel_polynomial(DTR,LTR,K=5,hyperParameter_K=k_value,hyperParameter_C=C,hyperParameter_c=c,hyperParameter_d=d)
                         minDcfs.append(minDcf)
                         # PLOT for each k,C,c,d value (TODO: FIX)
                         #print("plot for k,C,c,d value : " + str(k_value) + ' , ' + str(C) + ' , ' + str(c) + ' , ' + str(d))
                         #plot.plotDCF(C_values,minDcfs,'C')
 
-def svm_kernel_rbf_K_C_gamma_parameter_testing(DTR,LTR,k_values,C_values,gamma_values,classifier):
+def svm_kernel_rbf_K_C_gamma_parameter_testing(DTR,LTR,k_values,C_values,gamma_values):
     priors = [constants.PRIOR_PROBABILITY]
     minDcfs=[]
     for i in range(len(priors)):
@@ -339,7 +336,7 @@ def svm_kernel_rbf_K_C_gamma_parameter_testing(DTR,LTR,k_values,C_values,gamma_v
                 print("C value : " + str(C))
                 for gamma in gamma_values:
                     print("gamma value : " + str(gamma))
-                    minDcf = K_Fold_SVM_kernel_rbf(DTR,LTR,K=5,classifiers=classifier,hyperParameter_K=k_value,hyperParameter_C=C,hyperParameter_gamma=gamma)
+                    minDcf = K_Fold_SVM_kernel_rbf(DTR,LTR,K=5,hyperParameter_K=k_value,hyperParameter_C=C,hyperParameter_gamma=gamma)
                     minDcfs.append(minDcf)
                     # PLOT for each k,C,gamma value (TODO: FIX)
                     #print("plot for k,C,gamma value : " + str(k_value) + ' , ' + str(C) + ' , ' + str(gamma))
@@ -397,23 +394,20 @@ if __name__ == '__main__':
     print("SVM LINEAR HYPERPARAMETERS K AND C TESTING:")
     K_values = [1, 10]
     C_values = [0.1, 1.0, 10.0, 100.0]
-    classifier = [(svm.linear_svm, "Linear SVM")]
-    svm_linear_K_C_parameters_testing(DTR_RAND,LTR_RAND,K_values,C_values,classifier)
+    svm_linear_K_C_parameters_testing(DTR_RAND,LTR_RAND,K_values,C_values)
     
     print("SVM POLYNOMIAL K,C,c,d TESTING:")
     K_values = [1, 10]
     C_values = [0.1, 1.0, 10.0, 100.0] # for C <= 10^-6 there is a significative worsening in performance 
     c_values = [ 0,1 ]
     d_values = [2.0]
-    classifier = [(svm.kernel_svm_polynomial, "Polynomial Kernel SVM")]
-    svm_kernel_polynomial_K_C_c_d_parameter_testing(DTR_RAND,LTR_RAND,K_values,C_values,c_values,d_values,classifier)
+    svm_kernel_polynomial_K_C_c_d_parameter_testing(DTR_RAND,LTR_RAND,K_values,C_values,c_values,d_values)
 
-    print("SVM RADIAL BASIS FUNCTION (RBF) K,C,c,d TESTING:")
+    print("SVM RADIAL BASIS FUNCTION (RBF) K,C,gamma TESTING:")
     K_values = [0.0, 1.0]
     C_values = [1.0]
     gamma_values = [1.0, 10.0] #hyper-parameter
-    classifier = [(svm.kernel_svm_radial, "RADIAL BASIS FUNCTION (RBF) Kernel SVM")]
-    svm_kernel_rbf_K_C_gamma_parameter_testing(DTR_RAND,LTR_RAND,K_values,C_values,gamma_values,classifier)
+    svm_kernel_rbf_K_C_gamma_parameter_testing(DTR_RAND,LTR_RAND,K_values,C_values,gamma_values)
     # ------------------ OPTIMAL DECISION --------------------------
     #optimalDecision(DTR_RAND,LTR_RAND,DTE_RAND,LTE_RAND)
     #We now turn our attention at evaluating the predictions made by our classifier R for a target application
