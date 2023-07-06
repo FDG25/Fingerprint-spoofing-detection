@@ -441,7 +441,7 @@ def svm_kernel_rbf_K_C_gamma_parameter_testing(DTR,LTR,k_values,C_values,gamma_v
     minDcfs_k_0_gamma_1e5 = [PlotElement.getminDcf() for PlotElement in k_0_gamma_1e5]
     C_values_k_0_gamma_1e5 = [PlotElement.getC() for PlotElement in k_0_gamma_1e5]
 
-    labels = ['K = 0,gamma = 1/e','K = 0,gamma = 1/e^2','K = 0,gamma = 1/e^3','K = 0,gamma = 1/e^4','K = 0,gamma = 1/e^5']
+    labels = ['K = 0,log(γ) = -1','K = 0,log(γ) = -2','K = 0,log(γ) = -3','K = 0,log(γ) = -4','K = 0,log(γ) = -5']
     colors = ['b','g','y','c','r']
     #base colors: r, g, b, m, y, c, k, w
     plot.plotDCF([C_values_k_0_gamma_1e1,C_values_k_0_gamma_1e2,C_values_k_0_gamma_1e3,C_values_k_0_gamma_1e4,C_values_k_0_gamma_1e5],[minDcfs_k_0_gamma_1e1,minDcfs_k_0_gamma_1e2,minDcfs_k_0_gamma_1e3,minDcfs_k_0_gamma_1e4,minDcfs_k_0_gamma_1e5],labels,colors,'C')
@@ -468,7 +468,7 @@ def svm_kernel_rbf_K_C_gamma_parameter_testing(DTR,LTR,k_values,C_values,gamma_v
     minDcfs_k_1_gamma_1e5 = [PlotElement.getminDcf() for PlotElement in k_1_gamma_1e5]
     C_values_k_1_gamma_1e5 = [PlotElement.getC() for PlotElement in k_1_gamma_1e5]
 
-    labels = ['K = 1,gamma = 1/e','K = 1,gamma = 1/e^2','K = 1,gamma = 1/e^3','K = 1,gamma = 1/e^4','K = 1,gamma = 1/e^5']
+    labels = ['K = 1,log(γ) = -1','K = 1,log(γ) = -2','K = 1,log(γ) = -3','K = 1,log(γ) = -4','K = 1,log(γ) = -5']
     colors = ['b','g','y','c','r']
     #base colors: r, g, b, m, y, c, k, w
     plot.plotDCF([C_values_k_1_gamma_1e1,C_values_k_1_gamma_1e2,C_values_k_1_gamma_1e3,C_values_k_1_gamma_1e4,C_values_k_1_gamma_1e5],[minDcfs_k_1_gamma_1e1,minDcfs_k_1_gamma_1e2,minDcfs_k_1_gamma_1e3,minDcfs_k_1_gamma_1e4,minDcfs_k_1_gamma_1e5],labels,colors,'C')
