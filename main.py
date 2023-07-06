@@ -286,11 +286,18 @@ def lr_lambda_parameter_testing(DTR,LTR,lambda_values,classifier):
             # from classifier parameter from main: first linear, then quadratic
             minDcfs_Linear.append(minDcfs[0])
             minDcfs_Quadratic.append(minDcfs[1])
-    # PLOT LR_LINEAR AND QUADRATIC
-    labels = ['Linear','Quadratic']
-    colors = ['b','g']
-    # array of lambda values (for linear and quadratic) and corresponding mindcfs
-    plot.plotDCF([lambda_values,lambda_values],[minDcfs_Linear,minDcfs_Quadratic],labels,colors,'lambda')
+    
+    # ------ PLOT LR_LINEAR ------
+    labels = ['Linear']
+    colors = ['b']
+    # array of lambda values (for linear) and corresponding mindcfs
+    plot.plotDCF([lambda_values],[minDcfs_Linear],labels,colors,'lambda')
+
+    # ------ PLOT LR_QUADRATIC ------
+    labels = ['Quadratic']
+    colors = ['b']
+    # array of lambda values (for linear) and corresponding mindcfs
+    plot.plotDCF([lambda_values],[minDcfs_Quadratic],labels,colors,'lambda')
     
 def svm_linear_K_C_parameters_testing(DTR,LTR,k_values,C_values):  
     priors = [constants.PRIOR_PROBABILITY]
