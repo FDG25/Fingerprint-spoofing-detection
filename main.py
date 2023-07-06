@@ -174,7 +174,6 @@ def K_Fold_SVM_linear(D,L,K,hyperParameter_K,hyperParameter_C):
     # Leave-One-Out Approach Con K=2325: 
     fold_dimension = int(D.shape[1]/K)  # size of each fold
     fold_indices = numpy.arange(0, K*fold_dimension, fold_dimension)  # indices to split the data into folds
-    minDcfs = []
     nWrongPrediction = 0
     scores = numpy.array([])
     labels = numpy.array([])
@@ -199,15 +198,13 @@ def K_Fold_SVM_linear(D,L,K,hyperParameter_K,hyperParameter_C):
     accuracy = 1 - errorRate
     print(f"Linear SVM results:\nAccuracy: {round(accuracy*100, 2)}%\nError rate: {round(errorRate*100, 2)}%\n",end="")
     minDcf = optimal_decision.computeMinDCF(constants.PRIOR_PROBABILITY,constants.CFN,constants.CFP,scores,labels)
-    minDcfs.append(minDcf)
     print(f"Min DCF for Linear SVM: {minDcf}\n")
-    return minDcfs
+    return minDcf
 
 def K_Fold_SVM_kernel_polynomial(D,L,K,hyperParameter_K,hyperParameter_C,hyperParameter_c,hyperParameter_d):
     # Leave-One-Out Approach Con K=2325: 
     fold_dimension = int(D.shape[1]/K)  # size of each fold
     fold_indices = numpy.arange(0, K*fold_dimension, fold_dimension)  # indices to split the data into folds
-    minDcfs = []
     nWrongPrediction = 0
     scores = numpy.array([])
     labels = numpy.array([])
@@ -234,15 +231,13 @@ def K_Fold_SVM_kernel_polynomial(D,L,K,hyperParameter_K,hyperParameter_C,hyperPa
     accuracy = 1 - errorRate
     print(f"Polynomial Kernel SVM results:\nAccuracy: {round(accuracy*100, 2)}%\nError rate: {round(errorRate*100, 2)}%\n",end="")
     minDcf = optimal_decision.computeMinDCF(constants.PRIOR_PROBABILITY,constants.CFN,constants.CFP,scores,labels)
-    minDcfs.append(minDcf)
     print(f"Min DCF for Polynomial Kernel SVM: {minDcf}\n")
-    return minDcfs
+    return minDcf
 
 def K_Fold_SVM_kernel_rbf(D,L,K,hyperParameter_K,hyperParameter_C,hyperParameter_gamma):
     # Leave-One-Out Approach Con K=2325: 
     fold_dimension = int(D.shape[1]/K)  # size of each fold
     fold_indices = numpy.arange(0, K*fold_dimension, fold_dimension)  # indices to split the data into folds
-    minDcfs = []
     nWrongPrediction = 0
     scores = numpy.array([])
     labels = numpy.array([])
@@ -267,9 +262,8 @@ def K_Fold_SVM_kernel_rbf(D,L,K,hyperParameter_K,hyperParameter_C,hyperParameter
     accuracy = 1 - errorRate
     print(f"RADIAL BASIS FUNCTION (RBF) Kernel SVM results:\nAccuracy: {round(accuracy*100, 2)}%\nError rate: {round(errorRate*100, 2)}%\n",end="")
     minDcf = optimal_decision.computeMinDCF(constants.PRIOR_PROBABILITY,constants.CFN,constants.CFP,scores,labels)
-    minDcfs.append(minDcf)
     print(f"Min DCF for RADIAL BASIS FUNCTION (RBF) Kernel SVM: {minDcf}\n")
-    return minDcfs
+    return minDcf
 
 def optimalDecision(DTR,LTR,DTE,LTE):
     classifiers = [(generative_models.MVG_log_classifier, "Multivariate Gaussian Classifier"), (generative_models.NaiveBayesGaussianClassifier_log, "Naive Bayes"), (generative_models.TiedCovarianceGaussianClassifier_log, "Tied Covariance"), (generative_models.TiedNaiveBayesGaussianClassifier_log, "Tied Naive Bayes"),(lr.LogisticRegressionWeighted, "Logistic Regression Weighted"),(lr.LogisticRegressionWeightedQuadratic, "Logistic Regression Quadratic Weighted")] 
@@ -282,15 +276,21 @@ def optimalDecision(DTR,LTR,DTE,LTE):
 def lr_lambda_parameter_testing(DTR,LTR,lambda_values,classifier):    
     #priors = [0.5, 0.9, 0.1]
     priors = [constants.PRIOR_PROBABILITY]
-    minDcfs=[]
+    minDcfs_Linear = []
+    minDcfs_Quadratic = []
     for i in range(len(priors)):
         print("prior:",priors[i])        
         for lambd in lambda_values:
             print("lambda value : " + str(lambd))
-            minDcf = K_Fold_LR(DTR,LTR,K=5,classifiers=classifier,hyperParameter=lambd)
-            minDcfs.append(minDcf)
-    # PLOT
-    plot.plotDCF(lambda_values,minDcfs,'lambda')
+            minDcfs = K_Fold_LR(DTR,LTR,K=5,classifiers=classifier,hyperParameter=lambd)
+            # from classifier parameter from main: first linear, then quadratic
+            minDcfs_Linear.append(minDcfs[0])
+            minDcfs_Quadratic.append(minDcfs[1])
+    # PLOT LR_LINEAR AND QUADRATIC
+    labels = ['Linear','Quadratic']
+    colors = ['b','g']
+    # array of lambda values (for linear and quadratic) and corresponding mindcfs
+    plot.plotDCF([lambda_values,lambda_values],[minDcfs_Linear,minDcfs_Quadratic],labels,colors,'lambda')
     
 def svm_linear_K_C_parameters_testing(DTR,LTR,k_values,C_values):  
     priors = [constants.PRIOR_PROBABILITY]
