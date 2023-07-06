@@ -3,6 +3,7 @@ import scipy
 import matplotlib.pyplot as plt
 import constants
 import main 
+import os
 
 def plot_hist(DTR,L):
     # 'spoofed-fingerprint' : name = 0 'authentic-fingerprint' : name = 1 
@@ -120,7 +121,11 @@ def plot_Heatmap_Spoofed_Authentic(DTR, LTR, Class_Label):
     plt.show()
 
 # -------   DCF PLOT    --------------
+
+plot_index = 0
+
 def plotDCF(x, y, labels, colors, xlabel):   
+    global plot_index
     plt.figure()
     for i in range(0,len(x)):
         plt.plot(x[i], y[i], label=labels[i], color=colors[i])
@@ -130,4 +135,6 @@ def plotDCF(x, y, labels, colors, xlabel):
     plt.legend()
     plt.xlabel(xlabel)    
     plt.ylabel("min DCF")
+    plt.savefig(os.path.join('output_plot_folder','plot_' + str(plot_index) + '.png'))
+    plot_index+=1
     plt.show()
