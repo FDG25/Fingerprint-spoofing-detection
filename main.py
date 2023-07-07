@@ -8,6 +8,7 @@ import generative_models
 import constants
 import plot
 import lr
+import gmm
 import optimal_decision
 from plot_utility import PlotUtility
 
@@ -265,6 +266,38 @@ def K_Fold_SVM_kernel_rbf(D,L,K,hyperParameter_K,hyperParameter_C,hyperParameter
     print(f"Min DCF for RADIAL BASIS FUNCTION (RBF) Kernel SVM: {minDcf}\n")
     return minDcf
 
+def K_Fold_GMM(D,L,K,gmmType):
+    # Leave-One-Out Approach Con K=2325: 
+    fold_dimension = int(D.shape[1]/K)  # size of each fold
+    fold_indices = numpy.arange(0, K*fold_dimension, fold_dimension)  # indices to split the data into folds
+    classifiers = [(gmm.LBGalgorithm,gmm.constraintSigma,"Full Covariance (standard)"), (gmm.DiagLBGalgorithm,gmm.DiagConstraintSigma,"Diagonal Covariance"), (gmm.TiedLBGalgorithm, gmm.constraintSigma, "Tied Covariance")] 
+    for classifier_algorithm, classifier_costraint, classifier_name in classifiers: 
+        nWrongPrediction = 0
+        scores = numpy.array([])
+        labels = numpy.array([])
+        # Run k-fold cross-validation
+        for i in range(K):    
+            # Split the data into training and validation sets
+            mask = numpy.zeros(D.shape[1], dtype=bool)
+            mask[fold_indices[i]:fold_indices[i]+fold_dimension] = True
+            DTR = D[:,~mask]
+            LTR = L[~mask]
+            DVA = D[:,mask]
+            LVA = L[mask]
+            # apply PCA on current fold DTR,DVA
+            DTR,P = pca.PCA_projection(DTR,m = constants.M)
+            DVA = numpy.dot(P.T, DVA)
+            DTR0,DTR1 = getClassMatrix(DTR,LTR)
+            nSamples = DVA.shape[1]
+            scores_i,nCorrectPrediction = gmm.GMM_Classifier(DTR0, DTR1, DVA, LVA, classifier_algorithm, gmmType , classifier_costraint) 
+            nWrongPrediction += nSamples - nCorrectPrediction
+            scores = numpy.append(scores,scores_i)
+            labels = numpy.append(labels,LVA)
+        errorRate = nWrongPrediction/D.shape[1] 
+        accuracy = 1 - errorRate
+        print(f"{classifier_name} results:\nAccuracy: {round(accuracy*100, 2)}%\nError rate: {round(errorRate*100, 2)}%\n",end="")
+        print(f"Min DCF for {classifier_name}: {optimal_decision.computeMinDCF(constants.PRIOR_PROBABILITY,constants.CFN,constants.CFP,scores,labels)}\n") 
+
 def optimalDecision(DTR,LTR,DTE,LTE):
     classifiers = [(generative_models.MVG_log_classifier, "Multivariate Gaussian Classifier"), (generative_models.NaiveBayesGaussianClassifier_log, "Naive Bayes"), (generative_models.TiedCovarianceGaussianClassifier_log, "Tied Covariance"), (generative_models.TiedNaiveBayesGaussianClassifier_log, "Tied Naive Bayes"),(lr.LogisticRegressionWeighted, "Logistic Regression Weighted"),(lr.LogisticRegressionWeightedQuadratic, "Logistic Regression Quadratic Weighted")] 
     for classifier_function, classifier_name in classifiers:
@@ -517,11 +550,11 @@ if __name__ == '__main__':
 
     # ---------------   LR MODELS   -----------------------
     # CALL K-FOLD AND TEST THE HYPERPARAMETER
-    print("K_Fold with K = 5\n\n")
+    #print("K_Fold with K = 5\n\n")
     #print("PCA with m = " + str(constants.M))
-    lambda_values = [0.00001, 0.0001, 0.001, 0.01, 0.1, 1.0, 10.0]
-    classifier = [(lr.LogisticRegressionWeighted, "Logistic Regression Weighted"),(lr.LogisticRegressionWeightedQuadratic, "Logistic Regression Weighted Quadratic")]
-    lr_lambda_parameter_testing(DTR_RAND,LTR_RAND,lambda_values,classifier)
+    #lambda_values = [0.00001, 0.0001, 0.001, 0.01, 0.1, 1.0, 10.0]
+    #classifier = [(lr.LogisticRegressionWeighted, "Logistic Regression Weighted"),(lr.LogisticRegressionWeightedQuadratic, "Logistic Regression Weighted Quadratic")]
+    #lr_lambda_parameter_testing(DTR_RAND,LTR_RAND,lambda_values,classifier)
     #print("No Weight")
     #lr.LogisticRegressionWeighted(DTR,LTR,DTE,LTE)
     #print("Weight")
@@ -529,24 +562,44 @@ if __name__ == '__main__':
 
 
     # ---------------   SVM MODELS   -----------------------
-    print("SVM LINEAR HYPERPARAMETERS K AND C TESTING:")
-    K_values = [1, 10, 100]
-    C_values = [0.000001, 0.00001, 0.0001, 0.001, 0.01, 0.1, 1.0, 10.0, 100.0]
-    svm_linear_K_C_parameters_testing(DTR_RAND,LTR_RAND,K_values,C_values)
+    # print("SVM LINEAR HYPERPARAMETERS K AND C TESTING:")
+    # K_values = [1, 10, 100]
+    # C_values = [0.000001, 0.00001, 0.0001, 0.001, 0.01, 0.1, 1.0, 10.0, 100.0]
+    # svm_linear_K_C_parameters_testing(DTR_RAND,LTR_RAND,K_values,C_values)
     
-    print("SVM POLYNOMIAL K,C,c,d TESTING:")
-    K_values = [1, 10, 100]
-    C_values = [0.000001, 0.00001, 0.0001, 0.001, 0.01, 0.1, 1.0, 10.0, 100.0] # for C <= 10^-6 there is a significative worsening in performance 
-    c_values = [0, 1]
-    d_values = [2.0, 4.0]
-    svm_kernel_polynomial_K_C_c_d_parameter_testing(DTR_RAND,LTR_RAND,K_values,C_values,c_values,d_values)
+    # print("SVM POLYNOMIAL K,C,c,d TESTING:")
+    # K_values = [1, 10, 100]
+    # C_values = [0.000001, 0.00001, 0.0001, 0.001, 0.01, 0.1, 1.0, 10.0, 100.0] # for C <= 10^-6 there is a significative worsening in performance 
+    # c_values = [0, 1]
+    # d_values = [2.0, 4.0]
+    # svm_kernel_polynomial_K_C_c_d_parameter_testing(DTR_RAND,LTR_RAND,K_values,C_values,c_values,d_values)
 
-    print("SVM RADIAL BASIS FUNCTION (RBF) K,C,gamma TESTING:")
-    K_values = [0.0, 1.0]
-    C_values = [0.000001, 0.00001, 0.0001, 0.001, 0.01, 0.1, 1.0, 10.0, 100.0]
-    # we want log(gamma), so we pass gamma value for which log(gamma) = -1,-2,-3,-4,-5
-    gamma_values = [1.0/numpy.exp(1), 1.0/numpy.exp(2), 1.0/numpy.exp(3), 1.0/numpy.exp(4), 1.0/numpy.exp(5)] #hyper-parameter
-    svm_kernel_rbf_K_C_gamma_parameter_testing(DTR_RAND,LTR_RAND,K_values,C_values,gamma_values)
+    # print("SVM RADIAL BASIS FUNCTION (RBF) K,C,gamma TESTING:")
+    # K_values = [0.0, 1.0]
+    # C_values = [0.000001, 0.00001, 0.0001, 0.001, 0.01, 0.1, 1.0, 10.0, 100.0]
+    # # we want log(gamma), so we pass gamma value for which log(gamma) = -1,-2,-3,-4,-5
+    # gamma_values = [1.0/numpy.exp(1), 1.0/numpy.exp(2), 1.0/numpy.exp(3), 1.0/numpy.exp(4), 1.0/numpy.exp(5)] #hyper-parameter
+    # svm_kernel_rbf_K_C_gamma_parameter_testing(DTR_RAND,LTR_RAND,K_values,C_values,gamma_values)
+    
+    
+    # -------------- GMM --------------------
+    
+    # BUILD INITIAL GMM (NON DOVREBBE SERVIRCI) 
+    # get dataset split by class
+    # DP0_RAND,DP1_RAND = getClassMatrix(DTR_RAND,LTR_RAND)
+    # weight of classes for the gmm
+    # we compute each weight by using the formula : num_sample_class/num_sample_whole_dataset
+    # gmm_weights = [DP0_RAND.shape[1]/DTR_RAND.shape[1],DP1_RAND.shape[1]/DTR_RAND.shape[1]]
+    # print(gmm_weights)
+    # compute mean and covariance matrix for each class
+    # mu_DP0,cov_DP0 = computeMeanCovMatrix(DP0_RAND)
+    # mu_DP1,cov_DP1 = computeMeanCovMatrix(DP1_RAND)
+    # build the gmm
+    # GMM = [[gmm_weights[0],mu_DP0,cov_DP0],[gmm_weights[1],mu_DP1,cov_DP1]]
+    for gmm_type in range(5):
+        K_Fold_GMM(DTR_RAND,LTR_RAND,K=5,gmmType=gmm_type)
+
+
     # ------------------ OPTIMAL DECISION --------------------------
     #optimalDecision(DTR_RAND,LTR_RAND,DTE_RAND,LTE_RAND)
     #We now turn our attention at evaluating the predictions made by our classifier R for a target application

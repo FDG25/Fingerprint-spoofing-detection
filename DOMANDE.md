@@ -25,8 +25,7 @@ La gaussianizzazione ha detto che non si fa.
 
 
 # NOTE / COSE DA FARE
-- aggiustare i plot delle svm (plot.minDCF aggiustare parametri passati per la shape)
-- implementare GMM (LAB10) nel progetto
+- controllare calcolo minDCF
 - TESTARE PCA SOTTO AL 7 PER LOGISTIC REGRESSION (A PARTIRE DA 6 CON TUTTI E 7 I VALORI DI LAMBDA CHE ABBIAMO VISTO
 - PRESE DA ALCUNE SEZIONI SOTTOSTANTI DI QUESTO FILE:
 1) lda per vedere se dall'unica dimensione si riescono a estrarre informazioni interessanti (ci sono info interessanti)
