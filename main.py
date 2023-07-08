@@ -607,9 +607,8 @@ if __name__ == '__main__':
     diag_min_dcfs = []
     tied_min_dcfs = []
     tied_diag_min_dcfs = []
-    #for gmm_type in range(0,8):
-    for gmm_type in range(0,1):
-        # from 2 to 128 components
+    for gmm_type in range(0,11):
+        # from 2 to 1024 components
         print("Number of GMM Components: " + str(2**gmm_type))
         gmm_components.append(2**gmm_type)
         # minDcfs[0] mindcfs of Full Covariance, minDcfs[1] of Diagonal Covariance, minDcfs[2] of Tied Covariance, minDcfs[3] of Tied Diagonal Covariance
