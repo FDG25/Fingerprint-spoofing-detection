@@ -25,8 +25,9 @@ La gaussianizzazione ha detto che non si fa.
 
 
 # NOTE / COSE DA FARE
-- controllare calcolo minDCF
-- fare plot GMM min dcf al variare di gmm_type  
+- bayes error plot con actDCF e minDCF sul modello finale
+- score calibration sul modello finale
+- vedere approcci normalizzazione dati
 - TESTARE PCA SOTTO AL 7 PER LOGISTIC REGRESSION (A PARTIRE DA 6 CON TUTTI E 7 I VALORI DI LAMBDA CHE ABBIAMO VISTO
 - PRESE DA ALCUNE SEZIONI SOTTOSTANTI DI QUESTO FILE:
 1) lda per vedere se dall'unica dimensione si riescono a estrarre informazioni interessanti (ci sono info interessanti)
