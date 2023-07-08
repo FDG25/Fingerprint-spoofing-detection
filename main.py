@@ -270,7 +270,9 @@ def K_Fold_GMM(D,L,K,gmmType):
     # Leave-One-Out Approach Con K=2325: 
     fold_dimension = int(D.shape[1]/K)  # size of each fold
     fold_indices = numpy.arange(0, K*fold_dimension, fold_dimension)  # indices to split the data into folds
-    classifiers = [(gmm.LBGalgorithm,gmm.constraintSigma,"Full Covariance (standard)"), (gmm.DiagLBGalgorithm,gmm.DiagConstraintSigma,"Diagonal Covariance"), (gmm.TiedLBGalgorithm, gmm.constraintSigma, "Tied Covariance")] 
+    classifiers = [(gmm.LBGalgorithm,gmm.constraintSigma,"Full Covariance (standard)"), (gmm.DiagLBGalgorithm,gmm.DiagConstraintSigma,"Diagonal Covariance"), (gmm.TiedLBGalgorithm, gmm.constraintSigma, "Tied Covariance"),(gmm.TiedDiagLBGalgorithm,gmm.DiagConstraintSigma,"Tied Diagonal Covariance")] 
+    # 4 values: mindcfs of Full Covariance, of Diagonal Covariance, of Tied Covariance, of Tied Diagonal Covariance
+    minDcfs = []
     for classifier_algorithm, classifier_costraint, classifier_name in classifiers: 
         nWrongPrediction = 0
         scores = numpy.array([])
@@ -296,7 +298,10 @@ def K_Fold_GMM(D,L,K,gmmType):
         errorRate = nWrongPrediction/D.shape[1] 
         accuracy = 1 - errorRate
         print(f"{classifier_name} results:\nAccuracy: {round(accuracy*100, 2)}%\nError rate: {round(errorRate*100, 2)}%\n",end="")
-        print(f"Min DCF for {classifier_name}: {optimal_decision.computeMinDCF(constants.PRIOR_PROBABILITY,constants.CFN,constants.CFP,scores,labels)}\n") 
+        minDcf = optimal_decision.computeMinDCF(constants.PRIOR_PROBABILITY,constants.CFN,constants.CFP,scores,labels)
+        minDcfs.append(minDcf)
+        print(f"Min DCF for {classifier_name}: {minDcf}\n")
+    return minDcfs 
 
 def optimalDecision(DTR,LTR,DTE,LTE):
     classifiers = [(generative_models.MVG_log_classifier, "Multivariate Gaussian Classifier"), (generative_models.NaiveBayesGaussianClassifier_log, "Naive Bayes"), (generative_models.TiedCovarianceGaussianClassifier_log, "Tied Covariance"), (generative_models.TiedNaiveBayesGaussianClassifier_log, "Tied Naive Bayes"),(lr.LogisticRegressionWeighted, "Logistic Regression Weighted"),(lr.LogisticRegressionWeightedQuadratic, "Logistic Regression Quadratic Weighted")] 
@@ -596,8 +601,30 @@ if __name__ == '__main__':
     # mu_DP1,cov_DP1 = computeMeanCovMatrix(DP1_RAND)
     # build the gmm
     # GMM = [[gmm_weights[0],mu_DP0,cov_DP0],[gmm_weights[1],mu_DP1,cov_DP1]]
-    for gmm_type in range(5):
-        K_Fold_GMM(DTR_RAND,LTR_RAND,K=5,gmmType=gmm_type)
+    gmm_components = []
+    # mindcfs of Full Covariance, of Diagonal Covariance, of Tied Covariance, of Tied Diagonal Covariance
+    full_min_dcfs = []
+    diag_min_dcfs = []
+    tied_min_dcfs = []
+    tied_diag_min_dcfs = []
+    #for gmm_type in range(0,8):
+    for gmm_type in range(0,1):
+        # from 2 to 128 components
+        print("Number of GMM Components: " + str(2**gmm_type))
+        gmm_components.append(2**gmm_type)
+        # minDcfs[0] mindcfs of Full Covariance, minDcfs[1] of Diagonal Covariance, minDcfs[2] of Tied Covariance, minDcfs[3] of Tied Diagonal Covariance
+        minDcfs = K_Fold_GMM(DTR_RAND,LTR_RAND,K=5,gmmType=gmm_type)
+        full_min_dcfs.append(minDcfs[0])
+        diag_min_dcfs.append(minDcfs[1])
+        tied_min_dcfs.append(minDcfs[2])
+        tied_diag_min_dcfs.append(minDcfs[3]) 
+
+    # ----- PLOT GMMS   ------
+    plot.gmm_dcf_plot(full_min_dcfs,gmm_components,"Full Covariance (standard)")
+    plot.gmm_dcf_plot(diag_min_dcfs,gmm_components,"Diagonal Covariance")
+    plot.gmm_dcf_plot(tied_min_dcfs,gmm_components,"Tied Covariance")
+    plot.gmm_dcf_plot(tied_diag_min_dcfs,gmm_components,"Tied Diagonal Covariance")
+
 
 
     # ------------------ OPTIMAL DECISION --------------------------

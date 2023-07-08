@@ -137,4 +137,21 @@ def plotDCF(x, y, labels, colors, xlabel):
     plt.ylabel("min DCF")
     plt.savefig(os.path.join('output_plot_folder','plot_' + str(plot_index) + '.png'))
     plot_index+=1
-    plt.show()
+    #plt.show()
+
+
+# -------- GMM DCF PLOT  ---------------
+def gmm_dcf_plot(minDCFs, gmmComponents, gmm_model_name):
+    global plot_index
+    plt.figure()
+    plt.title(gmm_model_name)
+    plt.xlabel("GMM components")
+    plt.ylabel("minDCF values")
+    x_axis = numpy.arange(len(gmmComponents))
+    gmmComponents = numpy.array(gmmComponents)
+    plt.bar(x_axis + 0.10 , minDCFs, width = 0.5,linewidth = 1.0, edgecolor='black', color="Blue")
+    plt.xticks([r + 0.125 for r in range(len(gmmComponents))],gmmComponents)
+    #plt.legend()
+    plt.savefig(os.path.join('output_plot_folder','plot_' + str(plot_index) + '.png'))
+    plot_index+=1
+    #plt.show()

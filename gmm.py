@@ -288,6 +288,49 @@ def TiedMstep(X, S, posterior_probabilities):
     # print(w)
     return (w, mu, cov)
 
+def TiedDiagMstep(X, S, posterior_probabilities):
+    #LET'S COMPUTE THE 3 STATISTICS:
+    Zg = numpy.sum(posterior_probabilities, axis=1)  #3
+    #print(Zg)
+    Fg = numpy.zeros((X.shape[0], S.shape[0]))  # 4x3
+    for g in range(S.shape[0]):
+        tempSum = numpy.zeros(X.shape[0])
+        for i in range(X.shape[1]):
+            tempSum += posterior_probabilities[g, i] * X[:, i]
+        Fg[:, g] = tempSum
+    #print(Fg)
+    Sg = numpy.zeros((S.shape[0], X.shape[0], X.shape[0]))
+    for g in range(S.shape[0]):
+        tempSum = numpy.zeros((X.shape[0], X.shape[0]))
+        for i in range(X.shape[1]):
+            tempSum += posterior_probabilities[g, i] * numpy.dot(X[:, i].reshape((X.shape[0], 1)), X[:, i].reshape((1, X.shape[0])))
+        Sg[g] = tempSum
+    #print(Sg)
+    #print(Sg.shape) #(3,4,4) OR (3,1,1), IT DEPENDS ON WHAT DATA WE ARE USING: 4-DIMENSIONAL OR 1-DIMENSIONAL DATA
+    #LET'S obtain the new parameters:
+    mu = Fg / Zg
+    #print(mu)
+    prodmu = numpy.zeros((S.shape[0], X.shape[0], X.shape[0]))
+    for g in range(S.shape[0]):
+        prodmu[g] = numpy.dot(mu[:, g].reshape((X.shape[0], 1)), mu[:, g].reshape((1, X.shape[0])))
+    cov = Sg / Zg.reshape((Zg.size, 1, 1)) - prodmu
+    # The following two lines of code are used to model the constraints
+    psi = 0.01
+    term = numpy.zeros((cov.shape[1], cov.shape[2])) #cambiamo solo questa e le 4 righe successive rispetto a Mstep
+    for g in range(S.shape[0]):
+        term += Zg[g]*cov[g]
+    for g in range(S.shape[0]):
+        # TIED + DIAGONAL
+        cov[g] = 1/X.shape[1] * term
+        cov[g] = cov[g] * numpy.eye(cov[g].shape[0]) #CAMBIA SOLO CHE AGGIUNGIAMO QUESTA RIGA RISPETTO A MStep NORMALE
+        U, s, Vh = numpy.linalg.svd(cov[g])
+        s[s < psi] = psi
+        cov[g] = numpy.dot(U, main.vcol(s)*U.T)
+    # print(cov)
+    w = Zg / numpy.sum(Zg)
+    # print(w)
+    return (w, mu, cov)
+
 #each component has a covariance matrix Σg = Σ
 def TiedEMalgorithm(X, gmm): #
     #The estimation procedure should iterate from an initial
@@ -324,11 +367,53 @@ def TiedEMalgorithm(X, gmm): #
         #print("Average log-likelihood 1D-DATA: ", avgloglikelihood2)
     return gmm 
 
+def TiedDiagEMalgorithm(X, gmm):
+    #The estimation procedure should iterate from an initial
+    #estimate of the GMM, and keep computing E and M -steps until a convergence criterion is met.
+    # flag is used to exit the while when the difference between the loglikelihoods
+    # becomes smaller than THE THRESHOLD delta_l = 10^(-6)
+    flag = True
+    # count is used to count iterations
+    count = 0
+    while(flag):
+        count += 1
+        # Given the training set and the initial model parameters, compute log marginal densities and sub-class conditional densities
+        (logdens, S) = logpdf_GMM(X, gmm) #The log-likelihood for the training set using the current parameter estimate can be computed from the outputs of function logpdf_GMM. Alternatively, you can compute the log-likelihood from the marginal densities at the end of the E-step
+        # Compute the AVERAGE loglikelihood, by summing all the log densities and dividing by the number of samples (it's as if we're computing a mean)
+        loglikehood1 = numpy.sum(logdens)
+        avgloglikelihood1 = loglikehood1/X.shape[1] # In the following we will use the average log-likelihood, i.e. we will divide the loglikelihood by N.
+        posterior_probabilities = Estep(logdens, S)
+        (w, mu, cov) = TiedDiagMstep(X, S, posterior_probabilities) #CAMBIA SOLO LA FUNZIONE CHE INVOCHIAMO QUI RISPETTO A EMalgorithm NORMALE
+        for g in range(len(gmm)):
+            # Update the model parameters that are in gmm
+            gmm[g] = (w[g], mu[:, g].reshape((mu.shape[0], 1)), cov[g])
+        # Compute the new log densities and the new sub-class conditional densities
+        (logdens, S) = logpdf_GMM(X, gmm)
+        loglikehood2 = numpy.sum(logdens)
+        avgloglikelihood2 =  loglikehood2/X.shape[1] #PDF: The average log-likelihood for the trained GMM is -7.26325603 (WHEN WORKING WITH 4-DIMENSIONAL DATA)
+        if (avgloglikelihood2-avgloglikelihood1 < 10**(-6)): #We stop the iterations when the average log-likelihood increases by a value lower than a threshold
+            flag = False
+        if (avgloglikelihood2-avgloglikelihood1 < 0): #To verify your implementation, check your log-likelihood is increasing. If the loglikelihood becomes smaller at some iteration, then your implementation is very likely to be incorrect!
+            print("The loglikelihood has become smaller at iteration: " + str(count))
+    #print(count) 
+    # if(X.shape[0] == 4):
+    #     print("Average log-likelihood 4D-DATA: ", avgloglikelihood2)
+    #if(X.shape[0] == 1):
+        #print("Average log-likelihood 1D-DATA: ", avgloglikelihood2)
+    return gmm 
+
 def TiedLBGalgorithm(GMM, X, iterations):
     GMM = TiedEMalgorithm(X, GMM)
     for i in range(iterations):
         GMM = split(GMM)
         GMM = TiedEMalgorithm(X, GMM)
+    return GMM
+
+def TiedDiagLBGalgorithm(GMM, X, iterations):
+    GMM = TiedDiagEMalgorithm(X, GMM)
+    for i in range(iterations):
+        GMM = split(GMM)
+        GMM = TiedDiagEMalgorithm(X, GMM)
     return GMM
 
 def constraintSigma(sigma):
@@ -339,6 +424,7 @@ def constraintSigma(sigma):
     return sigma
 
 def DiagConstraintSigma(sigma):
+    # same for diag and tied diag
     sigma = sigma * numpy.eye(sigma.shape[0])
     psi = 0.01
     U, s, Vh = numpy.linalg.svd(sigma)
@@ -368,4 +454,5 @@ def GMM_Classifier(DTR0, DTR1, DTE, LTE, algorithm, K, constraint):
     numberOfCorrectPredictions = numpy.array(predictedLabels == LTE).sum()
     accuracy = numberOfCorrectPredictions/LTE.size*100
     errorRate = 100-accuracy
-    return predictedLabels , numberOfCorrectPredictions
+    # marg_likelihood_class_1 - marg_likelihood_class_0 to compute the minDCF
+    return marginalLikelihoods[1]-marginalLikelihoods[0] , numberOfCorrectPredictions
