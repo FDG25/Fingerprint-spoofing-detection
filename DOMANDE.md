@@ -25,9 +25,13 @@ La gaussianizzazione ha detto che non si fa.
 
 
 # NOTE / COSE DA FARE
-- bayes error plot con actDCF e minDCF sul modello finale
-- score calibration sul modello finale
-- vedere approcci normalizzazione dati
+- scelto il modello migliore con combinazione parameter + hyperparameter :
+    - addestrare su intero training set a valuare performance su intero test set
+    - bayes error plot con actDCF e minDCF sul modello finale
+    - score calibration sul modello finale
+    - vedere approcci normalizzazione dati
+    - sistemare le cose a cui risponde il tutor
+    - vedere la cosa che dice laura sulle componenti - - > in gmm_classifier potremmo far sì che la gmm che descrive la distribuzione di una classe abbia un certo numero di componenti (es:4) e la gmm che descrive la distribuzione dell'altra classe abbia un altro numero di componenti (es:128)
 - TESTARE PCA SOTTO AL 7 PER LOGISTIC REGRESSION (A PARTIRE DA 6 CON TUTTI E 7 I VALORI DI LAMBDA CHE ABBIAMO VISTO
 - PRESE DA ALCUNE SEZIONI SOTTOSTANTI DI QUESTO FILE:
 1) lda per vedere se dall'unica dimensione si riescono a estrarre informazioni interessanti (ci sono info interessanti)
