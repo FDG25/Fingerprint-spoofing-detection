@@ -609,7 +609,7 @@ if __name__ == '__main__':
     diag_min_dcfs = []
     tied_min_dcfs = []
     tied_diag_min_dcfs = []
-    for nSplit in range(0,1):
+    for nSplit in range(0,11):
         # from 2 to 1024 components
         print("Number of GMM Components: " + str(2**nSplit))
         gmm_components.append(2**nSplit)
@@ -635,10 +635,10 @@ if __name__ == '__main__':
     diag_min_dcfs = []
     tied_min_dcfs = []
     tied_diag_min_dcfs = []
-    for nSplit0 in range(0,1):
+    for nSplit0 in range(0,11):
         print("Number of GMM Components of Class 0: " + str(2**nSplit0))
         gmm_components_class_1 = []
-        for nSplit1 in range(0,1):
+        for nSplit1 in range(0,11):
             # from 2 to 1024 components
             print("Number of GMM Components of Class 1: " + str(2**nSplit1))
             gmm_components_class_1.append(2**nSplit1)
