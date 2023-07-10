@@ -266,7 +266,7 @@ def K_Fold_SVM_kernel_rbf(D,L,K,hyperParameter_K,hyperParameter_C,hyperParameter
     print(f"Min DCF for RADIAL BASIS FUNCTION (RBF) Kernel SVM: {minDcf}\n")
     return minDcf
 
-def K_Fold_GMM(D,L,K,gmmType):
+def K_Fold_GMM(D,L,K,nSplit0,nSplit1=None):
     # Leave-One-Out Approach Con K=2325: 
     fold_dimension = int(D.shape[1]/K)  # size of each fold
     fold_indices = numpy.arange(0, K*fold_dimension, fold_dimension)  # indices to split the data into folds
@@ -291,7 +291,7 @@ def K_Fold_GMM(D,L,K,gmmType):
             DVA = numpy.dot(P.T, DVA)
             DTR0,DTR1 = getClassMatrix(DTR,LTR)
             nSamples = DVA.shape[1]
-            scores_i,nCorrectPrediction = gmm.GMM_Classifier(DTR0, DTR1, DVA, LVA, classifier_algorithm, gmmType , classifier_costraint) 
+            scores_i,nCorrectPrediction = gmm.GMM_Classifier(DTR0, DTR1, DVA, LVA, classifier_algorithm, nSplit0 , nSplit1, classifier_costraint) 
             nWrongPrediction += nSamples - nCorrectPrediction
             scores = numpy.append(scores,scores_i)
             labels = numpy.append(labels,LVA)
@@ -601,18 +601,20 @@ if __name__ == '__main__':
     # mu_DP1,cov_DP1 = computeMeanCovMatrix(DP1_RAND)
     # build the gmm
     # GMM = [[gmm_weights[0],mu_DP0,cov_DP0],[gmm_weights[1],mu_DP1,cov_DP1]]
+    # ------------- GMM WITH SAME PER-CLASS COMPONENTS ----------------
+    print("GMM WITH SAME PER-CLASS COMPONENTS")
     gmm_components = []
     # mindcfs of Full Covariance, of Diagonal Covariance, of Tied Covariance, of Tied Diagonal Covariance
     full_min_dcfs = []
     diag_min_dcfs = []
     tied_min_dcfs = []
     tied_diag_min_dcfs = []
-    for gmm_type in range(0,11):
+    for nSplit in range(0,1):
         # from 2 to 1024 components
-        print("Number of GMM Components: " + str(2**gmm_type))
-        gmm_components.append(2**gmm_type)
+        print("Number of GMM Components: " + str(2**nSplit))
+        gmm_components.append(2**nSplit)
         # minDcfs[0] mindcfs of Full Covariance, minDcfs[1] of Diagonal Covariance, minDcfs[2] of Tied Covariance, minDcfs[3] of Tied Diagonal Covariance
-        minDcfs = K_Fold_GMM(DTR_RAND,LTR_RAND,K=5,gmmType=gmm_type)
+        minDcfs = K_Fold_GMM(DTR_RAND,LTR_RAND,K=5,nSplit0=nSplit)
         full_min_dcfs.append(minDcfs[0])
         diag_min_dcfs.append(minDcfs[1])
         tied_min_dcfs.append(minDcfs[2])
@@ -623,6 +625,34 @@ if __name__ == '__main__':
     plot.gmm_dcf_plot(diag_min_dcfs,gmm_components,"Diagonal Covariance")
     plot.gmm_dcf_plot(tied_min_dcfs,gmm_components,"Tied Covariance")
     plot.gmm_dcf_plot(tied_diag_min_dcfs,gmm_components,"Tied Diagonal Covariance")
+
+
+    # ---------- GMM WITH ALL POSSIBLE COMPONENTS COMBINATION -----------
+    print("GMM WITH ALL POSSIBLE COMPONENTS COMBINATION")
+    gmm_components_class_1 = []
+    # mindcfs of Full Covariance, of Diagonal Covariance, of Tied Covariance, of Tied Diagonal Covariance
+    full_min_dcfs = []
+    diag_min_dcfs = []
+    tied_min_dcfs = []
+    tied_diag_min_dcfs = []
+    for nSplit0 in range(0,1):
+        print("Number of GMM Components of Class 0: " + str(2**nSplit0))
+        gmm_components_class_1 = []
+        for nSplit1 in range(0,1):
+            # from 2 to 1024 components
+            print("Number of GMM Components of Class 1: " + str(2**nSplit1))
+            gmm_components_class_1.append(2**nSplit1)
+            # minDcfs[0] mindcfs of Full Covariance, minDcfs[1] of Diagonal Covariance, minDcfs[2] of Tied Covariance, minDcfs[3] of Tied Diagonal Covariance
+            minDcfs = K_Fold_GMM(DTR_RAND,LTR_RAND,K=5,nSplit0=nSplit0,nSplit1=nSplit1)
+            full_min_dcfs.append(minDcfs[0])
+            diag_min_dcfs.append(minDcfs[1])
+            tied_min_dcfs.append(minDcfs[2])
+            tied_diag_min_dcfs.append(minDcfs[3]) 
+        # ----- PLOT GMMS ALL COMBINATIONS  ------
+        plot.gmm_plot_all_component_combinations(full_min_dcfs,gmm_components_class_1,"Full Covariance (standard) for class 0 with " + str(2**nSplit0) + " GMM components")
+        plot.gmm_plot_all_component_combinations(diag_min_dcfs,gmm_components_class_1,"Diagonal Covariance for class 0 with " + str(2**nSplit0) + " GMM components")
+        plot.gmm_plot_all_component_combinations(tied_min_dcfs,gmm_components_class_1,"Tied Covariance for class 0 with " + str(2**nSplit0) + " GMM components")
+        plot.gmm_plot_all_component_combinations(tied_diag_min_dcfs,gmm_components_class_1,"Tied Diagonal Covariance for class 0 with " + str(2**nSplit0) + " GMM components")
 
 
 

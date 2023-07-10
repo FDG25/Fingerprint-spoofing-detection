@@ -117,6 +117,7 @@ def EMalgorithm(X, gmm):
         #print("Average log-likelihood 1D-DATA: ", avgloglikelihood2)
     return gmm 
 
+'''
 def plotEstimatedDensity_and_hystogram(dataset, gmm, colore):
     # Function used to plot the computed normal density over the normalized histogram
     plt.figure()
@@ -128,6 +129,7 @@ def plotEstimatedDensity_and_hystogram(dataset, gmm, colore):
     for g in range(len(gmm)):
         y += gmm[g][0]*numpy.exp(logpdf_GAU_1D(XPlot, gmm[g][1], gmm[g][2])).flatten() #NON SO SE LA FLATTEN è NECESSARIA
     plt.plot(XPlot, y, color=colore, linewidth=3)
+'''
 
 #SPLIT a GMM with G component(s) TO OBTAIN a GMM with 2G components
 def split(GMM):
@@ -432,7 +434,7 @@ def DiagConstraintSigma(sigma):
     sigma = numpy.dot(U, main.vcol(s)*U.T)
     return sigma
 
-def GMM_Classifier(DTR0, DTR1, DTE, LTE, algorithm, K, constraint):
+def GMM_Classifier(DTR0, DTR1, DTE, LTE, algorithm, n_split_0, n_split_1=None, constraint=None):
     D = [DTR0, DTR1] # Define a list that includes the three splitted training set
     marginalLikelihoods = [] # Define a list to store marginal likelihoods for the three sets
     # Iterate on the three sets
@@ -444,7 +446,15 @@ def GMM_Classifier(DTR0, DTR1, DTE, LTE, algorithm, K, constraint):
         sigmag = constraint(numpy.cov(D[i]).reshape((D[i].shape[0], D[i].shape[0])))
         # Define initial component
         initialGMM = [(wg, mug, sigmag)]
-        finalGMM = algorithm(initialGMM, D[i], K)
+        if n_split_1 == None:
+            # same split for both classes (n_split_0)
+            finalGMM = algorithm(initialGMM, D[i], n_split_0)
+        elif i==0:
+            # class 0, split is n_split_0
+            finalGMM = algorithm(initialGMM, D[i], n_split_0)
+        else:
+            # class 1, split is n_split_1
+            finalGMM = algorithm(initialGMM, D[i], n_split_1)
         # Compute marginal likelihoods and append them to the list
         marginalLikelihoods.append(logpdf_GMM(DTE, finalGMM)[0])
     # Stack all the likelihoods in PD

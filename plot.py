@@ -155,3 +155,19 @@ def gmm_dcf_plot(minDCFs, gmmComponents, gmm_model_name):
     plt.savefig(os.path.join('output_plot_folder','plot_' + str(plot_index) + '.png'))
     plot_index+=1
     #plt.show()
+
+def gmm_plot_all_component_combinations(minDCFs, gmm_components_class_1, title):
+    global plot_index
+    plt.figure()
+    plt.title(title)
+    plt.xlabel("GMM components class 1")
+    plt.ylabel("minDCF values")
+    x_axis = numpy.arange(len(gmm_components_class_1))
+    gmm_components_class_1 = numpy.array(gmm_components_class_1)
+    for i in range(0,len(minDCFs)):
+        plt.bar(x_axis[i] + 0.10 , minDCFs[i], width = 0.5,linewidth = 1.0, edgecolor='black', color="blue")
+    plt.xticks([r + 0.125 for r in range(len(gmm_components_class_1))],gmm_components_class_1)
+    plt.savefig(os.path.join('output_plot_folder','plot_' + str(plot_index) + '.png'))
+    plot_index+=1
+    #plt.legend()
+    #plt.show()
