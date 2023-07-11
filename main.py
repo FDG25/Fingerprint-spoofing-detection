@@ -638,6 +638,10 @@ if __name__ == '__main__':
     for nSplit0 in range(0,11):
         print("Number of GMM Components of Class 0: " + str(2**nSplit0))
         gmm_components_class_1 = []
+        full_min_dcfs = []
+        diag_min_dcfs = []
+        tied_min_dcfs = []
+        tied_diag_min_dcfs = []
         for nSplit1 in range(0,11):
             # from 2 to 1024 components
             print("Number of GMM Components of Class 1: " + str(2**nSplit1))

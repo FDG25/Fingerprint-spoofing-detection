@@ -26,7 +26,7 @@ La gaussianizzazione ha detto che non si fa.
 
 # NOTE / COSE DA FARE
 - scelto il modello migliore con combinazione parameter + hyperparameter :
-    - addestrare su intero training set a valuare performance su intero test set
+    - addestrare su intero training set a valuare performance su intero test set (se è stato applicato il PCA riapplicarlo anche qui nuovamente)
     - bayes error plot con actDCF e minDCF sul modello finale
     - score calibration sul modello finale
     - vedere approcci normalizzazione dati
