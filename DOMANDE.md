@@ -25,6 +25,7 @@ La gaussianizzazione ha detto che non si fa.
 
 
 # NOTE / COSE DA FARE
+- plottare così le combinazioni delle gmm: ![image](./plotGmmComb.jpg)
 -  provare ad applicare strategie di preprocessing anche a lda (SALTA), mvg e tied classifiers. INOLTRE, ACCERTARCI CHE NELL'LR ABBIAMO NORMALIZZATO I DATI NEL CASO DI MODELLO NON REGOLARIZZATO (LAMBDA =0)
 - scelto il modello migliore con combinazione parameter + hyperparameter :
     - addestrare su intero training set a valuare performance su intero test set (se è stato applicato il PCA riapplicarlo anche qui nuovamente)
