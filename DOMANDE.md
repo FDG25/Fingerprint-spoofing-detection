@@ -39,7 +39,7 @@ La gaussianizzazione ha detto che non si fa.
 - PRESE DA ALCUNE SEZIONI SOTTOSTANTI DI QUESTO FILE:
 1) lda per vedere se dall'unica dimensione si riescono a estrarre informazioni interessanti (ci sono info interessanti)
 2) pca con m=2 per vedere se si riescono a estrarre info interessanti
-
+-controllare se le normalizzazioni le abbiamo applicate sempre prima del pca. stackexchange: "So for finding features usable for any kind of model, a PCA without normalization would perform worse than one with normalization."
 # RISPOSTE
 - Avendo 2 classi, ha comunque senso adottare un approccio con la class posterio probability, o valutiamo solo il log likelihood ratio (log likelihood solo conviene)
 - serve fare una validation con un partizionamento fisso (usando la split 2to1 del lab5) oppure basta fare la k fold cross validation (k fold è già più robusto di per sè) (solo k fold è meglio)
