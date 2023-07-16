@@ -143,7 +143,7 @@ def logreg_obj_wrap_weighted_gradient(DTR, LTR, lambd):
         n = DTR.shape[1]
         first_term = (lambd / 2) * (numpy.linalg.norm(w) ** 2)
         DP0, DP1 = main.getClassMatrix(DTR, LTR)
-        app_prior = constants.PRIOR_PROBABILITY
+        app_prior = constants.EFFECTIVE_PRIOR
         weight_0 = (1 - app_prior) / DP0.shape[1]
         weight_1 = app_prior / DP1.shape[1]
         loss_0 = 0

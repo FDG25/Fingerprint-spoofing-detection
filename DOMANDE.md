@@ -25,6 +25,7 @@ La gaussianizzazione ha detto che non si fa.
 
 
 # NOTE / COSE DA FARE
+- provare varie prior per il calcolo di tutte le mindcf
 - plottare così le combinazioni delle gmm: ![image](./plotGmmComb.jpg)
 -  provare ad applicare strategie di preprocessing anche a lda (SALTA), mvg e tied classifiers. INOLTRE, ACCERTARCI CHE NELL'LR ABBIAMO NORMALIZZATO I DATI NEL CASO DI MODELLO NON REGOLARIZZATO (LAMBDA =0)
 - scelto il modello migliore con combinazione parameter + hyperparameter :
