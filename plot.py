@@ -4,6 +4,7 @@ import matplotlib.pyplot as plt
 import constants
 import main 
 import os
+import optimal_decision
 
 def plot_hist(DTR,L):
     # 'spoofed-fingerprint' : name = 0 'authentic-fingerprint' : name = 1 
@@ -170,4 +171,33 @@ def gmm_plot_all_component_combinations(minDCFs, gmm_components_class_1, title):
     plt.savefig(os.path.join('output_plot_folder','plot_' + str(plot_index) + '.png'))
     plot_index+=1
     #plt.legend()
+    #plt.show()
+
+def compute_bayes_error_plot(llrs,labels,plt_title):
+    n_points = 100
+    effPriorLogOdds = numpy.linspace(-4, 4, n_points)
+    DCFs = [None] * n_points
+    MIN_DCFs = [None] * n_points
+    for i in range(0,n_points):
+        pi_t = 1/(1+numpy.exp(-effPriorLogOdds[i]))
+        DCFs[i],_,_ = optimal_decision.computeOptimalDecisionBinaryBayesPlot(pi_t,1,1,llrs,labels)
+        MIN_DCFs[i] = optimal_decision.computeMinDCF(pi_t,1,1,llrs,labels)
+        print(str(i))
+    bayesErrorPlot(DCFs,MIN_DCFs,effPriorLogOdds,plt_title)
+
+#The normalized Bayes error plot allows assessing the performance of the
+#recognizer as we vary the application, i.e. as a function of prior log-odds ptilde
+def bayesErrorPlot(dcf, mindcf, effPriorLogOdds, plt_title): #dcf is the array containing the DCF values, and mindcf is the array containing the minimum DCF values
+    global plot_index
+    plt.figure()
+    plt.plot(effPriorLogOdds, dcf, label='actDCF', color='r')
+    plt.plot(effPriorLogOdds, mindcf, label='minDCF', color='b')
+    plt.xlabel("$log \\frac{ \\tilde{\pi}}{1-\\tilde{\pi}}$")
+    plt.ylabel("DCF")
+    plt.legend()
+    plt.title(plt_title)
+    plt.ylim([0, 1.0])
+    plt.xlim([-4, 4])
+    plt.savefig(os.path.join('output_plot_folder','plot_' + str(plot_index) + '.png'))
+    plot_index+=1
     #plt.show()

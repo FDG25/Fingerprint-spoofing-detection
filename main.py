@@ -169,7 +169,54 @@ def K_Fold_LR(D,L,K,classifiers,hyperParameter):
         minDcf = optimal_decision.computeMinDCF(constants.PRIOR_PROBABILITY,constants.CFN,constants.CFP,scores,labels)
         minDcfs.append(minDcf)
         print(f"Min DCF for {classifier_name}: {minDcf}\n")
+        # ----- MISCALIBRATED PLOT --------
+        plot.compute_bayes_error_plot(scores,labels,"LR")
+        # ----- CALIBRATION aND CALIBRATED PLOT ------
+        K_Fold_Calibration(scores,labels,K=5,plt_title="Calibrated " + classifier_name)   
     return minDcfs 
+
+def K_Fold_Calibration(D,L,K,plt_title):
+    # ------- SHUFFLING OF SCORES AND LABELS ---------
+    # Get shuffled indices for both arrays
+    shuffled_indices = numpy.random.permutation(len(D))
+
+    # Shuffle both arrays using the same indices
+    D = D[shuffled_indices]
+    L = L[shuffled_indices]
+
+    # Leave-One-Out Approach Con K=2325: 
+    fold_dimension = int(D.shape[0]/K)  # size of each fold
+    fold_indices = numpy.arange(0, K*fold_dimension, fold_dimension)  # indices to split the data into folds
+    classifiers = [(lr.LogisticRegressionPriorWeighted, "Prior Weighted")]
+    #minDcfs = []
+    for classifier_function, classifier_name in classifiers: 
+        nWrongPrediction = 0
+        scores = numpy.array([])
+        labels = numpy.array([])
+        # Run k-fold cross-validation
+        for i in range(K):    
+            # Split the data into training and validation sets
+            mask = numpy.zeros(D.shape[0], dtype=bool)
+            mask[fold_indices[i]:fold_indices[i]+fold_dimension] = True
+            DTR = D[~mask]
+            LTR = L[~mask]
+            DVA = D[mask]
+            LVA = L[mask]
+            # apply PCA on current fold DTR,DVA
+            #DTR,P = pca.PCA_projection(DTR,m = constants.M)
+            #DVA = numpy.dot(P.T, DVA)
+            nSamples = DVA.shape[0]  
+            scores_i,nCorrectPrediction = lr.LogisticRegressionPriorWeighted(DTR, LTR, DVA, LVA) 
+            nWrongPrediction += nSamples - nCorrectPrediction
+            scores = numpy.append(scores,scores_i)
+            labels = numpy.append(labels,LVA)
+        #errorRate = nWrongPrediction/D.shape[0] 
+        #accuracy = 1 - errorRate
+        #print(f"{classifier_name} results:\nAccuracy: {round(accuracy*100, 2)}%\nError rate: {round(errorRate*100, 2)}%\n",end="")
+        #minDcf = optimal_decision.computeMinDCF(constants.PRIOR_PROBABILITY,constants.CFN,constants.CFP,scores,labels)
+        #minDcfs.append(minDcf)
+        #print(f"Min DCF for {classifier_name}: {minDcf}\n")
+        plot.compute_bayes_error_plot(scores,labels,plt_title)
 
 def K_Fold_SVM_linear(D,L,K,hyperParameter_K,hyperParameter_C):
     # Leave-One-Out Approach Con K=2325: 
@@ -270,7 +317,8 @@ def K_Fold_GMM(D,L,K,nSplit0,nSplit1=None):
     # Leave-One-Out Approach Con K=2325: 
     fold_dimension = int(D.shape[1]/K)  # size of each fold
     fold_indices = numpy.arange(0, K*fold_dimension, fold_dimension)  # indices to split the data into folds
-    classifiers = [(gmm.LBGalgorithm,gmm.constraintSigma,"Full Covariance (standard)"), (gmm.DiagLBGalgorithm,gmm.DiagConstraintSigma,"Diagonal Covariance"), (gmm.TiedLBGalgorithm, gmm.constraintSigma, "Tied Covariance"),(gmm.TiedDiagLBGalgorithm,gmm.DiagConstraintSigma,"Tied Diagonal Covariance")] 
+    #classifiers = [(gmm.LBGalgorithm,gmm.constraintSigma,"Full Covariance (standard)"), (gmm.DiagLBGalgorithm,gmm.DiagConstraintSigma,"Diagonal Covariance"), (gmm.TiedLBGalgorithm, gmm.constraintSigma, "Tied Covariance"),(gmm.TiedDiagLBGalgorithm,gmm.DiagConstraintSigma,"Tied Diagonal Covariance")] 
+    classifiers = [(gmm.TiedDiagLBGalgorithm,gmm.DiagConstraintSigma,"Tied Diagonal Covariance")] 
     # 4 values: mindcfs of Full Covariance, of Diagonal Covariance, of Tied Covariance, of Tied Diagonal Covariance
     minDcfs = []
     for classifier_algorithm, classifier_costraint, classifier_name in classifiers: 
@@ -301,6 +349,7 @@ def K_Fold_GMM(D,L,K,nSplit0,nSplit1=None):
         minDcf = optimal_decision.computeMinDCF(constants.PRIOR_PROBABILITY,constants.CFN,constants.CFP,scores,labels)
         minDcfs.append(minDcf)
         print(f"Min DCF for {classifier_name}: {minDcf}\n")
+        plot.compute_bayes_error_plot(scores,labels,"GMM")
     return minDcfs 
 
 def optimalDecision(DTR,LTR,DTE,LTE):
@@ -602,64 +651,67 @@ if __name__ == '__main__':
     # build the gmm
     # GMM = [[gmm_weights[0],mu_DP0,cov_DP0],[gmm_weights[1],mu_DP1,cov_DP1]]
     # ------------- GMM WITH SAME PER-CLASS COMPONENTS ----------------
-    print("GMM WITH SAME PER-CLASS COMPONENTS")
-    gmm_components = []
-    # mindcfs of Full Covariance, of Diagonal Covariance, of Tied Covariance, of Tied Diagonal Covariance
-    full_min_dcfs = []
-    diag_min_dcfs = []
-    tied_min_dcfs = []
-    tied_diag_min_dcfs = []
-    for nSplit in range(0,11):
-        # from 2 to 1024 components
-        print("Number of GMM Components: " + str(2**nSplit))
-        gmm_components.append(2**nSplit)
-        # minDcfs[0] mindcfs of Full Covariance, minDcfs[1] of Diagonal Covariance, minDcfs[2] of Tied Covariance, minDcfs[3] of Tied Diagonal Covariance
-        minDcfs = K_Fold_GMM(DTR_RAND,LTR_RAND,K=5,nSplit0=nSplit)
-        full_min_dcfs.append(minDcfs[0])
-        diag_min_dcfs.append(minDcfs[1])
-        tied_min_dcfs.append(minDcfs[2])
-        tied_diag_min_dcfs.append(minDcfs[3]) 
+    # print("GMM WITH SAME PER-CLASS COMPONENTS")
+    # gmm_components = []
+    # # mindcfs of Full Covariance, of Diagonal Covariance, of Tied Covariance, of Tied Diagonal Covariance
+    # full_min_dcfs = []
+    # diag_min_dcfs = []
+    # tied_min_dcfs = []
+    # tied_diag_min_dcfs = []
+    # for nSplit in range(0,11):
+    #     # from 2 to 1024 components
+    #     print("Number of GMM Components: " + str(2**nSplit))
+    #     gmm_components.append(2**nSplit)
+    #     # minDcfs[0] mindcfs of Full Covariance, minDcfs[1] of Diagonal Covariance, minDcfs[2] of Tied Covariance, minDcfs[3] of Tied Diagonal Covariance
+    #     minDcfs = K_Fold_GMM(DTR_RAND,LTR_RAND,K=5,nSplit0=nSplit)
+    #     full_min_dcfs.append(minDcfs[0])
+    #     diag_min_dcfs.append(minDcfs[1])
+    #     tied_min_dcfs.append(minDcfs[2])
+    #     tied_diag_min_dcfs.append(minDcfs[3]) 
 
-    # ----- PLOT GMMS   ------
-    plot.gmm_dcf_plot(full_min_dcfs,gmm_components,"Full Covariance (standard)")
-    plot.gmm_dcf_plot(diag_min_dcfs,gmm_components,"Diagonal Covariance")
-    plot.gmm_dcf_plot(tied_min_dcfs,gmm_components,"Tied Covariance")
-    plot.gmm_dcf_plot(tied_diag_min_dcfs,gmm_components,"Tied Diagonal Covariance")
-
-
-    # ---------- GMM WITH ALL POSSIBLE COMPONENTS COMBINATION -----------
-    print("GMM WITH ALL POSSIBLE COMPONENTS COMBINATION")
-    gmm_components_class_1 = []
-    # mindcfs of Full Covariance, of Diagonal Covariance, of Tied Covariance, of Tied Diagonal Covariance
-    full_min_dcfs = []
-    diag_min_dcfs = []
-    tied_min_dcfs = []
-    tied_diag_min_dcfs = []
-    for nSplit0 in range(0,11):
-        print("Number of GMM Components of Class 0: " + str(2**nSplit0))
-        gmm_components_class_1 = []
-        full_min_dcfs = []
-        diag_min_dcfs = []
-        tied_min_dcfs = []
-        tied_diag_min_dcfs = []
-        for nSplit1 in range(0,11):
-            # from 2 to 1024 components
-            print("Number of GMM Components of Class 1: " + str(2**nSplit1))
-            gmm_components_class_1.append(2**nSplit1)
-            # minDcfs[0] mindcfs of Full Covariance, minDcfs[1] of Diagonal Covariance, minDcfs[2] of Tied Covariance, minDcfs[3] of Tied Diagonal Covariance
-            minDcfs = K_Fold_GMM(DTR_RAND,LTR_RAND,K=5,nSplit0=nSplit0,nSplit1=nSplit1)
-            full_min_dcfs.append(minDcfs[0])
-            diag_min_dcfs.append(minDcfs[1])
-            tied_min_dcfs.append(minDcfs[2])
-            tied_diag_min_dcfs.append(minDcfs[3]) 
-        # ----- PLOT GMMS ALL COMBINATIONS  ------
-        plot.gmm_plot_all_component_combinations(full_min_dcfs,gmm_components_class_1,"Full Covariance (standard) for class 0 with " + str(2**nSplit0) + " GMM components")
-        plot.gmm_plot_all_component_combinations(diag_min_dcfs,gmm_components_class_1,"Diagonal Covariance for class 0 with " + str(2**nSplit0) + " GMM components")
-        plot.gmm_plot_all_component_combinations(tied_min_dcfs,gmm_components_class_1,"Tied Covariance for class 0 with " + str(2**nSplit0) + " GMM components")
-        plot.gmm_plot_all_component_combinations(tied_diag_min_dcfs,gmm_components_class_1,"Tied Diagonal Covariance for class 0 with " + str(2**nSplit0) + " GMM components")
+    # # ----- PLOT GMMS   ------
+    # plot.gmm_dcf_plot(full_min_dcfs,gmm_components,"Full Covariance (standard)")
+    # plot.gmm_dcf_plot(diag_min_dcfs,gmm_components,"Diagonal Covariance")
+    # plot.gmm_dcf_plot(tied_min_dcfs,gmm_components,"Tied Covariance")
+    # plot.gmm_dcf_plot(tied_diag_min_dcfs,gmm_components,"Tied Diagonal Covariance")
 
 
+    # # ---------- GMM WITH ALL POSSIBLE COMPONENTS COMBINATION -----------
+    # print("GMM WITH ALL POSSIBLE COMPONENTS COMBINATION")
+    # gmm_components_class_1 = []
+    # # mindcfs of Full Covariance, of Diagonal Covariance, of Tied Covariance, of Tied Diagonal Covariance
+    # full_min_dcfs = []
+    # diag_min_dcfs = []
+    # tied_min_dcfs = []
+    # tied_diag_min_dcfs = []
+    # for nSplit0 in range(0,11):
+    #     print("Number of GMM Components of Class 0: " + str(2**nSplit0))
+    #     gmm_components_class_1 = []
+    #     full_min_dcfs = []
+    #     diag_min_dcfs = []
+    #     tied_min_dcfs = []
+    #     tied_diag_min_dcfs = []
+    #     for nSplit1 in range(0,11):
+    #         # from 2 to 1024 components
+    #         print("Number of GMM Components of Class 1: " + str(2**nSplit1))
+    #         gmm_components_class_1.append(2**nSplit1)
+    #         # minDcfs[0] mindcfs of Full Covariance, minDcfs[1] of Diagonal Covariance, minDcfs[2] of Tied Covariance, minDcfs[3] of Tied Diagonal Covariance
+    #         minDcfs = K_Fold_GMM(DTR_RAND,LTR_RAND,K=5,nSplit0=nSplit0,nSplit1=nSplit1)
+    #         full_min_dcfs.append(minDcfs[0])
+    #         diag_min_dcfs.append(minDcfs[1])
+    #         tied_min_dcfs.append(minDcfs[2])
+    #         tied_diag_min_dcfs.append(minDcfs[3]) 
+    #     # ----- PLOT GMMS ALL COMBINATIONS  ------
+    #     plot.gmm_plot_all_component_combinations(full_min_dcfs,gmm_components_class_1,"Full Covariance (standard) for class 0 with " + str(2**nSplit0) + " GMM components")
+    #     plot.gmm_plot_all_component_combinations(diag_min_dcfs,gmm_components_class_1,"Diagonal Covariance for class 0 with " + str(2**nSplit0) + " GMM components")
+    #     plot.gmm_plot_all_component_combinations(tied_min_dcfs,gmm_components_class_1,"Tied Covariance for class 0 with " + str(2**nSplit0) + " GMM components")
+    #     plot.gmm_plot_all_component_combinations(tied_diag_min_dcfs,gmm_components_class_1,"Tied Diagonal Covariance for class 0 with " + str(2**nSplit0) + " GMM components")
 
+    # BEST MODEL TIED DIAGONAL WITH GMM COMPONENTS = 8 FOR CLASS 0 AND GMM COMPONENTS 2 FOR CLASS 1
+    #minDcfs = K_Fold_GMM(DTR_RAND,LTR_RAND,K=5,nSplit0=3,nSplit1=1)
+
+    classifier = [(lr.LogisticRegressionWeightedQuadratic, "Logistic Regression Weighted Quadratic")]
+    minDcfs = K_Fold_LR(DTR_RAND,LTR_RAND,K=5,classifiers=classifier,hyperParameter=0.01)
     # ------------------ OPTIMAL DECISION --------------------------
     #optimalDecision(DTR_RAND,LTR_RAND,DTE_RAND,LTE_RAND)
     #We now turn our attention at evaluating the predictions made by our classifier R for a target application

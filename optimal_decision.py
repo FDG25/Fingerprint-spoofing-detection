@@ -5,7 +5,7 @@ import matplotlib.pyplot as plt
 #Confusion matrices are a tool to visualize the number of samples predicted as class i and belonging to
 #class j. A confusion matrix is a K × K matrix whose elements Mi,j represent the number of samples
 #belonging to class j that are predicted as class i.
-def confusion_matrix(y_true, y_pred, num_classes=3): #NUOVA FUNZIONE
+def confusion_matrix(y_true, y_pred, num_classes=2): #NUOVA FUNZIONE
     cm = numpy.zeros((num_classes, num_classes), dtype=int)
     for i in range(num_classes):
         for j in range(num_classes):
@@ -91,20 +91,6 @@ def plotROCcurve(FPR, TPR, title):
     plt.xlabel("FPR") 
     plt.ylabel("TPR")
     plt.title(title)
-    plt.show()
-    
-#The normalized Bayes error plot allows assessing the performance of the
-#recognizer as we vary the application, i.e. as a function of prior log-odds ptilde
-def bayesErrorPlot(dcf, mindcf, effPriorLogOdds): #dcf is the array containing the DCF values, and mindcf is the array containing the minimum DCF values
-    plt.figure()
-    plt.plot(effPriorLogOdds, dcf, label='DCF (ε=0.001)', color='r')
-    plt.plot(effPriorLogOdds, mindcf, label='min DCF (ε=0.001)', color='b')
-    plt.xlabel("prior log-odds")
-    plt.ylabel("DCF value")
-    plt.legend(loc='lower left')
-    plt.title("Bayes Error Plot")
-    plt.ylim([0, 1.1])
-    plt.xlim([-3, 3])
     plt.show()
 
 def bayesErrorPlotMerged(dcf1, mindcf1, dcf2, mindcf2, effPriorLogOdds): #dcf is the array containing the DCF values, and mindcf is the array containing the minimum DCF values
