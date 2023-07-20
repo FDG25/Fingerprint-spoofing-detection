@@ -177,55 +177,97 @@ def logreg_obj_wrap_weighted_gradient(DTR, LTR, lambd):
     return logreg_obj_weighted_gradient
 
 
-def logreg_obj_wrap_prior_weighted_gradient(DTR, LTR):
-    def logreg_obj_prior_weighted_gradient(v):
+# def logreg_obj_wrap_prior_weighted_gradient(DTR, LTR):
+#     def logreg_obj_prior_weighted_gradient(v):
+#         w, b = v[0:-1], v[-1]
+#         n = DTR.shape[0]
+#         # non regularized
+#         lambd = 0
+#         first_term = (lambd / 2) * (numpy.linalg.norm(w) ** 2)
+#         DP0 = DTR[LTR==0]   
+#         DP1 = DTR[LTR==1]
+#         app_prior = constants.EFFECTIVE_PRIOR
+#         prior_log_odds = numpy.log(app_prior/1-app_prior)
+#         weight_0 = (1 - app_prior) / DP0.shape[0]
+#         weight_1 = app_prior / DP1.shape[0]
+#         loss_0 = 0
+#         loss_1 = 0
+#         G1 = numpy.zeros_like(w)
+#         G2 = numpy.array([0])
+
+#         for i in range(n):
+#             c_i = LTR[i]
+#             z_i = 2 * c_i - 1
+#             x_i = DTR[i]
+#             term = numpy.exp(-z_i * ((numpy.dot(w.T, x_i)) + b + prior_log_odds))
+#             loss_derivative = term / (1 + term)
+
+#             if z_i == -1:
+#                 # class 0
+#                 loss_0 += numpy.logaddexp(0, -z_i * ((numpy.dot(w.T, x_i)) + b + prior_log_odds))
+#                 G1 += weight_0 * (-z_i * x_i) * loss_derivative
+#                 G2[0] += weight_0 * (-z_i) * loss_derivative
+#             else:
+#                 # class 1
+#                 loss_1 += numpy.logaddexp(0, -z_i * ((numpy.dot(w.T, x_i)) + b + prior_log_odds))
+#                 G1 += weight_1 * (-z_i * x_i) * loss_derivative
+#                 G2[0] += weight_1 * (-z_i) * loss_derivative
+
+#         function = first_term + weight_1 * loss_1 + weight_0 * loss_0
+#         gradient = numpy.concatenate((G1, G2))
+
+#         return function, gradient
+#   return logreg_obj_prior_weighted_gradient
+
+def logreg_obj_wrap_prior_weighted(DTR, LTR):
+    def logreg_obj_prior_weighted(v):
         w, b = v[0:-1], v[-1]
         n = DTR.shape[0]
-        # non regularized
         lambd = 0
-        first_term = (lambd / 2) * (numpy.linalg.norm(w) ** 2)
+        first_term = (lambd/2) * (numpy.linalg.norm(w)**2)
         DP0 = DTR[LTR==0]   
         DP1 = DTR[LTR==1]
+        #app_prior = constants.EFFECTIVE_PRIOR
         app_prior = constants.EFFECTIVE_PRIOR
         prior_log_odds = numpy.log(app_prior/1-app_prior)
-        weight_0 = (1 - app_prior) / DP0.shape[0]
-        weight_1 = app_prior / DP1.shape[0]
+        weight_0 = (1-app_prior)/DP0.shape[0]
+        weight_1 = app_prior/DP1.shape[0]
         loss_0 = 0
         loss_1 = 0
-        G1 = lambd * w
-        G2 = 0
-
-        for i in range(n):
+        for i in range(0,n):
             c_i = LTR[i]
-            z_i = 2 * c_i - 1
-            x_i = DTR[:, i]
-            term = numpy.exp(-z_i * ((numpy.dot(w.T, x_i)) + b + prior_log_odds))
-            loss_derivative = term / (1 + term)
-
+            z_i = 2*c_i-1
+            x_i = DTR[i]
             if z_i == -1:
                 # class 0
-                loss_0 += numpy.logaddexp(0, -z_i * ((numpy.dot(w.T, x_i)) + b + prior_log_odds))
-                G1 += weight_0 * (-z_i * x_i) * loss_derivative
-                G2 += weight_0 * (-z_i) * loss_derivative
+                loss_0 += numpy.logaddexp(0,-z_i*((numpy.dot(w.T,x_i))+b+prior_log_odds))
             else:
                 # class 1
-                loss_1 += numpy.logaddexp(0, -z_i * ((numpy.dot(w.T, x_i)) + b + prior_log_odds))
-                G1 += weight_1 * (-z_i * x_i) * loss_derivative
-                G2 += weight_1 * (-z_i) * loss_derivative
+                loss_1 += numpy.logaddexp(0,-z_i*((numpy.dot(w.T,x_i))+b+prior_log_odds))
+        return weight_1 * loss_1 + weight_0 * loss_0
+    return logreg_obj_prior_weighted
 
-        function = first_term + weight_1 * loss_1 + weight_0 * loss_0
-        gradient = numpy.concatenate((G1, [G2]))
-
-        return function, gradient
-
-    return logreg_obj_prior_weighted_gradient
-
+def computeScoresCalibration(DTE,LTE,v):
+    w, b = v[0:-1], v[-1]
+    n = DTE.shape[0]
+    LP = []
+    llrs = []
+    for i in range(0,n):
+        x_t = DTE[i]
+        s_i = numpy.dot(w.T,x_t)
+        s_i+=b
+        llrs.append(s_i)
+        if s_i > 0:
+            LP.append(1)
+        else:
+            LP.append(0)
+    nCorrectPredictions = computeNumCorrectPredictionsDiscriminative(numpy.array(LP),LTE)
+    return numpy.array(llrs),nCorrectPredictions
 
 def LogisticRegressionPriorWeighted(DTR,LTR,DTE,LTE):
     
-    # ----- WITH GRADIENT, SO WITHOUT APPROX_GRAD=TRUE  ------
-    logreg_obj_prior_weighted_gradient = logreg_obj_wrap_prior_weighted_gradient(DTR, LTR) 
-    (x, f, d) = scipy.optimize.fmin_l_bfgs_b(logreg_obj_prior_weighted_gradient, numpy.zeros(DTR.shape[0] + 1))
+    logreg_obj_prior_weighted = logreg_obj_wrap_prior_weighted(DTR, LTR) 
+    (x, f, d) = scipy.optimize.fmin_l_bfgs_b(logreg_obj_prior_weighted, numpy.array([0,0]), approx_grad=True)
     #print("Lambda=" + str(lambd)) 
     #print(f"The objective value at the minimum (J(w*,b*)) is: {round(f, 7)}") 
-    return computeScores(DTE, LTE, x) 
+    return computeScoresCalibration(DTE, LTE, x) 
