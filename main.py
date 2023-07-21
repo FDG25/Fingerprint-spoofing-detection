@@ -586,6 +586,7 @@ if __name__ == '__main__':
     #Sb = lda.computeSb(DTR,LTR)
     #DTRP = lda.LDA1(m=1,Sb=Sb,Sw=Sw,D=DTR)
     #plot.plot_hist_projected_data_lda(DTRP,LTR)
+    #plot.plot_fraction_explained_variance_pca(DTR)
     #plot.plot_Heatmap_Whole_Dataset(DTR)
     #plot.plot_Heatmap_Spoofed_Authentic(DTR,LTR,Class_Label=0)
     #plot.plot_Heatmap_Spoofed_Authentic(DTR,LTR,Class_Label=1)
@@ -710,8 +711,8 @@ if __name__ == '__main__':
     # BEST MODEL TIED DIAGONAL WITH GMM COMPONENTS = 8 FOR CLASS 0 AND GMM COMPONENTS 2 FOR CLASS 1
     #minDcfs = K_Fold_GMM(DTR_RAND,LTR_RAND,K=5,nSplit0=3,nSplit1=1)
 
-    classifier = [(lr.LogisticRegressionWeightedQuadratic, "Logistic Regression Weighted Quadratic")]
-    minDcfs = K_Fold_LR(DTR_RAND,LTR_RAND,K=5,classifiers=classifier,hyperParameter=0.01)
+    # classifier = [(lr.LogisticRegressionWeightedQuadratic, "Logistic Regression Weighted Quadratic")]
+    # minDcfs = K_Fold_LR(DTR_RAND,LTR_RAND,K=5,classifiers=classifier,hyperParameter=0.01)
     # ------------------ OPTIMAL DECISION --------------------------
     #optimalDecision(DTR_RAND,LTR_RAND,DTE_RAND,LTE_RAND)
     #We now turn our attention at evaluating the predictions made by our classifier R for a target application

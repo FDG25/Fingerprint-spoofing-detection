@@ -21,6 +21,8 @@ La gaussianizzazione ha detto che non si fa.
 
 
 # NOTE / COSE DA FARE
+- fare SVM calibrati
+- aggiustare lr quadratico (dovremmo avere minDCF effective prior < minDCF pi=0.5)
 - provare varie prior per il calcolo di tutte le mindcf
 - plottare così le combinazioni delle gmm: ![image](./plotGmmComb.jpg)
 -  provare ad applicare strategie di preprocessing anche a lda (SALTA), mvg e tied classifiers. INOLTRE, ACCERTARCI CHE NELL'LR ABBIAMO NORMALIZZATO I DATI NEL CASO DI MODELLO NON REGOLARIZZATO (LAMBDA =0)

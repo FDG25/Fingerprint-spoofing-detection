@@ -5,6 +5,7 @@ import constants
 import main 
 import os
 import optimal_decision
+import constants
 
 def plot_hist(DTR,L):
     # 'spoofed-fingerprint' : name = 0 'authentic-fingerprint' : name = 1 
@@ -17,8 +18,8 @@ def plot_hist(DTR,L):
     for i in range(0,constants.NUM_FEATURES):
         plt.figure(i)
         plt.xlabel("Feature" + str(i+1))
-        plt.hist(data_spoofed[i, :], bins = 10, density = True, alpha = 0.4, label = 'Spoofed')
-        plt.hist(data_authentic[i, :], bins = 10, density = True, alpha = 0.4, label = 'Authentic')
+        plt.hist(data_spoofed[i, :], bins = 50, density = True, alpha = 0.4, label = 'Spoofed', edgecolor = 'black')
+        plt.hist(data_authentic[i, :], bins = 50, density = True, alpha = 0.4, label = 'Authentic', edgecolor = 'black')
         plt.legend()
         plt.tight_layout()
     
@@ -71,11 +72,27 @@ def plot_hist_projected_data_lda(DP,L):
     DP0,DP1 = main.getClassMatrix(DP,L)  
     
     # 1-D plot: 2 classes - 1 = 1
-    plt.hist(DP0[0, :], bins = 10, density = True, alpha = 0.4, label = 'Spoofed')
-    plt.hist(DP1[0, :], bins = 10, density = True, alpha = 0.4, label = 'Authentic')
+    plt.hist(DP0[0, :], bins = 50, density = True, alpha = 0.4, label = 'Spoofed', edgecolor = 'black')
+    plt.hist(DP1[0, :], bins = 50, density = True, alpha = 0.4, label = 'Authentic', edgecolor = 'black')
     
     plt.legend()
     plt.show()
+
+def plot_fraction_explained_variance_pca(DTR):
+    # Apply PCA to get s eigenvalues and sort them to compute variance percentage 
+    _, C = main.computeMeanCovMatrix(DTR)
+
+    s, U = numpy.linalg.eigh(C)
+
+    sorted_eigenvalues = s[::-1]
+    total_variance = numpy.sum(sorted_eigenvalues)
+    explained_variance_ratio = numpy.cumsum(sorted_eigenvalues / total_variance)
+    plt.plot(range(1, constants.NUM_FEATURES + 1), explained_variance_ratio, marker='o')
+    plt.xlabel('PCA dimensions')
+    plt.ylabel('Fraction of explained variance')
+    plt.title("PCA - Explained Variance")
+    plt.show()
+    plt.close()
 
 # ------    PEARSON CORRELATION PLOTS   ----------
 
@@ -89,10 +106,11 @@ def plot_Heatmap_Whole_Dataset(DTR):
                     heatmap[f1][f2] = abs(scipy.stats.pearsonr(DTR[f1, :], DTR[f2, :])[0])
                     heatmap[f2][f1] = heatmap[f1][f2]
     plt.figure() 
-    plt.title('Pearson Correlation Coefficient of the Whole Dataset')
+    plt.title('Heatmap of the Whole Dataset')
     plt.xticks(numpy.arange(0,constants.NUM_FEATURES),numpy.arange(1,constants.NUM_FEATURES + 1))  
     plt.yticks(numpy.arange(0,constants.NUM_FEATURES),numpy.arange(1,constants.NUM_FEATURES + 1))              
     plt.imshow(heatmap, cmap='Greys')
+    plt.colorbar()
     plt.show()
 
 # pearson for single class
@@ -112,13 +130,14 @@ def plot_Heatmap_Spoofed_Authentic(DTR, LTR, Class_Label):
     color = ''
     title = ''
     if Class_Label == 0:
-        title = 'Pearson Correlation Coefficient of the spoofed-fingerprint class' 
+        title = 'Heatmap of the spoofed-fingerprint class' 
         color = 'Reds'
     else:
-        title = 'Pearson Correlation Coefficient of the authentic-fingerprint class' 
+        title = 'Heatmap of the authentic-fingerprint class' 
         color = 'Blues'
     plt.title(title)
     plt.imshow(heatmap, cmap=color )
+    plt.colorbar()
     plt.show()
 
 # -------   DCF PLOT    --------------
