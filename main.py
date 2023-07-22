@@ -177,15 +177,28 @@ def K_Fold_LR(D,L,K,classifiers,hyperParameter):
 
 def K_Fold_Calibration(D,L,K,plt_title):
     # ------- SHUFFLING OF SCORES AND LABELS ---------
+    D = numpy.hstack(D)
+    #s_rand, L_rand = utility.randomize(s.reshape(1,s.size),L,0)
+
+    #print(s[0:5])
+    numpy.random.seed(100) 
+    indexes = numpy.random.permutation(D.shape[0])
+    D_rand = numpy.zeros((1, D.shape[0]))
+    L_rand = numpy.zeros((L.size,))
+    index = 0
+    for rand_index in indexes:
+        D_rand[0,index] = D[rand_index]
+        L_rand[index] = L[rand_index]
+        index+=1
     # Get shuffled indices for both arrays
-    shuffled_indices = numpy.random.permutation(len(D))
+    #shuffled_indices = numpy.random.permutation(len(D))
 
     # Shuffle both arrays using the same indices
-    D = D[shuffled_indices]
-    L = L[shuffled_indices]
+    #D = D[shuffled_indices]
+    #L = L[shuffled_indices]
 
     # Leave-One-Out Approach Con K=2325: 
-    fold_dimension = int(D.shape[0]/K)  # size of each fold
+    fold_dimension = int(D_rand.shape[1]/K)  # size of each fold
     fold_indices = numpy.arange(0, K*fold_dimension, fold_dimension)  # indices to split the data into folds
     classifiers = [(lr.LogisticRegressionPriorWeighted, "Prior Weighted")]
     #minDcfs = []
@@ -196,16 +209,16 @@ def K_Fold_Calibration(D,L,K,plt_title):
         # Run k-fold cross-validation
         for i in range(K):    
             # Split the data into training and validation sets
-            mask = numpy.zeros(D.shape[0], dtype=bool)
+            mask = numpy.zeros(D_rand.shape[1], dtype=bool)
             mask[fold_indices[i]:fold_indices[i]+fold_dimension] = True
-            DTR = D[~mask]
-            LTR = L[~mask]
-            DVA = D[mask]
-            LVA = L[mask]
+            DTR = D_rand[:,~mask]
+            LTR = L_rand[~mask]
+            DVA = D_rand[:,mask]
+            LVA = L_rand[mask]
             # apply PCA on current fold DTR,DVA
             #DTR,P = pca.PCA_projection(DTR,m = constants.M)
             #DVA = numpy.dot(P.T, DVA)
-            nSamples = DVA.shape[0]  
+            nSamples = DVA.shape[1]  
             scores_i,nCorrectPrediction = lr.LogisticRegressionPriorWeighted(DTR, LTR, DVA, LVA) 
             nWrongPrediction += nSamples - nCorrectPrediction
             scores = numpy.append(scores,scores_i)
@@ -730,7 +743,7 @@ if __name__ == '__main__':
     # plot.gmm_plot_all_component_combinations(gmm_components_class_1,tied_diag_min_dcfs,labels,colors,"Tied Diagonal Covariance for class 0")
 
     # BEST MODEL TIED DIAGONAL WITH GMM COMPONENTS = 8 FOR CLASS 0 AND GMM COMPONENTS 2 FOR CLASS 1
-    #minDcfs = K_Fold_GMM(DTR_RAND,LTR_RAND,K=5,nSplit0=3,nSplit1=1)
+    # minDcfs = K_Fold_GMM(DTR_RAND,LTR_RAND,K=5,nSplit0=3,nSplit1=1)
 
     # classifier = [(lr.LogisticRegressionWeightedQuadratic, "Logistic Regression Weighted Quadratic")]
     # minDcfs = K_Fold_LR(DTR_RAND,LTR_RAND,K=5,classifiers=classifier,hyperParameter=0.01)

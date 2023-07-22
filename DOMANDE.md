@@ -22,6 +22,7 @@ La gaussianizzazione ha detto che non si fa.
 
 # NOTE / COSE DA FARE
 - fare SVM calibrati
+- quadratic lr riga 164-165-169-170 non credo sia giusto
 - aggiustare lr quadratico (dovremmo avere minDCF effective prior < minDCF pi=0.5)
 - provare varie prior per il calcolo di tutte le mindcf
 - plottare così le combinazioni delle gmm: ![image](./plotGmmComb.jpg)

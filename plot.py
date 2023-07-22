@@ -194,7 +194,7 @@ def gmm_plot_all_component_combinations(x, y, labels, colors, gmm_model_name):
     #plt.show()
 
 def compute_bayes_error_plot(llrs,labels,plt_title):
-    n_points = 100
+    n_points = 50
     effPriorLogOdds = numpy.linspace(-4, 4, n_points)
     DCFs = [None] * n_points
     MIN_DCFs = [None] * n_points
@@ -202,7 +202,6 @@ def compute_bayes_error_plot(llrs,labels,plt_title):
         pi_t = 1/(1+numpy.exp(-effPriorLogOdds[i]))
         DCFs[i],_,_ = optimal_decision.computeOptimalDecisionBinaryBayesPlot(pi_t,1,1,llrs,labels)
         MIN_DCFs[i] = optimal_decision.computeMinDCF(pi_t,1,1,llrs,labels)
-        print(str(i))
     bayesErrorPlot(DCFs,MIN_DCFs,effPriorLogOdds,plt_title)
 
 #The normalized Bayes error plot allows assessing the performance of the
