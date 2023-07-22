@@ -178,9 +178,7 @@ def K_Fold_LR(D,L,K,classifiers,hyperParameter):
 def K_Fold_Calibration(D,L,K,plt_title):
     # ------- SHUFFLING OF SCORES AND LABELS ---------
     D = numpy.hstack(D)
-    #s_rand, L_rand = utility.randomize(s.reshape(1,s.size),L,0)
-
-    #print(s[0:5])
+    
     numpy.random.seed(100) 
     indexes = numpy.random.permutation(D.shape[0])
     D_rand = numpy.zeros((1, D.shape[0]))
@@ -190,12 +188,6 @@ def K_Fold_Calibration(D,L,K,plt_title):
         D_rand[0,index] = D[rand_index]
         L_rand[index] = L[rand_index]
         index+=1
-    # Get shuffled indices for both arrays
-    #shuffled_indices = numpy.random.permutation(len(D))
-
-    # Shuffle both arrays using the same indices
-    #D = D[shuffled_indices]
-    #L = L[shuffled_indices]
 
     # Leave-One-Out Approach Con K=2325: 
     fold_dimension = int(D_rand.shape[1]/K)  # size of each fold
