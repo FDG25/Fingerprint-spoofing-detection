@@ -10,6 +10,7 @@ import plot
 import lr
 import gmm
 import optimal_decision
+import normalization
 from plot_utility import PlotUtility
 
 #change the shape of an array from horizontal to vertical, so obtain a column vector
@@ -106,11 +107,12 @@ def randomize_weighted(DTR,LTR):
             index_1+=1
     return DTR_RAND,LTR_RAND
 
-def K_Fold_Generative(D,L,K):
+def K_Fold_Generative(D,L,K,PCA_Flag=None,Z_Norm_Flag=None,Dcf_Prior=None):
     # Leave-One-Out Approach Con K=2325: 
     fold_dimension = int(D.shape[1]/K)  # size of each fold
     fold_indices = numpy.arange(0, K*fold_dimension, fold_dimension)  # indices to split the data into folds
     classifiers = [(generative_models.MVG_log_classifier, "Multivariate Gaussian Classifier"), (generative_models.NaiveBayesGaussianClassifier_log, "Naive Bayes"), (generative_models.TiedCovarianceGaussianClassifier_log, "Tied Covariance"), (generative_models.TiedNaiveBayesGaussianClassifier_log, "Tied Naive Bayes")] 
+    #classifiers = [(generative_models.MVG_log_classifier, "Multivariate Gaussian Classifier")]
     for classifier_function, classifier_name in classifiers: 
         nWrongPrediction = 0
         scores = numpy.array([])
@@ -124,9 +126,14 @@ def K_Fold_Generative(D,L,K):
             LTR = L[~mask]
             DVA = D[:,mask]
             LVA = L[mask]
-            # apply PCA on current fold DTR,DVA
-            DTR,P = pca.PCA_projection(DTR,m = constants.M)
-            DVA = numpy.dot(P.T, DVA)
+            if Z_Norm_Flag:
+                # apply z-normalization
+                DTR = normalization.zNormalizingData(DTR)
+                DVA = normalization.zNormalizingData(DVA)
+            if PCA_Flag:
+                # apply PCA on current fold DTR,DVA
+                DTR,P = pca.PCA_projection(DTR,m = constants.M)
+                DVA = numpy.dot(P.T, DVA)
             nSamples = DVA.shape[1]  
             scores_i,nCorrectPrediction = classifier_function(DTR, LTR, DVA, LVA) 
             nWrongPrediction += nSamples - nCorrectPrediction
@@ -135,7 +142,7 @@ def K_Fold_Generative(D,L,K):
         errorRate = nWrongPrediction/D.shape[1] 
         accuracy = 1 - errorRate
         print(f"{classifier_name} results:\nAccuracy: {round(accuracy*100, 2)}%\nError rate: {round(errorRate*100, 2)}%\n",end="")
-        print(f"Min DCF for {classifier_name}: {optimal_decision.computeMinDCF(constants.PRIOR_PROBABILITY,constants.CFN,constants.CFP,scores,labels)}\n") 
+        print(f"Min DCF for {classifier_name}: {optimal_decision.computeMinDCF(Dcf_Prior,constants.CFN,constants.CFP,scores,labels)}\n") 
 
 def K_Fold_LR(D,L,K,classifiers,hyperParameter):
     # Leave-One-Out Approach Con K=2325: 
@@ -170,9 +177,9 @@ def K_Fold_LR(D,L,K,classifiers,hyperParameter):
         minDcfs.append(minDcf)
         print(f"Min DCF for {classifier_name}: {minDcf}\n")
         # ----- MISCALIBRATED PLOT --------
-        plot.compute_bayes_error_plot(scores,labels,"LR")
-        # ----- CALIBRATION aND CALIBRATED PLOT ------
-        K_Fold_Calibration(scores,labels,K=5,plt_title="Calibrated " + classifier_name)   
+        # plot.compute_bayes_error_plot(scores,labels,"LR")
+        # ----- CALIBRATION AND CALIBRATED PLOT ------
+        # K_Fold_Calibration(scores,labels,K=5,plt_title="Calibrated " + classifier_name)   
     return minDcfs 
 
 def K_Fold_Calibration(D,L,K,plt_title):
@@ -572,6 +579,46 @@ def svm_kernel_rbf_K_C_gamma_parameter_testing(DTR,LTR,k_values,C_values,gamma_v
     #base colors: r, g, b, m, y, c, k, w
     plot.plotDCF([C_values_k_1_gamma_1e1,C_values_k_1_gamma_1e2,C_values_k_1_gamma_1e3,C_values_k_1_gamma_1e4,C_values_k_1_gamma_1e5],[minDcfs_k_1_gamma_1e1,minDcfs_k_1_gamma_1e2,minDcfs_k_1_gamma_1e3,minDcfs_k_1_gamma_1e4,minDcfs_k_1_gamma_1e5],labels,colors,'C')
 
+def trainGenerative(DTR,LTR):
+    # ---------------   GENERATIVE MODELS   -----------------------
+    # MVG_LOG_CLASSIFIER
+    # generative_models.MVG_log_classifier(DTR,LTR,DTE,LTE)
+    # generative_models.NaiveBayesGaussianClassifier_log(DTR,LTR,DTE,LTE)
+    # generative_models.TiedCovarianceGaussianClassifier_log(DTR,LTR,DTE,LTE)
+    # generative_models.TiedNaiveBayesGaussianClassifier_log(DTR,LTR,DTE,LTE)
+
+    print("RAW (No PCA No Z_Norm)")
+    print("Prior = 0.5")
+    K_Fold_Generative(DTR_RAND,LTR_RAND,K=5,PCA_Flag=None,Z_Norm_Flag=None,Dcf_Prior=0.5)
+    print("Prior = 0.1")
+    K_Fold_Generative(DTR_RAND,LTR_RAND,K=5,PCA_Flag=None,Z_Norm_Flag=None,Dcf_Prior=0.1)
+    print("Prior = 0.9")
+    K_Fold_Generative(DTR_RAND,LTR_RAND,K=5,PCA_Flag=None,Z_Norm_Flag=None,Dcf_Prior=0.9)
+    
+    print("\nZ_Norm\n")
+    print("Prior = 0.5")
+    K_Fold_Generative(DTR_RAND,LTR_RAND,K=5,PCA_Flag=None,Z_Norm_Flag=True,Dcf_Prior=0.5)
+    print("Prior = 0.1")
+    K_Fold_Generative(DTR_RAND,LTR_RAND,K=5,PCA_Flag=None,Z_Norm_Flag=True,Dcf_Prior=0.1)
+    print("Prior = 0.9")
+    K_Fold_Generative(DTR_RAND,LTR_RAND,K=5,PCA_Flag=None,Z_Norm_Flag=True,Dcf_Prior=0.9)
+
+    print("RAW + PCA with M = " + str(constants.M))
+    print("Prior = 0.5")
+    K_Fold_Generative(DTR_RAND,LTR_RAND,K=5,PCA_Flag=True,Z_Norm_Flag=None,Dcf_Prior=0.5)
+    print("Prior = 0.1")
+    K_Fold_Generative(DTR_RAND,LTR_RAND,K=5,PCA_Flag=True,Z_Norm_Flag=None,Dcf_Prior=0.1)
+    print("Prior = 0.9")
+    K_Fold_Generative(DTR_RAND,LTR_RAND,K=5,PCA_Flag=True,Z_Norm_Flag=None,Dcf_Prior=0.9)
+
+    print("\nZ_Norm + PCA with M = " + str(constants.M) + "\n")
+    print("Prior = 0.5")
+    K_Fold_Generative(DTR_RAND,LTR_RAND,K=5,PCA_Flag=True,Z_Norm_Flag=True,Dcf_Prior=0.5)
+    print("Prior = 0.1")
+    K_Fold_Generative(DTR_RAND,LTR_RAND,K=5,PCA_Flag=True,Z_Norm_Flag=True,Dcf_Prior=0.1)
+    print("Prior = 0.9")
+    K_Fold_Generative(DTR_RAND,LTR_RAND,K=5,PCA_Flag=True,Z_Norm_Flag=True,Dcf_Prior=0.9)
+
 if __name__ == '__main__':
     # DTR = matrix of 10 rows(NUM_FEATURES) times 2325 samples
     # LTR = unidimensional array of 2325 labels, 1 for each sample
@@ -595,19 +642,11 @@ if __name__ == '__main__':
     #plot.plot_Heatmap_Whole_Dataset(DTR)
     #plot.plot_Heatmap_Spoofed_Authentic(DTR,LTR,Class_Label=0)
     #plot.plot_Heatmap_Spoofed_Authentic(DTR,LTR,Class_Label=1)
-    # ---------------   GENERATIVE MODELS   -----------------------
-    # MVG_LOG_CLASSIFIER
-    # generative_models.MVG_log_classifier(DTR,LTR,DTE,LTE)
-    # generative_models.NaiveBayesGaussianClassifier_log(DTR,LTR,DTE,LTE)
-    # generative_models.TiedCovarianceGaussianClassifier_log(DTR,LTR,DTE,LTE)
-    # generative_models.TiedNaiveBayesGaussianClassifier_log(DTR,LTR,DTE,LTE)
     # RANDOMIZE DATASET BEFORE K-FOLD
     DTR_RAND,LTR_RAND = randomize(DTR,LTR)
     DTE_RAND,LTE_RAND = randomize(DTE,LTE)
     #print("K_Fold with K = 5")
-    #print("PCA with m = " + str(constants.M))
-    #K_Fold_Generative(DTR_RAND,LTR_RAND,K=5)
-
+    # trainGenerative(DTR_RAND,LTR_RAND)
     # ---------------   LR MODELS   -----------------------
     # CALL K-FOLD AND TEST THE HYPERPARAMETER
     #print("K_Fold with K = 5\n\n")
@@ -615,6 +654,7 @@ if __name__ == '__main__':
     #lambda_values = [0.00001, 0.0001, 0.001, 0.01, 0.1, 1.0, 10.0]
     #classifier = [(lr.LogisticRegressionWeighted, "Logistic Regression Weighted"),(lr.LogisticRegressionWeightedQuadratic, "Logistic Regression Weighted Quadratic")]
     #lr_lambda_parameter_testing(DTR_RAND,LTR_RAND,lambda_values,classifier)
+    K_Fold_LR(DTR_RAND,LTR_RAND,K=5,classifiers=[(lr.LogisticRegressionWeightedQuadratic, "Logistic Regression Weighted Quadratic")],hyperParameter=0.001)
     #print("No Weight")
     #lr.LogisticRegressionWeighted(DTR,LTR,DTE,LTE)
     #print("Weight")
