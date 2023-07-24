@@ -133,9 +133,7 @@ if __name__ == '__main__':
     # CALL K-FOLD AND TEST THE HYPERPARAMETER
     #print("K_Fold with K = 5\n\n")
     #print("PCA with m = " + str(constants.M))
-    #lambda_values = [0.00001, 0.0001, 0.001, 0.01, 0.1, 1.0, 10.0]
-    #classifier = [(lr.LogisticRegressionWeighted, "Logistic Regression Weighted"),(lr.LogisticRegressionWeightedQuadratic, "Logistic Regression Weighted Quadratic")]
-    #parameter_tuning.lr_lambda_parameter_testing(DTR_RAND,LTR_RAND,lambda_values,classifier)
+    training.trainLR(DTR_RAND,LTR_RAND)
     #print("No Weight")
     #lr.LogisticRegressionWeighted(DTR,LTR,DTE,LTE)
     #print("Weight")

@@ -4,31 +4,21 @@ import plot
 from plot_utility import PlotUtility
 import numpy
 
-def lr_lambda_parameter_testing(DTR,LTR,lambda_values,classifier):    
+def lr_lambda_parameter_testing(DTR,LTR,K=None,lambda_values=None,classifier=None,PCA_Flag=None,M=None,Z_Norm_Flag=None,Dcf_Prior=None,Calibration_Flag=None):    
     #priors = [0.5, 0.9, 0.1]
-    priors = [constants.PRIOR_PROBABILITY]
+    #priors = [constants.PRIOR_PROBABILITY]
     minDcfs_Linear = []
     minDcfs_Quadratic = []
-    for i in range(len(priors)):
-        print("prior:",priors[i])        
-        for lambd in lambda_values:
-            print("lambda value : " + str(lambd))
-            minDcfs = kfold.K_Fold_LR(DTR,LTR,K=5,classifiers=classifier,hyperParameter=lambd)
-            # from classifier parameter from main: first linear, then quadratic
-            minDcfs_Linear.append(minDcfs[0])
-            minDcfs_Quadratic.append(minDcfs[1])
+    #for i in range(len(priors)):
+    #    print("prior:",priors[i])        
+    for lambd in lambda_values:
+        print("lambda value : " + str(lambd))
+        minDcfs = kfold.K_Fold_LR(DTR,LTR,K=5,classifiers=classifier,lambd=lambd,PCA_Flag=PCA_Flag,M=M,Z_Norm_Flag=Z_Norm_Flag,Dcf_Prior=Dcf_Prior,Calibration_Flag=Calibration_Flag)
+        # from classifier parameter from main: first linear, then quadratic
+        minDcfs_Linear.append(minDcfs[0])
+        #minDcfs_Quadratic.append(minDcfs[1])
     
-    # ------ PLOT LR_LINEAR ------
-    labels = ['Linear']
-    colors = ['b']
-    # array of lambda values (for linear) and corresponding mindcfs
-    plot.plotDCF([lambda_values],[minDcfs_Linear],labels,colors,'lambda')
-
-    # ------ PLOT LR_QUADRATIC ------
-    labels = ['Quadratic']
-    colors = ['b']
-    # array of lambda values (for linear) and corresponding mindcfs
-    plot.plotDCF([lambda_values],[minDcfs_Quadratic],labels,colors,'lambda')
+    return minDcfs_Linear,minDcfs_Quadratic
     
 def svm_linear_K_C_parameters_testing(DTR,LTR,k_values,C_values):  
     priors = [constants.PRIOR_PROBABILITY]

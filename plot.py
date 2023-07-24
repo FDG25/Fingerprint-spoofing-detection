@@ -144,13 +144,14 @@ def plot_Heatmap_Spoofed_Authentic(DTR, LTR, Class_Label):
 
 plot_index = 0
 
-def plotDCF(x, y, labels, colors, xlabel):   
+def plotDCF(x, y, labels, colors, xlabel, title):   
     global plot_index
     plt.figure()
     for i in range(0,len(x)):
         plt.plot(x[i], y[i], label=labels[i], color=colors[i])
         plt.xlim([min(x[i]), max(x[i])])
         #plt.ylim([0,max(y[i])+1])
+    plt.title(title)
     plt.xscale("log")    
     plt.legend()
     plt.xlabel(xlabel)    

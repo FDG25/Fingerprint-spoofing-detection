@@ -47,7 +47,7 @@ def K_Fold_Generative(D,L,K,PCA_Flag=None,M=None,Z_Norm_Flag=None,Dcf_Prior=None
         print(f"{classifier_name} results:\nAccuracy: {round(accuracy*100, 2)}%\nError rate: {round(errorRate*100, 2)}%\n",end="")
         print(f"Min DCF for {classifier_name}: {optimal_decision.computeMinDCF(Dcf_Prior,constants.CFN,constants.CFP,scores,labels)}\n") 
 
-def K_Fold_LR(D,L,K,classifiers,hyperParameter):
+def K_Fold_LR(D,L,K,classifiers,lambd,PCA_Flag=None,M=None,Z_Norm_Flag=None,Dcf_Prior=None,Calibration_Flag=None):
     # Leave-One-Out Approach Con K=2325: 
     fold_dimension = int(D.shape[1]/K)  # size of each fold
     fold_indices = numpy.arange(0, K*fold_dimension, fold_dimension)  # indices to split the data into folds
@@ -65,24 +65,30 @@ def K_Fold_LR(D,L,K,classifiers,hyperParameter):
             LTR = L[~mask]
             DVA = D[:,mask]
             LVA = L[mask]
-            # apply PCA on current fold DTR,DVA
-            #DTR,P = pca.PCA_projection(DTR,m = constants.M)
-            #DVA = numpy.dot(P.T, DVA)
+            if Z_Norm_Flag:
+                # apply z-normalization
+                DTR = normalization.zNormalizingData(DTR)
+                DVA = normalization.zNormalizingData(DVA)
+            if PCA_Flag and M!=None:
+                # apply PCA on current fold DTR,DVA
+                DTR,P = pca.PCA_projection(DTR,m = M)
+                DVA = numpy.dot(P.T, DVA)
             nSamples = DVA.shape[1]  
-            scores_i,nCorrectPrediction = classifier_function(DTR, LTR, DVA, LVA, hyperParameter) 
+            scores_i,nCorrectPrediction = classifier_function(DTR, LTR, DVA, LVA, lambd) 
             nWrongPrediction += nSamples - nCorrectPrediction
             scores = numpy.append(scores,scores_i)
             labels = numpy.append(labels,LVA)
         errorRate = nWrongPrediction/D.shape[1] 
         accuracy = 1 - errorRate
         print(f"{classifier_name} results:\nAccuracy: {round(accuracy*100, 2)}%\nError rate: {round(errorRate*100, 2)}%\n",end="")
-        minDcf = optimal_decision.computeMinDCF(constants.PRIOR_PROBABILITY,constants.CFN,constants.CFP,scores,labels)
+        minDcf = optimal_decision.computeMinDCF(Dcf_Prior,constants.CFN,constants.CFP,scores,labels)
         minDcfs.append(minDcf)
         print(f"Min DCF for {classifier_name}: {minDcf}\n")
-        # ----- MISCALIBRATED PLOT --------
-        # plot.compute_bayes_error_plot(scores,labels,"LR")
-        # ----- CALIBRATION AND CALIBRATED PLOT ------
-        # K_Fold_Calibration(scores,labels,K=5,plt_title="Calibrated " + classifier_name)   
+        if Calibration_Flag:
+            # ----- MISCALIBRATED PLOT --------
+            plot.compute_bayes_error_plot(scores,labels,"LR")
+            # ----- CALIBRATION AND CALIBRATED PLOT ------
+            K_Fold_Calibration(scores,labels,K=5,plt_title="Calibrated " + classifier_name)   
     return minDcfs 
 
 def K_Fold_Calibration(D,L,K,plt_title):
