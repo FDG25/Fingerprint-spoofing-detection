@@ -127,39 +127,25 @@ if __name__ == '__main__':
     # RANDOMIZE DATASET BEFORE K-FOLD
     DTR_RAND,LTR_RAND = randomize(DTR,LTR)
     DTE_RAND,LTE_RAND = randomize(DTE,LTE)
-    #print("K_Fold with K = 5")
+
+    # ---------------   GENERATIVE MODELS   -----------------------
+
     # training.trainGenerative(DTR_RAND,LTR_RAND)
+
     # ---------------   LR MODELS   -----------------------
-    # CALL K-FOLD AND TEST THE HYPERPARAMETER
-    #print("K_Fold with K = 5\n\n")
-    #print("PCA with m = " + str(constants.M))
-    training.trainLR(DTR_RAND,LTR_RAND)
+
+    # training.trainLR(DTR_RAND,LTR_RAND)
+
     #print("No Weight")
     #lr.LogisticRegressionWeighted(DTR,LTR,DTE,LTE)
     #print("Weight")
     #lr.LogisticRegression(DTR,LTR,DTE,LTE)
 
-
     # ---------------   SVM MODELS   -----------------------
-    # print("SVM LINEAR HYPERPARAMETERS K AND C TESTING:")
-    # K_values = [1, 10] # K=10 migliore ma tutor ha detto valore lab 1 vedere, al max 1,10 
-    # C_values = [0.000001, 0.00001, 0.0001, 0.001, 0.01, 0.1, 1.0, 10.0, 100.0]
-    # svm_linear_K_C_parameters_testing(DTR_RAND,LTR_RAND,K_values,C_values)
-    
-    # print("SVM POLYNOMIAL K,C,c,d TESTING:")
-    # K_values = [1]
-    # C_values = [0.000001, 0.00001, 0.0001, 0.001, 0.01, 0.1, 1.0, 10.0, 100.0] # for C <= 10^-6 there is a significative worsening in performance 
-    # c_values = [0, 1]
-    # d_values = [2.0]
-    # svm_kernel_polynomial_K_C_c_d_parameter_testing(DTR_RAND,LTR_RAND,K_values,C_values,c_values,d_values)
 
-    # print("SVM RADIAL BASIS FUNCTION (RBF) K,C,gamma TESTING:")
-    # K_values = [1.0]
-    # C_values = [0.000001, 0.00001, 0.0001, 0.001, 0.01, 0.1, 1.0, 10.0, 100.0]
-    # # we want log(gamma), so we pass gamma value for which log(gamma) = -1,-2,-3,-4,-5
-    # gamma_values = [1.0/numpy.exp(3), 1.0/numpy.exp(4), 1.0/numpy.exp(5)] #hyper-parameter
-    # svm_kernel_rbf_K_C_gamma_parameter_testing(DTR_RAND,LTR_RAND,K_values,C_values,gamma_values)
-    
+    training.trainLinearSVM(DTR_RAND,LTR_RAND)
+    # training.trainPolynomialSVM(DTR_RAND,LTR_RAND)
+    # training.trainRadialBasisFunctionSVM(DTR_RAND,LTR_RAND)
     
     # -------------- GMM --------------------
     

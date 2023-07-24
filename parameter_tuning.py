@@ -20,7 +20,7 @@ def lr_lambda_parameter_testing(DTR,LTR,K=None,lambda_values=None,classifier=Non
     
     return minDcfs_Linear,minDcfs_Quadratic
     
-def svm_linear_K_C_parameters_testing(DTR,LTR,k_values,C_values):  
+def svm_linear_K_C_parameters_testing(DTR,LTR,K=None,k_values=None,C_values=None,PCA_Flag=None,M=None,Z_Norm_Flag=None,Dcf_Prior=None,Calibration_Flag=None):  
     priors = [constants.PRIOR_PROBABILITY]
     plotUtility_list=[]
     for prior in priors:
@@ -29,26 +29,10 @@ def svm_linear_K_C_parameters_testing(DTR,LTR,k_values,C_values):
             print("k value : " + str(k_value))
             for C in C_values:
                 print("C value : " + str(C))
-                minDcf = kfold.K_Fold_SVM_linear(DTR,LTR,K=5,hyperParameter_K=k_value,hyperParameter_C=C)
+                minDcf = kfold.K_Fold_SVM_linear(DTR,LTR,K=K,hyperParameter_K=k_value,hyperParameter_C=C,PCA_Flag=PCA_Flag,M=M,Z_Norm_Flag=Z_Norm_Flag,Dcf_Prior=Dcf_Prior,Calibration_Flag=Calibration_Flag)
                 plotUtility_list.append(PlotUtility(prior=prior,k=k_value,C=C,minDcf=minDcf))
     
-    # ----  SINGLE PLOT FOR K = 1,10,100  -----
-    k_1 = list(filter(lambda PlotElement: PlotElement.is_k(1), plotUtility_list))
-    minDcfs_k_1 = [PlotElement.getminDcf() for PlotElement in k_1]
-    C_values_1 = [PlotElement.getC() for PlotElement in k_1]
-
-    k_10 = list(filter(lambda PlotElement: PlotElement.is_k(10), plotUtility_list))
-    minDcfs_k_10 = [PlotElement.getminDcf() for PlotElement in k_10]
-    C_values_10 = [PlotElement.getC() for PlotElement in k_10]
-
-    k_100 = list(filter(lambda PlotElement: PlotElement.is_k(100), plotUtility_list))
-    minDcfs_k_100 = [PlotElement.getminDcf() for PlotElement in k_100]
-    C_values_100 = [PlotElement.getC() for PlotElement in k_100]
-
-    labels = ['K = 1','K = 10','K = 100']
-    colors = ['b','g','y']
-    #base colors: r, g, b, m, y, c, k, w
-    plot.plotDCF([C_values_1,C_values_10,C_values_100],[minDcfs_k_1,minDcfs_k_10,minDcfs_k_100],labels,colors,'C')
+    return plotUtility_list
 
 def svm_kernel_polynomial_K_C_c_d_parameter_testing(DTR,LTR,k_values,C_values,c_values,d_values):
     priors = [constants.PRIOR_PROBABILITY]
