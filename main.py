@@ -134,7 +134,7 @@ if __name__ == '__main__':
 
     # ---------------   LR MODELS   -----------------------
 
-    training.trainLR(DTR_RAND,LTR_RAND,Load_Data=True)
+    # training.trainLR(DTR_RAND,LTR_RAND,Load_Data=True)
 
     #print("No Weight")
     #lr.LogisticRegressionWeighted(DTR,LTR,DTE,LTE)
@@ -143,9 +143,9 @@ if __name__ == '__main__':
 
     # ---------------   SVM MODELS   -----------------------
 
-    # training.trainLinearSVM(DTR_RAND,LTR_RAND)
-    # training.trainPolynomialSVM(DTR_RAND,LTR_RAND)
-    # training.trainRadialBasisFunctionSVM(DTR_RAND,LTR_RAND)
+    # training.trainLinearSVM(DTR_RAND,LTR_RAND,Load_Data=False)
+    # training.trainPolynomialSVM(DTR_RAND,LTR_RAND,Load_Data=False)
+    # training.trainRadialBasisFunctionSVM(DTR_RAND,LTR_RAND,Load_Data=False)
     
     # -------------- GMM --------------------
     

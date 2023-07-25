@@ -101,28 +101,53 @@ def trainLR(DTR_RAND,LTR_RAND,Load_Data=False):
         # # array of lambda values (for linear) and corresponding mindcfs
         # plot.plotDCF([lambda_values],[minDcfs_Quadratic],labels,colors,'lambda')
 
-def trainLinearSVM(DTR_RAND,LTR_RAND):
+def trainLinearSVM(DTR_RAND,LTR_RAND,Load_Data=False):
     # ---------------   LINEAR SVM   -----------------------
     print("SVM LINEAR HYPERPARAMETERS K AND C TRAINING:")
     K_values = [1, 10] # K=10 migliore ma tutor ha detto valore lab 1 vedere, al max 1,10 
     C_values = [0.000001, 0.00001, 0.0001, 0.001, 0.01, 0.1, 1.0, 10.0, 100.0]
 
     for prior in constants.DCFS_PRIORS:
-        print("Prior = " + str(prior) + "\n")
+        if not Load_Data:
+            print("Prior = " + str(prior) + "\n")
 
-        print("RAW (No PCA No Z_Norm)\n")
-        raw_linear = parameter_tuning.svm_linear_K_C_parameters_testing(DTR_RAND,LTR_RAND,K=constants.K,k_values=K_values,C_values=C_values,PCA_Flag=None,M=None,Z_Norm_Flag=None,Dcf_Prior=prior,Calibration_Flag=None)
-        
-        print("Z_Norm\n")
-        zNorm_linear = parameter_tuning.svm_linear_K_C_parameters_testing(DTR_RAND,LTR_RAND,K=constants.K,k_values=K_values,C_values=C_values,PCA_Flag=None,M=None,Z_Norm_Flag=True,Dcf_Prior=prior,Calibration_Flag=None)
+            print("RAW (No PCA No Z_Norm)\n")
+            raw_linear = parameter_tuning.svm_linear_K_C_parameters_testing(DTR_RAND,LTR_RAND,K=constants.K,k_values=K_values,C_values=C_values,PCA_Flag=None,M=None,Z_Norm_Flag=None,Dcf_Prior=prior,Calibration_Flag=None)
+            # Save the list of objects to a file
+            with open("modelData/raw_linear_svm" + str(prior) + ".pkl", "wb") as f:
+                pickle.dump(raw_linear, f)
+            print("Z_Norm\n")
+            zNorm_linear = parameter_tuning.svm_linear_K_C_parameters_testing(DTR_RAND,LTR_RAND,K=constants.K,k_values=K_values,C_values=C_values,PCA_Flag=None,M=None,Z_Norm_Flag=True,Dcf_Prior=prior,Calibration_Flag=None)
+            # Save the list of objects to a file
+            with open("modelData/zNorm_linear_svm" + str(prior) + ".pkl", "wb") as f:
+                pickle.dump(zNorm_linear, f)
+            m = 8
+            print("RAW + PCA with M = " + str(m) + "\n")
+            pca_linear = parameter_tuning.svm_linear_K_C_parameters_testing(DTR_RAND,LTR_RAND,K=constants.K,k_values=K_values,C_values=C_values,PCA_Flag=True,M=m,Z_Norm_Flag=None,Dcf_Prior=prior,Calibration_Flag=None)
+            # Save the list of objects to a file
+            with open("modelData/rawPca_linear_svm" + str(prior) + ".pkl", "wb") as f:
+                pickle.dump(pca_linear, f)
+            print("Z_Norm + PCA with M = " + str(m) + "\n")
+            zNormPca_linear = parameter_tuning.svm_linear_K_C_parameters_testing(DTR_RAND,LTR_RAND,K=constants.K,k_values=K_values,C_values=C_values,PCA_Flag=True,M=m,Z_Norm_Flag=True,Dcf_Prior=prior,Calibration_Flag=None)
+            # Save the list of objects to a file
+            with open("modelData/zNormPca_linear_svm" + str(prior) + ".pkl", "wb") as f:
+                pickle.dump(zNormPca_linear, f)
+
+        if Load_Data:
+            # Retrieve the list of objects from the file
+            with open("modelData/raw_linear_svm" + str(prior) + ".pkl", "rb") as f:
+                raw_linear = pickle.load(f)
+            # Retrieve the list of objects from the file
+            with open("modelData/zNorm_linear_svm" + str(prior) + ".pkl", "rb") as f:
+                zNorm_linear = pickle.load(f)
+            # Retrieve the list of objects from the file
+            with open("modelData/rawPca_linear_svm" + str(prior) + ".pkl", "rb") as f:
+                pca_linear = pickle.load(f)
+            # Retrieve the list of objects from the file
+            with open("modelData/zNormPca_linear_svm" + str(prior) + ".pkl", "rb") as f:
+                zNormPca_linear = pickle.load(f)
         
         m = 8
-        print("RAW + PCA with M = " + str(m) + "\n")
-        pca_linear = parameter_tuning.svm_linear_K_C_parameters_testing(DTR_RAND,LTR_RAND,K=constants.K,k_values=K_values,C_values=C_values,PCA_Flag=True,M=m,Z_Norm_Flag=None,Dcf_Prior=prior,Calibration_Flag=None)
-        
-        print("Z_Norm + PCA with M = " + str(m) + "\n")
-        zNormPca_linear = parameter_tuning.svm_linear_K_C_parameters_testing(DTR_RAND,LTR_RAND,K=constants.K,k_values=K_values,C_values=C_values,PCA_Flag=True,M=m,Z_Norm_Flag=True,Dcf_Prior=prior,Calibration_Flag=None)
-
         # ----  SINGLE PLOT FOR prior, K = 1  -----
         raw_linear_k_1 = list(filter(lambda PlotElement: PlotElement.is_k(1), raw_linear))
         minDcfs_raw_linear_k_1 = [PlotElement.getminDcf() for PlotElement in raw_linear_k_1]
@@ -168,7 +193,7 @@ def trainLinearSVM(DTR_RAND,LTR_RAND):
         plot.plotDCF([C_values_raw_linear_k_10,C_values_zNorm_linear_k_10,C_values_pca_linear_k_10,C_values_zNormPca_linear_k_10],[minDcfs_raw_linear_k_10,minDcfs_zNorm_linear_k_10,minDcfs_pca_linear_k_10,minDcfs_zNormPca_linear_k_10],labels,colors,xlabel='C',title='Linear SVM with $\pi=' + str(prior) + '$')
 
 
-def trainPolynomialSVM(DTR_RAND,LTR_RAND):
+def trainPolynomialSVM(DTR_RAND,LTR_RAND,Load_Data=False):
     print("SVM POLYNOMIAL K,C,c,d TRAINING:")
     K_values = [1]
     C_values = [0.000001, 0.00001, 0.0001, 0.001, 0.01, 0.1, 1.0, 10.0, 100.0] # for C <= 10^-6 there is a significative worsening in performance 
@@ -176,19 +201,46 @@ def trainPolynomialSVM(DTR_RAND,LTR_RAND):
     d_values = [2.0]
 
     for prior in constants.DCFS_PRIORS:
-        print("Prior = " + str(prior) + "\n")
+        if not Load_Data:
+            print("Prior = " + str(prior) + "\n")
 
-        print("RAW (No PCA No Z_Norm)\n")
-        raw_polynomial = parameter_tuning.svm_kernel_polynomial_K_C_c_d_parameter_testing(DTR_RAND,LTR_RAND,K=constants.K,k_values=K_values,C_values=C_values,c_values=c_values,d_values=d_values,PCA_Flag=None,M=None,Z_Norm_Flag=None,Dcf_Prior=prior,Calibration_Flag=None)
-        print("Z_Norm\n")
-        zNorm_polynomial = parameter_tuning.svm_kernel_polynomial_K_C_c_d_parameter_testing(DTR_RAND,LTR_RAND,K=constants.K,k_values=K_values,C_values=C_values,c_values=c_values,d_values=d_values,PCA_Flag=None,M=None,Z_Norm_Flag=True,Dcf_Prior=prior,Calibration_Flag=None)
+            print("RAW (No PCA No Z_Norm)\n")
+            raw_polynomial = parameter_tuning.svm_kernel_polynomial_K_C_c_d_parameter_testing(DTR_RAND,LTR_RAND,K=constants.K,k_values=K_values,C_values=C_values,c_values=c_values,d_values=d_values,PCA_Flag=None,M=None,Z_Norm_Flag=None,Dcf_Prior=prior,Calibration_Flag=None)
+            # Save the list of objects to a file
+            with open("modelData/raw_polynomial_svm" + str(prior) + ".pkl", "wb") as f:
+                pickle.dump(raw_polynomial, f)
+            print("Z_Norm\n")
+            zNorm_polynomial = parameter_tuning.svm_kernel_polynomial_K_C_c_d_parameter_testing(DTR_RAND,LTR_RAND,K=constants.K,k_values=K_values,C_values=C_values,c_values=c_values,d_values=d_values,PCA_Flag=None,M=None,Z_Norm_Flag=True,Dcf_Prior=prior,Calibration_Flag=None)
+            # Save the list of objects to a file
+            with open("modelData/zNorm_polynomial_svm" + str(prior) + ".pkl", "wb") as f:
+                pickle.dump(zNorm_polynomial, f)
+            m = 8
+            print("RAW + PCA with M = " + str(m) + "\n")
+            pca_polynomial = parameter_tuning.svm_kernel_polynomial_K_C_c_d_parameter_testing(DTR_RAND,LTR_RAND,K=constants.K,k_values=K_values,C_values=C_values,c_values=c_values,d_values=d_values,PCA_Flag=True,M=m,Z_Norm_Flag=None,Dcf_Prior=prior,Calibration_Flag=None)
+            # Save the list of objects to a file
+            with open("modelData/pca_polynomial_svm" + str(prior) + ".pkl", "wb") as f:
+                pickle.dump(pca_polynomial, f)
+            print("Z_Norm + PCA with M = " + str(m) + "\n")
+            zNormPca_polynomial = parameter_tuning.svm_kernel_polynomial_K_C_c_d_parameter_testing(DTR_RAND,LTR_RAND,K=constants.K,k_values=K_values,C_values=C_values,c_values=c_values,d_values=d_values,PCA_Flag=True,M=m,Z_Norm_Flag=True,Dcf_Prior=prior,Calibration_Flag=None)
+            # Save the list of objects to a file
+            with open("modelData/zNormPca_polynomial_svm" + str(prior) + ".pkl", "wb") as f:
+                pickle.dump(zNormPca_polynomial, f)
+        
+        if Load_Data:
+            # Retrieve the list of objects from the file
+            with open("modelData/raw_polynomial_svm" + str(prior) + ".pkl", "rb") as f:
+                raw_polynomial = pickle.load(f)
+            # Retrieve the list of objects from the file
+            with open("modelData/zNorm_polynomial_svm" + str(prior) + ".pkl", "rb") as f:
+                zNorm_polynomial = pickle.load(f)
+            # Retrieve the list of objects from the file
+            with open("modelData/pca_polynomial_svm" + str(prior) + ".pkl", "rb") as f:
+                pca_polynomial = pickle.load(f)
+            # Retrieve the list of objects from the file
+            with open("modelData/zNormPca_polynomial_svm" + str(prior) + ".pkl", "rb") as f:
+                zNormPca_polynomial = pickle.load(f)
+
         m = 8
-        print("RAW + PCA with M = " + str(m) + "\n")
-        pca_polynomial = parameter_tuning.svm_kernel_polynomial_K_C_c_d_parameter_testing(DTR_RAND,LTR_RAND,K=constants.K,k_values=K_values,C_values=C_values,c_values=c_values,d_values=d_values,PCA_Flag=True,M=m,Z_Norm_Flag=None,Dcf_Prior=prior,Calibration_Flag=None)
-        print("Z_Norm + PCA with M = " + str(m) + "\n")
-        zNormPca_polynomial = parameter_tuning.svm_kernel_polynomial_K_C_c_d_parameter_testing(DTR_RAND,LTR_RAND,K=constants.K,k_values=K_values,C_values=C_values,c_values=c_values,d_values=d_values,PCA_Flag=True,M=m,Z_Norm_Flag=True,Dcf_Prior=prior,Calibration_Flag=None)
-        
-        
         # ----- PLOT FOR c = 0 ------
         raw_polynomial_c0 = list(filter(lambda PlotElement: PlotElement.is_c(0), raw_polynomial))
         minDcfs_raw_polynomial_c0 = [PlotElement.getminDcf() for PlotElement in raw_polynomial_c0]
@@ -234,7 +286,7 @@ def trainPolynomialSVM(DTR_RAND,LTR_RAND):
         #base colors: r, g, b, m, y, c, k, w
         plot.plotDCF([C_values_raw_polynomial_c1,C_values_zNorm_polynomial_c1,C_values_pca_polynomial_c1,C_values_zNormPca_polynomial_c1],[minDcfs_raw_polynomial_c1,minDcfs_zNorm_polynomial_c1,minDcfs_pca_polynomial_c1,minDcfs_zNormPca_polynomial_c1],labels,colors,xlabel='C',title='Polynomial SVM with $\pi=' + str(prior) + '$')
 
-def trainRadialBasisFunctionSVM(DTR_RAND,LTR_RAND):
+def trainRadialBasisFunctionSVM(DTR_RAND,LTR_RAND,Load_Data=False):
     print("SVM RADIAL BASIS FUNCTION (RBF) K,C,gamma TRAINING:")
     K_values = [1.0]
     C_values = [0.000001, 0.00001, 0.0001, 0.001, 0.01, 0.1, 1.0, 10.0, 100.0]
@@ -242,18 +294,46 @@ def trainRadialBasisFunctionSVM(DTR_RAND,LTR_RAND):
     gamma_values = [1.0/numpy.exp(3), 1.0/numpy.exp(4), 1.0/numpy.exp(5)] #hyper-parameter
     
     for prior in constants.DCFS_PRIORS:
-        print("Prior = " + str(prior) + "\n")
+        if not Load_Data:
+            print("Prior = " + str(prior) + "\n")
 
-        print("RAW (No PCA No Z_Norm)\n")
-        raw_rbf = parameter_tuning.svm_kernel_rbf_K_C_gamma_parameter_testing(DTR_RAND,LTR_RAND,K=constants.K,k_values=K_values,C_values=C_values,gamma_values=gamma_values,PCA_Flag=None,M=None,Z_Norm_Flag=None,Dcf_Prior=prior,Calibration_Flag=None)
-        print("Z_Norm\n")
-        zNorm_rbf = parameter_tuning.svm_kernel_rbf_K_C_gamma_parameter_testing(DTR_RAND,LTR_RAND,K=constants.K,k_values=K_values,C_values=C_values,gamma_values=gamma_values,PCA_Flag=None,M=None,Z_Norm_Flag=True,Dcf_Prior=prior,Calibration_Flag=None)
-        m = 8
-        print("RAW + PCA with M = " + str(m) + "\n")
-        pca_rbf = parameter_tuning.svm_kernel_rbf_K_C_gamma_parameter_testing(DTR_RAND,LTR_RAND,K=constants.K,k_values=K_values,C_values=C_values,gamma_values=gamma_values,PCA_Flag=True,M=m,Z_Norm_Flag=None,Dcf_Prior=prior,Calibration_Flag=None)
-        print("Z_Norm + PCA with M = " + str(m) + "\n")
-        zNormPca_rbf = parameter_tuning.svm_kernel_rbf_K_C_gamma_parameter_testing(DTR_RAND,LTR_RAND,K=constants.K,k_values=K_values,C_values=C_values,gamma_values=gamma_values,PCA_Flag=True,M=m,Z_Norm_Flag=True,Dcf_Prior=prior,Calibration_Flag=None)
+            print("RAW (No PCA No Z_Norm)\n")
+            raw_rbf = parameter_tuning.svm_kernel_rbf_K_C_gamma_parameter_testing(DTR_RAND,LTR_RAND,K=constants.K,k_values=K_values,C_values=C_values,gamma_values=gamma_values,PCA_Flag=None,M=None,Z_Norm_Flag=None,Dcf_Prior=prior,Calibration_Flag=None)
+            # Save the list of objects to a file
+            with open("modelData/raw_rbf_svm" + str(prior) + ".pkl", "wb") as f:
+                pickle.dump(raw_rbf, f)
+            print("Z_Norm\n")
+            zNorm_rbf = parameter_tuning.svm_kernel_rbf_K_C_gamma_parameter_testing(DTR_RAND,LTR_RAND,K=constants.K,k_values=K_values,C_values=C_values,gamma_values=gamma_values,PCA_Flag=None,M=None,Z_Norm_Flag=True,Dcf_Prior=prior,Calibration_Flag=None)
+            # Save the list of objects to a file
+            with open("modelData/zNorm_rbf_svm" + str(prior) + ".pkl", "wb") as f:
+                pickle.dump(zNorm_rbf, f)
+            m = 8
+            print("RAW + PCA with M = " + str(m) + "\n")
+            pca_rbf = parameter_tuning.svm_kernel_rbf_K_C_gamma_parameter_testing(DTR_RAND,LTR_RAND,K=constants.K,k_values=K_values,C_values=C_values,gamma_values=gamma_values,PCA_Flag=True,M=m,Z_Norm_Flag=None,Dcf_Prior=prior,Calibration_Flag=None)
+            # Save the list of objects to a file
+            with open("modelData/pca_rbf_svm" + str(prior) + ".pkl", "wb") as f:
+                pickle.dump(pca_rbf, f)
+            print("Z_Norm + PCA with M = " + str(m) + "\n")
+            zNormPca_rbf = parameter_tuning.svm_kernel_rbf_K_C_gamma_parameter_testing(DTR_RAND,LTR_RAND,K=constants.K,k_values=K_values,C_values=C_values,gamma_values=gamma_values,PCA_Flag=True,M=m,Z_Norm_Flag=True,Dcf_Prior=prior,Calibration_Flag=None)
+            # Save the list of objects to a file
+            with open("modelData/zNormPca_rbf_svm" + str(prior) + ".pkl", "wb") as f:
+                pickle.dump(zNormPca_rbf, f)
+
+        if Load_Data:
+            # Retrieve the list of objects from the file
+            with open("modelData/raw_rbf_svm" + str(prior) + ".pkl", "rb") as f:
+                raw_rbf = pickle.load(f)
+            # Retrieve the list of objects from the file
+            with open("modelData/zNorm_rbf_svm" + str(prior) + ".pkl", "rb") as f:
+                zNorm_rbf = pickle.load(f)
+            # Retrieve the list of objects from the file
+            with open("modelData/pca_rbf_svm" + str(prior) + ".pkl", "rb") as f:
+                pca_rbf = pickle.load(f)
+            # Retrieve the list of objects from the file
+            with open("modelData/zNormPca_rbf_svm" + str(prior) + ".pkl", "rb") as f:
+                zNormPca_rbf = pickle.load(f)
         
+        m = 8
         # ---- PLOT FOR log(gamma) = -3 -----
         raw_gamma_1e3 = list(filter(lambda PlotElement: PlotElement.is_gamma(1/numpy.exp(3)), raw_rbf))
         minDcfs_raw_gamma_1e3 = [PlotElement.getminDcf() for PlotElement in raw_gamma_1e3]
