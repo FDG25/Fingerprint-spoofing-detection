@@ -5,6 +5,7 @@ import lr
 from plot_utility import PlotUtility
 import parameter_tuning
 import training
+import kfold
 
 #change the shape of an array from horizontal to vertical, so obtain a column vector
 def vcol(array):
@@ -134,8 +135,9 @@ if __name__ == '__main__':
 
     # ---------------   LR MODELS   -----------------------
 
-    # training.trainLR(DTR_RAND,LTR_RAND,Load_Data=True)
-
+    # training.trainLR(DTR_RAND,LTR_RAND,Load_Data=False)
+    classifier = [(lr.LogisticRegressionWeightedQuadratic, "Logistic Regression Weighted Quadratic")]
+    kfold.K_Fold_LR(DTR_RAND,LTR_RAND,K=constants.K,classifiers=classifier,lambd=0.001,PCA_Flag=None,M=None,Z_Norm_Flag=True,Dcf_Prior=0.5,Calibration_Flag=None)
     #print("No Weight")
     #lr.LogisticRegressionWeighted(DTR,LTR,DTE,LTE)
     #print("Weight")
@@ -149,42 +151,7 @@ if __name__ == '__main__':
     
     # -------------- GMM --------------------
     
-    # BUILD INITIAL GMM (NON DOVREBBE SERVIRCI) 
-    # get dataset split by class
-    # DP0_RAND,DP1_RAND = getClassMatrix(DTR_RAND,LTR_RAND)
-    # weight of classes for the gmm
-    # we compute each weight by using the formula : num_sample_class/num_sample_whole_dataset
-    # gmm_weights = [DP0_RAND.shape[1]/DTR_RAND.shape[1],DP1_RAND.shape[1]/DTR_RAND.shape[1]]
-    # print(gmm_weights)
-    # compute mean and covariance matrix for each class
-    # mu_DP0,cov_DP0 = computeMeanCovMatrix(DP0_RAND)
-    # mu_DP1,cov_DP1 = computeMeanCovMatrix(DP1_RAND)
-    # build the gmm
-    # GMM = [[gmm_weights[0],mu_DP0,cov_DP0],[gmm_weights[1],mu_DP1,cov_DP1]]
-    # ------------- GMM WITH SAME PER-CLASS COMPONENTS ----------------
-    # print("GMM WITH SAME PER-CLASS COMPONENTS")
-    # gmm_components = []
-    # # mindcfs of Full Covariance, of Diagonal Covariance, of Tied Covariance, of Tied Diagonal Covariance
-    # full_min_dcfs = []
-    # diag_min_dcfs = []
-    # tied_min_dcfs = []
-    # tied_diag_min_dcfs = []
-    # for nSplit in range(0,11):
-    #     # from 2 to 1024 components
-    #     print("Number of GMM Components: " + str(2**nSplit))
-    #     gmm_components.append(2**nSplit)
-    #     # minDcfs[0] mindcfs of Full Covariance, minDcfs[1] of Diagonal Covariance, minDcfs[2] of Tied Covariance, minDcfs[3] of Tied Diagonal Covariance
-    #     minDcfs = K_Fold_GMM(DTR_RAND,LTR_RAND,K=5,nSplit0=nSplit)
-    #     full_min_dcfs.append(minDcfs[0])
-    #     diag_min_dcfs.append(minDcfs[1])
-    #     tied_min_dcfs.append(minDcfs[2])
-    #     tied_diag_min_dcfs.append(minDcfs[3]) 
-
-    # # ----- PLOT GMMS   ------
-    # plot.gmm_dcf_plot(full_min_dcfs,gmm_components,"Full Covariance (standard)")
-    # plot.gmm_dcf_plot(diag_min_dcfs,gmm_components,"Diagonal Covariance")
-    # plot.gmm_dcf_plot(tied_min_dcfs,gmm_components,"Tied Covariance")
-    # plot.gmm_dcf_plot(tied_diag_min_dcfs,gmm_components,"Tied Diagonal Covariance")
+    
 
     # ---------- GMM WITH ALL POSSIBLE COMPONENTS COMBINATION -----------
     # colors = {
