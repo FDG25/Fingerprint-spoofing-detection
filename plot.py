@@ -162,7 +162,7 @@ def plotDCF(x, y, labels, colors, xlabel, title):
 
 
 # -------- GMM DCF PLOT  ---------------
-def gmm_dcf_plot(minDCFs, gmmComponents, gmm_model_name):
+def gmm_dcf_plot(raw_minDCFs, zNorm_minDCFs, pca_minDCFs, zNormPca_minDCFs, gmmComponents, gmm_model_name, m_pca):
     global plot_index
     plt.figure()
     plt.title(gmm_model_name)
@@ -170,9 +170,12 @@ def gmm_dcf_plot(minDCFs, gmmComponents, gmm_model_name):
     plt.ylabel("minDCF values")
     x_axis = numpy.arange(len(gmmComponents))
     gmmComponents = numpy.array(gmmComponents)
-    plt.bar(x_axis + 0.10 , minDCFs, width = 0.5,linewidth = 1.0, edgecolor='black', color="Blue")
-    plt.xticks([r + 0.125 for r in range(len(gmmComponents))],gmmComponents)
-    #plt.legend()
+    plt.bar(x_axis + 0.10 , raw_minDCFs, width = 0.125,linewidth = 1.0, edgecolor='black', color="Red", label = 'RAW')
+    plt.bar(x_axis + 0.225 , zNorm_minDCFs, width = 0.125,linewidth = 1.0, edgecolor='black', color="Yellow", label = 'zNorm')
+    plt.bar(x_axis + 0.35 , pca_minDCFs, width = 0.125,linewidth = 1.0, edgecolor='black', color="Green", label = 'PCA m = ' + str(m_pca))
+    plt.bar(x_axis + 0.475 , zNormPca_minDCFs, width = 0.125,linewidth = 1.0, edgecolor='black', color="Blue", label = 'PCA m = ' + str(m_pca) + ' + zNorm')
+    plt.xticks([r + 0.3 for r in range(len(gmmComponents))],gmmComponents)
+    plt.legend()
     plt.savefig(os.path.join('output_plot_folder','plot_' + str(plot_index) + '.png'))
     plot_index+=1
     #plt.show()

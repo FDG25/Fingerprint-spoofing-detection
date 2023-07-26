@@ -136,8 +136,6 @@ if __name__ == '__main__':
     # ---------------   LR MODELS   -----------------------
 
     # training.trainLR(DTR_RAND,LTR_RAND,Load_Data=False)
-    classifier = [(lr.LogisticRegressionWeightedQuadratic, "Logistic Regression Weighted Quadratic")]
-    kfold.K_Fold_LR(DTR_RAND,LTR_RAND,K=constants.K,classifiers=classifier,lambd=0.001,PCA_Flag=None,M=None,Z_Norm_Flag=True,Dcf_Prior=0.5,Calibration_Flag=None)
     #print("No Weight")
     #lr.LogisticRegressionWeighted(DTR,LTR,DTE,LTE)
     #print("Weight")
@@ -151,7 +149,7 @@ if __name__ == '__main__':
     
     # -------------- GMM --------------------
     
-    
+    # training.trainGMMSameComponents(DTR_RAND,LTR_RAND,Load_Data=False)
 
     # ---------- GMM WITH ALL POSSIBLE COMPONENTS COMBINATION -----------
     # colors = {
