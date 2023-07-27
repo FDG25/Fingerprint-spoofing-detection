@@ -450,14 +450,14 @@ def trainGMMSameComponents(DTR_RAND,LTR_RAND,Load_Data=False):
 
                 print("RAW (No PCA No Z_Norm)\n")
                 # minDcfs[0] mindcfs of Full Covariance, minDcfs[1] of Diagonal Covariance, minDcfs[2] of Tied Covariance, minDcfs[3] of Tied Diagonal Covariance
-                raw_minDcfs = kfold.K_Fold_GMM(DTR_RAND,LTR_RAND,K=constants.K,nSplit0=nSplit,PCA_Flag=None,M=None,Z_Norm_Flag=None,Dcf_Prior=prior,Calibration_Flag=None)
+                raw_minDcfs = kfold.K_Fold_GMM(DTR_RAND,LTR_RAND,K=constants.K,nSplit0=nSplit,nSplit1=None,PCA_Flag=None,M=None,Z_Norm_Flag=None,Dcf_Prior=prior,Calibration_Flag=None)
                 raw_full_min_dcfs.append(raw_minDcfs[0])
                 raw_diag_min_dcfs.append(raw_minDcfs[1])
                 raw_tied_min_dcfs.append(raw_minDcfs[2])
                 raw_tied_diag_min_dcfs.append(raw_minDcfs[3]) 
 
                 print("Z_Norm\n")
-                zNorm_minDcfs = kfold.K_Fold_GMM(DTR_RAND,LTR_RAND,K=constants.K,nSplit0=nSplit,PCA_Flag=None,M=None,Z_Norm_Flag=True,Dcf_Prior=prior,Calibration_Flag=None)
+                zNorm_minDcfs = kfold.K_Fold_GMM(DTR_RAND,LTR_RAND,K=constants.K,nSplit0=nSplit,nSplit1=None,PCA_Flag=None,M=None,Z_Norm_Flag=True,Dcf_Prior=prior,Calibration_Flag=None)
                 zNorm_full_min_dcfs.append(zNorm_minDcfs[0])
                 zNorm_diag_min_dcfs.append(zNorm_minDcfs[1])
                 zNorm_tied_min_dcfs.append(zNorm_minDcfs[2])
@@ -465,14 +465,14 @@ def trainGMMSameComponents(DTR_RAND,LTR_RAND,Load_Data=False):
                 
                 m = 8
                 print("RAW + PCA with M = " + str(m) + "\n")
-                pca_minDcfs = kfold.K_Fold_GMM(DTR_RAND,LTR_RAND,K=constants.K,nSplit0=nSplit,PCA_Flag=True,M=m,Z_Norm_Flag=None,Dcf_Prior=prior,Calibration_Flag=None)
+                pca_minDcfs = kfold.K_Fold_GMM(DTR_RAND,LTR_RAND,K=constants.K,nSplit0=nSplit,nSplit1=None,PCA_Flag=True,M=m,Z_Norm_Flag=None,Dcf_Prior=prior,Calibration_Flag=None)
                 pca_full_min_dcfs.append(pca_minDcfs[0])
                 pca_diag_min_dcfs.append(pca_minDcfs[1])
                 pca_tied_min_dcfs.append(pca_minDcfs[2])
                 pca_tied_diag_min_dcfs.append(pca_minDcfs[3])
 
                 print("Z_Norm + PCA with M = " + str(m) + "\n")
-                zNormPca_minDcfs = kfold.K_Fold_GMM(DTR_RAND,LTR_RAND,K=constants.K,nSplit0=nSplit,PCA_Flag=True,M=m,Z_Norm_Flag=True,Dcf_Prior=prior,Calibration_Flag=None)
+                zNormPca_minDcfs = kfold.K_Fold_GMM(DTR_RAND,LTR_RAND,K=constants.K,nSplit0=nSplit,nSplit1=None,PCA_Flag=True,M=m,Z_Norm_Flag=True,Dcf_Prior=prior,Calibration_Flag=None)
                 zNormPca_full_min_dcfs.append(zNormPca_minDcfs[0])
                 zNormPca_diag_min_dcfs.append(zNormPca_minDcfs[1])
                 zNormPca_tied_min_dcfs.append(zNormPca_minDcfs[2])
@@ -607,4 +607,289 @@ def trainGMMSameComponents(DTR_RAND,LTR_RAND,Load_Data=False):
 
 
 def trainGMMAllCombinations(DTR_RAND,LTR_RAND,Load_Data=False):
-    pass
+    # ---------- GMM WITH ALL POSSIBLE COMPONENTS COMBINATION -----------
+    for prior in constants.DCFS_PRIORS:
+        if not Load_Data:
+            print("Prior = " + str(prior) + "\n")
+            colors = {
+                0 : 'blue',
+                1 : 'red',
+                2 : 'green',
+                3 : 'yellow',
+                4 : 'magenta',
+                5 : 'cyan',
+                6 : 'black',
+                7 : 'white'
+            }
+            print("GMM WITH ALL POSSIBLE COMPONENTS COMBINATION")
+            labels = []
+            plot_colors = []
+            gmm_components_class_1 = []
+            # mindcfs of Full Covariance, of Diagonal Covariance, of Tied Covariance, of Tied Diagonal Covariance
+            raw_full_min_dcfs = []
+            raw_diag_min_dcfs = []
+            raw_tied_min_dcfs = []
+            raw_tied_diag_min_dcfs = []
+
+            zNorm_full_min_dcfs = []
+            zNorm_diag_min_dcfs = []
+            zNorm_tied_min_dcfs = []
+            zNorm_tied_diag_min_dcfs = []
+
+            pca_full_min_dcfs = []
+            pca_diag_min_dcfs = []
+            pca_tied_min_dcfs = []
+            pca_tied_diag_min_dcfs = []
+
+            zNormPca_full_min_dcfs = []
+            zNormPca_diag_min_dcfs = []
+            zNormPca_tied_min_dcfs = []
+            zNormPca_tied_diag_min_dcfs = []
+
+            for nSplit0 in range(0,1):
+                print("Number of GMM Components of Class 0: " + str(2**nSplit0))
+                labels.append("minDCF G0 = " + str(2**nSplit0))
+                plot_colors.append(colors[nSplit0])
+                gmm_components_class_1_single = []
+
+                raw_full_min_dcfs_single = []
+                raw_diag_min_dcfs_single = []
+                raw_tied_min_dcfs_single = []
+                raw_tied_diag_min_dcfs_single = []
+
+                zNorm_full_min_dcfs_single = []
+                zNorm_diag_min_dcfs_single = []
+                zNorm_tied_min_dcfs_single = []
+                zNorm_tied_diag_min_dcfs_single = []
+
+                pca_full_min_dcfs_single = []
+                pca_diag_min_dcfs_single = []
+                pca_tied_min_dcfs_single = []
+                pca_tied_diag_min_dcfs_single = []
+
+                zNormPca_full_min_dcfs_single = []
+                zNormPca_diag_min_dcfs_single = []
+                zNormPca_tied_min_dcfs_single = []
+                zNormPca_tied_diag_min_dcfs_single = []
+                for nSplit1 in range(0,2):
+                    # from 2 to 1024 components
+                    print("Number of GMM Components of Class 1: " + str(2**nSplit1))
+                    gmm_components_class_1_single.append(2**nSplit1)
+                    # minDcfs[0] mindcfs of Full Covariance, minDcfs[1] of Diagonal Covariance, minDcfs[2] of Tied Covariance, minDcfs[3] of Tied Diagonal Covariance
+
+                    print("RAW (No PCA No Z_Norm)\n")
+                    raw_minDcfs = kfold.K_Fold_GMM(DTR_RAND,LTR_RAND,K=constants.K,nSplit0=nSplit0,nSplit1=nSplit1,PCA_Flag=None,M=None,Z_Norm_Flag=None,Dcf_Prior=prior,Calibration_Flag=None)
+                    
+                    raw_full_min_dcfs_single.append(raw_minDcfs[0])
+                    raw_diag_min_dcfs_single.append(raw_minDcfs[1])
+                    raw_tied_min_dcfs_single.append(raw_minDcfs[2])
+                    raw_tied_diag_min_dcfs_single.append(raw_minDcfs[3]) 
+
+                    print("Z_Norm\n")
+                    zNorm_minDcfs = kfold.K_Fold_GMM(DTR_RAND,LTR_RAND,K=constants.K,nSplit0=nSplit0,nSplit1=nSplit1,PCA_Flag=None,M=None,Z_Norm_Flag=True,Dcf_Prior=prior,Calibration_Flag=None)
+                    
+                    zNorm_full_min_dcfs_single.append(zNorm_minDcfs[0])
+                    zNorm_diag_min_dcfs_single.append(zNorm_minDcfs[1])
+                    zNorm_tied_min_dcfs_single.append(zNorm_minDcfs[2])
+                    zNorm_tied_diag_min_dcfs_single.append(zNorm_minDcfs[3]) 
+                    
+                    m = 8
+                    print("RAW + PCA with M = " + str(m) + "\n")
+                    pca_minDcfs = kfold.K_Fold_GMM(DTR_RAND,LTR_RAND,K=constants.K,nSplit0=nSplit0,nSplit1=nSplit1,PCA_Flag=True,M=m,Z_Norm_Flag=None,Dcf_Prior=prior,Calibration_Flag=None)
+                    
+                    pca_full_min_dcfs_single.append(pca_minDcfs[0])
+                    pca_diag_min_dcfs_single.append(pca_minDcfs[1])
+                    pca_tied_min_dcfs_single.append(pca_minDcfs[2])
+                    pca_tied_diag_min_dcfs_single.append(pca_minDcfs[3]) 
+                    
+                    print("Z_Norm + PCA with M = " + str(m) + "\n")
+                    zNormPca_minDcfs = kfold.K_Fold_GMM(DTR_RAND,LTR_RAND,K=constants.K,nSplit0=nSplit0,nSplit1=nSplit1,PCA_Flag=True,M=m,Z_Norm_Flag=True,Dcf_Prior=prior,Calibration_Flag=None)
+                    
+                    zNormPca_full_min_dcfs_single.append(zNormPca_minDcfs[0])
+                    zNormPca_diag_min_dcfs_single.append(zNormPca_minDcfs[1])
+                    zNormPca_tied_min_dcfs_single.append(zNormPca_minDcfs[2])
+                    zNormPca_tied_diag_min_dcfs_single.append(zNormPca_minDcfs[3]) 
+
+                gmm_components_class_1.append(gmm_components_class_1_single)
+                
+                raw_full_min_dcfs.append(raw_full_min_dcfs_single)
+                raw_diag_min_dcfs.append(raw_diag_min_dcfs_single)
+                raw_tied_min_dcfs.append(raw_tied_min_dcfs_single)
+                raw_tied_diag_min_dcfs.append(raw_tied_diag_min_dcfs_single)
+
+                zNorm_full_min_dcfs.append(zNorm_full_min_dcfs_single)
+                zNorm_diag_min_dcfs.append(zNorm_diag_min_dcfs_single)
+                zNorm_tied_min_dcfs.append(zNorm_tied_min_dcfs_single)
+                zNorm_tied_diag_min_dcfs.append(zNorm_tied_diag_min_dcfs_single)
+
+                pca_full_min_dcfs.append(pca_full_min_dcfs_single)
+                pca_diag_min_dcfs.append(pca_diag_min_dcfs_single)
+                pca_tied_min_dcfs.append(pca_tied_min_dcfs_single)
+                pca_tied_diag_min_dcfs.append(pca_tied_diag_min_dcfs_single)
+
+                zNormPca_full_min_dcfs.append(zNormPca_full_min_dcfs_single)
+                zNormPca_diag_min_dcfs.append(zNormPca_diag_min_dcfs_single)
+                zNormPca_tied_min_dcfs.append(zNormPca_tied_min_dcfs_single)
+                zNormPca_tied_diag_min_dcfs.append(zNormPca_tied_diag_min_dcfs_single)
+            
+            # Save Data
+
+            # Save the list of objects to a file
+            with open("modelData/labels_gmm_allComb" + str(prior) + ".pkl", "wb") as f:
+                pickle.dump(labels, f)
+            
+            # Save the list of objects to a file
+            with open("modelData/colors_gmm_allComb" + str(prior) + ".pkl", "wb") as f:
+                pickle.dump(plot_colors, f)
+            
+            # Save the list of objects to a file
+            with open("modelData/components_gmm_allComb" + str(prior) + ".pkl", "wb") as f:
+                pickle.dump(gmm_components_class_1, f)
+
+            # Save the list of objects to a file
+            with open("modelData/raw_full_gmm_allComb" + str(prior) + ".pkl", "wb") as f:
+                pickle.dump(raw_full_min_dcfs, f)
+            # Save the list of objects to a file
+            with open("modelData/raw_diag_gmm_allComb" + str(prior) + ".pkl", "wb") as f:
+                pickle.dump(raw_diag_min_dcfs, f)
+            # Save the list of objects to a file
+            with open("modelData/raw_tied_gmm_allComb" + str(prior) + ".pkl", "wb") as f:
+                pickle.dump(raw_tied_min_dcfs, f)
+            # Save the list of objects to a file
+            with open("modelData/raw_tied_diag_gmm_allComb" + str(prior) + ".pkl", "wb") as f:
+                pickle.dump(raw_tied_diag_min_dcfs, f)
+            
+            # Save the list of objects to a file
+            with open("modelData/zNorm_full_gmm_allComb" + str(prior) + ".pkl", "wb") as f:
+                pickle.dump(zNorm_full_min_dcfs, f)
+            # Save the list of objects to a file
+            with open("modelData/zNorm_diag_gmm_allComb" + str(prior) + ".pkl", "wb") as f:
+                pickle.dump(zNorm_diag_min_dcfs, f)
+            # Save the list of objects to a file
+            with open("modelData/zNorm_tied_gmm_allComb" + str(prior) + ".pkl", "wb") as f:
+                pickle.dump(zNorm_tied_min_dcfs, f)
+            # Save the list of objects to a file
+            with open("modelData/zNorm_tied_diag_gmm_allComb" + str(prior) + ".pkl", "wb") as f:
+                pickle.dump(zNorm_tied_diag_min_dcfs, f)
+            
+            # Save the list of objects to a file
+            with open("modelData/pca_full_gmm_allComb" + str(prior) + ".pkl", "wb") as f:
+                pickle.dump(pca_full_min_dcfs, f)
+            # Save the list of objects to a file
+            with open("modelData/pca_diag_gmm_allComb" + str(prior) + ".pkl", "wb") as f:
+                pickle.dump(pca_diag_min_dcfs, f)
+            # Save the list of objects to a file
+            with open("modelData/pca_tied_gmm_allComb" + str(prior) + ".pkl", "wb") as f:
+                pickle.dump(pca_tied_min_dcfs, f)
+            # Save the list of objects to a file
+            with open("modelData/pca_tied_diag_gmm_allComb" + str(prior) + ".pkl", "wb") as f:
+                pickle.dump(pca_tied_diag_min_dcfs, f)
+            
+            # Save the list of objects to a file
+            with open("modelData/zNormPca_full_gmm_allComb" + str(prior) + ".pkl", "wb") as f:
+                pickle.dump(zNormPca_full_min_dcfs, f)
+            # Save the list of objects to a file
+            with open("modelData/zNormPca_diag_gmm_allComb" + str(prior) + ".pkl", "wb") as f:
+                pickle.dump(zNormPca_diag_min_dcfs, f)
+            # Save the list of objects to a file
+            with open("modelData/zNormPca_tied_gmm_allComb" + str(prior) + ".pkl", "wb") as f:
+                pickle.dump(zNormPca_tied_min_dcfs, f)
+            # Save the list of objects to a file
+            with open("modelData/zNormPca_tied_diag_gmm_allComb" + str(prior) + ".pkl", "wb") as f:
+                pickle.dump(zNormPca_tied_diag_min_dcfs, f)
+
+        if Load_Data:
+            # Retrieve data for plotting
+
+            # Retrieve the list of objects from the file
+            with open("modelData/labels_gmm_allComb" + str(prior) + ".pkl", "rb") as f:
+                labels = pickle.load(f)
+            
+            # Retrieve the list of objects from the file
+            with open("modelData/colors_gmm_allComb" + str(prior) + ".pkl", "rb") as f:
+                plot_colors = pickle.load(f)
+            
+            # Retrieve the list of objects from the file
+            with open("modelData/components_gmm_allComb" + str(prior) + ".pkl", "rb") as f:
+                gmm_components_class_1 = pickle.load(f)
+            
+            # Retrieve the list of objects from the file
+            with open("modelData/raw_full_gmm_allComb" + str(prior) + ".pkl", "rb") as f:
+                raw_full_min_dcfs = pickle.load(f)
+            # Retrieve the list of objects from the file
+            with open("modelData/raw_diag_gmm_allComb" + str(prior) + ".pkl", "rb") as f:
+                raw_diag_min_dcfs = pickle.load(f)
+            # Retrieve the list of objects from the file
+            with open("modelData/raw_tied_gmm_allComb" + str(prior) + ".pkl", "rb") as f:
+                raw_tied_min_dcfs = pickle.load(f)
+            # Retrieve the list of objects from the file
+            with open("modelData/raw_tied_diag_gmm_allComb" + str(prior) + ".pkl", "rb") as f:
+                raw_tied_diag_min_dcfs = pickle.load(f)
+            
+            # Retrieve the list of objects from the file
+            with open("modelData/zNorm_full_gmm_allComb" + str(prior) + ".pkl", "rb") as f:
+                zNorm_full_min_dcfs = pickle.load(f)
+            # Retrieve the list of objects from the file
+            with open("modelData/zNorm_diag_gmm_allComb" + str(prior) + ".pkl", "rb") as f:
+                zNorm_diag_min_dcfs = pickle.load(f)
+            # Retrieve the list of objects from the file
+            with open("modelData/zNorm_tied_gmm_allComb" + str(prior) + ".pkl", "rb") as f:
+                zNorm_tied_min_dcfs = pickle.load(f)
+            # Retrieve the list of objects from the file
+            with open("modelData/zNorm_tied_diag_gmm_allComb" + str(prior) + ".pkl", "rb") as f:
+                zNorm_tied_diag_min_dcfs = pickle.load(f)
+            
+            # Retrieve the list of objects from the file
+            with open("modelData/pca_full_gmm_allComb" + str(prior) + ".pkl", "rb") as f:
+                pca_full_min_dcfs = pickle.load(f)
+            # Retrieve the list of objects from the file
+            with open("modelData/pca_diag_gmm_allComb" + str(prior) + ".pkl", "rb") as f:
+                pca_diag_min_dcfs = pickle.load(f)
+            # Retrieve the list of objects from the file
+            with open("modelData/pca_tied_gmm_allComb" + str(prior) + ".pkl", "rb") as f:
+                pca_tied_min_dcfs = pickle.load(f)
+            # Retrieve the list of objects from the file
+            with open("modelData/pca_tied_diag_gmm_allComb" + str(prior) + ".pkl", "rb") as f:
+                pca_tied_diag_min_dcfs = pickle.load(f)
+            
+            # Retrieve the list of objects from the file
+            with open("modelData/zNormPca_full_gmm_allComb" + str(prior) + ".pkl", "rb") as f:
+                zNormPca_full_min_dcfs = pickle.load(f)
+            # Retrieve the list of objects from the file
+            with open("modelData/zNormPca_diag_gmm_allComb" + str(prior) + ".pkl", "rb") as f:
+                zNormPca_diag_min_dcfs = pickle.load(f)
+            # Retrieve the list of objects from the file
+            with open("modelData/zNormPca_tied_gmm_allComb" + str(prior) + ".pkl", "rb") as f:
+                zNormPca_tied_min_dcfs = pickle.load(f)
+            # Retrieve the list of objects from the file
+            with open("modelData/zNormPca_tied_diag_gmm_allComb" + str(prior) + ".pkl", "rb") as f:
+                zNormPca_tied_diag_min_dcfs = pickle.load(f)
+
+
+        # ----- PLOT GMMS ALL COMBINATIONS  ------
+        m = 8
+
+        # ----- RAW -------
+        plot.gmm_plot_all_component_combinations(gmm_components_class_1,raw_full_min_dcfs,labels,plot_colors,"Full Covariance (standard) for class 0 with $\pi=" + str(prior) + "$" + " no PCA no Znorm")
+        plot.gmm_plot_all_component_combinations(gmm_components_class_1,raw_diag_min_dcfs,labels,plot_colors,"Diagonal Covariance for class 0 with $\pi=" + str(prior) + "$" + " no PCA no Znorm")
+        plot.gmm_plot_all_component_combinations(gmm_components_class_1,raw_diag_min_dcfs,labels,plot_colors,"Tied Covariance for class 0 with $\pi=" + str(prior) + "$" + " no PCA no Znorm")
+        plot.gmm_plot_all_component_combinations(gmm_components_class_1,raw_tied_diag_min_dcfs,labels,plot_colors,"Tied Diagonal Covariance for class 0 with $\pi=" + str(prior) + "$" + " no PCA no Znorm")
+
+        # ----- zNorm -------
+        plot.gmm_plot_all_component_combinations(gmm_components_class_1,zNorm_full_min_dcfs,labels,plot_colors,"Full Covariance (standard) for class 0 with $\pi=" + str(prior) + "$" + " no PCA Znorm")
+        plot.gmm_plot_all_component_combinations(gmm_components_class_1,zNorm_diag_min_dcfs,labels,plot_colors,"Diagonal Covariance for class 0 with $\pi=" + str(prior) + "$" + " no PCA Znorm")
+        plot.gmm_plot_all_component_combinations(gmm_components_class_1,zNorm_tied_min_dcfs,labels,plot_colors,"Tied Covariance for class 0 with $\pi=" + str(prior) + "$" + " no PCA Znorm")
+        plot.gmm_plot_all_component_combinations(gmm_components_class_1,zNorm_tied_diag_min_dcfs,labels,plot_colors,"Tied Diagonal Covariance for class 0 with $\pi=" + str(prior) + "$" + " no PCA Znorm")
+
+        # ----- PCA -------
+        plot.gmm_plot_all_component_combinations(gmm_components_class_1,pca_full_min_dcfs,labels,plot_colors,"Full Covariance (standard) for class 0 with $\pi=" + str(prior) + "$" + " PCA=" + str(m) + " no Znorm")
+        plot.gmm_plot_all_component_combinations(gmm_components_class_1,pca_diag_min_dcfs,labels,plot_colors,"Diagonal Covariance for class 0 with $\pi=" + str(prior) + "$" + " PCA=" + str(m) + " no Znorm")
+        plot.gmm_plot_all_component_combinations(gmm_components_class_1,pca_tied_min_dcfs,labels,plot_colors,"Tied Covariance for class 0 with $\pi=" + str(prior) + "$" + " PCA=" + str(m) + " no Znorm")
+        plot.gmm_plot_all_component_combinations(gmm_components_class_1,pca_tied_diag_min_dcfs,labels,plot_colors,"Tied Diagonal Covariance for class 0 with $\pi=" + str(prior) + "$" + " PCA=" + str(m) + " no Znorm")
+
+        # ----- zNorm PCA -------
+        plot.gmm_plot_all_component_combinations(gmm_components_class_1,pca_full_min_dcfs,labels,plot_colors,"Full Covariance (standard) for class 0 with $\pi=" + str(prior) + "$" + " PCA=" + str(m) + " Znorm")
+        plot.gmm_plot_all_component_combinations(gmm_components_class_1,pca_diag_min_dcfs,labels,plot_colors,"Diagonal Covariance for class 0 with $\pi=" + str(prior) + "$" + " PCA=" + str(m) + " Znorm")
+        plot.gmm_plot_all_component_combinations(gmm_components_class_1,pca_tied_min_dcfs,labels,plot_colors,"Tied Covariance for class 0 with $\pi=" + str(prior) + "$" + " PCA=" + str(m) + " Znorm")
+        plot.gmm_plot_all_component_combinations(gmm_components_class_1,pca_tied_diag_min_dcfs,labels,plot_colors,"Tied Diagonal Covariance for class 0 with $\pi=" + str(prior) + "$" + " PCA=" + str(m) + " Znorm")
+

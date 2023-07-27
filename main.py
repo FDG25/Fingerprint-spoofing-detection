@@ -150,65 +150,13 @@ if __name__ == '__main__':
     # -------------- GMM --------------------
     
     # training.trainGMMSameComponents(DTR_RAND,LTR_RAND,Load_Data=False)
-
-    # ---------- GMM WITH ALL POSSIBLE COMPONENTS COMBINATION -----------
-    # colors = {
-    #     0 : 'blue',
-    #     1 : 'green',
-    #     2 : 'red',
-    #     3 : 'cyan',
-    #     4 : 'magenta',
-    #     5 : 'yellow',
-    #     6 : 'black',
-    #     7 : 'white'
-    # }
-    # print("GMM WITH ALL POSSIBLE COMPONENTS COMBINATION")
-    # labels = []
-    # plot_colors = []
-    # gmm_components_class_1 = []
-    # # mindcfs of Full Covariance, of Diagonal Covariance, of Tied Covariance, of Tied Diagonal Covariance
-    # full_min_dcfs = []
-    # diag_min_dcfs = []
-    # tied_min_dcfs = []
-    # tied_diag_min_dcfs = []
-    # for nSplit0 in range(0,4):
-    #     print("Number of GMM Components of Class 0: " + str(2**nSplit0))
-    #     labels.append("minDCF G0 = " + str(2**nSplit0))
-    #     plot_colors.append(colors[nSplit0])
-    #     gmm_components_class_1_single = []
-    #     full_min_dcfs_single = []
-    #     diag_min_dcfs_single = []
-    #     tied_min_dcfs_single = []
-    #     tied_diag_min_dcfs_single = []
-    #     for nSplit1 in range(0,4):
-    #         # from 2 to 1024 components
-    #         print("Number of GMM Components of Class 1: " + str(2**nSplit1))
-    #         gmm_components_class_1_single.append(2**nSplit1)
-    #         # minDcfs[0] mindcfs of Full Covariance, minDcfs[1] of Diagonal Covariance, minDcfs[2] of Tied Covariance, minDcfs[3] of Tied Diagonal Covariance
-    #         minDcfs = K_Fold_GMM(DTR_RAND,LTR_RAND,K=5,nSplit0=nSplit0,nSplit1=nSplit1)
-    #         full_min_dcfs_single.append(minDcfs[0])
-    #         diag_min_dcfs_single.append(minDcfs[1])
-    #         tied_min_dcfs_single.append(minDcfs[2])
-    #         tied_diag_min_dcfs_single.append(minDcfs[3]) 
-
-    #     gmm_components_class_1.append(gmm_components_class_1_single)
-    #     full_min_dcfs.append(full_min_dcfs_single)
-    #     diag_min_dcfs.append(diag_min_dcfs_single)
-    #     tied_min_dcfs.append(tied_min_dcfs_single)
-    #     tied_diag_min_dcfs.append(tied_diag_min_dcfs_single)
-
-
-    # # ----- PLOT GMMS ALL COMBINATIONS  ------
-    # plot.gmm_plot_all_component_combinations(gmm_components_class_1,full_min_dcfs,labels,colors,"Full Covariance (standard) for class 0")
-    # plot.gmm_plot_all_component_combinations(gmm_components_class_1,diag_min_dcfs,labels,colors,"Diagonal Covariance for class 0")
-    # plot.gmm_plot_all_component_combinations(gmm_components_class_1,tied_min_dcfs,labels,colors,"Tied Covariance for class 0")
-    # plot.gmm_plot_all_component_combinations(gmm_components_class_1,tied_diag_min_dcfs,labels,colors,"Tied Diagonal Covariance for class 0")
-
+    training.trainGMMAllCombinations(DTR_RAND,LTR_RAND,Load_Data=True)
+    
     # BEST MODEL TIED DIAGONAL WITH GMM COMPONENTS = 8 FOR CLASS 0 AND GMM COMPONENTS 2 FOR CLASS 1
-    # minDcfs = K_Fold_GMM(DTR_RAND,LTR_RAND,K=5,nSplit0=3,nSplit1=1)
+    # minDcfs = kfold.K_Fold_GMM(DTR_RAND,LTR_RAND,K=5,nSplit0=3,nSplit1=1)
 
-    # classifier = [(lr.LogisticRegressionWeightedQuadratic, "Logistic Regression Weighted Quadratic")]
-    # minDcfs = K_Fold_LR(DTR_RAND,LTR_RAND,K=5,classifiers=classifier,hyperParameter=0.01)
+    classifier = [(lr.LogisticRegressionWeightedQuadratic, "Logistic Regression Weighted Quadratic")]
+    minDcfs = kfold.K_Fold_LR(DTR_RAND,LTR_RAND,K=5,classifiers=classifier,hyperParameter=0.01)
     # ------------------ OPTIMAL DECISION --------------------------
     #optimalDecision(DTR_RAND,LTR_RAND,DTE_RAND,LTE_RAND)
     #We now turn our attention at evaluating the predictions made by our classifier R for a target application

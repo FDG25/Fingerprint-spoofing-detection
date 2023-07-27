@@ -249,7 +249,7 @@ def K_Fold_SVM_kernel_rbf(D,L,K,hyperParameter_K,hyperParameter_C,hyperParameter
     print(f"Min DCF for RADIAL BASIS FUNCTION (RBF) Kernel SVM: {minDcf}\n")
     return minDcf
 
-def K_Fold_GMM(D,L,K,nSplit0,nSplit1=None):
+def K_Fold_GMM(D,L,K,nSplit0,nSplit1=None,PCA_Flag=None,M=None,Z_Norm_Flag=None,Dcf_Prior=None,Calibration_Flag=None):
     # Leave-One-Out Approach Con K=2325: 
     fold_dimension = int(D.shape[1]/K)  # size of each fold
     fold_indices = numpy.arange(0, K*fold_dimension, fold_dimension)  # indices to split the data into folds
@@ -270,9 +270,14 @@ def K_Fold_GMM(D,L,K,nSplit0,nSplit1=None):
             LTR = L[~mask]
             DVA = D[:,mask]
             LVA = L[mask]
-            # apply PCA on current fold DTR,DVA
-            DTR,P = pca.PCA_projection(DTR,m = constants.M)
-            DVA = numpy.dot(P.T, DVA)
+            if Z_Norm_Flag:
+                # apply z-normalization
+                DTR = normalization.zNormalizingData(DTR)
+                DVA = normalization.zNormalizingData(DVA)
+            if PCA_Flag and M!=None:
+                # apply PCA on current fold DTR,DVA
+                DTR,P = pca.PCA_projection(DTR,m = M)
+                DVA = numpy.dot(P.T, DVA)
             DTR0,DTR1 = main.getClassMatrix(DTR,LTR)
             nSamples = DVA.shape[1]
             scores_i,nCorrectPrediction = gmm.GMM_Classifier(DTR0, DTR1, DVA, LVA, classifier_algorithm, nSplit0 , nSplit1, classifier_costraint) 
@@ -282,7 +287,7 @@ def K_Fold_GMM(D,L,K,nSplit0,nSplit1=None):
         errorRate = nWrongPrediction/D.shape[1] 
         accuracy = 1 - errorRate
         print(f"{classifier_name} results:\nAccuracy: {round(accuracy*100, 2)}%\nError rate: {round(errorRate*100, 2)}%\n",end="")
-        minDcf = optimal_decision.computeMinDCF(constants.PRIOR_PROBABILITY,constants.CFN,constants.CFP,scores,labels)
+        minDcf = optimal_decision.computeMinDCF(Dcf_Prior,constants.CFN,constants.CFP,scores,labels)
         minDcfs.append(minDcf)
         print(f"Min DCF for {classifier_name}: {minDcf}\n")
         #plot.compute_bayes_error_plot(scores,labels,"GMM")
