@@ -150,13 +150,13 @@ if __name__ == '__main__':
     # -------------- GMM --------------------
     
     # training.trainGMMSameComponents(DTR_RAND,LTR_RAND,Load_Data=False)
-    training.trainGMMAllCombinations(DTR_RAND,LTR_RAND,Load_Data=True)
+    # training.trainGMMAllCombinations(DTR_RAND,LTR_RAND,Load_Data=True)
     
     # BEST MODEL TIED DIAGONAL WITH GMM COMPONENTS = 8 FOR CLASS 0 AND GMM COMPONENTS 2 FOR CLASS 1
     # minDcfs = kfold.K_Fold_GMM(DTR_RAND,LTR_RAND,K=5,nSplit0=3,nSplit1=1)
 
-    classifier = [(lr.LogisticRegressionWeightedQuadratic, "Logistic Regression Weighted Quadratic")]
-    minDcfs = kfold.K_Fold_LR(DTR_RAND,LTR_RAND,K=5,classifiers=classifier,hyperParameter=0.01)
+    # classifier = [(lr.LogisticRegressionWeightedQuadratic, "Logistic Regression Weighted Quadratic")]
+    # minDcfs = kfold.K_Fold_LR(DTR_RAND,LTR_RAND,K=5,classifiers=classifier,hyperParameter=0.01)
     # ------------------ OPTIMAL DECISION --------------------------
     #optimalDecision(DTR_RAND,LTR_RAND,DTE_RAND,LTE_RAND)
     #We now turn our attention at evaluating the predictions made by our classifier R for a target application
