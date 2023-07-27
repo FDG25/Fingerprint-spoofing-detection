@@ -86,7 +86,7 @@ def K_Fold_LR(D,L,K,classifiers,lambd,PCA_Flag=None,M=None,Z_Norm_Flag=None,Dcf_
         print(f"Min DCF for {classifier_name}: {minDcf}\n")
         if Calibration_Flag:
             # ----- MISCALIBRATED PLOT --------
-            plot.compute_bayes_error_plot(scores,labels,"LR")
+            plot.compute_bayes_error_plot(scores,labels,classifier_name)
             # ----- CALIBRATION AND CALIBRATED PLOT ------
             K_Fold_Calibration(scores,labels,K=5,plt_title="Calibrated " + classifier_name)   
     return minDcfs 
@@ -173,6 +173,11 @@ def K_Fold_SVM_linear(D,L,K,hyperParameter_K,hyperParameter_C,PCA_Flag=None,M=No
     print(f"Linear SVM results:\nAccuracy: {round(accuracy*100, 2)}%\nError rate: {round(errorRate*100, 2)}%\n",end="")
     minDcf = optimal_decision.computeMinDCF(Dcf_Prior,constants.CFN,constants.CFP,scores,labels)
     print(f"Min DCF for Linear SVM: {minDcf}\n")
+    if Calibration_Flag:
+            # ----- MISCALIBRATED PLOT --------
+            plot.compute_bayes_error_plot(scores,labels,"Linear SVM")
+            # ----- CALIBRATION AND CALIBRATED PLOT ------
+            K_Fold_Calibration(scores,labels,K=5,plt_title="Calibrated Linear SVM")
     return minDcf
 
 def K_Fold_SVM_kernel_polynomial(D,L,K,hyperParameter_K,hyperParameter_C,hyperParameter_c,hyperParameter_d,PCA_Flag=None,M=None,Z_Norm_Flag=None,Dcf_Prior=None,Calibration_Flag=None):
@@ -211,6 +216,11 @@ def K_Fold_SVM_kernel_polynomial(D,L,K,hyperParameter_K,hyperParameter_C,hyperPa
     print(f"Polynomial Kernel SVM results:\nAccuracy: {round(accuracy*100, 2)}%\nError rate: {round(errorRate*100, 2)}%\n",end="")
     minDcf = optimal_decision.computeMinDCF(Dcf_Prior,constants.CFN,constants.CFP,scores,labels)
     print(f"Min DCF for Polynomial Kernel SVM: {minDcf}\n")
+    if Calibration_Flag:
+            # ----- MISCALIBRATED PLOT --------
+            plot.compute_bayes_error_plot(scores,labels,"Polynomial Kernel SVM")
+            # ----- CALIBRATION AND CALIBRATED PLOT ------
+            K_Fold_Calibration(scores,labels,K=5,plt_title="Calibrated Polynomial Kernel SVM")
     return minDcf
 
 def K_Fold_SVM_kernel_rbf(D,L,K,hyperParameter_K,hyperParameter_C,hyperParameter_gamma,PCA_Flag=None,M=None,Z_Norm_Flag=None,Dcf_Prior=None,Calibration_Flag=None):
@@ -247,13 +257,18 @@ def K_Fold_SVM_kernel_rbf(D,L,K,hyperParameter_K,hyperParameter_C,hyperParameter
     print(f"RADIAL BASIS FUNCTION (RBF) Kernel SVM results:\nAccuracy: {round(accuracy*100, 2)}%\nError rate: {round(errorRate*100, 2)}%\n",end="")
     minDcf = optimal_decision.computeMinDCF(Dcf_Prior,constants.CFN,constants.CFP,scores,labels)
     print(f"Min DCF for RADIAL BASIS FUNCTION (RBF) Kernel SVM: {minDcf}\n")
+    if Calibration_Flag:
+            # ----- MISCALIBRATED PLOT --------
+            plot.compute_bayes_error_plot(scores,labels,"RBF Kernel SVM")
+            # ----- CALIBRATION AND CALIBRATED PLOT ------
+            K_Fold_Calibration(scores,labels,K=5,plt_title="Calibrated RBF Kernel SVM")
     return minDcf
 
-def K_Fold_GMM(D,L,K,nSplit0,nSplit1=None,PCA_Flag=None,M=None,Z_Norm_Flag=None,Dcf_Prior=None,Calibration_Flag=None):
+def K_Fold_GMM(D,L,K,classifiers,nSplit0,nSplit1=None,PCA_Flag=None,M=None,Z_Norm_Flag=None,Dcf_Prior=None,Calibration_Flag=None):
     # Leave-One-Out Approach Con K=2325: 
     fold_dimension = int(D.shape[1]/K)  # size of each fold
     fold_indices = numpy.arange(0, K*fold_dimension, fold_dimension)  # indices to split the data into folds
-    classifiers = [(gmm.LBGalgorithm,gmm.constraintSigma,"Full Covariance (standard)"), (gmm.DiagLBGalgorithm,gmm.DiagConstraintSigma,"Diagonal Covariance"), (gmm.TiedLBGalgorithm, gmm.constraintSigma, "Tied Covariance"),(gmm.TiedDiagLBGalgorithm,gmm.DiagConstraintSigma,"Tied Diagonal Covariance")] 
+    #classifiers = [(gmm.LBGalgorithm,gmm.constraintSigma,"Full Covariance (standard)"), (gmm.DiagLBGalgorithm,gmm.DiagConstraintSigma,"Diagonal Covariance"), (gmm.TiedLBGalgorithm, gmm.constraintSigma, "Tied Covariance"),(gmm.TiedDiagLBGalgorithm,gmm.DiagConstraintSigma,"Tied Diagonal Covariance")] 
     #classifiers = [(gmm.TiedDiagLBGalgorithm,gmm.DiagConstraintSigma,"Tied Diagonal Covariance")] 
     # 4 values: mindcfs of Full Covariance, of Diagonal Covariance, of Tied Covariance, of Tied Diagonal Covariance
     minDcfs = []
@@ -290,7 +305,11 @@ def K_Fold_GMM(D,L,K,nSplit0,nSplit1=None,PCA_Flag=None,M=None,Z_Norm_Flag=None,
         minDcf = optimal_decision.computeMinDCF(Dcf_Prior,constants.CFN,constants.CFP,scores,labels)
         minDcfs.append(minDcf)
         print(f"Min DCF for {classifier_name}: {minDcf}\n")
-        #plot.compute_bayes_error_plot(scores,labels,"GMM")
+        if Calibration_Flag:
+            # ----- MISCALIBRATED PLOT --------
+            plot.compute_bayes_error_plot(scores,labels,classifier_name)
+            # ----- CALIBRATION AND CALIBRATED PLOT ------
+            K_Fold_Calibration(scores,labels,K=5,plt_title="Calibrated " + classifier_name)
     return minDcfs 
 
 def optimalDecision(DTR,LTR,DTE,LTE):

@@ -213,8 +213,8 @@ def compute_bayes_error_plot(llrs,labels,plt_title):
 def bayesErrorPlot(dcf, mindcf, effPriorLogOdds, plt_title): #dcf is the array containing the DCF values, and mindcf is the array containing the minimum DCF values
     global plot_index
     plt.figure()
-    plt.plot(effPriorLogOdds, dcf, label='actDCF', color='r')
-    plt.plot(effPriorLogOdds, mindcf, label='minDCF', color='b')
+    plt.plot(effPriorLogOdds, dcf, label='actDCF', color='b')
+    plt.plot(effPriorLogOdds, mindcf, label='minDCF', linestyle='dotted' , color='r')
     plt.xlabel("$log \\frac{ \\tilde{\pi}}{1-\\tilde{\pi}}$")
     plt.ylabel("DCF")
     plt.legend()

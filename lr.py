@@ -294,8 +294,9 @@ def computeScoresCalibration(DTE,LTE,v):
 
 def LogisticRegressionPriorWeighted(DTR,LTR,DTE,LTE):
     
-    logreg_obj_prior_weighted = logreg_obj_wrap_weighted_gradient(DTR, LTR, lambd=0) 
-    (x, f, d) = scipy.optimize.fmin_l_bfgs_b(logreg_obj_prior_weighted, numpy.zeros(DTR.shape[0] + 1))
+    logreg_obj_weighted_function = logreg_obj_wrap_weighted_function(DTR, LTR, lambd=0)
+    logreg_obj_weighted_gradient = logreg_obj_wrap_weighted_gradient(DTR, LTR, lambd=0)
+    (x, f, d) = scipy.optimize.fmin_l_bfgs_b(logreg_obj_weighted_function, numpy.zeros(DTR.shape[0] + 1),fprime=logreg_obj_weighted_gradient)
     #print("Lambda=" + str(lambd)) 
     #print(f"The objective value at the minimum (J(w*,b*)) is: {round(f, 7)}") 
     return computeScoresCalibration(DTE, LTE, x) 

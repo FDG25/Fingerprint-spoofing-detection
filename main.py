@@ -6,6 +6,7 @@ from plot_utility import PlotUtility
 import parameter_tuning
 import training
 import kfold
+import calibration_fusion
 
 #change the shape of an array from horizontal to vertical, so obtain a column vector
 def vcol(array):
@@ -136,6 +137,7 @@ if __name__ == '__main__':
     # ---------------   LR MODELS   -----------------------
 
     # training.trainLR(DTR_RAND,LTR_RAND,Load_Data=False)
+    
     #print("No Weight")
     #lr.LogisticRegressionWeighted(DTR,LTR,DTE,LTE)
     #print("Weight")
@@ -152,31 +154,12 @@ if __name__ == '__main__':
     # training.trainGMMSameComponents(DTR_RAND,LTR_RAND,Load_Data=False)
     # training.trainGMMAllCombinations(DTR_RAND,LTR_RAND,Load_Data=True)
     
+    # -------------- SCORE CALIBRATION -------------
+    
+    # calibration_fusion.best_model_score_calibration(DTR_RAND,LTR_RAND)
+
     # BEST MODEL TIED DIAGONAL WITH GMM COMPONENTS = 8 FOR CLASS 0 AND GMM COMPONENTS 2 FOR CLASS 1
     # minDcfs = kfold.K_Fold_GMM(DTR_RAND,LTR_RAND,K=5,nSplit0=3,nSplit1=1)
 
     # classifier = [(lr.LogisticRegressionWeightedQuadratic, "Logistic Regression Weighted Quadratic")]
     # minDcfs = kfold.K_Fold_LR(DTR_RAND,LTR_RAND,K=5,classifiers=classifier,hyperParameter=0.01)
-    # ------------------ OPTIMAL DECISION --------------------------
-    #optimalDecision(DTR_RAND,LTR_RAND,DTE_RAND,LTE_RAND)
-    #We now turn our attention at evaluating the predictions made by our classifier R for a target application
-    #with prior and costs given by (π1, Cfn, Cfp).
-    #LP,_ = generative_models.MVG_log_classifier(DTR_RAND, LTR_RAND, DTE_RAND, LTE_RAND)
-    #LP = numpy.sort(LP)
-    #print("MVG minDCF: " + str(optimal_decision.computeMinDCF(0.5,1,10,LP,LTE_RAND))) 
-    #LP,_ = generative_models.NaiveBayesGaussianClassifier_log(DTR_RAND, LTR_RAND, DTE_RAND, LTE_RAND)
-    #àLP = numpy.sort(LP)
-    #print("Naive Bayes minDCF: " + str(optimal_decision.computeMinDCF(0.5,1,10,LP,LTE_RAND)))
-    #LP,_ = generative_models.TiedCovarianceGaussianClassifier_log(DTR_RAND, LTR_RAND, DTE_RAND, LTE_RAND)
-    #LP = numpy.sort(LP)
-    #print("Tied minDCF: " + str(optimal_decision.computeMinDCF(0.5,1,10,LP,LTE_RAND))) 
-    #LP,_ = generative_models.TiedNaiveBayesGaussianClassifier_log(DTR_RAND, LTR_RAND, DTE_RAND, LTE_RAND)
-    #LP = numpy.sort(LP)
-    #print("Tied Naive minDCF: " + str(optimal_decision.computeMinDCF(0.5,1,10,LP,LTE_RAND))) 
-    #LP,_ = lr.LogisticRegressionWeighted(DTR_RAND, LTR_RAND, DTE_RAND, LTE_RAND)
-    #LP = numpy.sort(LP)
-    #print("Logistic Regression Weighted minDCF: " + str(optimal_decision.computeMinDCF(0.5,1,10,LP,LTE_RAND))) 
-    #LP,_ = lr.LogisticRegressionWeightedQuadratic(DTR_RAND, LTR_RAND, DTE_RAND, LTE_RAND)
-    #LP = numpy.sort(LP)
-    #print("Logistic Regression Weighted Quadratic minDCF: " + str(optimal_decision.computeMinDCF(0.5,1,10,LP,LTE_RAND))) 
-
