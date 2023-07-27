@@ -3,6 +3,8 @@ import lr
 import sklearn.datasets
 import scipy.optimize 
 from itertools import repeat
+import main
+import constants
 
 def dualSVM_Objective_gradient(alpha, H):
     # print("Shape of H:", H.shape) #(66,66)
@@ -16,6 +18,29 @@ def dualSVM_Objective_gradient(alpha, H):
 def computeDualSVM_solution(DTR, C, H_cappelletto2):
     b = list(repeat((0, C), DTR.shape[1])) #WE have to specify the box constraints 0 ≤ αi ≤ C  #Each element of the list corresponds to a diFFerent optimization variable. In our case, the list should have N elements (DTR.shape[1]), and should be [(0, C), (0, C), ... (0, C)]
     (x, f, d) = scipy.optimize.fmin_l_bfgs_b(dualSVM_Objective_gradient, numpy.zeros(DTR.shape[1]), args=(H_cappelletto2,), bounds=b, factr=1.0) #ESSENDO CHE NON STIAMO SPECIFICANDO approx_grade, DI DEFAULT AVREMO: approx_grad=False --> CI VA BENE VISTO CHE RITORNIAMO GIà IL GRADIENTE CON dualSVM_Objective_gradient! #iprint=1 NON NECESSARIO -->You can control the precision of the L-BFGS solution through the parameter factr . The default value is factr=10000000.0 . Lower values result in more precise solutions (i.e. closer to the optimal solution), but require more iterations. CI VIENE DETTO DI USARE factr=1.0.
+
+    #print("Estimated position of the minimum is: " + str(x))
+    #print(x.shape) (66,)
+    dual_loss = -f #METTIAMO IL MENO DAVANTI XK NOI ABBIAMO MINIMIZZATO -JD_CAPPELLETTO(α) X POTER UTILIZZARE scipy.optimize.fmin_l_bfgs_b, MA LA NOSTRA FUNZIONE DI PARTENZA è JD_CAPPELLETTO(α)
+    #print(f"DUAL LOSS --> The objective value at the minimum is: {round(dual_loss, 6)}") 
+    #print(d)
+    return dual_loss, x
+
+def computeDualSVM_solution_balanced(DTR, LTR, piT , C, H_cappelletto2):
+    # b = list(repeat((0, C), DTR.shape[1])) #WE have to specify the box constraints 0 ≤ αi ≤ C  #Each element of the list corresponds to a diFFerent optimization variable. In our case, the list should have N elements (DTR.shape[1]), and should be [(0, C), (0, C), ... (0, C)]
+    bounds=[]
+    DP0,DP1 = main.getClassMatrix(DTR,LTR)
+    pi_emp_T = DP1.shape[1]/DTR.shape[1]
+    pi_emp_F = DP0.shape[1]/DTR.shape[1]
+    for i in range(DTR.shape[1]):
+        if(LTR[i]==0):
+            # Class 0
+            bounds.append((0,C*((1-piT)/pi_emp_F)))
+        else:
+            # Class 1
+            bounds.append((0,C*((piT)/pi_emp_T)))
+    
+    (x, f, d) = scipy.optimize.fmin_l_bfgs_b(dualSVM_Objective_gradient, numpy.zeros(DTR.shape[1]), args=(H_cappelletto2,), bounds=bounds, factr=1.0) #ESSENDO CHE NON STIAMO SPECIFICANDO approx_grade, DI DEFAULT AVREMO: approx_grad=False --> CI VA BENE VISTO CHE RITORNIAMO GIà IL GRADIENTE CON dualSVM_Objective_gradient! #iprint=1 NON NECESSARIO -->You can control the precision of the L-BFGS solution through the parameter factr . The default value is factr=10000000.0 . Lower values result in more precise solutions (i.e. closer to the optimal solution), but require more iterations. CI VIENE DETTO DI USARE factr=1.0.
 
     #print("Estimated position of the minimum is: " + str(x))
     #print(x.shape) (66,)
@@ -116,7 +141,7 @@ def linear_svm(DTR,LTR,DTE,LTE,k_value,C):
     #print(H_cappelletto2)
             
 
-    dual_loss, x = computeDualSVM_solution(DTR, C, H_cappelletto2)
+    dual_loss, x = computeDualSVM_solution_balanced(DTR,LTR,constants.EFFECTIVE_PRIOR, C, H_cappelletto2)
 
     #Once WE have computed the dual solution, WE can recover the primal solution through 
     #w_CAPPELLETTO* = SOMMATORIA DA i=1 A N di (αizixi_cappelletto) --> GLI αi SONO CONTENUTI IN x
@@ -159,7 +184,7 @@ def kernel_svm_polynomial(DTR,LTR,DTE,LTE,k_value,C,c,d):
     #print(H_cappelletto2)
     #print("Polynomial kernel of degree d")  
     #print("K = " + str(k_value) + "; " + "C = " + str(C) + "; " + "d = " + str(d) + "; " + "c = " + str(c))
-    dual_loss, x = computeDualSVM_solution(DTR, C, H_cappelletto2)
+    dual_loss, x = computeDualSVM_solution_balanced(DTR,LTR,constants.EFFECTIVE_PRIOR, C, H_cappelletto2)
     #In contrast with linear SVM, IN THIS CASE we are not able to compute the primal solution and its cost
     #NON USIAMO w_CAPPELLETTO_asterisco
     #NON USIAMO NEANCHE DTE_cappelletto
@@ -195,7 +220,7 @@ def kernel_svm_radial(DTR,LTR,DTE,LTE,k_value,C,gamma):
     #print(H_cappelletto2)
     #print("Radial Basis Function kernel")
     #print("K = " + str(k_value) + "; " + "C = " + str(C) + "; " + "gamma = " + str(gamma))
-    dual_loss, x = computeDualSVM_solution(DTR, C, H_cappelletto2)
+    dual_loss, x = computeDualSVM_solution_balanced(DTR,LTR,constants.EFFECTIVE_PRIOR, C, H_cappelletto2)
     #In contrast with linear SVM, IN THIS CASE we are not able to compute the primal solution and its cost
     #NON USIAMO w_CAPPELLETTO_asterisco
     #NON USIAMO NEANCHE DTE_cappelletto
