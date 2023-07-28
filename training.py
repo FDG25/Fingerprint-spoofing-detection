@@ -452,14 +452,14 @@ def trainGMMSameComponents(DTR_RAND,LTR_RAND,Load_Data=False):
 
                 print("RAW (No PCA No Z_Norm)\n")
                 # minDcfs[0] mindcfs of Full Covariance, minDcfs[1] of Diagonal Covariance, minDcfs[2] of Tied Covariance, minDcfs[3] of Tied Diagonal Covariance
-                raw_minDcfs = kfold.K_Fold_GMM(DTR_RAND,LTR_RAND,K=constants.K,classifiers=classifiers,nSplit0=nSplit,nSplit1=None,PCA_Flag=None,M=None,Z_Norm_Flag=None,Dcf_Prior=prior,Calibration_Flag=None)
+                raw_minDcfs,_,_ = kfold.K_Fold_GMM(DTR_RAND,LTR_RAND,K=constants.K,classifiers=classifiers,nSplit0=nSplit,nSplit1=None,PCA_Flag=None,M=None,Z_Norm_Flag=None,Dcf_Prior=prior,Calibration_Flag=None)
                 raw_full_min_dcfs.append(raw_minDcfs[0])
                 raw_diag_min_dcfs.append(raw_minDcfs[1])
                 raw_tied_min_dcfs.append(raw_minDcfs[2])
                 raw_tied_diag_min_dcfs.append(raw_minDcfs[3]) 
 
                 print("Z_Norm\n")
-                zNorm_minDcfs = kfold.K_Fold_GMM(DTR_RAND,LTR_RAND,K=constants.K,classifiers=classifiers,nSplit0=nSplit,nSplit1=None,PCA_Flag=None,M=None,Z_Norm_Flag=True,Dcf_Prior=prior,Calibration_Flag=None)
+                zNorm_minDcfs,_,_ = kfold.K_Fold_GMM(DTR_RAND,LTR_RAND,K=constants.K,classifiers=classifiers,nSplit0=nSplit,nSplit1=None,PCA_Flag=None,M=None,Z_Norm_Flag=True,Dcf_Prior=prior,Calibration_Flag=None)
                 zNorm_full_min_dcfs.append(zNorm_minDcfs[0])
                 zNorm_diag_min_dcfs.append(zNorm_minDcfs[1])
                 zNorm_tied_min_dcfs.append(zNorm_minDcfs[2])
@@ -467,14 +467,14 @@ def trainGMMSameComponents(DTR_RAND,LTR_RAND,Load_Data=False):
                 
                 m = 8
                 print("RAW + PCA with M = " + str(m) + "\n")
-                pca_minDcfs = kfold.K_Fold_GMM(DTR_RAND,LTR_RAND,K=constants.K,classifiers=classifiers,nSplit0=nSplit,nSplit1=None,PCA_Flag=True,M=m,Z_Norm_Flag=None,Dcf_Prior=prior,Calibration_Flag=None)
+                pca_minDcfs,_,_ = kfold.K_Fold_GMM(DTR_RAND,LTR_RAND,K=constants.K,classifiers=classifiers,nSplit0=nSplit,nSplit1=None,PCA_Flag=True,M=m,Z_Norm_Flag=None,Dcf_Prior=prior,Calibration_Flag=None)
                 pca_full_min_dcfs.append(pca_minDcfs[0])
                 pca_diag_min_dcfs.append(pca_minDcfs[1])
                 pca_tied_min_dcfs.append(pca_minDcfs[2])
                 pca_tied_diag_min_dcfs.append(pca_minDcfs[3])
 
                 print("Z_Norm + PCA with M = " + str(m) + "\n")
-                zNormPca_minDcfs = kfold.K_Fold_GMM(DTR_RAND,LTR_RAND,K=constants.K,classifiers=classifiers,nSplit0=nSplit,nSplit1=None,PCA_Flag=True,M=m,Z_Norm_Flag=True,Dcf_Prior=prior,Calibration_Flag=None)
+                zNormPca_minDcfs,_,_ = kfold.K_Fold_GMM(DTR_RAND,LTR_RAND,K=constants.K,classifiers=classifiers,nSplit0=nSplit,nSplit1=None,PCA_Flag=True,M=m,Z_Norm_Flag=True,Dcf_Prior=prior,Calibration_Flag=None)
                 zNormPca_full_min_dcfs.append(zNormPca_minDcfs[0])
                 zNormPca_diag_min_dcfs.append(zNormPca_minDcfs[1])
                 zNormPca_tied_min_dcfs.append(zNormPca_minDcfs[2])
@@ -681,7 +681,7 @@ def trainGMMAllCombinations(DTR_RAND,LTR_RAND,Load_Data=False):
                     # minDcfs[0] mindcfs of Full Covariance, minDcfs[1] of Diagonal Covariance, minDcfs[2] of Tied Covariance, minDcfs[3] of Tied Diagonal Covariance
 
                     print("RAW (No PCA No Z_Norm)\n")
-                    raw_minDcfs = kfold.K_Fold_GMM(DTR_RAND,LTR_RAND,K=constants.K,classifiers=classifiers,nSplit0=nSplit0,nSplit1=nSplit1,PCA_Flag=None,M=None,Z_Norm_Flag=None,Dcf_Prior=prior,Calibration_Flag=None)
+                    raw_minDcfs,_,_ = kfold.K_Fold_GMM(DTR_RAND,LTR_RAND,K=constants.K,classifiers=classifiers,nSplit0=nSplit0,nSplit1=nSplit1,PCA_Flag=None,M=None,Z_Norm_Flag=None,Dcf_Prior=prior,Calibration_Flag=None)
                     
                     raw_full_min_dcfs_single.append(raw_minDcfs[0])
                     raw_diag_min_dcfs_single.append(raw_minDcfs[1])
@@ -689,7 +689,7 @@ def trainGMMAllCombinations(DTR_RAND,LTR_RAND,Load_Data=False):
                     raw_tied_diag_min_dcfs_single.append(raw_minDcfs[3]) 
 
                     print("Z_Norm\n")
-                    zNorm_minDcfs = kfold.K_Fold_GMM(DTR_RAND,LTR_RAND,K=constants.K,classifiers=classifiers,nSplit0=nSplit0,nSplit1=nSplit1,PCA_Flag=None,M=None,Z_Norm_Flag=True,Dcf_Prior=prior,Calibration_Flag=None)
+                    zNorm_minDcfs,_,_ = kfold.K_Fold_GMM(DTR_RAND,LTR_RAND,K=constants.K,classifiers=classifiers,nSplit0=nSplit0,nSplit1=nSplit1,PCA_Flag=None,M=None,Z_Norm_Flag=True,Dcf_Prior=prior,Calibration_Flag=None)
                     
                     zNorm_full_min_dcfs_single.append(zNorm_minDcfs[0])
                     zNorm_diag_min_dcfs_single.append(zNorm_minDcfs[1])
@@ -698,7 +698,7 @@ def trainGMMAllCombinations(DTR_RAND,LTR_RAND,Load_Data=False):
                     
                     m = 8
                     print("RAW + PCA with M = " + str(m) + "\n")
-                    pca_minDcfs = kfold.K_Fold_GMM(DTR_RAND,LTR_RAND,K=constants.K,classifiers=classifiers,nSplit0=nSplit0,nSplit1=nSplit1,PCA_Flag=True,M=m,Z_Norm_Flag=None,Dcf_Prior=prior,Calibration_Flag=None)
+                    pca_minDcfs,_,_ = kfold.K_Fold_GMM(DTR_RAND,LTR_RAND,K=constants.K,classifiers=classifiers,nSplit0=nSplit0,nSplit1=nSplit1,PCA_Flag=True,M=m,Z_Norm_Flag=None,Dcf_Prior=prior,Calibration_Flag=None)
                     
                     pca_full_min_dcfs_single.append(pca_minDcfs[0])
                     pca_diag_min_dcfs_single.append(pca_minDcfs[1])
@@ -706,7 +706,7 @@ def trainGMMAllCombinations(DTR_RAND,LTR_RAND,Load_Data=False):
                     pca_tied_diag_min_dcfs_single.append(pca_minDcfs[3]) 
                     
                     print("Z_Norm + PCA with M = " + str(m) + "\n")
-                    zNormPca_minDcfs = kfold.K_Fold_GMM(DTR_RAND,LTR_RAND,K=constants.K,classifiers=classifiers,nSplit0=nSplit0,nSplit1=nSplit1,PCA_Flag=True,M=m,Z_Norm_Flag=True,Dcf_Prior=prior,Calibration_Flag=None)
+                    zNormPca_minDcfs,_,_ = kfold.K_Fold_GMM(DTR_RAND,LTR_RAND,K=constants.K,classifiers=classifiers,nSplit0=nSplit0,nSplit1=nSplit1,PCA_Flag=True,M=m,Z_Norm_Flag=True,Dcf_Prior=prior,Calibration_Flag=None)
                     
                     zNormPca_full_min_dcfs_single.append(zNormPca_minDcfs[0])
                     zNormPca_diag_min_dcfs_single.append(zNormPca_minDcfs[1])

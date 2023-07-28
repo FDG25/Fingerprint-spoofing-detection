@@ -163,3 +163,6 @@ if __name__ == '__main__':
 
     # classifier = [(lr.LogisticRegressionWeightedQuadratic, "Logistic Regression Weighted Quadratic")]
     # minDcfs = kfold.K_Fold_LR(DTR_RAND,LTR_RAND,K=5,classifiers=classifier,hyperParameter=0.01)
+
+    # -------------- MODEL FUSION ----------------
+    calibration_fusion.model_fusion(DTR_RAND,LTR_RAND)

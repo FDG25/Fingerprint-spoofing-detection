@@ -21,11 +21,7 @@ La gaussianizzazione ha detto che non si fa.
 
 
 # NOTE / COSE DA FARE
-- fare SVM calibrati
-- quadratic lr riga 164-165-169-170 non credo sia giusto
-- aggiustare lr quadratico (dovremmo avere minDCF effective prior < minDCF pi=0.5)
-- provare varie prior per il calcolo di tutte le mindcf
-- plottare così le combinazioni delle gmm: ![image](./plotGmmComb.jpg)
+- aggiustare kfold dell'svm migliore per farsi ritornare score e label, in modo da poter fare model fusion su quel modello
 -  provare ad applicare strategie di preprocessing anche a lda (SALTA), mvg e tied classifiers. INOLTRE, ACCERTARCI CHE NELL'LR ABBIAMO NORMALIZZATO I DATI NEL CASO DI MODELLO NON REGOLARIZZATO (LAMBDA =0)
 - scelto il modello migliore con combinazione parameter + hyperparameter :
     - addestrare su intero training set a valuare performance su intero test set (se è stato applicato il PCA riapplicarlo anche qui nuovamente)

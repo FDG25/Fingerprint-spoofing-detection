@@ -13,7 +13,7 @@ def lr_lambda_parameter_testing(DTR,LTR,K=None,lambda_values=None,classifier=Non
     #    print("prior:",priors[i])        
     for lambd in lambda_values:
         print("lambda value : " + str(lambd))
-        minDcfs = kfold.K_Fold_LR(DTR,LTR,K=K,classifiers=classifier,lambd=lambd,PCA_Flag=PCA_Flag,M=M,Z_Norm_Flag=Z_Norm_Flag,Dcf_Prior=Dcf_Prior,Calibration_Flag=Calibration_Flag)
+        minDcfs,_,_ = kfold.K_Fold_LR(DTR,LTR,K=K,classifiers=classifier,lambd=lambd,PCA_Flag=PCA_Flag,M=M,Z_Norm_Flag=Z_Norm_Flag,Dcf_Prior=Dcf_Prior,Calibration_Flag=Calibration_Flag)
         # from classifier parameter from main: first linear, then quadratic
         minDcfs_Linear.append(minDcfs[0])
         #minDcfs_Quadratic.append(minDcfs[1])

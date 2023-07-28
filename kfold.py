@@ -88,22 +88,36 @@ def K_Fold_LR(D,L,K,classifiers,lambd,PCA_Flag=None,M=None,Z_Norm_Flag=None,Dcf_
             # ----- MISCALIBRATED PLOT --------
             plot.compute_bayes_error_plot(scores,labels,classifier_name)
             # ----- CALIBRATION AND CALIBRATED PLOT ------
-            K_Fold_Calibration(scores,labels,K=5,plt_title="Calibrated " + classifier_name)   
-    return minDcfs 
+            K_Fold_Calibration(scores,labels,K=5,plt_title="Calibrated " + classifier_name,model_fusion=False,num_models=None)   
+    # returns only scores and labels of the last passed classifier in classifiers
+    return minDcfs,scores,labels
 
-def K_Fold_Calibration(D,L,K,plt_title):
+def K_Fold_Calibration(D,L,K,plt_title,model_fusion=False,num_models=None):
     # ------- SHUFFLING OF SCORES AND LABELS ---------
-    D = numpy.hstack(D)
+    if model_fusion:
+
+        numpy.random.seed(100) 
+        indexes = numpy.random.permutation(D.shape[1])
+        D_rand = numpy.zeros((num_models, D.shape[1]))
+        L_rand = numpy.zeros((L.size,))
+        for i in range(0,num_models):
+            index = 0
+            for rand_index in indexes:
+                D_rand[i,index] = D[i,rand_index]
+                L_rand[index] = L[rand_index]
+                index+=1
+    else:
+        D = numpy.hstack(D)
     
-    numpy.random.seed(100) 
-    indexes = numpy.random.permutation(D.shape[0])
-    D_rand = numpy.zeros((1, D.shape[0]))
-    L_rand = numpy.zeros((L.size,))
-    index = 0
-    for rand_index in indexes:
-        D_rand[0,index] = D[rand_index]
-        L_rand[index] = L[rand_index]
-        index+=1
+        numpy.random.seed(100) 
+        indexes = numpy.random.permutation(D.shape[0])
+        D_rand = numpy.zeros((1, D.shape[0]))
+        L_rand = numpy.zeros((L.size,))
+        index = 0
+        for rand_index in indexes:
+            D_rand[0,index] = D[rand_index]
+            L_rand[index] = L[rand_index]
+            index+=1
 
     # Leave-One-Out Approach Con K=2325: 
     fold_dimension = int(D_rand.shape[1]/K)  # size of each fold
@@ -177,7 +191,7 @@ def K_Fold_SVM_linear(D,L,K,hyperParameter_K,hyperParameter_C,PCA_Flag=None,M=No
             # ----- MISCALIBRATED PLOT --------
             plot.compute_bayes_error_plot(scores,labels,"Linear SVM")
             # ----- CALIBRATION AND CALIBRATED PLOT ------
-            K_Fold_Calibration(scores,labels,K=5,plt_title="Calibrated Linear SVM")
+            K_Fold_Calibration(scores,labels,K=5,plt_title="Calibrated Linear SVM",model_fusion=False,num_models=None)
     return minDcf
 
 def K_Fold_SVM_kernel_polynomial(D,L,K,hyperParameter_K,hyperParameter_C,hyperParameter_c,hyperParameter_d,PCA_Flag=None,M=None,Z_Norm_Flag=None,Dcf_Prior=None,Calibration_Flag=None):
@@ -220,7 +234,7 @@ def K_Fold_SVM_kernel_polynomial(D,L,K,hyperParameter_K,hyperParameter_C,hyperPa
             # ----- MISCALIBRATED PLOT --------
             plot.compute_bayes_error_plot(scores,labels,"Polynomial Kernel SVM")
             # ----- CALIBRATION AND CALIBRATED PLOT ------
-            K_Fold_Calibration(scores,labels,K=5,plt_title="Calibrated Polynomial Kernel SVM")
+            K_Fold_Calibration(scores,labels,K=5,plt_title="Calibrated Polynomial Kernel SVM",model_fusion=False,num_models=None)
     return minDcf
 
 def K_Fold_SVM_kernel_rbf(D,L,K,hyperParameter_K,hyperParameter_C,hyperParameter_gamma,PCA_Flag=None,M=None,Z_Norm_Flag=None,Dcf_Prior=None,Calibration_Flag=None):
@@ -261,7 +275,7 @@ def K_Fold_SVM_kernel_rbf(D,L,K,hyperParameter_K,hyperParameter_C,hyperParameter
             # ----- MISCALIBRATED PLOT --------
             plot.compute_bayes_error_plot(scores,labels,"RBF Kernel SVM")
             # ----- CALIBRATION AND CALIBRATED PLOT ------
-            K_Fold_Calibration(scores,labels,K=5,plt_title="Calibrated RBF Kernel SVM")
+            K_Fold_Calibration(scores,labels,K=5,plt_title="Calibrated RBF Kernel SVM",model_fusion=False,num_models=None)
     return minDcf
 
 def K_Fold_GMM(D,L,K,classifiers,nSplit0,nSplit1=None,PCA_Flag=None,M=None,Z_Norm_Flag=None,Dcf_Prior=None,Calibration_Flag=None):
@@ -309,8 +323,8 @@ def K_Fold_GMM(D,L,K,classifiers,nSplit0,nSplit1=None,PCA_Flag=None,M=None,Z_Nor
             # ----- MISCALIBRATED PLOT --------
             plot.compute_bayes_error_plot(scores,labels,classifier_name)
             # ----- CALIBRATION AND CALIBRATED PLOT ------
-            K_Fold_Calibration(scores,labels,K=5,plt_title="Calibrated " + classifier_name)
-    return minDcfs 
+            K_Fold_Calibration(scores,labels,K=5,plt_title="Calibrated " + classifier_name,model_fusion=False,num_models=None)
+    return minDcfs,scores,labels 
 
 def optimalDecision(DTR,LTR,DTE,LTE):
     classifiers = [(generative_models.MVG_log_classifier, "Multivariate Gaussian Classifier"), (generative_models.NaiveBayesGaussianClassifier_log, "Naive Bayes"), (generative_models.TiedCovarianceGaussianClassifier_log, "Tied Covariance"), (generative_models.TiedNaiveBayesGaussianClassifier_log, "Tied Naive Bayes"),(lr.LogisticRegressionWeighted, "Logistic Regression Weighted"),(lr.LogisticRegressionWeightedQuadratic, "Logistic Regression Quadratic Weighted")] 
