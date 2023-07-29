@@ -198,7 +198,7 @@ def gmm_plot_all_component_combinations(x, y, labels, colors, gmm_model_name):
     #plt.show()
 
 def compute_bayes_error_plot(llrs,labels,plt_title):
-    n_points = 50
+    n_points = 100
     effPriorLogOdds = numpy.linspace(-4, 4, n_points)
     DCFs = [None] * n_points
     MIN_DCFs = [None] * n_points
@@ -206,15 +206,18 @@ def compute_bayes_error_plot(llrs,labels,plt_title):
         pi_t = 1/(1+numpy.exp(-effPriorLogOdds[i]))
         DCFs[i],_,_ = optimal_decision.computeOptimalDecisionBinaryBayesPlot(pi_t,1,1,llrs,labels)
         MIN_DCFs[i] = optimal_decision.computeMinDCF(pi_t,1,1,llrs,labels)
-    bayesErrorPlot(DCFs,MIN_DCFs,effPriorLogOdds,plt_title)
+    # pass priorlogodd value and mindcf value to better find the point of our application inside the plot
+    bayesErrorPlot(DCFs,MIN_DCFs,effPriorLogOdds,plt_title,priologodd=effPriorLogOdds[21],mindcflogodd=MIN_DCFs[21])
 
 #The normalized Bayes error plot allows assessing the performance of the
 #recognizer as we vary the application, i.e. as a function of prior log-odds ptilde
-def bayesErrorPlot(dcf, mindcf, effPriorLogOdds, plt_title): #dcf is the array containing the DCF values, and mindcf is the array containing the minimum DCF values
+def bayesErrorPlot(dcf, mindcf, effPriorLogOdds, plt_title, priologodd=None, mindcflogodd=None): #dcf is the array containing the DCF values, and mindcf is the array containing the minimum DCF values
     global plot_index
     plt.figure()
     plt.plot(effPriorLogOdds, dcf, label='actDCF', color='b')
-    plt.plot(effPriorLogOdds, mindcf, label='minDCF', linestyle='dotted' , color='r')
+    plt.plot(effPriorLogOdds, mindcf, label='minDCF', linestyle='dashed' , color='r')
+    plt.plot([priologodd, priologodd], [0, mindcflogodd], 'g', linestyle='dashed')
+    plt.plot([-4, priologodd], [mindcflogodd, mindcflogodd], 'g', linestyle='dashed')
     plt.xlabel("$log \\frac{ \\tilde{\pi}}{1-\\tilde{\pi}}$")
     plt.ylabel("DCF")
     plt.legend()
