@@ -48,48 +48,72 @@ def trainGenerative(DTR_RAND,LTR_RAND):
 def trainLR(DTR_RAND,LTR_RAND,Load_Data=False):
     # ---------------   LR MODELS   -----------------------
     lambda_values = [0.00001, 0.0001, 0.001, 0.01, 0.1, 1.0, 10.0, 100.0]
-    # classifier = [(lr.LogisticRegressionWeighted, "Logistic Regression Weighted"),(lr.LogisticRegressionWeightedQuadratic, "Logistic Regression Weighted Quadratic")]
-    classifier = [(lr.LogisticRegressionWeighted, "Logistic Regression Weighted")]
+    classifier = [(lr.LogisticRegressionWeighted, "Logistic Regression Weighted"),(lr.LogisticRegressionWeightedQuadratic, "Logistic Regression Weighted Quadratic")]
     
     for prior in constants.DCFS_PRIORS:
         # ------ LR_LINEAR ------
         if not Load_Data:
             print("Prior = " + str(prior) + "\n")
             print("RAW (No PCA No Z_Norm)\n")
-            raw_linear,_ = parameter_tuning.lr_lambda_parameter_testing(DTR_RAND,LTR_RAND,K=constants.K,lambda_values=lambda_values,classifier=classifier,PCA_Flag=None,M=None,Z_Norm_Flag=None,Dcf_Prior=prior,Calibration_Flag=None)
+            raw_linear,raw_quadratic = parameter_tuning.lr_lambda_parameter_testing(DTR_RAND,LTR_RAND,K=constants.K,lambda_values=lambda_values,classifier=classifier,PCA_Flag=None,M=None,Z_Norm_Flag=None,Dcf_Prior=prior,Calibration_Flag=None)
             # Save the list of objects to a file
             with open("modelData/raw_linear_lr" + str(prior) + ".pkl", "wb") as f:
                 pickle.dump(raw_linear, f)
+            # Save the list of objects to a file
+            with open("modelData/raw_quadratic_lr" + str(prior) + ".pkl", "wb") as f:
+                pickle.dump(raw_quadratic, f)
             print("Z_Norm\n")
-            zNorm_linear,_ = parameter_tuning.lr_lambda_parameter_testing(DTR_RAND,LTR_RAND,K=constants.K,lambda_values=lambda_values,classifier=classifier,PCA_Flag=None,M=None,Z_Norm_Flag=True,Dcf_Prior=prior,Calibration_Flag=None)
+            zNorm_linear,zNorm_quadratic = parameter_tuning.lr_lambda_parameter_testing(DTR_RAND,LTR_RAND,K=constants.K,lambda_values=lambda_values,classifier=classifier,PCA_Flag=None,M=None,Z_Norm_Flag=True,Dcf_Prior=prior,Calibration_Flag=None)
             # Save the list of objects to a file
             with open("modelData/zNorm_linear_lr" + str(prior) + ".pkl", "wb") as f:
                 pickle.dump(zNorm_linear, f)
+            # Save the list of objects to a file
+            with open("modelData/zNorm_quadratic_lr" + str(prior) + ".pkl", "wb") as f:
+                pickle.dump(zNorm_quadratic, f)
             m = 8
             print("RAW + PCA with M = " + str(m) + "\n")
-            rawPca_linear,_ = parameter_tuning.lr_lambda_parameter_testing(DTR_RAND,LTR_RAND,K=constants.K,lambda_values=lambda_values,classifier=classifier,PCA_Flag=True,M=m,Z_Norm_Flag=None,Dcf_Prior=prior,Calibration_Flag=None)
+            rawPca_linear,rawPca_quadratic = parameter_tuning.lr_lambda_parameter_testing(DTR_RAND,LTR_RAND,K=constants.K,lambda_values=lambda_values,classifier=classifier,PCA_Flag=True,M=m,Z_Norm_Flag=None,Dcf_Prior=prior,Calibration_Flag=None)
             # Save the list of objects to a file
             with open("modelData/rawPca_linear_lr" + str(prior) + ".pkl", "wb") as f:
                 pickle.dump(rawPca_linear, f)
+            # Save the list of objects to a file
+            with open("modelData/rawPca_quadratic_lr" + str(prior) + ".pkl", "wb") as f:
+                pickle.dump(rawPca_quadratic, f)
             print("Z_Norm + PCA with M = " + str(m) + "\n")
-            zNormPca_linear,_ = parameter_tuning.lr_lambda_parameter_testing(DTR_RAND,LTR_RAND,K=constants.K,lambda_values=lambda_values,classifier=classifier,PCA_Flag=True,M=m,Z_Norm_Flag=True,Dcf_Prior=prior,Calibration_Flag=None)
+            zNormPca_linear,zNormPca_quadratic = parameter_tuning.lr_lambda_parameter_testing(DTR_RAND,LTR_RAND,K=constants.K,lambda_values=lambda_values,classifier=classifier,PCA_Flag=True,M=m,Z_Norm_Flag=True,Dcf_Prior=prior,Calibration_Flag=None)
             # Save the list of objects to a file
             with open("modelData/zNormPca_linear_lr" + str(prior) + ".pkl", "wb") as f:
                 pickle.dump(zNormPca_linear, f)
+            # Save the list of objects to a file
+            with open("modelData/zNormPca_quadratic_lr" + str(prior) + ".pkl", "wb") as f:
+                pickle.dump(zNormPca_quadratic, f)
 
         if Load_Data:
             # Retrieve the list of objects from the file
             with open("modelData/raw_linear_lr" + str(prior) + ".pkl", "rb") as f:
                 raw_linear = pickle.load(f)
             # Retrieve the list of objects from the file
+            with open("modelData/raw_quadratic_lr" + str(prior) + ".pkl", "rb") as f:
+                raw_quadratic = pickle.load(f)
+            # Retrieve the list of objects from the file
             with open("modelData/zNorm_linear_lr" + str(prior) + ".pkl", "rb") as f:
                 zNorm_linear = pickle.load(f)
+            # Retrieve the list of objects from the file
+            with open("modelData/zNorm_quadratic_lr" + str(prior) + ".pkl", "rb") as f:
+                zNorm_quadratic = pickle.load(f)
             # Retrieve the list of objects from the file
             with open("modelData/rawPca_linear_lr" + str(prior) + ".pkl", "rb") as f:
                 rawPca_linear = pickle.load(f)
             # Retrieve the list of objects from the file
+            with open("modelData/rawPca_quadratic_lr" + str(prior) + ".pkl", "rb") as f:
+                rawPca_quadratic = pickle.load(f)
+            # Retrieve the list of objects from the file
             with open("modelData/zNormPca_linear_lr" + str(prior) + ".pkl", "rb") as f:
                 zNormPca_linear = pickle.load(f)
+            # Retrieve the list of objects from the file
+            with open("modelData/zNormPca_quadratic_lr" + str(prior) + ".pkl", "rb") as f:
+                zNormPca_quadratic = pickle.load(f)
+        
         m = 8
         # ------ PLOT LR_LINEAR ------
         labels = ['minDCF no PCA no Znorm','minDCF no PCA Znorm','minDCF PCA=' + str(m) + ' no Znorm','minDCF PCA=' + str(m) + ' Znorm']
@@ -97,11 +121,34 @@ def trainLR(DTR_RAND,LTR_RAND,Load_Data=False):
         # array of lambda values (for linear) and corresponding mindcfs
         plot.plotDCF([lambda_values,lambda_values,lambda_values,lambda_values],[raw_linear,zNorm_linear,rawPca_linear,zNormPca_linear],labels,colors,xlabel='lambda',title='Linear Logistic Regression with $\pi=' + str(prior) + '$')
 
-        # # ------ PLOT LR_QUADRATIC ------
-        # labels = ['Quadratic']
-        # colors = ['b']
-        # # array of lambda values (for linear) and corresponding mindcfs
-        # plot.plotDCF([lambda_values],[minDcfs_Quadratic],labels,colors,'lambda')
+        # ------ PLOT LR_QUADRATIC ------
+        labels = ['minDCF no PCA no Znorm','minDCF no PCA Znorm','minDCF PCA=' + str(m) + ' no Znorm','minDCF PCA=' + str(m) + ' Znorm']
+        colors = ['b','r','g','y']
+        # array of lambda values (for linear) and corresponding mindcfs
+        plot.plotDCF([lambda_values,lambda_values,lambda_values,lambda_values],[raw_quadratic,zNorm_quadratic,rawPca_quadratic,zNormPca_quadratic],labels,colors,'lambda',title='Quadratic Logistic Regression with $\pi=' + str(prior) + '$')
+
+    m = 8
+    # linear
+    # lambda 10^-1 PCA=8 no Znorm (0.1 and 0.9)
+    # print("Training Prior: Effective Prior")
+    # classifier = [(lr.LogisticRegressionWeighted, "Logistic Regression Weighted")]
+    # print("DcfPrior: 0.5")
+    # kfold.K_Fold_LR(DTR_RAND,LTR_RAND,K=constants.K,classifiers=classifier,lambd=0.1,PCA_Flag=True,M=m,Z_Norm_Flag=False,Dcf_Prior=0.5,Calibration_Flag=False)
+    # print("DcfPrior: 0.1")
+    # kfold.K_Fold_LR(DTR_RAND,LTR_RAND,K=constants.K,classifiers=classifier,lambd=0.1,PCA_Flag=True,M=m,Z_Norm_Flag=False,Dcf_Prior=0.1,Calibration_Flag=False)
+    # print("DcfPrior: 0.9")
+    # kfold.K_Fold_LR(DTR_RAND,LTR_RAND,K=constants.K,classifiers=classifier,lambd=0.1,PCA_Flag=True,M=m,Z_Norm_Flag=False,Dcf_Prior=0.9,Calibration_Flag=False)
+    # quadratic
+    # lambda = 10^-3 no PCA zNorm
+    # print("Training Prior: Effective Prior")
+    # classifier = [(lr.LogisticRegressionWeightedQuadratic, "Logistic Regression Weighted Quadratic")]
+    # print("DcfPrior: 0.5")
+    # kfold.K_Fold_LR(DTR_RAND,LTR_RAND,K=constants.K,classifiers=classifier,lambd=0.001,PCA_Flag=None,M=None,Z_Norm_Flag=True,Dcf_Prior=0.5,Calibration_Flag=False)
+    # print("DcfPrior: 0.1")
+    # kfold.K_Fold_LR(DTR_RAND,LTR_RAND,K=constants.K,classifiers=classifier,lambd=0.001,PCA_Flag=None,M=None,Z_Norm_Flag=True,Dcf_Prior=0.1,Calibration_Flag=False)
+    # print("DcfPrior: 0.9")
+    # kfold.K_Fold_LR(DTR_RAND,LTR_RAND,K=constants.K,classifiers=classifier,lambd=0.001,PCA_Flag=None,M=None,Z_Norm_Flag=True,Dcf_Prior=0.9,Calibration_Flag=False)
+
 
 def trainLinearSVM(DTR_RAND,LTR_RAND,Load_Data=False):
     # ---------------   LINEAR SVM   -----------------------

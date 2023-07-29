@@ -1,8 +1,9 @@
 # Models
 
 - [Gaussians](#gaussians)
-- [Linear Logistic Regression](#linear-lr)
-
+- [Logistic Regression](#lr-prior--05)
+    - [Best Values Linear](#linear-lr-best-values)
+    - [Best Values Quadratic](#quadratic-lr-best-values)
 # Gaussians
 
 ## RAW (No PCA No Z_Norm)
@@ -921,610 +922,515 @@ Accuracy: 88.6%
 Error rate: 11.4%
 Min DCF for Tied Naive Bayes: 0.22071265938069215
 
-# Linear LR 
+# LR Prior = 0.5
 
-## Prior = 0.5
+## RAW (No PCA No Z_Norm)
 
-### RAW (No PCA No Z_Norm)
-
-lambda value : 1e-05
+### lambda value : 1e-05
 Logistic Regression Weighted results:
 Accuracy: 87.53%
 Error rate: 12.47%
 Min DCF for Logistic Regression Weighted: 0.47116803278688524
 
-lambda value : 0.0001
+Logistic Regression Weighted Quadratic results:
+Accuracy: 93.76%
+Error rate: 6.24%
+Min DCF for Logistic Regression Weighted Quadratic: 0.3308401639344262
+
+### lambda value : 0.0001
 Logistic Regression Weighted results:
 Accuracy: 87.53%
 Error rate: 12.47%
 Min DCF for Logistic Regression Weighted: 0.47116803278688524
 
-lambda value : 0.001
+Logistic Regression Weighted Quadratic results:
+Accuracy: 93.68%
+Error rate: 6.32%
+Min DCF for Logistic Regression Weighted Quadratic: 0.33209016393442625
+
+### lambda value : 0.001
 Logistic Regression Weighted results:
 Accuracy: 87.53%
 Error rate: 12.47%
 Min DCF for Logistic Regression Weighted: 0.47116803278688524
 
-lambda value : 0.01
+Logistic Regression Weighted Quadratic results:
+Accuracy: 93.51%
+Error rate: 6.49%
+Min DCF for Logistic Regression Weighted Quadratic: 0.31739754098360656
+
+### lambda value : 0.01
 Logistic Regression Weighted results:
 Accuracy: 87.23%
 Error rate: 12.77%
 Min DCF for Logistic Regression Weighted: 0.4736680327868853
 
-lambda value : 0.1
+Logistic Regression Weighted Quadratic results:
+Accuracy: 93.63%
+Error rate: 6.37%
+Min DCF for Logistic Regression Weighted Quadratic: 0.2923975409836066
+
+### lambda value : 0.1
 Logistic Regression Weighted results:
 Accuracy: 86.41%
 Error rate: 13.59%
 Min DCF for Logistic Regression Weighted: 0.4771311475409836
 
-lambda value : 1.0
+Logistic Regression Weighted Quadratic results:
+Accuracy: 93.16%
+Error rate: 6.84%
+Min DCF for Logistic Regression Weighted Quadratic: 0.30336065573770493
+
+### lambda value : 1.0
 Logistic Regression Weighted results:
 Accuracy: 78.19%
 Error rate: 21.81%
 Min DCF for Logistic Regression Weighted: 0.4889549180327869
 
-lambda value : 10.0
+Logistic Regression Weighted Quadratic results:
+Accuracy: 92.95%
+Error rate: 7.05%
+Min DCF for Logistic Regression Weighted Quadratic: 0.31206967213114756
+
+### lambda value : 10.0
 Logistic Regression Weighted results:
 Accuracy: 65.59%
 Error rate: 34.41%
 Min DCF for Logistic Regression Weighted: 0.553360655737705
 
-lambda value : 100.0
+Logistic Regression Weighted Quadratic results:
+Accuracy: 91.87%
+Error rate: 8.13%
+Min DCF for Logistic Regression Weighted Quadratic: 0.31643442622950824
+
+### lambda value : 100.0
 Logistic Regression Weighted results:
 Accuracy: 65.59%
 Error rate: 34.41%
 Min DCF for Logistic Regression Weighted: 0.5823770491803278
 
-### Z_Norm
+Logistic Regression Weighted Quadratic results:
+Accuracy: 88.39%
+Error rate: 11.61%
+Min DCF for Logistic Regression Weighted Quadratic: 0.34737704918032786
 
-lambda value : 1e-05
+## Z_Norm
+
+### lambda value : 1e-05
 Logistic Regression Weighted results:
 Accuracy: 87.05%
 Error rate: 12.95%
 Min DCF for Logistic Regression Weighted: 0.4852459016393443
 
-lambda value : 0.0001
+Logistic Regression Weighted Quadratic results:
+Accuracy: 93.38%
+Error rate: 6.62%
+Min DCF for Logistic Regression Weighted Quadratic: 0.32709016393442625
+
+### lambda value : 0.0001
 Logistic Regression Weighted results:
 Accuracy: 86.97%
 Error rate: 13.03%
 Min DCF for Logistic Regression Weighted: 0.4852459016393443
 
-lambda value : 0.001
+Logistic Regression Weighted Quadratic results:
+Accuracy: 93.38%
+Error rate: 6.62%
+Min DCF for Logistic Regression Weighted Quadratic: 0.31772540983606556
+
+### lambda value : 0.001 BEST QUADRATIC
 Logistic Regression Weighted results:
 Accuracy: 86.49%
 Error rate: 13.51%
 Min DCF for Logistic Regression Weighted: 0.4868032786885246
 
-lambda value : 0.01
+Logistic Regression Weighted Quadratic results:
+Accuracy: 93.42%
+Error rate: 6.58%
+Min DCF for Logistic Regression Weighted Quadratic: 0.2852254098360656
+
+### lambda value : 0.01
 Logistic Regression Weighted results:
 Accuracy: 84.09%
 Error rate: 15.91%
 Min DCF for Logistic Regression Weighted: 0.4974385245901639
 
-lambda value : 0.1
+Logistic Regression Weighted Quadratic results:
+Accuracy: 91.66%
+Error rate: 8.34%
+Min DCF for Logistic Regression Weighted Quadratic: 0.2976844262295082
+
+### lambda value : 0.1
 Logistic Regression Weighted results:
 Accuracy: 67.83%
 Error rate: 32.17%
 Min DCF for Logistic Regression Weighted: 0.5177049180327868
 
-lambda value : 1.0
+Logistic Regression Weighted Quadratic results:
+Accuracy: 81.08%
+Error rate: 18.92%
+Min DCF for Logistic Regression Weighted Quadratic: 0.32362704918032786
+
+### lambda value : 1.0
 Logistic Regression Weighted results:
 Accuracy: 65.59%
 Error rate: 34.41%
 Min DCF for Logistic Regression Weighted: 0.5561475409836065
 
-lambda value : 10.0
+Logistic Regression Weighted Quadratic results:
+Accuracy: 65.59%
+Error rate: 34.41%
+Min DCF for Logistic Regression Weighted Quadratic: 0.3643237704918033
+
+### lambda value : 10.0
 Logistic Regression Weighted results:
 Accuracy: 65.59%
 Error rate: 34.41%
 Min DCF for Logistic Regression Weighted: 0.5642827868852459
 
-lambda value : 100.0
+Logistic Regression Weighted Quadratic results:
+Accuracy: 65.59%
+Error rate: 34.41%
+Min DCF for Logistic Regression Weighted Quadratic: 0.39118852459016396
+
+### lambda value : 100.0
 Logistic Regression Weighted results:
 Accuracy: 65.59%
 Error rate: 34.41%
 Min DCF for Logistic Regression Weighted: 0.5655327868852459
 
-### RAW + PCA with M = 8
+Logistic Regression Weighted Quadratic results:
+Accuracy: 65.59%
+Error rate: 34.41%
+Min DCF for Logistic Regression Weighted Quadratic: 0.4027049180327869
 
-lambda value : 1e-05
+## RAW + PCA with M = 8
+
+### lambda value : 1e-05
 Logistic Regression Weighted results:
 Accuracy: 87.01%
 Error rate: 12.99%
 Min DCF for Logistic Regression Weighted: 0.46774590163934426
 
-lambda value : 0.0001
+Logistic Regression Weighted Quadratic results:
+Accuracy: 93.29%
+Error rate: 6.71%
+Min DCF for Logistic Regression Weighted Quadratic: 0.2983606557377049
+
+### lambda value : 0.0001
 Logistic Regression Weighted results:
 Accuracy: 87.01%
 Error rate: 12.99%
 Min DCF for Logistic Regression Weighted: 0.46774590163934426
 
-lambda value : 0.001
+Logistic Regression Weighted Quadratic results:
+Accuracy: 93.29%
+Error rate: 6.71%
+Min DCF for Logistic Regression Weighted Quadratic: 0.29866803278688525
+
+### lambda value : 0.001
 Logistic Regression Weighted results:
 Accuracy: 87.01%
 Error rate: 12.99%
 Min DCF for Logistic Regression Weighted: 0.46774590163934426
 
-lambda value : 0.01
+Logistic Regression Weighted Quadratic results:
+Accuracy: 93.2%
+Error rate: 6.8%
+Min DCF for Logistic Regression Weighted Quadratic: 0.2958606557377049
+
+### lambda value : 0.01
 Logistic Regression Weighted results:
 Accuracy: 87.1%
 Error rate: 12.9%
 Min DCF for Logistic Regression Weighted: 0.46899590163934424
 
-lambda value : 0.1
+Logistic Regression Weighted Quadratic results:
+Accuracy: 93.38%
+Error rate: 6.62%
+Min DCF for Logistic Regression Weighted Quadratic: 0.3008196721311476
+
+### lambda value : 0.1 BEST LINEAR
 Logistic Regression Weighted results:
 Accuracy: 86.32%
 Error rate: 13.68%
 Min DCF for Logistic Regression Weighted: 0.4658606557377049
 
-lambda value : 1.0
+Logistic Regression Weighted Quadratic results:
+Accuracy: 93.03%
+Error rate: 6.97%
+Min DCF for Logistic Regression Weighted Quadratic: 0.2973975409836066
+
+### lambda value : 1.0
 Logistic Regression Weighted results:
 Accuracy: 77.85%
 Error rate: 22.15%
 Min DCF for Logistic Regression Weighted: 0.4849180327868853
 
-lambda value : 10.0
+Logistic Regression Weighted Quadratic results:
+Accuracy: 92.69%
+Error rate: 7.31%
+Min DCF for Logistic Regression Weighted Quadratic: 0.28959016393442627
+
+### lambda value : 10.0
 Logistic Regression Weighted results:
 Accuracy: 65.59%
 Error rate: 34.41%
 Min DCF for Logistic Regression Weighted: 0.5486680327868853
 
-lambda value : 100.0
+Logistic Regression Weighted Quadratic results:
+Accuracy: 91.78%
+Error rate: 8.22%
+Min DCF for Logistic Regression Weighted Quadratic: 0.3155122950819672
+
+### lambda value : 100.0
 Logistic Regression Weighted results:
 Accuracy: 65.59%
 Error rate: 34.41%
 Min DCF for Logistic Regression Weighted: 0.5791803278688525
 
-### Z_Norm + PCA with M = 8
+Logistic Regression Weighted Quadratic results:
+Accuracy: 88.3%
+Error rate: 11.7%
+Min DCF for Logistic Regression Weighted Quadratic: 0.3573565573770492
 
-lambda value : 1e-05
+## Z_Norm + PCA with M = 8
+
+### lambda value : 1e-05
 Logistic Regression Weighted results:
 Accuracy: 87.14%
 Error rate: 12.86%
 Min DCF for Logistic Regression Weighted: 0.4833811475409836
 
-lambda value : 0.0001
+Logistic Regression Weighted Quadratic results:
+Accuracy: 93.33%
+Error rate: 6.67%
+Min DCF for Logistic Regression Weighted Quadratic: 0.32737704918032784
+
+### lambda value : 0.0001
 Logistic Regression Weighted results:
 Accuracy: 87.1%
 Error rate: 12.9%
 Min DCF for Logistic Regression Weighted: 0.4833811475409836
 
-lambda value : 0.001
+Logistic Regression Weighted Quadratic results:
+Accuracy: 93.33%
+Error rate: 6.67%
+Min DCF for Logistic Regression Weighted Quadratic: 0.32862704918032787
+
+### lambda value : 0.001
 Logistic Regression Weighted results:
 Accuracy: 86.62%
 Error rate: 13.38%
 Min DCF for Logistic Regression Weighted: 0.4846311475409836
 
-lambda value : 0.01
+Logistic Regression Weighted Quadratic results:
+Accuracy: 92.99%
+Error rate: 7.01%
+Min DCF for Logistic Regression Weighted Quadratic: 0.31737704918032783
+
+### lambda value : 0.01
 Logistic Regression Weighted results:
 Accuracy: 83.91%
 Error rate: 16.09%
 Min DCF for Logistic Regression Weighted: 0.4968032786885246
 
-lambda value : 0.1
+Logistic Regression Weighted Quadratic results:
+Accuracy: 91.48%
+Error rate: 8.52%
+Min DCF for Logistic Regression Weighted Quadratic: 0.30956967213114756
+
+### lambda value : 0.1
 Logistic Regression Weighted results:
 Accuracy: 67.74%
 Error rate: 32.26%
 Min DCF for Logistic Regression Weighted: 0.5258196721311476
 
-lambda value : 1.0
+Logistic Regression Weighted Quadratic results:
+Accuracy: 80.99%
+Error rate: 19.01%
+Min DCF for Logistic Regression Weighted Quadratic: 0.3302254098360656
+
+### lambda value : 1.0
 Logistic Regression Weighted results:
 Accuracy: 65.59%
 Error rate: 34.41%
 Min DCF for Logistic Regression Weighted: 0.5608401639344263
 
-lambda value : 10.0
+Logistic Regression Weighted Quadratic results:
+Accuracy: 65.59%
+Error rate: 34.41%
+Min DCF for Logistic Regression Weighted Quadratic: 0.37118852459016394
+
+### lambda value : 10.0
 Logistic Regression Weighted results:
 Accuracy: 65.59%
 Error rate: 34.41%
 Min DCF for Logistic Regression Weighted: 0.5698975409836066
 
-lambda value : 100.0
+Logistic Regression Weighted Quadratic results:
+Accuracy: 65.59%
+Error rate: 34.41%
+Min DCF for Logistic Regression Weighted Quadratic: 0.40334016393442623
+
+### lambda value : 100.0
 Logistic Regression Weighted results:
 Accuracy: 65.59%
 Error rate: 34.41%
 Min DCF for Logistic Regression Weighted: 0.5723975409836065
 
-## Prior = 0.1
-
-### RAW (No PCA No Z_Norm)
-
-lambda value : 1e-05
-Logistic Regression Weighted results:
-Accuracy: 87.53%
-Error rate: 12.47%
-Min DCF for Logistic Regression Weighted: 0.720266393442623
-
-lambda value : 0.0001
-Logistic Regression Weighted results:
-Accuracy: 87.53%
-Error rate: 12.47%
-Min DCF for Logistic Regression Weighted: 0.720266393442623
-
-lambda value : 0.001
-Logistic Regression Weighted results:
-Accuracy: 87.53%
-Error rate: 12.47%
-Min DCF for Logistic Regression Weighted: 0.720266393442623
-
-lambda value : 0.01
-Logistic Regression Weighted results:
-Accuracy: 87.23%
-Error rate: 12.77%
-Min DCF for Logistic Regression Weighted: 0.721516393442623
-
-lambda value : 0.1
-Logistic Regression Weighted results:
-Accuracy: 86.41%
-Error rate: 13.59%
-Min DCF for Logistic Regression Weighted: 0.72125
-
-lambda value : 1.0
-Logistic Regression Weighted results:
-Accuracy: 78.19%
-Error rate: 21.81%
-Min DCF for Logistic Regression Weighted: 0.70375
-
-lambda value : 10.0
-Logistic Regression Weighted results:
+Logistic Regression Weighted Quadratic results:
 Accuracy: 65.59%
 Error rate: 34.41%
-Min DCF for Logistic Regression Weighted: 0.73625
+Min DCF for Logistic Regression Weighted Quadratic: 0.4114549180327869
 
-lambda value : 100.0
-Logistic Regression Weighted results:
-Accuracy: 65.59%
-Error rate: 34.41%
-Min DCF for Logistic Regression Weighted: 0.75375
-
-### Z_Norm
-
-lambda value : 1e-05
-Logistic Regression Weighted results:
-Accuracy: 87.05%
-Error rate: 12.95%
-Min DCF for Logistic Regression Weighted: 0.71125
-
-lambda value : 0.0001
-Logistic Regression Weighted results:
-Accuracy: 86.97%
-Error rate: 13.03%
-Min DCF for Logistic Regression Weighted: 0.71125
-
-lambda value : 0.001
-Logistic Regression Weighted results:
-Accuracy: 86.49%
-Error rate: 13.51%
-Min DCF for Logistic Regression Weighted: 0.7075
-
-lambda value : 0.01
-Logistic Regression Weighted results:
-Accuracy: 84.09%
-Error rate: 15.91%
-Min DCF for Logistic Regression Weighted: 0.7049999999999998
-
-lambda value : 0.1
-Logistic Regression Weighted results:
-Accuracy: 67.83%
-Error rate: 32.17%
-Min DCF for Logistic Regression Weighted: 0.714016393442623
-
-lambda value : 1.0
-Logistic Regression Weighted results:
-Accuracy: 65.59%
-Error rate: 34.41%
-Min DCF for Logistic Regression Weighted: 0.732766393442623
-
-lambda value : 10.0
-Logistic Regression Weighted results:
-Accuracy: 65.59%
-Error rate: 34.41%
-Min DCF for Logistic Regression Weighted: 0.752766393442623
-
-lambda value : 100.0
-Logistic Regression Weighted results:
-Accuracy: 65.59%
-Error rate: 34.41%
-Min DCF for Logistic Regression Weighted: 0.752766393442623
-
-### RAW + PCA with M = 8
-
-lambda value : 1e-05
-Logistic Regression Weighted results:
-Accuracy: 87.01%
-Error rate: 12.99%
-Min DCF for Logistic Regression Weighted: 0.701516393442623
-
-lambda value : 0.0001
-Logistic Regression Weighted results:
-Accuracy: 87.01%
-Error rate: 12.99%
-Min DCF for Logistic Regression Weighted: 0.701516393442623
-
-lambda value : 0.001
-Logistic Regression Weighted results:
-Accuracy: 87.01%
-Error rate: 12.99%
-Min DCF for Logistic Regression Weighted: 0.701516393442623
-
-lambda value : 0.01
-Logistic Regression Weighted results:
-Accuracy: 87.1%
-Error rate: 12.9%
-Min DCF for Logistic Regression Weighted: 0.701516393442623
-
-lambda value : 0.1
+## Linear LR Best Values
+### lambda 10^-1 PCA=8 no Znorm, try remaining combinations (0.1 and 0.9)
+### Training Prior: Effective prior
+#### DcfPrior: 0.1
 Logistic Regression Weighted results:
 Accuracy: 86.32%
 Error rate: 13.68%
 Min DCF for Logistic Regression Weighted: 0.7049999999999998
 
-lambda value : 1.0
-Logistic Regression Weighted results:
-Accuracy: 77.85%
-Error rate: 22.15%
-Min DCF for Logistic Regression Weighted: 0.68875
-
-lambda value : 10.0
-Logistic Regression Weighted results:
-Accuracy: 65.59%
-Error rate: 34.41%
-Min DCF for Logistic Regression Weighted: 0.72625
-
-lambda value : 100.0
-Logistic Regression Weighted results:
-Accuracy: 65.59%
-Error rate: 34.41%
-Min DCF for Logistic Regression Weighted: 0.75875
-
-### Z_Norm + PCA with M = 8
-
-lambda value : 1e-05
-Logistic Regression Weighted results:
-Accuracy: 87.14%
-Error rate: 12.86%
-Min DCF for Logistic Regression Weighted: 0.7107991803278687
-
-lambda value : 0.0001
-Logistic Regression Weighted results:
-Accuracy: 87.1%
-Error rate: 12.9%
-Min DCF for Logistic Regression Weighted: 0.7107991803278687
-
-lambda value : 0.001
-Logistic Regression Weighted results:
-Accuracy: 86.62%
-Error rate: 13.38%
-Min DCF for Logistic Regression Weighted: 0.7095491803278688
-
-lambda value : 0.01
-Logistic Regression Weighted results:
-Accuracy: 83.91%
-Error rate: 16.09%
-Min DCF for Logistic Regression Weighted: 0.7145491803278688
-
-lambda value : 0.1
-Logistic Regression Weighted results:
-Accuracy: 67.74%
-Error rate: 32.26%
-Min DCF for Logistic Regression Weighted: 0.715266393442623
-
-lambda value : 1.0
-Logistic Regression Weighted results:
-Accuracy: 65.59%
-Error rate: 34.41%
-Min DCF for Logistic Regression Weighted: 0.729016393442623
-
-lambda value : 10.0
-Logistic Regression Weighted results:
-Accuracy: 65.59%
-Error rate: 34.41%
-Min DCF for Logistic Regression Weighted: 0.752766393442623
-
-lambda value : 100.0
-Logistic Regression Weighted results:
-Accuracy: 65.59%
-Error rate: 34.41%
-Min DCF for Logistic Regression Weighted: 0.755266393442623
-
-## Prior = 0.9
-
-### RAW (No PCA No Z_Norm)
-
-lambda value : 1e-05
-Logistic Regression Weighted results:
-Accuracy: 87.53%
-Error rate: 12.47%
-Min DCF for Logistic Regression Weighted: 0.1816962659380692
-
-lambda value : 0.0001
-Logistic Regression Weighted results:
-Accuracy: 87.53%
-Error rate: 12.47%
-Min DCF for Logistic Regression Weighted: 0.1816962659380692
-
-lambda value : 0.001
-Logistic Regression Weighted results:
-Accuracy: 87.53%
-Error rate: 12.47%
-Min DCF for Logistic Regression Weighted: 0.18117486338797814
-
-lambda value : 0.01
-Logistic Regression Weighted results:
-Accuracy: 87.23%
-Error rate: 12.77%
-Min DCF for Logistic Regression Weighted: 0.18117486338797814
-
-lambda value : 0.1
-Logistic Regression Weighted results:
-Accuracy: 86.41%
-Error rate: 13.59%
-Min DCF for Logistic Regression Weighted: 0.18241803278688523
-
-lambda value : 1.0
-Logistic Regression Weighted results:
-Accuracy: 78.19%
-Error rate: 21.81%
-Min DCF for Logistic Regression Weighted: 0.18431010928961747
-
-lambda value : 10.0
-Logistic Regression Weighted results:
-Accuracy: 65.59%
-Error rate: 34.41%
-Min DCF for Logistic Regression Weighted: 0.2004394353369763
-
-lambda value : 100.0
-Logistic Regression Weighted results:
-Accuracy: 65.59%
-Error rate: 34.41%
-Min DCF for Logistic Regression Weighted: 0.2103324225865209
-
-### Z_Norm
-
-lambda value : 1e-05
-Logistic Regression Weighted results:
-Accuracy: 87.05%
-Error rate: 12.95%
-Min DCF for Logistic Regression Weighted: 0.18158925318761385
-
-lambda value : 0.0001
-Logistic Regression Weighted results:
-Accuracy: 86.97%
-Error rate: 13.03%
-Min DCF for Logistic Regression Weighted: 0.18158925318761385
-
-lambda value : 0.001
-Logistic Regression Weighted results:
-Accuracy: 86.49%
-Error rate: 13.51%
-Min DCF for Logistic Regression Weighted: 0.182103825136612
-
-lambda value : 0.01
-Logistic Regression Weighted results:
-Accuracy: 84.09%
-Error rate: 15.91%
-Min DCF for Logistic Regression Weighted: 0.18688296903460835
-
-lambda value : 0.1
-Logistic Regression Weighted results:
-Accuracy: 67.83%
-Error rate: 32.17%
-Min DCF for Logistic Regression Weighted: 0.19638205828779598
-
-lambda value : 1.0
-Logistic Regression Weighted results:
-Accuracy: 65.59%
-Error rate: 34.41%
-Min DCF for Logistic Regression Weighted: 0.20273224043715846
-
-lambda value : 10.0
-Logistic Regression Weighted results:
-Accuracy: 65.59%
-Error rate: 34.41%
-Min DCF for Logistic Regression Weighted: 0.20523224043715846
-
-lambda value : 100.0
-Logistic Regression Weighted results:
-Accuracy: 65.59%
-Error rate: 34.41%
-Min DCF for Logistic Regression Weighted: 0.20491803278688522
-
-### RAW + PCA with M = 8
-
-lambda value : 1e-05
-Logistic Regression Weighted results:
-Accuracy: 87.01%
-Error rate: 12.99%
-Min DCF for Logistic Regression Weighted: 0.18325364298724953
-
-lambda value : 0.0001
-Logistic Regression Weighted results:
-Accuracy: 87.01%
-Error rate: 12.99%
-Min DCF for Logistic Regression Weighted: 0.18325364298724953
-
-lambda value : 0.001
-Logistic Regression Weighted results:
-Accuracy: 87.01%
-Error rate: 12.99%
-Min DCF for Logistic Regression Weighted: 0.18325364298724953
-
-lambda value : 0.01
-Logistic Regression Weighted results:
-Accuracy: 87.1%
-Error rate: 12.9%
-Min DCF for Logistic Regression Weighted: 0.18231785063752276
-
-lambda value : 0.1
+#### DcfPrior: 0.9
 Logistic Regression Weighted results:
 Accuracy: 86.32%
 Error rate: 13.68%
 Min DCF for Logistic Regression Weighted: 0.18325364298724953
 
-lambda value : 1.0
+### Training Prior: 0.5
+#### DcfPrior: 0.5
 Logistic Regression Weighted results:
-Accuracy: 77.85%
-Error rate: 22.15%
-Min DCF for Logistic Regression Weighted: 0.1900250455373406
+Accuracy: 90.62%
+Error rate: 9.38%
+Min DCF for Logistic Regression Weighted: 0.47805327868852454
 
-lambda value : 10.0
+#### DcfPrior: 0.1
 Logistic Regression Weighted results:
-Accuracy: 65.59%
-Error rate: 34.41%
-Min DCF for Logistic Regression Weighted: 0.2022108378870674
+Accuracy: 90.62%
+Error rate: 9.38%
+Min DCF for Logistic Regression Weighted: 0.71625
 
-lambda value : 100.0
+#### DcfPrior: 0.9
 Logistic Regression Weighted results:
-Accuracy: 65.59%
-Error rate: 34.41%
-Min DCF for Logistic Regression Weighted: 0.20887522768670302
+Accuracy: 90.62%
+Error rate: 9.38%
+Min DCF for Logistic Regression Weighted: 0.18846083788706738
 
-### Z_Norm + PCA with M = 8
-
-lambda value : 1e-05
+### Training Prior: 0.9
+#### DcfPrior: 0.5
 Logistic Regression Weighted results:
-Accuracy: 87.14%
-Error rate: 12.86%
-Min DCF for Logistic Regression Weighted: 0.1886680327868852
+Accuracy: 78.84%
+Error rate: 21.16%
+Min DCF for Logistic Regression Weighted: 0.5102254098360656
 
-lambda value : 0.0001
+#### DcfPrior: 0.1
 Logistic Regression Weighted results:
-Accuracy: 87.1%
-Error rate: 12.9%
-Min DCF for Logistic Regression Weighted: 0.1886680327868852
+Accuracy: 78.84%
+Error rate: 21.16%
+Min DCF for Logistic Regression Weighted: 0.71875
 
-lambda value : 0.001
+#### DcfPrior: 0.9
 Logistic Regression Weighted results:
-Accuracy: 86.62%
-Error rate: 13.38%
-Min DCF for Logistic Regression Weighted: 0.189075591985428
+Accuracy: 78.84%
+Error rate: 21.16%
+Min DCF for Logistic Regression Weighted: 0.19428961748633877
 
-lambda value : 0.01
+### Training Prior: 0.1
+#### DcfPrior: 0.5
 Logistic Regression Weighted results:
-Accuracy: 83.91%
-Error rate: 16.09%
-Min DCF for Logistic Regression Weighted: 0.18908242258652094
+Accuracy: 86.75%
+Error rate: 13.25%
+Min DCF for Logistic Regression Weighted: 0.4693032786885246
 
-lambda value : 0.1
+#### DcfPrior: 0.1
 Logistic Regression Weighted results:
-Accuracy: 67.74%
-Error rate: 32.26%
-Min DCF for Logistic Regression Weighted: 0.1982604735883424
+Accuracy: 86.75%
+Error rate: 13.25%
+Min DCF for Logistic Regression Weighted: 0.7049999999999998
 
-lambda value : 1.0
+#### DcfPrior: 0.9
 Logistic Regression Weighted results:
-Accuracy: 65.59%
-Error rate: 34.41%
-Min DCF for Logistic Regression Weighted: 0.2050250455373406
+Accuracy: 86.75%
+Error rate: 13.25%
+Min DCF for Logistic Regression Weighted: 0.18326047358834244
 
-lambda value : 10.0
-Logistic Regression Weighted results:
-Accuracy: 65.59%
-Error rate: 34.41%
-Min DCF for Logistic Regression Weighted: 0.20648224043715843
+## Quadratic LR Best Values
+### lambda = 10^-3 no PCA zNorm, try remaining combinations (0.1 and 0.9)
 
-lambda value : 100.0
-Logistic Regression Weighted results:
-Accuracy: 65.59%
-Error rate: 34.41%
-Min DCF for Logistic Regression Weighted: 0.20575364298724952
+### Training Prior: Effective Prior
+#### DcfPrior: 0.5
+Logistic Regression Weighted Quadratic results:
+Accuracy: 93.42%
+Error rate: 6.58%
+Min DCF for Logistic Regression Weighted Quadratic: 0.2852254098360656
+
+#### DcfPrior: 0.1
+Logistic Regression Weighted Quadratic results:
+Accuracy: 93.42%
+Error rate: 6.58%
+Min DCF for Logistic Regression Weighted Quadratic: 0.5927663934426228
+
+#### DcfPrior: 0.9
+Logistic Regression Weighted Quadratic results:
+Accuracy: 93.42%
+Error rate: 6.58%
+Min DCF for Logistic Regression Weighted Quadratic: 0.10390938069216757
+
+### Training Prior: 0.5
+#### DcfPrior: 0.5
+Logistic Regression Weighted Quadratic results:
+Accuracy: 95.05%
+Error rate: 4.95%
+Min DCF for Logistic Regression Weighted Quadratic: 0.3042827868852459
+
+#### DcfPrior: 0.1
+Logistic Regression Weighted Quadratic results:
+Accuracy: 95.05%
+Error rate: 4.95%
+Min DCF for Logistic Regression Weighted Quadratic: 0.6130327868852459
+
+#### DcfPrior: 0.9
+Logistic Regression Weighted Quadratic results:
+Accuracy: 95.05%
+Error rate: 4.95%
+Min DCF for Logistic Regression Weighted Quadratic: 0.10265938069216757
+
+### Training Prior: 0.9
+#### DcfPrior: 0.5
+Logistic Regression Weighted Quadratic results:
+Accuracy: 92.04%
+Error rate: 7.96%
+Min DCF for Logistic Regression Weighted Quadratic: 0.31362704918032785
+
+#### DcfPrior: 0.1
+Logistic Regression Weighted Quadratic results:
+Accuracy: 92.04%
+Error rate: 7.96%
+Min DCF for Logistic Regression Weighted Quadratic: 0.6475
+
+#### DcfPrior: 0.9
+Logistic Regression Weighted Quadratic results:
+Accuracy: 92.04%
+Error rate: 7.96%
+Min DCF for Logistic Regression Weighted Quadratic: 0.10380919854280508
+
+### Training Prior: 0.1
+#### DcfPrior: 0.5
+Logistic Regression Weighted Quadratic results:
+Accuracy: 93.68%
+Error rate: 6.32%
+Min DCF for Logistic Regression Weighted Quadratic: 0.28772540983606554
+
+#### DcfPrior: 0.1
+Logistic Regression Weighted Quadratic results:
+Accuracy: 93.68%
+Error rate: 6.32%
+Min DCF for Logistic Regression Weighted Quadratic: 0.5940163934426229
+
+#### DcfPrior: 0.9
+Logistic Regression Weighted Quadratic results:
+Accuracy: 93.68%
+Error rate: 6.32%
+Min DCF for Logistic Regression Weighted Quadratic: 0.10463797814207648
