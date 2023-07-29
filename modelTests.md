@@ -4,6 +4,7 @@
 - [Logistic Regression](#lr-prior--05)
     - [Best Values Linear](#linear-lr-best-values)
     - [Best Values Quadratic](#quadratic-lr-best-values)
+- [Linear SVM](#svm-linear-hyperparameters-k-and-c-training-prior--05)
 # Gaussians
 
 ## RAW (No PCA No Z_Norm)
@@ -1434,3 +1435,453 @@ Logistic Regression Weighted Quadratic results:
 Accuracy: 93.68%
 Error rate: 6.32%
 Min DCF for Logistic Regression Weighted Quadratic: 0.10463797814207648
+
+# SVM LINEAR HYPERPARAMETERS K AND C TRAINING: (Prior = 0.5)
+
+## RAW (No PCA No Z_Norm)
+
+### k value : 1
+C value : 1e-06
+Linear SVM results:
+Accuracy: 65.59%
+Error rate: 34.41%
+Min DCF for Linear SVM: 1.0
+
+C value : 1e-05
+Linear SVM results:
+Accuracy: 65.59%
+Error rate: 34.41%
+Min DCF for Linear SVM: 1.0
+
+C value : 0.0001
+Linear SVM results:
+Accuracy: 76.99%
+Error rate: 23.01%
+Min DCF for Linear SVM: 0.9560860655737704
+
+C value : 0.001
+Linear SVM results:
+Accuracy: 79.57%
+Error rate: 20.43%
+Min DCF for Linear SVM: 0.9033811475409836
+
+C value : 0.01
+Linear SVM results:
+Accuracy: 87.18%
+Error rate: 12.82%
+Min DCF for Linear SVM: 0.6505327868852459
+
+C value : 0.1
+Linear SVM results:
+Accuracy: 90.58%
+Error rate: 9.42%
+Min DCF for Linear SVM: 0.5033401639344262
+
+C value : 1.0
+Linear SVM results:
+Accuracy: 90.75%
+Error rate: 9.25%
+Min DCF for Linear SVM: 0.47963114754098357
+
+C value : 10.0
+Linear SVM results:
+Accuracy: 91.18%
+Error rate: 8.82%
+Min DCF for Linear SVM: 0.4743237704918033
+
+C value : 100.0
+Linear SVM results:
+Accuracy: 90.06%
+Error rate: 9.94%
+Min DCF for Linear SVM: 0.5261475409836066
+
+### k value : 10
+C value : 1e-06
+Linear SVM results:
+Accuracy: 65.59%
+Error rate: 34.41%
+Min DCF for Linear SVM: 1.0
+
+C value : 1e-05
+Linear SVM results:
+Accuracy: 65.59%
+Error rate: 34.41%
+Min DCF for Linear SVM: 1.0
+
+C value : 0.0001
+Linear SVM results:
+Accuracy: 89.81%
+Error rate: 10.19%
+Min DCF for Linear SVM: 0.5710860655737705
+
+C value : 0.001
+Linear SVM results:
+Accuracy: 90.62%
+Error rate: 9.38%
+Min DCF for Linear SVM: 0.4811885245901639
+
+C value : 0.01
+Linear SVM results:
+Accuracy: 90.88%
+Error rate: 9.12%
+Min DCF for Linear SVM: 0.47493852459016395
+
+C value : 0.1
+Linear SVM results:
+Accuracy: 91.01%
+Error rate: 8.99%
+Min DCF for Linear SVM: 0.4655737704918033
+
+C value : 1.0
+Linear SVM results:
+Accuracy: 91.18%
+Error rate: 8.82%
+Min DCF for Linear SVM: 0.47963114754098357
+
+C value : 10.0
+Linear SVM results:
+Accuracy: 91.18%
+Error rate: 8.82%
+Min DCF for Linear SVM: 0.4733811475409836
+
+C value : 100.0
+Linear SVM results:
+Accuracy: 90.67%
+Error rate: 9.33%
+Min DCF for Linear SVM: 0.49930327868852453
+
+## Z_Norm
+
+### k value : 1
+C value : 1e-06
+Linear SVM results:
+Accuracy: 65.59%
+Error rate: 34.41%
+Min DCF for Linear SVM: 1.0
+
+C value : 1e-05
+Linear SVM results:
+Accuracy: 65.59%
+Error rate: 34.41%
+Min DCF for Linear SVM: 1.0
+
+C value : 0.0001
+Linear SVM results:
+Accuracy: 88.6%
+Error rate: 11.4%
+Min DCF for Linear SVM: 0.5677049180327869
+
+C value : 0.001
+Linear SVM results:
+Accuracy: 88.65%
+Error rate: 11.35%
+Min DCF for Linear SVM: 0.5511475409836065
+
+C value : 0.01
+Linear SVM results:
+Accuracy: 90.58%
+Error rate: 9.42%
+Min DCF for Linear SVM: 0.5042622950819672
+
+C value : 0.1
+Linear SVM results:
+Accuracy: 90.8%
+Error rate: 9.2%
+Min DCF for Linear SVM: 0.4943237704918033
+
+C value : 1.0
+Linear SVM results:
+Accuracy: 90.84%
+Error rate: 9.16%
+Min DCF for Linear SVM: 0.483688524590164
+
+C value : 10.0
+Linear SVM results:
+Accuracy: 90.67%
+Error rate: 9.33%
+Min DCF for Linear SVM: 0.4843237704918033
+
+C value : 100.0
+Linear SVM results:
+Accuracy: 90.58%
+Error rate: 9.42%
+Min DCF for Linear SVM: 0.4893237704918033
+
+### k value : 10
+C value : 1e-06
+Linear SVM results:
+Accuracy: 65.59%
+Error rate: 34.41%
+Min DCF for Linear SVM: 1.0
+
+C value : 1e-05
+Linear SVM results:
+Accuracy: 65.59%
+Error rate: 34.41%
+Min DCF for Linear SVM: 1.0
+
+C value : 0.0001
+Linear SVM results:
+Accuracy: 65.59%
+Error rate: 34.41%
+Min DCF for Linear SVM: 0.5851434426229508
+
+C value : 0.001
+Linear SVM results:
+Accuracy: 66.02%
+Error rate: 33.98%
+Min DCF for Linear SVM: 0.5454918032786885
+
+C value : 0.01
+Linear SVM results:
+Accuracy: 90.58%
+Error rate: 9.42%
+Min DCF for Linear SVM: 0.4993237704918033
+
+C value : 0.1
+Linear SVM results:
+Accuracy: 90.71%
+Error rate: 9.29%
+Min DCF for Linear SVM: 0.4958811475409836
+
+C value : 1.0
+Linear SVM results:
+Accuracy: 90.75%
+Error rate: 9.25%
+Min DCF for Linear SVM: 0.4824385245901639
+
+C value : 10.0
+Linear SVM results:
+Accuracy: 90.62%
+Error rate: 9.38%
+Min DCF for Linear SVM: 0.4883811475409836
+
+C value : 100.0
+Linear SVM results:
+Accuracy: 89.72%
+Error rate: 10.28%
+Min DCF for Linear SVM: 0.5058401639344262
+
+## RAW + PCA with M = 8
+
+### k value : 1
+C value : 1e-06
+Linear SVM results:
+Accuracy: 65.59%
+Error rate: 34.41%
+Min DCF for Linear SVM: 1.0
+
+C value : 1e-05
+Linear SVM results:
+Accuracy: 65.59%
+Error rate: 34.41%
+Min DCF for Linear SVM: 1.0
+
+C value : 0.0001
+Linear SVM results:
+Accuracy: 76.86%
+Error rate: 23.14%
+Min DCF for Linear SVM: 0.9487295081967213
+
+C value : 0.001
+Linear SVM results:
+Accuracy: 79.78%
+Error rate: 20.22%
+Min DCF for Linear SVM: 0.9108401639344262
+
+C value : 0.01
+Linear SVM results:
+Accuracy: 86.58%
+Error rate: 13.42%
+Min DCF for Linear SVM: 0.6457786885245902
+
+C value : 0.1
+Linear SVM results:
+Accuracy: 90.75%
+Error rate: 9.25%
+Min DCF for Linear SVM: 0.48428278688524595
+
+C value : 1.0
+Linear SVM results:
+Accuracy: 91.01%
+Error rate: 8.99%
+Min DCF for Linear SVM: 0.4918032786885246
+
+C value : 10.0
+Linear SVM results:
+Accuracy: 90.97%
+Error rate: 9.03%
+Min DCF for Linear SVM: 0.4839754098360656
+
+C value : 100.0
+Linear SVM results:
+Accuracy: 88.13%
+Error rate: 11.87%
+Min DCF for Linear SVM: 0.5980122950819672
+
+### k value : 10
+C value : 1e-06
+Linear SVM results:
+Accuracy: 65.59%
+Error rate: 34.41%
+Min DCF for Linear SVM: 1.0
+
+C value : 1e-05
+Linear SVM results:
+Accuracy: 65.59%
+Error rate: 34.41%
+Min DCF for Linear SVM: 1.0
+
+C value : 0.0001
+Linear SVM results:
+Accuracy: 89.33%
+Error rate: 10.67%
+Min DCF for Linear SVM: 0.5695081967213115
+
+C value : 0.001
+Linear SVM results:
+Accuracy: 90.67%
+Error rate: 9.33%
+Min DCF for Linear SVM: 0.4896311475409836
+
+C value : 0.01
+Linear SVM results:
+Accuracy: 91.01%
+Error rate: 8.99%
+Min DCF for Linear SVM: 0.4833606557377049
+
+C value : 0.1
+Linear SVM results:
+Accuracy: 90.97%
+Error rate: 9.03%
+Min DCF for Linear SVM: 0.4889754098360656
+
+C value : 1.0
+Linear SVM results:
+Accuracy: 90.97%
+Error rate: 9.03%
+Min DCF for Linear SVM: 0.4827254098360656
+
+C value : 10.0
+Linear SVM results:
+Accuracy: 91.01%
+Error rate: 8.99%
+Min DCF for Linear SVM: 0.4827254098360656
+
+C value : 100.0
+Linear SVM results:
+Accuracy: 89.42%
+Error rate: 10.58%
+Min DCF for Linear SVM: 0.5817622950819672
+
+## Z_Norm + PCA with M = 8
+
+### k value : 1
+C value : 1e-06
+Linear SVM results:
+Accuracy: 65.59%
+Error rate: 34.41%
+Min DCF for Linear SVM: 1.0
+
+C value : 1e-05
+Linear SVM results:
+Accuracy: 65.59%
+Error rate: 34.41%
+Min DCF for Linear SVM: 1.0
+
+C value : 0.0001
+Linear SVM results:
+Accuracy: 88.65%
+Error rate: 11.35%
+Min DCF for Linear SVM: 0.5682991803278689
+
+C value : 0.001
+Linear SVM results:
+Accuracy: 88.69%
+Error rate: 11.31%
+Min DCF for Linear SVM: 0.5539754098360656
+
+C value : 0.01
+Linear SVM results:
+Accuracy: 90.37%
+Error rate: 9.63%
+Min DCF for Linear SVM: 0.502766393442623
+
+C value : 0.1
+Linear SVM results:
+Accuracy: 90.88%
+Error rate: 9.12%
+Min DCF for Linear SVM: 0.48618852459016393
+
+C value : 1.0
+Linear SVM results:
+Accuracy: 90.62%
+Error rate: 9.38%
+Min DCF for Linear SVM: 0.4996311475409836
+
+C value : 10.0
+Linear SVM results:
+Accuracy: 90.67%
+Error rate: 9.33%
+Min DCF for Linear SVM: 0.5074385245901639
+
+C value : 100.0
+Linear SVM results:
+Accuracy: 90.67%
+Error rate: 9.33%
+Min DCF for Linear SVM: 0.5058811475409837
+
+### k value : 10
+C value : 1e-06
+Linear SVM results:
+Accuracy: 65.59%
+Error rate: 34.41%
+Min DCF for Linear SVM: 1.0
+
+C value : 1e-05
+Linear SVM results:
+Accuracy: 65.59%
+Error rate: 34.41%
+Min DCF for Linear SVM: 1.0
+
+C value : 0.0001
+Linear SVM results:
+Accuracy: 65.59%
+Error rate: 34.41%
+Min DCF for Linear SVM: 0.6032581967213115
+
+C value : 0.001
+Linear SVM results:
+Accuracy: 66.02%
+Error rate: 33.98%
+Min DCF for Linear SVM: 0.5439139344262296
+
+C value : 0.01
+Linear SVM results:
+Accuracy: 90.92%
+Error rate: 9.08%
+Min DCF for Linear SVM: 0.5049590163934427
+
+C value : 0.1
+Linear SVM results:
+Accuracy: 90.92%
+Error rate: 9.08%
+Min DCF for Linear SVM: 0.49493852459016396
+
+C value : 1.0
+Linear SVM results:
+Accuracy: 90.67%
+Error rate: 9.33%
+Min DCF for Linear SVM: 0.5024385245901639
+
+C value : 10.0
+Linear SVM results:
+Accuracy: 90.67%
+Error rate: 9.33%
+Min DCF for Linear SVM: 0.5071311475409837
+
+C value : 100.0
+Linear SVM results:
+Accuracy: 90.71%
+Error rate: 9.29%
+Min DCF for Linear SVM: 0.5055327868852459
