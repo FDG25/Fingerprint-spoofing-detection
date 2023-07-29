@@ -1885,3 +1885,557 @@ Linear SVM results:
 Accuracy: 90.71%
 Error rate: 9.29%
 Min DCF for Linear SVM: 0.5055327868852459
+
+# SVM POLYNOMIAL K,C,c,d TRAINING: (Prior = 0.5)
+
+## RAW (No PCA No Z_Norm)
+
+k value : 1
+C value : 1e-06
+c value : 0
+d value : 2.0
+Polynomial Kernel SVM results:
+Accuracy: 65.59%
+Error rate: 34.41%
+Min DCF for Polynomial Kernel SVM: 1.0
+
+c value : 1
+d value : 2.0
+Polynomial Kernel SVM results:
+Accuracy: 65.59%
+Error rate: 34.41%
+Min DCF for Polynomial Kernel SVM: 1.0
+
+C value : 1e-05
+c value : 0
+d value : 2.0
+Polynomial Kernel SVM results:
+Accuracy: 65.59%
+Error rate: 34.41%
+Min DCF for Polynomial Kernel SVM: 1.0
+
+c value : 1
+d value : 2.0
+Polynomial Kernel SVM results:
+Accuracy: 65.59%
+Error rate: 34.41%
+Min DCF for Polynomial Kernel SVM: 1.0
+
+C value : 0.0001
+c value : 0
+d value : 2.0
+Polynomial Kernel SVM results:
+Accuracy: 94.62%
+Error rate: 5.38%
+Min DCF for Polynomial Kernel SVM: 0.31989754098360657
+
+c value : 1
+d value : 2.0
+Polynomial Kernel SVM results:
+Accuracy: 94.67%
+Error rate: 5.33%
+Min DCF for Polynomial Kernel SVM: 0.3083401639344262
+
+C value : 0.001
+c value : 0
+d value : 2.0
+Polynomial Kernel SVM results:
+Accuracy: 94.49%
+Error rate: 5.51%
+Min DCF for Polynomial Kernel SVM: 0.3308401639344262
+
+c value : 1
+d value : 2.0
+Polynomial Kernel SVM results:
+Accuracy: 94.75%
+Error rate: 5.25%
+Min DCF for Polynomial Kernel SVM: 0.31114754098360653
+
+C value : 0.01
+c value : 0
+d value : 2.0
+Polynomial Kernel SVM results:
+Accuracy: 94.41%
+Error rate: 5.59%
+Min DCF for Polynomial Kernel SVM: 0.3427049180327869
+
+c value : 1
+d value : 2.0
+Polynomial Kernel SVM results:
+Accuracy: 94.67%
+Error rate: 5.33%
+Min DCF for Polynomial Kernel SVM: 0.31456967213114756
+
+C value : 0.1
+c value : 0
+d value : 2.0
+Polynomial Kernel SVM results:
+Accuracy: 94.92%
+Error rate: 5.08%
+Min DCF for Polynomial Kernel SVM: 0.34424180327868853
+
+c value : 1
+d value : 2.0
+Polynomial Kernel SVM results:
+Accuracy: 94.67%
+Error rate: 5.33%
+Min DCF for Polynomial Kernel SVM: 0.30959016393442623
+
+C value : 1.0
+c value : 0
+d value : 2.0
+Polynomial Kernel SVM results:
+Accuracy: 94.19%
+Error rate: 5.81%
+Min DCF for Polynomial Kernel SVM: 0.3579918032786885
+
+c value : 1
+d value : 2.0
+Polynomial Kernel SVM results:
+Accuracy: 94.58%
+Error rate: 5.42%
+Min DCF for Polynomial Kernel SVM: 0.3392418032786886
+
+C value : 10.0
+c value : 0
+d value : 2.0
+Polynomial Kernel SVM results:
+Accuracy: 86.06%
+Error rate: 13.94%
+Min DCF for Polynomial Kernel SVM: 0.6167213114754099
+
+c value : 1
+d value : 2.0
+Polynomial Kernel SVM results:
+Accuracy: 79.1%
+Error rate: 20.9%
+Min DCF for Polynomial Kernel SVM: 0.9774180327868853
+
+C value : 100.0
+c value : 0
+d value : 2.0
+Polynomial Kernel SVM results:
+Accuracy: 63.7%
+Error rate: 36.3%
+Min DCF for Polynomial Kernel SVM: 0.9853073770491804
+
+c value : 1
+d value : 2.0
+Polynomial Kernel SVM results:
+Accuracy: 58.71%
+Error rate: 41.29%
+Min DCF for Polynomial Kernel SVM: 1.0
+
+## Z_Norm
+
+k value : 1
+C value : 1e-06
+c value : 0
+d value : 2.0
+Polynomial Kernel SVM results:
+Accuracy: 65.59%
+Error rate: 34.41%
+Min DCF for Polynomial Kernel SVM: 1.0
+
+c value : 1
+d value : 2.0
+Polynomial Kernel SVM results:
+Accuracy: 65.59%
+Error rate: 34.41%
+Min DCF for Polynomial Kernel SVM: 1.0
+
+C value : 1e-05
+c value : 0
+d value : 2.0
+Polynomial Kernel SVM results:
+Accuracy: 65.59%
+Error rate: 34.41%
+Min DCF for Polynomial Kernel SVM: 1.0
+
+c value : 1
+d value : 2.0
+Polynomial Kernel SVM results:
+Accuracy: 65.59%
+Error rate: 34.41%
+Min DCF for Polynomial Kernel SVM: 1.0
+
+C value : 0.0001
+c value : 0
+d value : 2.0
+Polynomial Kernel SVM results:
+Accuracy: 65.63%
+Error rate: 34.37%
+Min DCF for Polynomial Kernel SVM: 0.8241393442622951
+
+c value : 1
+d value : 2.0
+Polynomial Kernel SVM results:
+Accuracy: 82.54%
+Error rate: 17.46%
+Min DCF for Polynomial Kernel SVM: 0.40864754098360656
+
+C value : 0.001
+c value : 0
+d value : 2.0
+Polynomial Kernel SVM results:
+Accuracy: 82.28%
+Error rate: 17.72%
+Min DCF for Polynomial Kernel SVM: 0.7188729508196722
+
+c value : 1
+d value : 2.0
+Polynomial Kernel SVM results:
+Accuracy: 94.71%
+Error rate: 5.29%
+Min DCF for Polynomial Kernel SVM: 0.31797131147540986
+
+C value : 0.01
+c value : 0
+d value : 2.0
+Polynomial Kernel SVM results:
+Accuracy: 87.91%
+Error rate: 12.09%
+Min DCF for Polynomial Kernel SVM: 0.6800819672131148
+
+c value : 1
+d value : 2.0
+Polynomial Kernel SVM results:
+Accuracy: 95.48%
+Error rate: 4.52%
+Min DCF for Polynomial Kernel SVM: 0.30116803278688525
+
+C value : 0.1
+c value : 0
+d value : 2.0
+Polynomial Kernel SVM results:
+Accuracy: 89.25%
+Error rate: 10.75%
+Min DCF for Polynomial Kernel SVM: 0.6286270491803279
+
+c value : 1
+d value : 2.0
+Polynomial Kernel SVM results:
+Accuracy: 95.27%
+Error rate: 4.73%
+Min DCF for Polynomial Kernel SVM: 0.3023975409836066
+
+C value : 1.0
+c value : 0
+d value : 2.0
+Polynomial Kernel SVM results:
+Accuracy: 88.99%
+Error rate: 11.01%
+Min DCF for Polynomial Kernel SVM: 0.6479303278688524
+
+c value : 1
+d value : 2.0
+Polynomial Kernel SVM results:
+Accuracy: 94.92%
+Error rate: 5.08%
+Min DCF for Polynomial Kernel SVM: 0.3176844262295082
+
+C value : 10.0
+c value : 0
+d value : 2.0
+Polynomial Kernel SVM results:
+Accuracy: 89.12%
+Error rate: 10.88%
+Min DCF for Polynomial Kernel SVM: 0.6541803278688525
+
+c value : 1
+d value : 2.0
+Polynomial Kernel SVM results:
+Accuracy: 94.54%
+Error rate: 5.46%
+Min DCF for Polynomial Kernel SVM: 0.3345696721311475
+
+C value : 100.0
+c value : 0
+d value : 2.0
+Polynomial Kernel SVM results:
+Accuracy: 89.03%
+Error rate: 10.97%
+Min DCF for Polynomial Kernel SVM: 0.6566803278688524
+
+c value : 1
+d value : 2.0
+Polynomial Kernel SVM results:
+Accuracy: 94.45%
+Error rate: 5.55%
+Min DCF for Polynomial Kernel SVM: 0.33581967213114755
+
+## RAW + PCA with M = 8
+
+k value : 1
+C value : 1e-06
+c value : 0
+d value : 2.0
+Polynomial Kernel SVM results:
+Accuracy: 65.59%
+Error rate: 34.41%
+Min DCF for Polynomial Kernel SVM: 1.0
+
+c value : 1
+d value : 2.0
+Polynomial Kernel SVM results:
+Accuracy: 65.59%
+Error rate: 34.41%
+Min DCF for Polynomial Kernel SVM: 1.0
+
+C value : 1e-05
+c value : 0
+d value : 2.0
+Polynomial Kernel SVM results:
+Accuracy: 65.59%
+Error rate: 34.41%
+Min DCF for Polynomial Kernel SVM: 1.0
+
+c value : 1
+d value : 2.0
+Polynomial Kernel SVM results:
+Accuracy: 65.59%
+Error rate: 34.41%
+Min DCF for Polynomial Kernel SVM: 1.0
+
+C value : 0.0001
+c value : 0
+d value : 2.0
+Polynomial Kernel SVM results:
+Accuracy: 94.37%
+Error rate: 5.63%
+Min DCF for Polynomial Kernel SVM: 0.32178278688524586
+
+c value : 1
+d value : 2.0
+Polynomial Kernel SVM results:
+Accuracy: 94.58%
+Error rate: 5.42%
+Min DCF for Polynomial Kernel SVM: 0.3108196721311476
+
+C value : 0.001
+c value : 0
+d value : 2.0
+Polynomial Kernel SVM results:
+Accuracy: 94.41%
+Error rate: 5.59%
+Min DCF for Polynomial Kernel SVM: 0.3096106557377049
+
+c value : 1
+d value : 2.0
+Polynomial Kernel SVM results:
+Accuracy: 94.62%
+Error rate: 5.38%
+Min DCF for Polynomial Kernel SVM: 0.3067827868852459
+
+C value : 0.01
+c value : 0
+d value : 2.0
+Polynomial Kernel SVM results:
+Accuracy: 94.24%
+Error rate: 5.76%
+Min DCF for Polynomial Kernel SVM: 0.31772540983606556
+
+c value : 1
+d value : 2.0
+Polynomial Kernel SVM results:
+Accuracy: 94.54%
+Error rate: 5.46%
+Min DCF for Polynomial Kernel SVM: 0.3217418032786885
+
+C value : 0.1
+c value : 0
+d value : 2.0
+Polynomial Kernel SVM results:
+Accuracy: 94.45%
+Error rate: 5.55%
+Min DCF for Polynomial Kernel SVM: 0.32641393442622957
+
+c value : 1
+d value : 2.0
+Polynomial Kernel SVM results:
+Accuracy: 95.1%
+Error rate: 4.9%
+Min DCF for Polynomial Kernel SVM: 0.3120491803278689
+
+C value : 1.0
+c value : 0
+d value : 2.0
+Polynomial Kernel SVM results:
+Accuracy: 94.58%
+Error rate: 5.42%
+Min DCF for Polynomial Kernel SVM: 0.3386680327868853
+
+c value : 1
+d value : 2.0
+Polynomial Kernel SVM results:
+Accuracy: 94.11%
+Error rate: 5.89%
+Min DCF for Polynomial Kernel SVM: 0.35362704918032783
+
+C value : 10.0
+c value : 0
+d value : 2.0
+Polynomial Kernel SVM results:
+Accuracy: 84.99%
+Error rate: 15.01%
+Min DCF for Polynomial Kernel SVM: 0.6598975409836066
+
+c value : 1
+d value : 2.0
+Polynomial Kernel SVM results:
+Accuracy: 86.19%
+Error rate: 13.81%
+Min DCF for Polynomial Kernel SVM: 0.9538729508196722
+
+C value : 100.0
+c value : 0
+d value : 2.0
+Polynomial Kernel SVM results:
+Accuracy: 68.43%
+Error rate: 31.57%
+Min DCF for Polynomial Kernel SVM: 0.9931147540983606
+
+c value : 1
+d value : 2.0
+Polynomial Kernel SVM results:
+Accuracy: 62.02%
+Error rate: 37.98%
+Min DCF for Polynomial Kernel SVM: 0.99375
+
+## Z_Norm + PCA with M = 8
+
+k value : 1
+C value : 1e-06
+c value : 0
+d value : 2.0
+Polynomial Kernel SVM results:
+Accuracy: 65.59%
+Error rate: 34.41%
+Min DCF for Polynomial Kernel SVM: 1.0
+
+c value : 1
+d value : 2.0
+Polynomial Kernel SVM results:
+Accuracy: 65.59%
+Error rate: 34.41%
+Min DCF for Polynomial Kernel SVM: 1.0
+
+C value : 1e-05
+c value : 0
+d value : 2.0
+Polynomial Kernel SVM results:
+Accuracy: 65.59%
+Error rate: 34.41%
+Min DCF for Polynomial Kernel SVM: 1.0
+
+c value : 1
+d value : 2.0
+Polynomial Kernel SVM results:
+Accuracy: 65.59%
+Error rate: 34.41%
+Min DCF for Polynomial Kernel SVM: 1.0
+
+C value : 0.0001
+c value : 0
+d value : 2.0
+Polynomial Kernel SVM results:
+Accuracy: 65.63%
+Error rate: 34.37%
+Min DCF for Polynomial Kernel SVM: 0.8469877049180328
+
+c value : 1
+d value : 2.0
+Polynomial Kernel SVM results:
+Accuracy: 82.92%
+Error rate: 17.08%
+Min DCF for Polynomial Kernel SVM: 0.4076844262295082
+
+C value : 0.001
+c value : 0
+d value : 2.0
+Polynomial Kernel SVM results:
+Accuracy: 82.02%
+Error rate: 17.98%
+Min DCF for Polynomial Kernel SVM: 0.7288729508196722
+
+c value : 1
+d value : 2.0
+Polynomial Kernel SVM results:
+Accuracy: 94.62%
+Error rate: 5.38%
+Min DCF for Polynomial Kernel SVM: 0.3192213114754099
+
+C value : 0.01
+c value : 0
+d value : 2.0
+Polynomial Kernel SVM results:
+Accuracy: 87.18%
+Error rate: 12.82%
+Min DCF for Polynomial Kernel SVM: 0.7238524590163935
+
+c value : 1
+d value : 2.0
+Polynomial Kernel SVM results:
+Accuracy: 95.31%
+Error rate: 4.69%
+Min DCF for Polynomial Kernel SVM: 0.29711065573770495
+
+C value : 0.1
+c value : 0
+d value : 2.0
+Polynomial Kernel SVM results:
+Accuracy: 88.17%
+Error rate: 11.83%
+Min DCF for Polynomial Kernel SVM: 0.6713934426229509
+
+c value : 1
+d value : 2.0
+Polynomial Kernel SVM results:
+Accuracy: 95.57%
+Error rate: 4.43%
+Min DCF for Polynomial Kernel SVM: 0.2986475409836066
+
+C value : 1.0
+c value : 0
+d value : 2.0
+Polynomial Kernel SVM results:
+Accuracy: 87.96%
+Error rate: 12.04%
+Min DCF for Polynomial Kernel SVM: 0.6370081967213115
+
+c value : 1
+d value : 2.0
+Polynomial Kernel SVM results:
+Accuracy: 95.27%
+Error rate: 4.73%
+Min DCF for Polynomial Kernel SVM: 0.3308401639344262
+
+C value : 10.0
+c value : 0
+d value : 2.0
+Polynomial Kernel SVM results:
+Accuracy: 87.87%
+Error rate: 12.13%
+Min DCF for Polynomial Kernel SVM: 0.6479303278688524
+
+c value : 1
+d value : 2.0
+Polynomial Kernel SVM results:
+Accuracy: 95.35%
+Error rate: 4.65%
+Min DCF for Polynomial Kernel SVM: 0.3264549180327869
+
+C value : 100.0
+c value : 0
+d value : 2.0
+Polynomial Kernel SVM results:
+Accuracy: 87.91%
+Error rate: 12.09%
+Min DCF for Polynomial Kernel SVM: 0.6516803278688525
+
+c value : 1
+d value : 2.0
+Polynomial Kernel SVM results:
+Accuracy: 95.35%
+Error rate: 4.65%
+Min DCF for Polynomial Kernel SVM: 0.3252049180327869
