@@ -147,7 +147,7 @@ if __name__ == '__main__':
 
     # training.trainLinearSVM(DTR_RAND,LTR_RAND,Load_Data=True)
     # training.trainPolynomialSVM(DTR_RAND,LTR_RAND,Load_Data=True)
-    # training.trainRadialBasisFunctionSVM(DTR_RAND,LTR_RAND,Load_Data=False)
+    # training.trainRadialBasisFunctionSVM(DTR_RAND,LTR_RAND,Load_Data=True)
     
     # -------------- GMM --------------------
     

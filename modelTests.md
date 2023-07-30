@@ -5,6 +5,8 @@
     - [Best Values Linear](#linear-lr-best-values)
     - [Best Values Quadratic](#quadratic-lr-best-values)
 - [Linear SVM](#svm-linear-hyperparameters-k-and-c-training-prior--05)
+- [Polynomial SVM](#svm-polynomial-kccd-training-prior--05)
+- [RBF SVM](#svm-radial-basis-function-rbf-kcgamma-training-prior--05)
 # Gaussians
 
 ## RAW (No PCA No Z_Norm)
@@ -1455,45 +1457,45 @@ Min DCF for Linear SVM: 1.0
 
 C value : 0.0001
 Linear SVM results:
-Accuracy: 76.99%
-Error rate: 23.01%
-Min DCF for Linear SVM: 0.9560860655737704
+Accuracy: 79.01%
+Error rate: 20.99%
+Min DCF for Linear SVM: 0.9230737704918033
 
 C value : 0.001
 Linear SVM results:
-Accuracy: 79.57%
-Error rate: 20.43%
-Min DCF for Linear SVM: 0.9033811475409836
+Accuracy: 82.97%
+Error rate: 17.03%
+Min DCF for Linear SVM: 0.7748155737704918
 
 C value : 0.01
 Linear SVM results:
-Accuracy: 87.18%
-Error rate: 12.82%
-Min DCF for Linear SVM: 0.6505327868852459
+Accuracy: 89.81%
+Error rate: 10.19%
+Min DCF for Linear SVM: 0.5320286885245902
 
 C value : 0.1
 Linear SVM results:
-Accuracy: 90.58%
-Error rate: 9.42%
-Min DCF for Linear SVM: 0.5033401639344262
+Accuracy: 90.84%
+Error rate: 9.16%
+Min DCF for Linear SVM: 0.47649590163934424
 
 C value : 1.0
 Linear SVM results:
-Accuracy: 90.75%
-Error rate: 9.25%
-Min DCF for Linear SVM: 0.47963114754098357
+Accuracy: 91.01%
+Error rate: 8.99%
+Min DCF for Linear SVM: 0.4680737704918033
 
 C value : 10.0
 Linear SVM results:
-Accuracy: 91.18%
-Error rate: 8.82%
-Min DCF for Linear SVM: 0.4743237704918033
+Accuracy: 89.94%
+Error rate: 10.06%
+Min DCF for Linear SVM: 0.5420901639344262
 
 C value : 100.0
 Linear SVM results:
-Accuracy: 90.06%
-Error rate: 9.94%
-Min DCF for Linear SVM: 0.5261475409836066
+Accuracy: 86.32%
+Error rate: 13.68%
+Min DCF for Linear SVM: 0.7947950819672132
 
 ### k value : 10
 C value : 1e-06
@@ -1510,45 +1512,45 @@ Min DCF for Linear SVM: 1.0
 
 C value : 0.0001
 Linear SVM results:
-Accuracy: 89.81%
-Error rate: 10.19%
-Min DCF for Linear SVM: 0.5710860655737705
+Accuracy: 91.05%
+Error rate: 8.95%
+Min DCF for Linear SVM: 0.49118852459016393
 
 C value : 0.001
 Linear SVM results:
-Accuracy: 90.62%
-Error rate: 9.38%
-Min DCF for Linear SVM: 0.4811885245901639
+Accuracy: 90.71%
+Error rate: 9.29%
+Min DCF for Linear SVM: 0.4830737704918033
 
 C value : 0.01
 Linear SVM results:
-Accuracy: 90.88%
-Error rate: 9.12%
-Min DCF for Linear SVM: 0.47493852459016395
+Accuracy: 91.1%
+Error rate: 8.9%
+Min DCF for Linear SVM: 0.47307377049180327
 
 C value : 0.1
 Linear SVM results:
-Accuracy: 91.01%
-Error rate: 8.99%
-Min DCF for Linear SVM: 0.4655737704918033
+Accuracy: 91.14%
+Error rate: 8.86%
+Min DCF for Linear SVM: 0.4793032786885246
 
 C value : 1.0
 Linear SVM results:
-Accuracy: 91.18%
-Error rate: 8.82%
-Min DCF for Linear SVM: 0.47963114754098357
+Accuracy: 91.14%
+Error rate: 8.86%
+Min DCF for Linear SVM: 0.47776639344262295
 
 C value : 10.0
 Linear SVM results:
-Accuracy: 91.18%
-Error rate: 8.82%
-Min DCF for Linear SVM: 0.4733811475409836
+Accuracy: 90.97%
+Error rate: 9.03%
+Min DCF for Linear SVM: 0.47491803278688527
 
 C value : 100.0
 Linear SVM results:
-Accuracy: 90.67%
-Error rate: 9.33%
-Min DCF for Linear SVM: 0.49930327868852453
+Accuracy: 82.41%
+Error rate: 17.59%
+Min DCF for Linear SVM: 0.667438524590164
 
 ## Z_Norm
 
@@ -1569,43 +1571,43 @@ C value : 0.0001
 Linear SVM results:
 Accuracy: 88.6%
 Error rate: 11.4%
-Min DCF for Linear SVM: 0.5677049180327869
+Min DCF for Linear SVM: 0.5655327868852459
 
 C value : 0.001
 Linear SVM results:
-Accuracy: 88.65%
-Error rate: 11.35%
-Min DCF for Linear SVM: 0.5511475409836065
+Accuracy: 90.06%
+Error rate: 9.94%
+Min DCF for Linear SVM: 0.512704918032787
 
 C value : 0.01
 Linear SVM results:
-Accuracy: 90.58%
-Error rate: 9.42%
-Min DCF for Linear SVM: 0.5042622950819672
+Accuracy: 90.92%
+Error rate: 9.08%
+Min DCF for Linear SVM: 0.48651639344262293
 
 C value : 0.1
 Linear SVM results:
-Accuracy: 90.8%
-Error rate: 9.2%
-Min DCF for Linear SVM: 0.4943237704918033
+Accuracy: 90.62%
+Error rate: 9.38%
+Min DCF for Linear SVM: 0.4858811475409836
 
 C value : 1.0
 Linear SVM results:
-Accuracy: 90.84%
-Error rate: 9.16%
-Min DCF for Linear SVM: 0.483688524590164
+Accuracy: 90.8%
+Error rate: 9.2%
+Min DCF for Linear SVM: 0.4871311475409836
 
 C value : 10.0
 Linear SVM results:
 Accuracy: 90.67%
 Error rate: 9.33%
-Min DCF for Linear SVM: 0.4843237704918033
+Min DCF for Linear SVM: 0.4905737704918033
 
 C value : 100.0
 Linear SVM results:
-Accuracy: 90.58%
-Error rate: 9.42%
-Min DCF for Linear SVM: 0.4893237704918033
+Accuracy: 90.62%
+Error rate: 9.38%
+Min DCF for Linear SVM: 0.4905737704918033
 
 ### k value : 10
 C value : 1e-06
@@ -1624,43 +1626,43 @@ C value : 0.0001
 Linear SVM results:
 Accuracy: 65.59%
 Error rate: 34.41%
-Min DCF for Linear SVM: 0.5851434426229508
+Min DCF for Linear SVM: 0.5676434426229509
 
 C value : 0.001
 Linear SVM results:
-Accuracy: 66.02%
-Error rate: 33.98%
-Min DCF for Linear SVM: 0.5454918032786885
+Accuracy: 90.11%
+Error rate: 9.89%
+Min DCF for Linear SVM: 0.5186270491803279
 
 C value : 0.01
 Linear SVM results:
-Accuracy: 90.58%
-Error rate: 9.42%
-Min DCF for Linear SVM: 0.4993237704918033
+Accuracy: 90.62%
+Error rate: 9.38%
+Min DCF for Linear SVM: 0.4955532786885246
 
 C value : 0.1
 Linear SVM results:
-Accuracy: 90.71%
-Error rate: 9.29%
-Min DCF for Linear SVM: 0.4958811475409836
+Accuracy: 90.58%
+Error rate: 9.42%
+Min DCF for Linear SVM: 0.49149590163934426
 
 C value : 1.0
 Linear SVM results:
 Accuracy: 90.75%
 Error rate: 9.25%
-Min DCF for Linear SVM: 0.4824385245901639
+Min DCF for Linear SVM: 0.4868237704918033
 
 C value : 10.0
 Linear SVM results:
-Accuracy: 90.62%
-Error rate: 9.38%
-Min DCF for Linear SVM: 0.4883811475409836
+Accuracy: 90.67%
+Error rate: 9.33%
+Min DCF for Linear SVM: 0.4924385245901639
 
 C value : 100.0
 Linear SVM results:
-Accuracy: 89.72%
-Error rate: 10.28%
-Min DCF for Linear SVM: 0.5058401639344262
+Accuracy: 90.62%
+Error rate: 9.38%
+Min DCF for Linear SVM: 0.4821311475409836
 
 ## RAW + PCA with M = 8
 
@@ -1679,45 +1681,45 @@ Min DCF for Linear SVM: 1.0
 
 C value : 0.0001
 Linear SVM results:
-Accuracy: 76.86%
-Error rate: 23.14%
-Min DCF for Linear SVM: 0.9487295081967213
+Accuracy: 78.97%
+Error rate: 21.03%
+Min DCF for Linear SVM: 0.9318237704918032
 
 C value : 0.001
 Linear SVM results:
-Accuracy: 79.78%
-Error rate: 20.22%
-Min DCF for Linear SVM: 0.9108401639344262
+Accuracy: 82.58%
+Error rate: 17.42%
+Min DCF for Linear SVM: 0.7829713114754099
 
 C value : 0.01
 Linear SVM results:
-Accuracy: 86.58%
-Error rate: 13.42%
-Min DCF for Linear SVM: 0.6457786885245902
+Accuracy: 89.76%
+Error rate: 10.24%
+Min DCF for Linear SVM: 0.5254508196721311
 
 C value : 0.1
 Linear SVM results:
-Accuracy: 90.75%
-Error rate: 9.25%
-Min DCF for Linear SVM: 0.48428278688524595
+Accuracy: 90.8%
+Error rate: 9.2%
+Min DCF for Linear SVM: 0.4833606557377049
 
 C value : 1.0
 Linear SVM results:
-Accuracy: 91.01%
-Error rate: 8.99%
-Min DCF for Linear SVM: 0.4918032786885246
+Accuracy: 90.67%
+Error rate: 9.33%
+Min DCF for Linear SVM: 0.4974385245901639
 
 C value : 10.0
 Linear SVM results:
-Accuracy: 90.97%
-Error rate: 9.03%
-Min DCF for Linear SVM: 0.4839754098360656
+Accuracy: 91.1%
+Error rate: 8.9%
+Min DCF for Linear SVM: 0.47805327868852454
 
 C value : 100.0
 Linear SVM results:
-Accuracy: 88.13%
-Error rate: 11.87%
-Min DCF for Linear SVM: 0.5980122950819672
+Accuracy: 74.84%
+Error rate: 25.16%
+Min DCF for Linear SVM: 0.9975
 
 ### k value : 10
 C value : 1e-06
@@ -1734,27 +1736,27 @@ Min DCF for Linear SVM: 1.0
 
 C value : 0.0001
 Linear SVM results:
-Accuracy: 89.33%
-Error rate: 10.67%
-Min DCF for Linear SVM: 0.5695081967213115
+Accuracy: 90.58%
+Error rate: 9.42%
+Min DCF for Linear SVM: 0.4936885245901639
 
 C value : 0.001
 Linear SVM results:
-Accuracy: 90.67%
-Error rate: 9.33%
-Min DCF for Linear SVM: 0.4896311475409836
+Accuracy: 90.71%
+Error rate: 9.29%
+Min DCF for Linear SVM: 0.47899590163934425
 
 C value : 0.01
 Linear SVM results:
-Accuracy: 91.01%
-Error rate: 8.99%
-Min DCF for Linear SVM: 0.4833606557377049
+Accuracy: 90.88%
+Error rate: 9.12%
+Min DCF for Linear SVM: 0.48399590163934425
 
 C value : 0.1
 Linear SVM results:
-Accuracy: 90.97%
-Error rate: 9.03%
-Min DCF for Linear SVM: 0.4889754098360656
+Accuracy: 91.01%
+Error rate: 8.99%
+Min DCF for Linear SVM: 0.4852254098360656
 
 C value : 1.0
 Linear SVM results:
@@ -1764,15 +1766,15 @@ Min DCF for Linear SVM: 0.4827254098360656
 
 C value : 10.0
 Linear SVM results:
-Accuracy: 91.01%
-Error rate: 8.99%
-Min DCF for Linear SVM: 0.4827254098360656
+Accuracy: 90.88%
+Error rate: 9.12%
+Min DCF for Linear SVM: 0.49649590163934426
 
 C value : 100.0
 Linear SVM results:
-Accuracy: 89.42%
-Error rate: 10.58%
-Min DCF for Linear SVM: 0.5817622950819672
+Accuracy: 80.26%
+Error rate: 19.74%
+Min DCF for Linear SVM: 0.98375
 
 ## Z_Norm + PCA with M = 8
 
@@ -1793,37 +1795,37 @@ C value : 0.0001
 Linear SVM results:
 Accuracy: 88.65%
 Error rate: 11.35%
-Min DCF for Linear SVM: 0.5682991803278689
+Min DCF for Linear SVM: 0.5736475409836066
 
 C value : 0.001
 Linear SVM results:
-Accuracy: 88.69%
-Error rate: 11.31%
-Min DCF for Linear SVM: 0.5539754098360656
+Accuracy: 90.15%
+Error rate: 9.85%
+Min DCF for Linear SVM: 0.5182991803278688
 
 C value : 0.01
 Linear SVM results:
-Accuracy: 90.37%
-Error rate: 9.63%
-Min DCF for Linear SVM: 0.502766393442623
+Accuracy: 90.84%
+Error rate: 9.16%
+Min DCF for Linear SVM: 0.4905737704918033
 
 C value : 0.1
 Linear SVM results:
-Accuracy: 90.88%
-Error rate: 9.12%
-Min DCF for Linear SVM: 0.48618852459016393
+Accuracy: 90.62%
+Error rate: 9.38%
+Min DCF for Linear SVM: 0.49401639344262294
 
 C value : 1.0
 Linear SVM results:
-Accuracy: 90.62%
-Error rate: 9.38%
-Min DCF for Linear SVM: 0.4996311475409836
+Accuracy: 90.67%
+Error rate: 9.33%
+Min DCF for Linear SVM: 0.5074385245901639
 
 C value : 10.0
 Linear SVM results:
 Accuracy: 90.67%
 Error rate: 9.33%
-Min DCF for Linear SVM: 0.5074385245901639
+Min DCF for Linear SVM: 0.5058811475409837
 
 C value : 100.0
 Linear SVM results:
@@ -1848,43 +1850,43 @@ C value : 0.0001
 Linear SVM results:
 Accuracy: 65.59%
 Error rate: 34.41%
-Min DCF for Linear SVM: 0.6032581967213115
+Min DCF for Linear SVM: 0.5654713114754099
 
 C value : 0.001
 Linear SVM results:
-Accuracy: 66.02%
-Error rate: 33.98%
-Min DCF for Linear SVM: 0.5439139344262296
+Accuracy: 89.94%
+Error rate: 10.06%
+Min DCF for Linear SVM: 0.5139344262295082
 
 C value : 0.01
 Linear SVM results:
-Accuracy: 90.92%
-Error rate: 9.08%
-Min DCF for Linear SVM: 0.5049590163934427
+Accuracy: 90.97%
+Error rate: 9.03%
+Min DCF for Linear SVM: 0.49149590163934426
 
 C value : 0.1
 Linear SVM results:
-Accuracy: 90.92%
-Error rate: 9.08%
-Min DCF for Linear SVM: 0.49493852459016396
+Accuracy: 90.58%
+Error rate: 9.42%
+Min DCF for Linear SVM: 0.4933811475409836
 
 C value : 1.0
 Linear SVM results:
-Accuracy: 90.67%
-Error rate: 9.33%
-Min DCF for Linear SVM: 0.5024385245901639
+Accuracy: 90.71%
+Error rate: 9.29%
+Min DCF for Linear SVM: 0.5046311475409836
 
 C value : 10.0
 Linear SVM results:
-Accuracy: 90.67%
-Error rate: 9.33%
-Min DCF for Linear SVM: 0.5071311475409837
+Accuracy: 90.71%
+Error rate: 9.29%
+Min DCF for Linear SVM: 0.5145901639344262
 
 C value : 100.0
 Linear SVM results:
-Accuracy: 90.71%
-Error rate: 9.29%
-Min DCF for Linear SVM: 0.5055327868852459
+Accuracy: 90.11%
+Error rate: 9.89%
+Min DCF for Linear SVM: 0.48834016393442625
 
 # SVM POLYNOMIAL K,C,c,d TRAINING: (Prior = 0.5)
 
@@ -1925,106 +1927,106 @@ C value : 0.0001
 c value : 0
 d value : 2.0
 Polynomial Kernel SVM results:
-Accuracy: 94.62%
-Error rate: 5.38%
-Min DCF for Polynomial Kernel SVM: 0.31989754098360657
+Accuracy: 94.54%
+Error rate: 5.46%
+Min DCF for Polynomial Kernel SVM: 0.3230327868852459
 
 c value : 1
 d value : 2.0
 Polynomial Kernel SVM results:
 Accuracy: 94.67%
 Error rate: 5.33%
-Min DCF for Polynomial Kernel SVM: 0.3083401639344262
+Min DCF for Polynomial Kernel SVM: 0.31426229508196724
 
 C value : 0.001
 c value : 0
 d value : 2.0
 Polynomial Kernel SVM results:
-Accuracy: 94.49%
-Error rate: 5.51%
-Min DCF for Polynomial Kernel SVM: 0.3308401639344262
+Accuracy: 94.37%
+Error rate: 5.63%
+Min DCF for Polynomial Kernel SVM: 0.3373975409836065
+
+c value : 1
+d value : 2.0
+Polynomial Kernel SVM results:
+Accuracy: 94.54%
+Error rate: 5.46%
+Min DCF for Polynomial Kernel SVM: 0.3023975409836066
+
+C value : 0.01
+c value : 0
+d value : 2.0
+Polynomial Kernel SVM results:
+Accuracy: 94.67%
+Error rate: 5.33%
+Min DCF for Polynomial Kernel SVM: 0.34551229508196724
 
 c value : 1
 d value : 2.0
 Polynomial Kernel SVM results:
 Accuracy: 94.75%
 Error rate: 5.25%
-Min DCF for Polynomial Kernel SVM: 0.31114754098360653
-
-C value : 0.01
-c value : 0
-d value : 2.0
-Polynomial Kernel SVM results:
-Accuracy: 94.41%
-Error rate: 5.59%
-Min DCF for Polynomial Kernel SVM: 0.3427049180327869
-
-c value : 1
-d value : 2.0
-Polynomial Kernel SVM results:
-Accuracy: 94.67%
-Error rate: 5.33%
-Min DCF for Polynomial Kernel SVM: 0.31456967213114756
+Min DCF for Polynomial Kernel SVM: 0.30959016393442623
 
 C value : 0.1
 c value : 0
 d value : 2.0
 Polynomial Kernel SVM results:
-Accuracy: 94.92%
-Error rate: 5.08%
-Min DCF for Polynomial Kernel SVM: 0.34424180327868853
+Accuracy: 94.45%
+Error rate: 5.55%
+Min DCF for Polynomial Kernel SVM: 0.33584016393442623
 
 c value : 1
 d value : 2.0
 Polynomial Kernel SVM results:
-Accuracy: 94.67%
-Error rate: 5.33%
-Min DCF for Polynomial Kernel SVM: 0.30959016393442623
+Accuracy: 95.23%
+Error rate: 4.77%
+Min DCF for Polynomial Kernel SVM: 0.31831967213114754
 
 C value : 1.0
 c value : 0
 d value : 2.0
 Polynomial Kernel SVM results:
-Accuracy: 94.19%
-Error rate: 5.81%
-Min DCF for Polynomial Kernel SVM: 0.3579918032786885
+Accuracy: 94.06%
+Error rate: 5.94%
+Min DCF for Polynomial Kernel SVM: 0.35834016393442625
 
 c value : 1
 d value : 2.0
 Polynomial Kernel SVM results:
-Accuracy: 94.58%
-Error rate: 5.42%
-Min DCF for Polynomial Kernel SVM: 0.3392418032786886
+Accuracy: 92.26%
+Error rate: 7.74%
+Min DCF for Polynomial Kernel SVM: 0.42991803278688523
 
 C value : 10.0
 c value : 0
 d value : 2.0
 Polynomial Kernel SVM results:
-Accuracy: 86.06%
-Error rate: 13.94%
-Min DCF for Polynomial Kernel SVM: 0.6167213114754099
+Accuracy: 70.58%
+Error rate: 29.42%
+Min DCF for Polynomial Kernel SVM: 1.0
 
 c value : 1
 d value : 2.0
 Polynomial Kernel SVM results:
-Accuracy: 79.1%
-Error rate: 20.9%
-Min DCF for Polynomial Kernel SVM: 0.9774180327868853
+Accuracy: 72.39%
+Error rate: 27.61%
+Min DCF for Polynomial Kernel SVM: 1.0
 
 C value : 100.0
 c value : 0
 d value : 2.0
 Polynomial Kernel SVM results:
-Accuracy: 63.7%
-Error rate: 36.3%
-Min DCF for Polynomial Kernel SVM: 0.9853073770491804
+Accuracy: 65.51%
+Error rate: 34.49%
+Min DCF for Polynomial Kernel SVM: 0.9978073770491803
 
 c value : 1
 d value : 2.0
 Polynomial Kernel SVM results:
-Accuracy: 58.71%
-Error rate: 41.29%
-Min DCF for Polynomial Kernel SVM: 1.0
+Accuracy: 68.13%
+Error rate: 31.87%
+Min DCF for Polynomial Kernel SVM: 0.9925
 
 ## Z_Norm
 
@@ -2063,106 +2065,106 @@ C value : 0.0001
 c value : 0
 d value : 2.0
 Polynomial Kernel SVM results:
-Accuracy: 65.63%
-Error rate: 34.37%
-Min DCF for Polynomial Kernel SVM: 0.8241393442622951
+Accuracy: 72.17%
+Error rate: 27.83%
+Min DCF for Polynomial Kernel SVM: 0.6801024590163934
 
 c value : 1
 d value : 2.0
 Polynomial Kernel SVM results:
-Accuracy: 82.54%
-Error rate: 17.46%
-Min DCF for Polynomial Kernel SVM: 0.40864754098360656
+Accuracy: 92.47%
+Error rate: 7.53%
+Min DCF for Polynomial Kernel SVM: 0.3333811475409836
 
 C value : 0.001
 c value : 0
 d value : 2.0
 Polynomial Kernel SVM results:
-Accuracy: 82.28%
-Error rate: 17.72%
-Min DCF for Polynomial Kernel SVM: 0.7188729508196722
+Accuracy: 87.48%
+Error rate: 12.52%
+Min DCF for Polynomial Kernel SVM: 0.6878893442622951
 
 c value : 1
 d value : 2.0
 Polynomial Kernel SVM results:
-Accuracy: 94.71%
-Error rate: 5.29%
-Min DCF for Polynomial Kernel SVM: 0.31797131147540986
+Accuracy: 95.31%
+Error rate: 4.69%
+Min DCF for Polynomial Kernel SVM: 0.29270491803278686
 
 C value : 0.01
 c value : 0
 d value : 2.0
 Polynomial Kernel SVM results:
-Accuracy: 87.91%
-Error rate: 12.09%
-Min DCF for Polynomial Kernel SVM: 0.6800819672131148
-
-c value : 1
-d value : 2.0
-Polynomial Kernel SVM results:
-Accuracy: 95.48%
-Error rate: 4.52%
-Min DCF for Polynomial Kernel SVM: 0.30116803278688525
-
-C value : 0.1
-c value : 0
-d value : 2.0
-Polynomial Kernel SVM results:
-Accuracy: 89.25%
-Error rate: 10.75%
-Min DCF for Polynomial Kernel SVM: 0.6286270491803279
+Accuracy: 88.56%
+Error rate: 11.44%
+Min DCF for Polynomial Kernel SVM: 0.6320286885245902
 
 c value : 1
 d value : 2.0
 Polynomial Kernel SVM results:
 Accuracy: 95.27%
 Error rate: 4.73%
-Min DCF for Polynomial Kernel SVM: 0.3023975409836066
+Min DCF for Polynomial Kernel SVM: 0.2995491803278688
 
-C value : 1.0
+C value : 0.1
 c value : 0
 d value : 2.0
 Polynomial Kernel SVM results:
-Accuracy: 88.99%
-Error rate: 11.01%
-Min DCF for Polynomial Kernel SVM: 0.6479303278688524
+Accuracy: 89.08%
+Error rate: 10.92%
+Min DCF for Polynomial Kernel SVM: 0.6410245901639344
 
 c value : 1
 d value : 2.0
 Polynomial Kernel SVM results:
 Accuracy: 94.92%
 Error rate: 5.08%
-Min DCF for Polynomial Kernel SVM: 0.3176844262295082
+Min DCF for Polynomial Kernel SVM: 0.30926229508196723
+
+C value : 1.0
+c value : 0
+d value : 2.0
+Polynomial Kernel SVM results:
+Accuracy: 89.2%
+Error rate: 10.8%
+Min DCF for Polynomial Kernel SVM: 0.6535450819672131
+
+c value : 1
+d value : 2.0
+Polynomial Kernel SVM results:
+Accuracy: 94.58%
+Error rate: 5.42%
+Min DCF for Polynomial Kernel SVM: 0.3267622950819672
 
 C value : 10.0
 c value : 0
 d value : 2.0
 Polynomial Kernel SVM results:
-Accuracy: 89.12%
-Error rate: 10.88%
-Min DCF for Polynomial Kernel SVM: 0.6541803278688525
+Accuracy: 88.99%
+Error rate: 11.01%
+Min DCF for Polynomial Kernel SVM: 0.6594672131147541
 
 c value : 1
 d value : 2.0
 Polynomial Kernel SVM results:
-Accuracy: 94.54%
-Error rate: 5.46%
-Min DCF for Polynomial Kernel SVM: 0.3345696721311475
+Accuracy: 94.49%
+Error rate: 5.51%
+Min DCF for Polynomial Kernel SVM: 0.33831967213114755
 
 C value : 100.0
 c value : 0
 d value : 2.0
 Polynomial Kernel SVM results:
-Accuracy: 89.03%
-Error rate: 10.97%
-Min DCF for Polynomial Kernel SVM: 0.6566803278688524
+Accuracy: 89.16%
+Error rate: 10.84%
+Min DCF for Polynomial Kernel SVM: 0.6385450819672132
 
 c value : 1
 d value : 2.0
 Polynomial Kernel SVM results:
 Accuracy: 94.45%
 Error rate: 5.55%
-Min DCF for Polynomial Kernel SVM: 0.33581967213114755
+Min DCF for Polynomial Kernel SVM: 0.3330122950819672
 
 ## RAW + PCA with M = 8
 
@@ -2201,106 +2203,106 @@ C value : 0.0001
 c value : 0
 d value : 2.0
 Polynomial Kernel SVM results:
-Accuracy: 94.37%
-Error rate: 5.63%
-Min DCF for Polynomial Kernel SVM: 0.32178278688524586
-
-c value : 1
-d value : 2.0
-Polynomial Kernel SVM results:
-Accuracy: 94.58%
-Error rate: 5.42%
-Min DCF for Polynomial Kernel SVM: 0.3108196721311476
-
-C value : 0.001
-c value : 0
-d value : 2.0
-Polynomial Kernel SVM results:
-Accuracy: 94.41%
-Error rate: 5.59%
-Min DCF for Polynomial Kernel SVM: 0.3096106557377049
+Accuracy: 94.45%
+Error rate: 5.55%
+Min DCF for Polynomial Kernel SVM: 0.32397540983606554
 
 c value : 1
 d value : 2.0
 Polynomial Kernel SVM results:
 Accuracy: 94.62%
 Error rate: 5.38%
-Min DCF for Polynomial Kernel SVM: 0.3067827868852459
+Min DCF for Polynomial Kernel SVM: 0.30459016393442623
 
-C value : 0.01
+C value : 0.001
 c value : 0
 d value : 2.0
 Polynomial Kernel SVM results:
-Accuracy: 94.24%
-Error rate: 5.76%
-Min DCF for Polynomial Kernel SVM: 0.31772540983606556
+Accuracy: 94.32%
+Error rate: 5.68%
+Min DCF for Polynomial Kernel SVM: 0.32022540983606557
 
 c value : 1
 d value : 2.0
 Polynomial Kernel SVM results:
 Accuracy: 94.54%
 Error rate: 5.46%
-Min DCF for Polynomial Kernel SVM: 0.3217418032786885
+Min DCF for Polynomial Kernel SVM: 0.30801229508196726
+
+C value : 0.01
+c value : 0
+d value : 2.0
+Polynomial Kernel SVM results:
+Accuracy: 94.49%
+Error rate: 5.51%
+Min DCF for Polynomial Kernel SVM: 0.32897540983606555
+
+c value : 1
+d value : 2.0
+Polynomial Kernel SVM results:
+Accuracy: 94.92%
+Error rate: 5.08%
+Min DCF for Polynomial Kernel SVM: 0.3198565573770492
 
 C value : 0.1
 c value : 0
 d value : 2.0
 Polynomial Kernel SVM results:
-Accuracy: 94.45%
-Error rate: 5.55%
-Min DCF for Polynomial Kernel SVM: 0.32641393442622957
+Accuracy: 94.84%
+Error rate: 5.16%
+Min DCF for Polynomial Kernel SVM: 0.33487704918032785
 
 c value : 1
 d value : 2.0
 Polynomial Kernel SVM results:
-Accuracy: 95.1%
-Error rate: 4.9%
-Min DCF for Polynomial Kernel SVM: 0.3120491803278689
+Accuracy: 95.01%
+Error rate: 4.99%
+Min DCF for Polynomial Kernel SVM: 0.2930532786885246
 
 C value : 1.0
 c value : 0
 d value : 2.0
 Polynomial Kernel SVM results:
-Accuracy: 94.58%
-Error rate: 5.42%
-Min DCF for Polynomial Kernel SVM: 0.3386680327868853
+Accuracy: 85.89%
+Error rate: 14.11%
+Min DCF for Polynomial Kernel SVM: 0.6217622950819672
 
 c value : 1
 d value : 2.0
 Polynomial Kernel SVM results:
-Accuracy: 94.11%
-Error rate: 5.89%
-Min DCF for Polynomial Kernel SVM: 0.35362704918032783
+Accuracy: 92.26%
+Error rate: 7.74%
+Min DCF for Polynomial Kernel SVM: 0.4677049180327869
 
 C value : 10.0
 c value : 0
 d value : 2.0
 Polynomial Kernel SVM results:
-Accuracy: 84.99%
-Error rate: 15.01%
-Min DCF for Polynomial Kernel SVM: 0.6598975409836066
+Accuracy: 62.02%
+Error rate: 37.98%
+Min DCF for Polynomial Kernel SVM: 1.0
 
 c value : 1
 d value : 2.0
 Polynomial Kernel SVM results:
-Accuracy: 86.19%
-Error rate: 13.81%
-Min DCF for Polynomial Kernel SVM: 0.9538729508196722
+Accuracy: 68.9%
+Error rate: 31.1%
+Min DCF for Polynomial Kernel SVM: 1.0
 
 C value : 100.0
 c value : 0
 d value : 2.0
 Polynomial Kernel SVM results:
-Accuracy: 68.43%
-Error rate: 31.57%
-Min DCF for Polynomial Kernel SVM: 0.9931147540983606
+Accuracy: 60.34%
+Error rate: 39.66%
+Min DCF for Polynomial Kernel SVM: 0.995
 
 c value : 1
 d value : 2.0
 Polynomial Kernel SVM results:
-Accuracy: 62.02%
-Error rate: 37.98%
-Min DCF for Polynomial Kernel SVM: 0.99375
+Accuracy: 59.31%
+Error rate: 40.69%
+Min DCF for Polynomial Kernel SVM: 1.0
 
 ## Z_Norm + PCA with M = 8
 
@@ -2339,61 +2341,61 @@ C value : 0.0001
 c value : 0
 d value : 2.0
 Polynomial Kernel SVM results:
-Accuracy: 65.63%
-Error rate: 34.37%
-Min DCF for Polynomial Kernel SVM: 0.8469877049180328
+Accuracy: 72.22%
+Error rate: 27.78%
+Min DCF for Polynomial Kernel SVM: 0.7051229508196721
 
 c value : 1
 d value : 2.0
 Polynomial Kernel SVM results:
-Accuracy: 82.92%
-Error rate: 17.08%
-Min DCF for Polynomial Kernel SVM: 0.4076844262295082
+Accuracy: 92.17%
+Error rate: 7.83%
+Min DCF for Polynomial Kernel SVM: 0.3433606557377049
 
 C value : 0.001
 c value : 0
 d value : 2.0
 Polynomial Kernel SVM results:
-Accuracy: 82.02%
-Error rate: 17.98%
-Min DCF for Polynomial Kernel SVM: 0.7288729508196722
+Accuracy: 86.71%
+Error rate: 13.29%
+Min DCF for Polynomial Kernel SVM: 0.7432172131147541
 
 c value : 1
 d value : 2.0
 Polynomial Kernel SVM results:
-Accuracy: 94.62%
-Error rate: 5.38%
-Min DCF for Polynomial Kernel SVM: 0.3192213114754099
+Accuracy: 95.27%
+Error rate: 4.73%
+Min DCF for Polynomial Kernel SVM: 0.31112704918032785
 
 C value : 0.01
 c value : 0
 d value : 2.0
 Polynomial Kernel SVM results:
-Accuracy: 87.18%
-Error rate: 12.82%
-Min DCF for Polynomial Kernel SVM: 0.7238524590163935
+Accuracy: 88.09%
+Error rate: 11.91%
+Min DCF for Polynomial Kernel SVM: 0.6995286885245902
 
 c value : 1
 d value : 2.0
 Polynomial Kernel SVM results:
 Accuracy: 95.31%
 Error rate: 4.69%
-Min DCF for Polynomial Kernel SVM: 0.29711065573770495
+Min DCF for Polynomial Kernel SVM: 0.28397540983606556
 
 C value : 0.1
 c value : 0
 d value : 2.0
 Polynomial Kernel SVM results:
-Accuracy: 88.17%
-Error rate: 11.83%
-Min DCF for Polynomial Kernel SVM: 0.6713934426229509
+Accuracy: 88.13%
+Error rate: 11.87%
+Min DCF for Polynomial Kernel SVM: 0.6429303278688525
 
 c value : 1
 d value : 2.0
 Polynomial Kernel SVM results:
-Accuracy: 95.57%
-Error rate: 4.43%
-Min DCF for Polynomial Kernel SVM: 0.2986475409836066
+Accuracy: 95.23%
+Error rate: 4.77%
+Min DCF for Polynomial Kernel SVM: 0.32178278688524586
 
 C value : 1.0
 c value : 0
@@ -2401,21 +2403,6 @@ d value : 2.0
 Polynomial Kernel SVM results:
 Accuracy: 87.96%
 Error rate: 12.04%
-Min DCF for Polynomial Kernel SVM: 0.6370081967213115
-
-c value : 1
-d value : 2.0
-Polynomial Kernel SVM results:
-Accuracy: 95.27%
-Error rate: 4.73%
-Min DCF for Polynomial Kernel SVM: 0.3308401639344262
-
-C value : 10.0
-c value : 0
-d value : 2.0
-Polynomial Kernel SVM results:
-Accuracy: 87.87%
-Error rate: 12.13%
 Min DCF for Polynomial Kernel SVM: 0.6479303278688524
 
 c value : 1
@@ -2423,15 +2410,15 @@ d value : 2.0
 Polynomial Kernel SVM results:
 Accuracy: 95.35%
 Error rate: 4.65%
-Min DCF for Polynomial Kernel SVM: 0.3264549180327869
+Min DCF for Polynomial Kernel SVM: 0.3186475409836066
 
-C value : 100.0
+C value : 10.0
 c value : 0
 d value : 2.0
 Polynomial Kernel SVM results:
-Accuracy: 87.91%
-Error rate: 12.09%
-Min DCF for Polynomial Kernel SVM: 0.6516803278688525
+Accuracy: 87.96%
+Error rate: 12.04%
+Min DCF for Polynomial Kernel SVM: 0.6491803278688525
 
 c value : 1
 d value : 2.0
@@ -2439,3 +2426,716 @@ Polynomial Kernel SVM results:
 Accuracy: 95.35%
 Error rate: 4.65%
 Min DCF for Polynomial Kernel SVM: 0.3252049180327869
+
+C value : 100.0
+c value : 0
+d value : 2.0
+Polynomial Kernel SVM results:
+Accuracy: 87.96%
+Error rate: 12.04%
+Min DCF for Polynomial Kernel SVM: 0.6523155737704918
+
+c value : 1
+d value : 2.0
+Polynomial Kernel SVM results:
+Accuracy: 95.31%
+Error rate: 4.69%
+Min DCF for Polynomial Kernel SVM: 0.3308401639344262
+
+# SVM RADIAL BASIS FUNCTION (RBF) K,C,gamma TRAINING: (Prior = 0.5)
+
+## RAW (No PCA No Z_Norm)
+
+k value : 1.0
+C value : 1e-06
+gamma value : 0.049787068367863944
+RADIAL BASIS FUNCTION (RBF) Kernel SVM results:
+Accuracy: 65.59%
+Error rate: 34.41%
+Min DCF for RADIAL BASIS FUNCTION (RBF) Kernel SVM: 1.0
+
+gamma value : 0.018315638888734182
+RADIAL BASIS FUNCTION (RBF) Kernel SVM results:
+Accuracy: 65.59%
+Error rate: 34.41%
+Min DCF for RADIAL BASIS FUNCTION (RBF) Kernel SVM: 1.0
+
+gamma value : 0.006737946999085467
+RADIAL BASIS FUNCTION (RBF) Kernel SVM results:
+Accuracy: 65.59%
+Error rate: 34.41%
+Min DCF for RADIAL BASIS FUNCTION (RBF) Kernel SVM: 1.0
+
+C value : 1e-05
+gamma value : 0.049787068367863944
+RADIAL BASIS FUNCTION (RBF) Kernel SVM results:
+Accuracy: 65.59%
+Error rate: 34.41%
+Min DCF for RADIAL BASIS FUNCTION (RBF) Kernel SVM: 1.0
+
+gamma value : 0.018315638888734182
+RADIAL BASIS FUNCTION (RBF) Kernel SVM results:
+Accuracy: 65.59%
+Error rate: 34.41%
+Min DCF for RADIAL BASIS FUNCTION (RBF) Kernel SVM: 1.0
+
+gamma value : 0.006737946999085467
+RADIAL BASIS FUNCTION (RBF) Kernel SVM results:
+Accuracy: 65.59%
+Error rate: 34.41%
+Min DCF for RADIAL BASIS FUNCTION (RBF) Kernel SVM: 1.0
+
+C value : 0.0001
+gamma value : 0.049787068367863944
+RADIAL BASIS FUNCTION (RBF) Kernel SVM results:
+Accuracy: 65.59%
+Error rate: 34.41%
+Min DCF for RADIAL BASIS FUNCTION (RBF) Kernel SVM: 0.9159016393442623
+
+gamma value : 0.018315638888734182
+RADIAL BASIS FUNCTION (RBF) Kernel SVM results:
+Accuracy: 65.59%
+Error rate: 34.41%
+Min DCF for RADIAL BASIS FUNCTION (RBF) Kernel SVM: 0.8984016393442623
+
+gamma value : 0.006737946999085467
+RADIAL BASIS FUNCTION (RBF) Kernel SVM results:
+Accuracy: 65.59%
+Error rate: 34.41%
+Min DCF for RADIAL BASIS FUNCTION (RBF) Kernel SVM: 0.6430122950819672
+
+C value : 0.001
+gamma value : 0.049787068367863944
+RADIAL BASIS FUNCTION (RBF) Kernel SVM results:
+Accuracy: 65.59%
+Error rate: 34.41%
+Min DCF for RADIAL BASIS FUNCTION (RBF) Kernel SVM: 0.9159016393442623
+
+gamma value : 0.018315638888734182
+RADIAL BASIS FUNCTION (RBF) Kernel SVM results:
+Accuracy: 65.59%
+Error rate: 34.41%
+Min DCF for RADIAL BASIS FUNCTION (RBF) Kernel SVM: 0.8984016393442623
+
+gamma value : 0.006737946999085467
+RADIAL BASIS FUNCTION (RBF) Kernel SVM results:
+Accuracy: 65.59%
+Error rate: 34.41%
+Min DCF for RADIAL BASIS FUNCTION (RBF) Kernel SVM: 0.6430122950819672
+
+C value : 0.01
+gamma value : 0.049787068367863944
+RADIAL BASIS FUNCTION (RBF) Kernel SVM results:
+Accuracy: 65.59%
+Error rate: 34.41%
+Min DCF for RADIAL BASIS FUNCTION (RBF) Kernel SVM: 0.5279303278688525
+
+gamma value : 0.018315638888734182
+RADIAL BASIS FUNCTION (RBF) Kernel SVM results:
+Accuracy: 65.59%
+Error rate: 34.41%
+Min DCF for RADIAL BASIS FUNCTION (RBF) Kernel SVM: 0.46454918032786885
+
+gamma value : 0.006737946999085467
+RADIAL BASIS FUNCTION (RBF) Kernel SVM results:
+Accuracy: 71.48%
+Error rate: 28.52%
+Min DCF for RADIAL BASIS FUNCTION (RBF) Kernel SVM: 0.42793032786885243
+
+C value : 0.1
+gamma value : 0.049787068367863944
+RADIAL BASIS FUNCTION (RBF) Kernel SVM results:
+Accuracy: 65.59%
+Error rate: 34.41%
+Min DCF for RADIAL BASIS FUNCTION (RBF) Kernel SVM: 0.5451024590163934
+
+gamma value : 0.018315638888734182
+RADIAL BASIS FUNCTION (RBF) Kernel SVM results:
+Accuracy: 76.6%
+Error rate: 23.4%
+Min DCF for RADIAL BASIS FUNCTION (RBF) Kernel SVM: 0.4564344262295082
+
+gamma value : 0.006737946999085467
+RADIAL BASIS FUNCTION (RBF) Kernel SVM results:
+Accuracy: 94.02%
+Error rate: 5.98%
+Min DCF for RADIAL BASIS FUNCTION (RBF) Kernel SVM: 0.3585860655737705
+
+C value : 1.0
+gamma value : 0.049787068367863944
+RADIAL BASIS FUNCTION (RBF) Kernel SVM results:
+Accuracy: 71.48%
+Error rate: 28.52%
+Min DCF for RADIAL BASIS FUNCTION (RBF) Kernel SVM: 0.5513524590163934
+
+gamma value : 0.018315638888734182
+RADIAL BASIS FUNCTION (RBF) Kernel SVM results:
+Accuracy: 91.83%
+Error rate: 8.17%
+Min DCF for RADIAL BASIS FUNCTION (RBF) Kernel SVM: 0.43983606557377053
+
+gamma value : 0.006737946999085467
+RADIAL BASIS FUNCTION (RBF) Kernel SVM results:
+Accuracy: 94.71%
+Error rate: 5.29%
+Min DCF for RADIAL BASIS FUNCTION (RBF) Kernel SVM: 0.3267418032786885
+
+C value : 10.0
+gamma value : 0.049787068367863944
+RADIAL BASIS FUNCTION (RBF) Kernel SVM results:
+Accuracy: 74.37%
+Error rate: 25.63%
+Min DCF for RADIAL BASIS FUNCTION (RBF) Kernel SVM: 0.5563729508196721
+
+gamma value : 0.018315638888734182
+RADIAL BASIS FUNCTION (RBF) Kernel SVM results:
+Accuracy: 91.91%
+Error rate: 8.09%
+Min DCF for RADIAL BASIS FUNCTION (RBF) Kernel SVM: 0.4401229508196721
+
+gamma value : 0.006737946999085467
+RADIAL BASIS FUNCTION (RBF) Kernel SVM results:
+Accuracy: 94.19%
+Error rate: 5.81%
+Min DCF for RADIAL BASIS FUNCTION (RBF) Kernel SVM: 0.39454918032786884
+
+C value : 100.0
+gamma value : 0.049787068367863944
+RADIAL BASIS FUNCTION (RBF) Kernel SVM results:
+Accuracy: 74.37%
+Error rate: 25.63%
+Min DCF for RADIAL BASIS FUNCTION (RBF) Kernel SVM: 0.5563729508196721
+
+gamma value : 0.018315638888734182
+RADIAL BASIS FUNCTION (RBF) Kernel SVM results:
+Accuracy: 91.91%
+Error rate: 8.09%
+Min DCF for RADIAL BASIS FUNCTION (RBF) Kernel SVM: 0.4401229508196721
+
+gamma value : 0.006737946999085467
+RADIAL BASIS FUNCTION (RBF) Kernel SVM results:
+Accuracy: 93.33%
+Error rate: 6.67%
+Min DCF for RADIAL BASIS FUNCTION (RBF) Kernel SVM: 0.42981557377049184
+
+## Z_Norm
+
+k value : 1.0
+C value : 1e-06
+gamma value : 0.049787068367863944
+RADIAL BASIS FUNCTION (RBF) Kernel SVM results:
+Accuracy: 65.59%
+Error rate: 34.41%
+Min DCF for RADIAL BASIS FUNCTION (RBF) Kernel SVM: 1.0
+
+gamma value : 0.018315638888734182
+RADIAL BASIS FUNCTION (RBF) Kernel SVM results:
+Accuracy: 65.59%
+Error rate: 34.41%
+Min DCF for RADIAL BASIS FUNCTION (RBF) Kernel SVM: 1.0
+
+gamma value : 0.006737946999085467
+RADIAL BASIS FUNCTION (RBF) Kernel SVM results:
+Accuracy: 65.59%
+Error rate: 34.41%
+Min DCF for RADIAL BASIS FUNCTION (RBF) Kernel SVM: 1.0
+
+C value : 1e-05
+gamma value : 0.049787068367863944
+RADIAL BASIS FUNCTION (RBF) Kernel SVM results:
+Accuracy: 65.59%
+Error rate: 34.41%
+Min DCF for RADIAL BASIS FUNCTION (RBF) Kernel SVM: 1.0
+
+gamma value : 0.018315638888734182
+RADIAL BASIS FUNCTION (RBF) Kernel SVM results:
+Accuracy: 65.59%
+Error rate: 34.41%
+Min DCF for RADIAL BASIS FUNCTION (RBF) Kernel SVM: 1.0
+
+gamma value : 0.006737946999085467
+RADIAL BASIS FUNCTION (RBF) Kernel SVM results:
+Accuracy: 65.59%
+Error rate: 34.41%
+Min DCF for RADIAL BASIS FUNCTION (RBF) Kernel SVM: 1.0
+
+C value : 0.0001
+gamma value : 0.049787068367863944
+RADIAL BASIS FUNCTION (RBF) Kernel SVM results:
+Accuracy: 65.59%
+Error rate: 34.41%
+Min DCF for RADIAL BASIS FUNCTION (RBF) Kernel SVM: 0.7667827868852459
+
+gamma value : 0.018315638888734182
+RADIAL BASIS FUNCTION (RBF) Kernel SVM results:
+Accuracy: 65.59%
+Error rate: 34.41%
+Min DCF for RADIAL BASIS FUNCTION (RBF) Kernel SVM: 0.9631147540983606
+
+gamma value : 0.006737946999085467
+RADIAL BASIS FUNCTION (RBF) Kernel SVM results:
+Accuracy: 65.59%
+Error rate: 34.41%
+Min DCF for RADIAL BASIS FUNCTION (RBF) Kernel SVM: 0.98375
+
+C value : 0.001
+gamma value : 0.049787068367863944
+RADIAL BASIS FUNCTION (RBF) Kernel SVM results:
+Accuracy: 65.59%
+Error rate: 34.41%
+Min DCF for RADIAL BASIS FUNCTION (RBF) Kernel SVM: 0.7667827868852459
+
+gamma value : 0.018315638888734182
+RADIAL BASIS FUNCTION (RBF) Kernel SVM results:
+Accuracy: 65.59%
+Error rate: 34.41%
+Min DCF for RADIAL BASIS FUNCTION (RBF) Kernel SVM: 0.9202459016393443
+
+gamma value : 0.006737946999085467
+RADIAL BASIS FUNCTION (RBF) Kernel SVM results:
+Accuracy: 65.59%
+Error rate: 34.41%
+Min DCF for RADIAL BASIS FUNCTION (RBF) Kernel SVM: 0.9652459016393443
+
+C value : 0.01
+gamma value : 0.049787068367863944
+RADIAL BASIS FUNCTION (RBF) Kernel SVM results:
+Accuracy: 88.77%
+Error rate: 11.23%
+Min DCF for RADIAL BASIS FUNCTION (RBF) Kernel SVM: 0.39737704918032785
+
+gamma value : 0.018315638888734182
+RADIAL BASIS FUNCTION (RBF) Kernel SVM results:
+Accuracy: 66.54%
+Error rate: 33.46%
+Min DCF for RADIAL BASIS FUNCTION (RBF) Kernel SVM: 0.47993852459016395
+
+gamma value : 0.006737946999085467
+RADIAL BASIS FUNCTION (RBF) Kernel SVM results:
+Accuracy: 65.59%
+Error rate: 34.41%
+Min DCF for RADIAL BASIS FUNCTION (RBF) Kernel SVM: 0.5417008196721311
+
+C value : 0.1
+gamma value : 0.049787068367863944
+RADIAL BASIS FUNCTION (RBF) Kernel SVM results:
+Accuracy: 94.54%
+Error rate: 5.46%
+Min DCF for RADIAL BASIS FUNCTION (RBF) Kernel SVM: 0.34422131147540985
+
+gamma value : 0.018315638888734182
+RADIAL BASIS FUNCTION (RBF) Kernel SVM results:
+Accuracy: 93.72%
+Error rate: 6.28%
+Min DCF for RADIAL BASIS FUNCTION (RBF) Kernel SVM: 0.3989139344262295
+
+gamma value : 0.006737946999085467
+RADIAL BASIS FUNCTION (RBF) Kernel SVM results:
+Accuracy: 91.57%
+Error rate: 8.43%
+Min DCF for RADIAL BASIS FUNCTION (RBF) Kernel SVM: 0.46709016393442626
+
+C value : 1.0
+gamma value : 0.049787068367863944
+RADIAL BASIS FUNCTION (RBF) Kernel SVM results:
+Accuracy: 95.1%
+Error rate: 4.9%
+Min DCF for RADIAL BASIS FUNCTION (RBF) Kernel SVM: 0.31895491803278686
+
+gamma value : 0.018315638888734182
+RADIAL BASIS FUNCTION (RBF) Kernel SVM results:
+Accuracy: 94.32%
+Error rate: 5.68%
+Min DCF for RADIAL BASIS FUNCTION (RBF) Kernel SVM: 0.3255122950819672
+
+gamma value : 0.006737946999085467
+RADIAL BASIS FUNCTION (RBF) Kernel SVM results:
+Accuracy: 92.95%
+Error rate: 7.05%
+Min DCF for RADIAL BASIS FUNCTION (RBF) Kernel SVM: 0.42834016393442625
+
+C value : 10.0
+gamma value : 0.049787068367863944
+RADIAL BASIS FUNCTION (RBF) Kernel SVM results:
+Accuracy: 94.84%
+Error rate: 5.16%
+Min DCF for RADIAL BASIS FUNCTION (RBF) Kernel SVM: 0.31956967213114756
+
+gamma value : 0.018315638888734182
+RADIAL BASIS FUNCTION (RBF) Kernel SVM results:
+Accuracy: 95.18%
+Error rate: 4.82%
+Min DCF for RADIAL BASIS FUNCTION (RBF) Kernel SVM: 0.30959016393442623
+
+gamma value : 0.006737946999085467
+RADIAL BASIS FUNCTION (RBF) Kernel SVM results:
+Accuracy: 94.32%
+Error rate: 5.68%
+Min DCF for RADIAL BASIS FUNCTION (RBF) Kernel SVM: 0.33954918032786885
+
+C value : 100.0
+gamma value : 0.049787068367863944
+RADIAL BASIS FUNCTION (RBF) Kernel SVM results:
+Accuracy: 94.58%
+Error rate: 5.42%
+Min DCF for RADIAL BASIS FUNCTION (RBF) Kernel SVM: 0.35797131147540984
+
+gamma value : 0.018315638888734182
+RADIAL BASIS FUNCTION (RBF) Kernel SVM results:
+Accuracy: 94.8%
+Error rate: 5.2%
+Min DCF for RADIAL BASIS FUNCTION (RBF) Kernel SVM: 0.31209016393442623
+
+gamma value : 0.006737946999085467
+RADIAL BASIS FUNCTION (RBF) Kernel SVM results:
+Accuracy: 95.23%
+Error rate: 4.77%
+Min DCF for RADIAL BASIS FUNCTION (RBF) Kernel SVM: 0.3105327868852459
+
+## RAW + PCA with M = 8
+
+k value : 1.0
+C value : 1e-06
+gamma value : 0.049787068367863944
+RADIAL BASIS FUNCTION (RBF) Kernel SVM results:
+Accuracy: 65.59%
+Error rate: 34.41%
+Min DCF for RADIAL BASIS FUNCTION (RBF) Kernel SVM: 1.0
+
+gamma value : 0.018315638888734182
+RADIAL BASIS FUNCTION (RBF) Kernel SVM results:
+Accuracy: 65.59%
+Error rate: 34.41%
+Min DCF for RADIAL BASIS FUNCTION (RBF) Kernel SVM: 1.0
+
+gamma value : 0.006737946999085467
+RADIAL BASIS FUNCTION (RBF) Kernel SVM results:
+Accuracy: 65.59%
+Error rate: 34.41%
+Min DCF for RADIAL BASIS FUNCTION (RBF) Kernel SVM: 1.0
+
+C value : 1e-05
+gamma value : 0.049787068367863944
+RADIAL BASIS FUNCTION (RBF) Kernel SVM results:
+Accuracy: 65.59%
+Error rate: 34.41%
+Min DCF for RADIAL BASIS FUNCTION (RBF) Kernel SVM: 1.0
+
+gamma value : 0.018315638888734182
+RADIAL BASIS FUNCTION (RBF) Kernel SVM results:
+Accuracy: 65.59%
+Error rate: 34.41%
+Min DCF for RADIAL BASIS FUNCTION (RBF) Kernel SVM: 1.0
+
+gamma value : 0.006737946999085467
+RADIAL BASIS FUNCTION (RBF) Kernel SVM results:
+Accuracy: 65.59%
+Error rate: 34.41%
+Min DCF for RADIAL BASIS FUNCTION (RBF) Kernel SVM: 1.0
+
+C value : 0.0001
+gamma value : 0.049787068367863944
+RADIAL BASIS FUNCTION (RBF) Kernel SVM results:
+Accuracy: 65.59%
+Error rate: 34.41%
+Min DCF for RADIAL BASIS FUNCTION (RBF) Kernel SVM: 0.9015368852459017
+
+gamma value : 0.018315638888734182
+RADIAL BASIS FUNCTION (RBF) Kernel SVM results:
+Accuracy: 65.59%
+Error rate: 34.41%
+Min DCF for RADIAL BASIS FUNCTION (RBF) Kernel SVM: 0.8859016393442622
+
+gamma value : 0.006737946999085467
+RADIAL BASIS FUNCTION (RBF) Kernel SVM results:
+Accuracy: 65.59%
+Error rate: 34.41%
+Min DCF for RADIAL BASIS FUNCTION (RBF) Kernel SVM: 0.5095491803278689
+
+C value : 0.001
+gamma value : 0.049787068367863944
+RADIAL BASIS FUNCTION (RBF) Kernel SVM results:
+Accuracy: 65.59%
+Error rate: 34.41%
+Min DCF for RADIAL BASIS FUNCTION (RBF) Kernel SVM: 0.9015368852459017
+
+gamma value : 0.018315638888734182
+RADIAL BASIS FUNCTION (RBF) Kernel SVM results:
+Accuracy: 65.59%
+Error rate: 34.41%
+Min DCF for RADIAL BASIS FUNCTION (RBF) Kernel SVM: 0.8859016393442622
+
+gamma value : 0.006737946999085467
+RADIAL BASIS FUNCTION (RBF) Kernel SVM results:
+Accuracy: 65.59%
+Error rate: 34.41%
+Min DCF for RADIAL BASIS FUNCTION (RBF) Kernel SVM: 0.5095491803278689
+
+C value : 0.01
+gamma value : 0.049787068367863944
+RADIAL BASIS FUNCTION (RBF) Kernel SVM results:
+Accuracy: 65.59%
+Error rate: 34.41%
+Min DCF for RADIAL BASIS FUNCTION (RBF) Kernel SVM: 0.4770491803278688
+
+gamma value : 0.018315638888734182
+RADIAL BASIS FUNCTION (RBF) Kernel SVM results:
+Accuracy: 65.59%
+Error rate: 34.41%
+Min DCF for RADIAL BASIS FUNCTION (RBF) Kernel SVM: 0.4401434426229508
+
+gamma value : 0.006737946999085467
+RADIAL BASIS FUNCTION (RBF) Kernel SVM results:
+Accuracy: 83.7%
+Error rate: 16.3%
+Min DCF for RADIAL BASIS FUNCTION (RBF) Kernel SVM: 0.40827868852459015
+
+C value : 0.1
+gamma value : 0.049787068367863944
+RADIAL BASIS FUNCTION (RBF) Kernel SVM results:
+Accuracy: 65.59%
+Error rate: 34.41%
+Min DCF for RADIAL BASIS FUNCTION (RBF) Kernel SVM: 0.4917213114754099
+
+gamma value : 0.018315638888734182
+RADIAL BASIS FUNCTION (RBF) Kernel SVM results:
+Accuracy: 86.37%
+Error rate: 13.63%
+Min DCF for RADIAL BASIS FUNCTION (RBF) Kernel SVM: 0.41077868852459015
+
+gamma value : 0.006737946999085467
+RADIAL BASIS FUNCTION (RBF) Kernel SVM results:
+Accuracy: 94.58%
+Error rate: 5.42%
+Min DCF for RADIAL BASIS FUNCTION (RBF) Kernel SVM: 0.32612704918032787
+
+C value : 1.0
+gamma value : 0.049787068367863944
+RADIAL BASIS FUNCTION (RBF) Kernel SVM results:
+Accuracy: 83.78%
+Error rate: 16.22%
+Min DCF for RADIAL BASIS FUNCTION (RBF) Kernel SVM: 0.49641393442622955
+
+gamma value : 0.018315638888734182
+RADIAL BASIS FUNCTION (RBF) Kernel SVM results:
+Accuracy: 93.72%
+Error rate: 6.28%
+Min DCF for RADIAL BASIS FUNCTION (RBF) Kernel SVM: 0.3976639344262295
+
+gamma value : 0.006737946999085467
+RADIAL BASIS FUNCTION (RBF) Kernel SVM results:
+Accuracy: 95.23%
+Error rate: 4.77%
+Min DCF for RADIAL BASIS FUNCTION (RBF) Kernel SVM: 0.31579918032786886
+
+C value : 10.0
+gamma value : 0.049787068367863944
+RADIAL BASIS FUNCTION (RBF) Kernel SVM results:
+Accuracy: 85.08%
+Error rate: 14.92%
+Min DCF for RADIAL BASIS FUNCTION (RBF) Kernel SVM: 0.49456967213114755
+
+gamma value : 0.018315638888734182
+RADIAL BASIS FUNCTION (RBF) Kernel SVM results:
+Accuracy: 93.29%
+Error rate: 6.71%
+Min DCF for RADIAL BASIS FUNCTION (RBF) Kernel SVM: 0.4049180327868852
+
+gamma value : 0.006737946999085467
+RADIAL BASIS FUNCTION (RBF) Kernel SVM results:
+Accuracy: 93.94%
+Error rate: 6.06%
+Min DCF for RADIAL BASIS FUNCTION (RBF) Kernel SVM: 0.3720491803278688
+
+C value : 100.0
+gamma value : 0.049787068367863944
+RADIAL BASIS FUNCTION (RBF) Kernel SVM results:
+Accuracy: 85.08%
+Error rate: 14.92%
+Min DCF for RADIAL BASIS FUNCTION (RBF) Kernel SVM: 0.49456967213114755
+
+gamma value : 0.018315638888734182
+RADIAL BASIS FUNCTION (RBF) Kernel SVM results:
+Accuracy: 93.08%
+Error rate: 6.92%
+Min DCF for RADIAL BASIS FUNCTION (RBF) Kernel SVM: 0.4192827868852459
+
+gamma value : 0.006737946999085467
+RADIAL BASIS FUNCTION (RBF) Kernel SVM results:
+Accuracy: 93.16%
+Error rate: 6.84%
+Min DCF for RADIAL BASIS FUNCTION (RBF) Kernel SVM: 0.43983606557377053
+
+## Z_Norm + PCA with M = 8
+
+k value : 1.0
+C value : 1e-06
+gamma value : 0.049787068367863944
+RADIAL BASIS FUNCTION (RBF) Kernel SVM results:
+Accuracy: 65.59%
+Error rate: 34.41%
+Min DCF for RADIAL BASIS FUNCTION (RBF) Kernel SVM: 1.0
+
+gamma value : 0.018315638888734182
+RADIAL BASIS FUNCTION (RBF) Kernel SVM results:
+Accuracy: 65.59%
+Error rate: 34.41%
+Min DCF for RADIAL BASIS FUNCTION (RBF) Kernel SVM: 1.0
+
+gamma value : 0.006737946999085467
+RADIAL BASIS FUNCTION (RBF) Kernel SVM results:
+Accuracy: 65.59%
+Error rate: 34.41%
+Min DCF for RADIAL BASIS FUNCTION (RBF) Kernel SVM: 1.0
+
+C value : 1e-05
+gamma value : 0.049787068367863944
+RADIAL BASIS FUNCTION (RBF) Kernel SVM results:
+Accuracy: 65.59%
+Error rate: 34.41%
+Min DCF for RADIAL BASIS FUNCTION (RBF) Kernel SVM: 1.0
+
+gamma value : 0.018315638888734182
+RADIAL BASIS FUNCTION (RBF) Kernel SVM results:
+Accuracy: 65.59%
+Error rate: 34.41%
+Min DCF for RADIAL BASIS FUNCTION (RBF) Kernel SVM: 1.0
+
+gamma value : 0.006737946999085467
+RADIAL BASIS FUNCTION (RBF) Kernel SVM results:
+Accuracy: 65.59%
+Error rate: 34.41%
+Min DCF for RADIAL BASIS FUNCTION (RBF) Kernel SVM: 1.0
+
+C value : 0.0001
+gamma value : 0.049787068367863944
+RADIAL BASIS FUNCTION (RBF) Kernel SVM results:
+Accuracy: 65.59%
+Error rate: 34.41%
+Min DCF for RADIAL BASIS FUNCTION (RBF) Kernel SVM: 0.7542827868852459
+
+gamma value : 0.018315638888734182
+RADIAL BASIS FUNCTION (RBF) Kernel SVM results:
+Accuracy: 65.59%
+Error rate: 34.41%
+Min DCF for RADIAL BASIS FUNCTION (RBF) Kernel SVM: 0.96
+
+gamma value : 0.006737946999085467
+RADIAL BASIS FUNCTION (RBF) Kernel SVM results:
+Accuracy: 65.59%
+Error rate: 34.41%
+Min DCF for RADIAL BASIS FUNCTION (RBF) Kernel SVM: 0.9806147540983606
+
+C value : 0.001
+gamma value : 0.049787068367863944
+RADIAL BASIS FUNCTION (RBF) Kernel SVM results:
+Accuracy: 65.59%
+Error rate: 34.41%
+Min DCF for RADIAL BASIS FUNCTION (RBF) Kernel SVM: 0.7542827868852459
+
+gamma value : 0.018315638888734182
+RADIAL BASIS FUNCTION (RBF) Kernel SVM results:
+Accuracy: 65.59%
+Error rate: 34.41%
+Min DCF for RADIAL BASIS FUNCTION (RBF) Kernel SVM: 0.9030532786885246
+
+gamma value : 0.006737946999085467
+RADIAL BASIS FUNCTION (RBF) Kernel SVM results:
+Accuracy: 65.59%
+Error rate: 34.41%
+Min DCF for RADIAL BASIS FUNCTION (RBF) Kernel SVM: 0.951188524590164
+
+C value : 0.01
+gamma value : 0.049787068367863944
+RADIAL BASIS FUNCTION (RBF) Kernel SVM results:
+Accuracy: 90.54%
+Error rate: 9.46%
+Min DCF for RADIAL BASIS FUNCTION (RBF) Kernel SVM: 0.39827868852459014
+
+gamma value : 0.018315638888734182
+RADIAL BASIS FUNCTION (RBF) Kernel SVM results:
+Accuracy: 66.84%
+Error rate: 33.16%
+Min DCF for RADIAL BASIS FUNCTION (RBF) Kernel SVM: 0.48149590163934425
+
+gamma value : 0.006737946999085467
+RADIAL BASIS FUNCTION (RBF) Kernel SVM results:
+Accuracy: 65.59%
+Error rate: 34.41%
+Min DCF for RADIAL BASIS FUNCTION (RBF) Kernel SVM: 0.5542008196721311
+
+C value : 0.1
+gamma value : 0.049787068367863944
+RADIAL BASIS FUNCTION (RBF) Kernel SVM results:
+Accuracy: 94.92%
+Error rate: 5.08%
+Min DCF for RADIAL BASIS FUNCTION (RBF) Kernel SVM: 0.34331967213114756
+
+gamma value : 0.018315638888734182
+RADIAL BASIS FUNCTION (RBF) Kernel SVM results:
+Accuracy: 93.63%
+Error rate: 6.37%
+Min DCF for RADIAL BASIS FUNCTION (RBF) Kernel SVM: 0.39170081967213116
+
+gamma value : 0.006737946999085467
+RADIAL BASIS FUNCTION (RBF) Kernel SVM results:
+Accuracy: 91.57%
+Error rate: 8.43%
+Min DCF for RADIAL BASIS FUNCTION (RBF) Kernel SVM: 0.46993852459016394
+
+C value : 1.0
+gamma value : 0.049787068367863944
+RADIAL BASIS FUNCTION (RBF) Kernel SVM results:
+Accuracy: 95.05%
+Error rate: 4.95%
+Min DCF for RADIAL BASIS FUNCTION (RBF) Kernel SVM: 0.3196106557377049
+
+gamma value : 0.018315638888734182
+RADIAL BASIS FUNCTION (RBF) Kernel SVM results:
+Accuracy: 94.37%
+Error rate: 5.63%
+Min DCF for RADIAL BASIS FUNCTION (RBF) Kernel SVM: 0.33331967213114755
+
+gamma value : 0.006737946999085467
+RADIAL BASIS FUNCTION (RBF) Kernel SVM results:
+Accuracy: 93.33%
+Error rate: 6.67%
+Min DCF for RADIAL BASIS FUNCTION (RBF) Kernel SVM: 0.4251639344262295
+
+C value : 10.0
+gamma value : 0.049787068367863944
+RADIAL BASIS FUNCTION (RBF) Kernel SVM results:
+Accuracy: 95.01%
+Error rate: 4.99%
+Min DCF for RADIAL BASIS FUNCTION (RBF) Kernel SVM: 0.31084016393442626
+
+gamma value : 0.018315638888734182
+RADIAL BASIS FUNCTION (RBF) Kernel SVM results:
+Accuracy: 95.23%
+Error rate: 4.77%
+Min DCF for RADIAL BASIS FUNCTION (RBF) Kernel SVM: 0.30709016393442623
+
+gamma value : 0.006737946999085467
+RADIAL BASIS FUNCTION (RBF) Kernel SVM results:
+Accuracy: 94.49%
+Error rate: 5.51%
+Min DCF for RADIAL BASIS FUNCTION (RBF) Kernel SVM: 0.32581967213114754
+
+C value : 100.0
+gamma value : 0.049787068367863944
+RADIAL BASIS FUNCTION (RBF) Kernel SVM results:
+Accuracy: 94.24%
+Error rate: 5.76%
+Min DCF for RADIAL BASIS FUNCTION (RBF) Kernel SVM: 0.35079918032786883
+
+gamma value : 0.018315638888734182
+RADIAL BASIS FUNCTION (RBF) Kernel SVM results:
+Accuracy: 95.01%
+Error rate: 4.99%
+Min DCF for RADIAL BASIS FUNCTION (RBF) Kernel SVM: 0.31395491803278686
+
+gamma value : 0.006737946999085467
+RADIAL BASIS FUNCTION (RBF) Kernel SVM results:
+Accuracy: 95.44%
+Error rate: 4.56%
+Min DCF for RADIAL BASIS FUNCTION (RBF) Kernel SVM: 0.30301229508196725
