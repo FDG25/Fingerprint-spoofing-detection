@@ -119,13 +119,13 @@ def trainLR(DTR_RAND,LTR_RAND,Load_Data=False):
         labels = ['minDCF no PCA no Znorm','minDCF no PCA Znorm','minDCF PCA=' + str(m) + ' no Znorm','minDCF PCA=' + str(m) + ' Znorm']
         colors = ['b','r','g','y']
         # array of lambda values (for linear) and corresponding mindcfs
-        plot.plotDCF([lambda_values,lambda_values,lambda_values,lambda_values],[raw_linear,zNorm_linear,rawPca_linear,zNormPca_linear],labels,colors,xlabel='lambda',title='Linear Logistic Regression with $\pi=' + str(prior) + '$')
+        plot.plotDCF([lambda_values,lambda_values,lambda_values,lambda_values],[raw_linear,zNorm_linear,rawPca_linear,zNormPca_linear],labels,colors,xlabel='lambda',title='Linear Logistic Regression')
 
         # ------ PLOT LR_QUADRATIC ------
         labels = ['minDCF no PCA no Znorm','minDCF no PCA Znorm','minDCF PCA=' + str(m) + ' no Znorm','minDCF PCA=' + str(m) + ' Znorm']
         colors = ['b','r','g','y']
         # array of lambda values (for linear) and corresponding mindcfs
-        plot.plotDCF([lambda_values,lambda_values,lambda_values,lambda_values],[raw_quadratic,zNorm_quadratic,rawPca_quadratic,zNormPca_quadratic],labels,colors,'lambda',title='Quadratic Logistic Regression with $\pi=' + str(prior) + '$')
+        plot.plotDCF([lambda_values,lambda_values,lambda_values,lambda_values],[raw_quadratic,zNorm_quadratic,rawPca_quadratic,zNormPca_quadratic],labels,colors,'lambda',title='Quadratic Logistic Regression')
 
     m = 8
     # linear
@@ -217,7 +217,7 @@ def trainLinearSVM(DTR_RAND,LTR_RAND,Load_Data=False):
         labels = ['minDCF K = 1 no PCA no Znorm','minDCF K = 1 no PCA Znorm','minDCF K = 1 PCA=' + str(m) + ' no Znorm','minDCF K = 1 PCA=' + str(m) + ' Znorm']
         colors = ['b','r','g','y']
         #base colors: r, g, b, m, y, c, k, w
-        plot.plotDCF([C_values_raw_linear_k_1,C_values_zNorm_linear_k_1,C_values_pca_linear_k_1,C_values_zNormPca_linear_k_1],[minDcfs_raw_linear_k_1,minDcfs_zNorm_linear_k_1,minDcfs_pca_linear_k_1,minDcfs_zNormPca_linear_k_1],labels,colors,xlabel='C',title='Linear SVM with $\pi=' + str(prior) + '$')
+        plot.plotDCF([C_values_raw_linear_k_1,C_values_zNorm_linear_k_1,C_values_pca_linear_k_1,C_values_zNormPca_linear_k_1],[minDcfs_raw_linear_k_1,minDcfs_zNorm_linear_k_1,minDcfs_pca_linear_k_1,minDcfs_zNormPca_linear_k_1],labels,colors,xlabel='C',title='Linear SVM')
 
         # ----  SINGLE PLOT FOR prior, K = 10  -----
         raw_linear_k_10 = list(filter(lambda PlotElement: PlotElement.is_k(10), raw_linear))
@@ -239,7 +239,7 @@ def trainLinearSVM(DTR_RAND,LTR_RAND,Load_Data=False):
         labels = ['minDCF K = 10 no PCA no Znorm','minDCF K = 10 no PCA Znorm','minDCF K = 10 PCA=' + str(m) + ' no Znorm','minDCF K = 10 PCA=' + str(m) + ' Znorm']
         colors = ['b','r','g','y']
         #base colors: r, g, b, m, y, c, k, w
-        plot.plotDCF([C_values_raw_linear_k_10,C_values_zNorm_linear_k_10,C_values_pca_linear_k_10,C_values_zNormPca_linear_k_10],[minDcfs_raw_linear_k_10,minDcfs_zNorm_linear_k_10,minDcfs_pca_linear_k_10,minDcfs_zNormPca_linear_k_10],labels,colors,xlabel='C',title='Linear SVM with $\pi=' + str(prior) + '$')
+        plot.plotDCF([C_values_raw_linear_k_10,C_values_zNorm_linear_k_10,C_values_pca_linear_k_10,C_values_zNormPca_linear_k_10],[minDcfs_raw_linear_k_10,minDcfs_zNorm_linear_k_10,minDcfs_pca_linear_k_10,minDcfs_zNormPca_linear_k_10],labels,colors,xlabel='C',title='Linear SVM')
 
 
 def trainPolynomialSVM(DTR_RAND,LTR_RAND,Load_Data=False):
@@ -310,7 +310,7 @@ def trainPolynomialSVM(DTR_RAND,LTR_RAND,Load_Data=False):
         labels = ['minDCF c = 0 no PCA no Znorm','minDCF c = 0 no PCA Znorm','minDCF c = 0 PCA=' + str(m) + ' no Znorm','minDCF c = 0 PCA=' + str(m) + ' Znorm']
         colors = ['b','r','g','y']
         #base colors: r, g, b, m, y, c, k, w
-        plot.plotDCF([C_values_raw_polynomial_c0,C_values_zNorm_polynomial_c0,C_values_pca_polynomial_c0,C_values_zNormPca_polynomial_c0],[minDcfs_raw_polynomial_c0,minDcfs_zNorm_polynomial_c0,minDcfs_pca_polynomial_c0,minDcfs_zNormPca_polynomial_c0],labels,colors,xlabel='C',title='Polynomial SVM with $\pi=' + str(prior) + '$')
+        plot.plotDCF([C_values_raw_polynomial_c0,C_values_zNorm_polynomial_c0,C_values_pca_polynomial_c0,C_values_zNormPca_polynomial_c0],[minDcfs_raw_polynomial_c0,minDcfs_zNorm_polynomial_c0,minDcfs_pca_polynomial_c0,minDcfs_zNormPca_polynomial_c0],labels,colors,xlabel='C',title='Polynomial SVM')
 
 
         # ----- PLOT FOR c = 1 ------
@@ -333,7 +333,7 @@ def trainPolynomialSVM(DTR_RAND,LTR_RAND,Load_Data=False):
         labels = ['minDCF c = 1 no PCA no Znorm','minDCF c = 1 no PCA Znorm','minDCF c = 1 PCA=' + str(m) + ' no Znorm','minDCF c = 1 PCA=' + str(m) + ' Znorm']
         colors = ['b','r','g','y']
         #base colors: r, g, b, m, y, c, k, w
-        plot.plotDCF([C_values_raw_polynomial_c1,C_values_zNorm_polynomial_c1,C_values_pca_polynomial_c1,C_values_zNormPca_polynomial_c1],[minDcfs_raw_polynomial_c1,minDcfs_zNorm_polynomial_c1,minDcfs_pca_polynomial_c1,minDcfs_zNormPca_polynomial_c1],labels,colors,xlabel='C',title='Polynomial SVM with $\pi=' + str(prior) + '$')
+        plot.plotDCF([C_values_raw_polynomial_c1,C_values_zNorm_polynomial_c1,C_values_pca_polynomial_c1,C_values_zNormPca_polynomial_c1],[minDcfs_raw_polynomial_c1,minDcfs_zNorm_polynomial_c1,minDcfs_pca_polynomial_c1,minDcfs_zNormPca_polynomial_c1],labels,colors,xlabel='C',title='Polynomial SVM')
 
 def trainRadialBasisFunctionSVM(DTR_RAND,LTR_RAND,Load_Data=False):
     print("SVM RADIAL BASIS FUNCTION (RBF) K,C,gamma TRAINING:")
@@ -403,7 +403,7 @@ def trainRadialBasisFunctionSVM(DTR_RAND,LTR_RAND,Load_Data=False):
         labels = ['minDCF log(γ) = -3 no PCA no Znorm','minDCF log(γ) = -3 no PCA Znorm','minDCF log(γ) = -3 PCA=' + str(m) + ' no Znorm','minDCF log(γ) = -3 PCA=' + str(m) + ' Znorm']
         colors = ['b','g','y','c','r']
         #base colors: r, g, b, m, y, c, k, w
-        plot.plotDCF([C_values_raw_gamma_1e3,C_values_zNorm_gamma_1e3,C_values_pca_gamma_1e3,C_values_zNormPca_gamma_1e3],[minDcfs_raw_gamma_1e3,minDcfs_zNorm_gamma_1e3,minDcfs_pca_gamma_1e3,minDcfs_zNormPca_gamma_1e3],labels,colors,xlabel='C',title='RBF SVM with $\pi=' + str(prior) + '$')
+        plot.plotDCF([C_values_raw_gamma_1e3,C_values_zNorm_gamma_1e3,C_values_pca_gamma_1e3,C_values_zNormPca_gamma_1e3],[minDcfs_raw_gamma_1e3,minDcfs_zNorm_gamma_1e3,minDcfs_pca_gamma_1e3,minDcfs_zNormPca_gamma_1e3],labels,colors,xlabel='C',title='Radial Basis Function SVM')
 
 
         # ---- PLOT FOR log(gamma) = -4 -----
@@ -426,7 +426,7 @@ def trainRadialBasisFunctionSVM(DTR_RAND,LTR_RAND,Load_Data=False):
         labels = ['minDCF log(γ) = -4 no PCA no Znorm','minDCF log(γ) = -4 no PCA Znorm','minDCF log(γ) = -4 PCA=' + str(m) + ' no Znorm','minDCF log(γ) = -4 PCA=' + str(m) + ' Znorm']
         colors = ['b','g','y','c','r']
         #base colors: r, g, b, m, y, c, k, w
-        plot.plotDCF([C_values_raw_gamma_1e4,C_values_zNorm_gamma_1e4,C_values_pca_gamma_1e4,C_values_zNormPca_gamma_1e4],[minDcfs_raw_gamma_1e4,minDcfs_zNorm_gamma_1e4,minDcfs_pca_gamma_1e4,minDcfs_zNormPca_gamma_1e4],labels,colors,xlabel='C',title='RBF SVM with $\pi=' + str(prior) + '$')
+        plot.plotDCF([C_values_raw_gamma_1e4,C_values_zNorm_gamma_1e4,C_values_pca_gamma_1e4,C_values_zNormPca_gamma_1e4],[minDcfs_raw_gamma_1e4,minDcfs_zNorm_gamma_1e4,minDcfs_pca_gamma_1e4,minDcfs_zNormPca_gamma_1e4],labels,colors,xlabel='C',title='Radial Basis Function SVM')
 
 
         # ---- PLOT FOR log(gamma) = -5 -----
@@ -449,7 +449,7 @@ def trainRadialBasisFunctionSVM(DTR_RAND,LTR_RAND,Load_Data=False):
         labels = ['minDCF log(γ) = -5 no PCA no Znorm','minDCF log(γ) = -5 no PCA Znorm','minDCF log(γ) = -5 PCA=' + str(m) + ' no Znorm','minDCF log(γ) = -5 PCA=' + str(m) + ' Znorm']
         colors = ['b','g','y','c','r']
         #base colors: r, g, b, m, y, c, k, w
-        plot.plotDCF([C_values_raw_gamma_1e5,C_values_zNorm_gamma_1e5,C_values_pca_gamma_1e5,C_values_zNormPca_gamma_1e5],[minDcfs_raw_gamma_1e5,minDcfs_zNorm_gamma_1e5,minDcfs_pca_gamma_1e5,minDcfs_zNormPca_gamma_1e5],labels,colors,xlabel='C',title='RBF SVM with $\pi=' + str(prior) + '$')
+        plot.plotDCF([C_values_raw_gamma_1e5,C_values_zNorm_gamma_1e5,C_values_pca_gamma_1e5,C_values_zNormPca_gamma_1e5],[minDcfs_raw_gamma_1e5,minDcfs_zNorm_gamma_1e5,minDcfs_pca_gamma_1e5,minDcfs_zNormPca_gamma_1e5],labels,colors,xlabel='C',title='Radial Basis Function SVM')
 
 def trainGMMSameComponents(DTR_RAND,LTR_RAND,Load_Data=False):
     # BUILD INITIAL GMM (NON DOVREBBE SERVIRCI) 
@@ -646,13 +646,13 @@ def trainGMMSameComponents(DTR_RAND,LTR_RAND,Load_Data=False):
 
         m = 8
         # ----- PLOT GMMS   ------
-        plot.gmm_dcf_plot(raw_full_min_dcfs,zNorm_full_min_dcfs,pca_full_min_dcfs,zNormPca_full_min_dcfs,gmm_components,"Full Covariance (standard) with $\pi=" + str(prior) + "$",m_pca=m)
+        plot.gmm_dcf_plot(raw_full_min_dcfs,zNorm_full_min_dcfs,pca_full_min_dcfs,zNormPca_full_min_dcfs,gmm_components,"Full Covariance (standard)",m_pca=m)
         
-        plot.gmm_dcf_plot(raw_diag_min_dcfs,zNorm_diag_min_dcfs,pca_diag_min_dcfs,zNormPca_diag_min_dcfs,gmm_components,"Diagonal Covariance with $\pi=" + str(prior) + "$",m_pca=m)
+        plot.gmm_dcf_plot(raw_diag_min_dcfs,zNorm_diag_min_dcfs,pca_diag_min_dcfs,zNormPca_diag_min_dcfs,gmm_components,"Diagonal Covariance",m_pca=m)
         
-        plot.gmm_dcf_plot(raw_tied_diag_min_dcfs,zNorm_tied_min_dcfs,pca_tied_min_dcfs,zNormPca_tied_min_dcfs,gmm_components,"Tied Covariance with $\pi=" + str(prior) + "$",m_pca=m)
+        plot.gmm_dcf_plot(raw_tied_diag_min_dcfs,zNorm_tied_min_dcfs,pca_tied_min_dcfs,zNormPca_tied_min_dcfs,gmm_components,"Tied Covariance",m_pca=m)
         
-        plot.gmm_dcf_plot(raw_tied_diag_min_dcfs,zNorm_tied_diag_min_dcfs,pca_tied_diag_min_dcfs,zNormPca_tied_diag_min_dcfs,gmm_components,"Tied Diagonal Covariance with $\pi=" + str(prior) + "$",m_pca=m)
+        plot.gmm_dcf_plot(raw_tied_diag_min_dcfs,zNorm_tied_diag_min_dcfs,pca_tied_diag_min_dcfs,zNormPca_tied_diag_min_dcfs,gmm_components,"Tied Diagonal Covariance",m_pca=m)
 
 
 def trainGMMAllCombinations(DTR_RAND,LTR_RAND,Load_Data=False):
@@ -920,26 +920,26 @@ def trainGMMAllCombinations(DTR_RAND,LTR_RAND,Load_Data=False):
         m = 8
 
         # ----- RAW -------
-        plot.gmm_plot_all_component_combinations(gmm_components_class_1,raw_full_min_dcfs,labels,plot_colors,"Full Covariance (standard) for class 0 with $\pi=" + str(prior) + "$" + " no PCA no Znorm")
-        plot.gmm_plot_all_component_combinations(gmm_components_class_1,raw_diag_min_dcfs,labels,plot_colors,"Diagonal Covariance for class 0 with $\pi=" + str(prior) + "$" + " no PCA no Znorm")
-        plot.gmm_plot_all_component_combinations(gmm_components_class_1,raw_diag_min_dcfs,labels,plot_colors,"Tied Covariance for class 0 with $\pi=" + str(prior) + "$" + " no PCA no Znorm")
-        plot.gmm_plot_all_component_combinations(gmm_components_class_1,raw_tied_diag_min_dcfs,labels,plot_colors,"Tied Diagonal Covariance for class 0 with $\pi=" + str(prior) + "$" + " no PCA no Znorm")
+        plot.gmm_plot_all_component_combinations(gmm_components_class_1,raw_full_min_dcfs,labels,plot_colors,"Full Covariance (standard) no PCA no Znorm")
+        plot.gmm_plot_all_component_combinations(gmm_components_class_1,raw_diag_min_dcfs,labels,plot_colors,"Diagonal Covariance no PCA no Znorm")
+        plot.gmm_plot_all_component_combinations(gmm_components_class_1,raw_diag_min_dcfs,labels,plot_colors,"Tied Covariance no PCA no Znorm")
+        plot.gmm_plot_all_component_combinations(gmm_components_class_1,raw_tied_diag_min_dcfs,labels,plot_colors,"Tied Diagonal Covariance no PCA no Znorm")
 
         # ----- zNorm -------
-        plot.gmm_plot_all_component_combinations(gmm_components_class_1,zNorm_full_min_dcfs,labels,plot_colors,"Full Covariance (standard) for class 0 with $\pi=" + str(prior) + "$" + " no PCA Znorm")
-        plot.gmm_plot_all_component_combinations(gmm_components_class_1,zNorm_diag_min_dcfs,labels,plot_colors,"Diagonal Covariance for class 0 with $\pi=" + str(prior) + "$" + " no PCA Znorm")
-        plot.gmm_plot_all_component_combinations(gmm_components_class_1,zNorm_tied_min_dcfs,labels,plot_colors,"Tied Covariance for class 0 with $\pi=" + str(prior) + "$" + " no PCA Znorm")
-        plot.gmm_plot_all_component_combinations(gmm_components_class_1,zNorm_tied_diag_min_dcfs,labels,plot_colors,"Tied Diagonal Covariance for class 0 with $\pi=" + str(prior) + "$" + " no PCA Znorm")
+        plot.gmm_plot_all_component_combinations(gmm_components_class_1,zNorm_full_min_dcfs,labels,plot_colors,"Full Covariance (standard) no PCA Znorm")
+        plot.gmm_plot_all_component_combinations(gmm_components_class_1,zNorm_diag_min_dcfs,labels,plot_colors,"Diagonal Covariance no PCA Znorm")
+        plot.gmm_plot_all_component_combinations(gmm_components_class_1,zNorm_tied_min_dcfs,labels,plot_colors,"Tied Covariance no PCA Znorm")
+        plot.gmm_plot_all_component_combinations(gmm_components_class_1,zNorm_tied_diag_min_dcfs,labels,plot_colors,"Tied Diagonal Covariance no PCA Znorm")
 
         # ----- PCA -------
-        plot.gmm_plot_all_component_combinations(gmm_components_class_1,pca_full_min_dcfs,labels,plot_colors,"Full Covariance (standard) for class 0 with $\pi=" + str(prior) + "$" + " PCA=" + str(m) + " no Znorm")
-        plot.gmm_plot_all_component_combinations(gmm_components_class_1,pca_diag_min_dcfs,labels,plot_colors,"Diagonal Covariance for class 0 with $\pi=" + str(prior) + "$" + " PCA=" + str(m) + " no Znorm")
-        plot.gmm_plot_all_component_combinations(gmm_components_class_1,pca_tied_min_dcfs,labels,plot_colors,"Tied Covariance for class 0 with $\pi=" + str(prior) + "$" + " PCA=" + str(m) + " no Znorm")
-        plot.gmm_plot_all_component_combinations(gmm_components_class_1,pca_tied_diag_min_dcfs,labels,plot_colors,"Tied Diagonal Covariance for class 0 with $\pi=" + str(prior) + "$" + " PCA=" + str(m) + " no Znorm")
+        plot.gmm_plot_all_component_combinations(gmm_components_class_1,pca_full_min_dcfs,labels,plot_colors,"Full Covariance (standard) PCA=" + str(m) + " no Znorm")
+        plot.gmm_plot_all_component_combinations(gmm_components_class_1,pca_diag_min_dcfs,labels,plot_colors,"Diagonal Covariance PCA=" + str(m) + " no Znorm")
+        plot.gmm_plot_all_component_combinations(gmm_components_class_1,pca_tied_min_dcfs,labels,plot_colors,"Tied Covariance PCA=" + str(m) + " no Znorm")
+        plot.gmm_plot_all_component_combinations(gmm_components_class_1,pca_tied_diag_min_dcfs,labels,plot_colors,"Tied Diagonal Covariance PCA=" + str(m) + " no Znorm")
 
         # ----- zNorm PCA -------
-        plot.gmm_plot_all_component_combinations(gmm_components_class_1,pca_full_min_dcfs,labels,plot_colors,"Full Covariance (standard) for class 0 with $\pi=" + str(prior) + "$" + " PCA=" + str(m) + " Znorm")
-        plot.gmm_plot_all_component_combinations(gmm_components_class_1,pca_diag_min_dcfs,labels,plot_colors,"Diagonal Covariance for class 0 with $\pi=" + str(prior) + "$" + " PCA=" + str(m) + " Znorm")
-        plot.gmm_plot_all_component_combinations(gmm_components_class_1,pca_tied_min_dcfs,labels,plot_colors,"Tied Covariance for class 0 with $\pi=" + str(prior) + "$" + " PCA=" + str(m) + " Znorm")
-        plot.gmm_plot_all_component_combinations(gmm_components_class_1,pca_tied_diag_min_dcfs,labels,plot_colors,"Tied Diagonal Covariance for class 0 with $\pi=" + str(prior) + "$" + " PCA=" + str(m) + " Znorm")
+        plot.gmm_plot_all_component_combinations(gmm_components_class_1,pca_full_min_dcfs,labels,plot_colors,"Full Covariance (standard) PCA=" + str(m) + " Znorm")
+        plot.gmm_plot_all_component_combinations(gmm_components_class_1,pca_diag_min_dcfs,labels,plot_colors,"Diagonal Covariance PCA=" + str(m) + " Znorm")
+        plot.gmm_plot_all_component_combinations(gmm_components_class_1,pca_tied_min_dcfs,labels,plot_colors,"Tied Covariance PCA=" + str(m) + " Znorm")
+        plot.gmm_plot_all_component_combinations(gmm_components_class_1,pca_tied_diag_min_dcfs,labels,plot_colors,"Tied Diagonal Covariance PCA=" + str(m) + " Znorm")
 
