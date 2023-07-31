@@ -338,7 +338,7 @@ def trainPolynomialSVM(DTR_RAND,LTR_RAND,Load_Data=False):
 def trainRadialBasisFunctionSVM(DTR_RAND,LTR_RAND,Load_Data=False):
     print("SVM RADIAL BASIS FUNCTION (RBF) K,C,gamma TRAINING:")
     K_values = [1.0]
-    C_values = [0.000001, 0.00001, 0.0001, 0.001, 0.01, 0.1, 1.0, 10.0, 100.0]
+    C_values = [0.000001, 0.00001, 0.0001, 0.001, 0.01, 0.1, 1.0, 10.0, 100.0, 1000.0, 10000.0, 100000.0]
     # we want log(gamma), so we pass gamma value for which log(gamma) = -3,-4,-5
     gamma_values = [1.0/numpy.exp(3), 1.0/numpy.exp(4), 1.0/numpy.exp(5)] #hyper-parameter
     
