@@ -2442,6 +2442,85 @@ Accuracy: 95.31%
 Error rate: 4.69%
 Min DCF for Polynomial Kernel SVM: 0.3308401639344262
 
+## Polynomial SVM Best Values
+### K = 1     d = 2  c = 1     C = 10^-2    PCA = 8 ZNorm
+
+### Training Prior: Effective Prior
+### DcfPrior: 0.5
+Polynomial Kernel SVM results:
+Accuracy: 95.31%
+Error rate: 4.69%
+Min DCF for Polynomial Kernel SVM: 0.29711065573770495
+
+### DcfPrior: 0.1
+Polynomial Kernel SVM results:
+Accuracy: 95.31%
+Error rate: 4.69%
+Min DCF for Polynomial Kernel SVM: 0.5917827868852459
+
+### DcfPrior: 0.9
+Polynomial Kernel SVM results:
+Accuracy: 95.31%
+Error rate: 4.69%
+Min DCF for Polynomial Kernel SVM: 0.09600182149362477
+
+### Training Prior: 0.5
+### DcfPrior: 0.5
+Polynomial Kernel SVM results:
+Accuracy: 95.35%
+Error rate: 4.65%
+Min DCF for Polynomial Kernel SVM: 0.28459016393442627
+
+### DcfPrior: 0.1
+Polynomial Kernel SVM results:
+Accuracy: 95.35%
+Error rate: 4.65%
+Min DCF for Polynomial Kernel SVM: 0.6215163934426229
+
+### DcfPrior: 0.9
+Polynomial Kernel SVM results:
+Accuracy: 95.35%
+Error rate: 4.65%
+Min DCF for Polynomial Kernel SVM: 0.09693078324225865
+
+### Training Prior: 0.9
+### DcfPrior: 0.5
+Polynomial Kernel SVM results:
+Accuracy: 95.61%
+Error rate: 4.39%
+Min DCF for Polynomial Kernel SVM: 0.29989754098360655
+
+### DcfPrior: 0.1
+Polynomial Kernel SVM results:
+Accuracy: 95.61%
+Error rate: 4.39%
+Min DCF for Polynomial Kernel SVM: 0.6127663934426228
+
+### DcfPrior: 0.9
+Polynomial Kernel SVM results:
+Accuracy: 95.61%
+Error rate: 4.39%
+Min DCF for Polynomial Kernel SVM: 0.09600182149362477
+
+### Training Prior: 0.1
+### DcfPrior: 0.5
+Polynomial Kernel SVM results:
+Accuracy: 95.27%
+Error rate: 4.73%
+Min DCF for Polynomial Kernel SVM: 0.2958606557377049
+
+### DcfPrior: 0.1
+Polynomial Kernel SVM results:
+Accuracy: 95.27%
+Error rate: 4.73%
+Min DCF for Polynomial Kernel SVM: 0.5892827868852459
+
+### DcfPrior: 0.9
+Polynomial Kernel SVM results:
+Accuracy: 95.27%
+Error rate: 4.73%
+Min DCF for Polynomial Kernel SVM: 0.09568761384335153
+
 # SVM RADIAL BASIS FUNCTION (RBF) K,C,gamma TRAINING: (Prior = 0.5)
 
 ## RAW (No PCA No Z_Norm)
@@ -3367,3 +3446,83 @@ RADIAL BASIS FUNCTION (RBF) Kernel SVM results:
 Accuracy: 73.16%
 Error rate: 26.84%
 Min DCF for RADIAL BASIS FUNCTION (RBF) Kernel SVM: 0.99
+
+## SVM RADIAL BASIS FUNCTION (RBF) BEST VALUES:
+
+### K = 1     gamma = 1/e^5     C = 10^2    PCA = 8 ZNorm
+
+### Training Prior: Effective Prior
+### DcfPrior: 0.5
+RADIAL BASIS FUNCTION (RBF) Kernel SVM results:
+Accuracy: 94.92%
+Error rate: 5.08%
+Min DCF for RADIAL BASIS FUNCTION (RBF) Kernel SVM: 0.31456967213114756
+
+### DcfPrior: 0.1
+RADIAL BASIS FUNCTION (RBF) Kernel SVM results:
+Accuracy: 94.92%
+Error rate: 5.08%
+Min DCF for RADIAL BASIS FUNCTION (RBF) Kernel SVM: 0.580266393442623
+
+### DcfPrior: 0.9
+RADIAL BASIS FUNCTION (RBF) Kernel SVM results:
+Accuracy: 94.92%
+Error rate: 5.08%
+Min DCF for RADIAL BASIS FUNCTION (RBF) Kernel SVM: 0.10713797814207648
+
+### Training Prior: 0.5
+### DcfPrior: 0.5
+RADIAL BASIS FUNCTION (RBF) Kernel SVM results:
+Accuracy: 95.35%
+Error rate: 4.65%
+Min DCF for RADIAL BASIS FUNCTION (RBF) Kernel SVM: 0.29989754098360655
+
+### DcfPrior: 0.1
+RADIAL BASIS FUNCTION (RBF) Kernel SVM results:
+Accuracy: 95.35%
+Error rate: 4.65%
+Min DCF for RADIAL BASIS FUNCTION (RBF) Kernel SVM: 0.6082991803278689
+
+### DcfPrior: 0.9
+RADIAL BASIS FUNCTION (RBF) Kernel SVM results:
+Accuracy: 95.35%
+Error rate: 4.65%
+Min DCF for RADIAL BASIS FUNCTION (RBF) Kernel SVM: 0.09767304189435336
+
+### Training Prior: 0.9
+### DcfPrior: 0.5
+RADIAL BASIS FUNCTION (RBF) Kernel SVM results:
+Accuracy: 95.18%
+Error rate: 4.82%
+Min DCF for RADIAL BASIS FUNCTION (RBF) Kernel SVM: 0.2973975409836066
+
+### DcfPrior: 0.1
+RADIAL BASIS FUNCTION (RBF) Kernel SVM results:
+Accuracy: 95.18%
+Error rate: 4.82%
+Min DCF for RADIAL BASIS FUNCTION (RBF) Kernel SVM: 0.6020491803278688
+
+### DcfPrior: 0.9
+RADIAL BASIS FUNCTION (RBF) Kernel SVM results:
+Accuracy: 95.18%
+Error rate: 4.82%
+Min DCF for RADIAL BASIS FUNCTION (RBF) Kernel SVM: 0.0988091985428051
+
+### Training Prior: 0.1
+### DcfPrior: 0.5
+RADIAL BASIS FUNCTION (RBF) Kernel SVM results:
+Accuracy: 95.01%
+Error rate: 4.99%
+Min DCF for RADIAL BASIS FUNCTION (RBF) Kernel SVM: 0.32206967213114757
+
+### DcfPrior: 0.1
+RADIAL BASIS FUNCTION (RBF) Kernel SVM results:
+Accuracy: 95.01%
+Error rate: 4.99%
+Min DCF for RADIAL BASIS FUNCTION (RBF) Kernel SVM: 0.5865163934426229
+
+### DcfPrior: 0.9
+RADIAL BASIS FUNCTION (RBF) Kernel SVM results:
+Accuracy: 95.01%
+Error rate: 4.99%
+Min DCF for RADIAL BASIS FUNCTION (RBF) Kernel SVM: 0.1066302367941712

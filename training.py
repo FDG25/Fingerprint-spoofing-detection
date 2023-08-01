@@ -335,6 +335,18 @@ def trainPolynomialSVM(DTR_RAND,LTR_RAND,Load_Data=False):
         #base colors: r, g, b, m, y, c, k, w
         plot.plotDCF([C_values_raw_polynomial_c1,C_values_zNorm_polynomial_c1,C_values_pca_polynomial_c1,C_values_zNormPca_polynomial_c1],[minDcfs_raw_polynomial_c1,minDcfs_zNorm_polynomial_c1,minDcfs_pca_polynomial_c1,minDcfs_zNormPca_polynomial_c1],labels,colors,xlabel='C',title='Polynomial SVM')
 
+    # K = 1     d = 2
+    # c = 1     C = 10^-2
+    # PCA = 8 ZNorm
+    m = 8
+    print("Training Prior: Effective Prior")
+    print("DcfPrior: 0.5")
+    kfold.K_Fold_SVM_kernel_polynomial(DTR_RAND,LTR_RAND,constants.K,hyperParameter_K = 1,hyperParameter_C = 0.01, hyperParameter_c = 1, hyperParameter_d = 2, PCA_Flag = True, M = m, Z_Norm_Flag = True, Dcf_Prior = 0.5, Calibration_Flag = False)
+    print("DcfPrior: 0.1")
+    kfold.K_Fold_SVM_kernel_polynomial(DTR_RAND,LTR_RAND,constants.K,hyperParameter_K = 1,hyperParameter_C = 0.01, hyperParameter_c = 1, hyperParameter_d = 2, PCA_Flag = True, M = m, Z_Norm_Flag = True, Dcf_Prior = 0.1, Calibration_Flag = False)
+    print("DcfPrior: 0.9")
+    kfold.K_Fold_SVM_kernel_polynomial(DTR_RAND,LTR_RAND,constants.K,hyperParameter_K = 1,hyperParameter_C = 0.01, hyperParameter_c = 1, hyperParameter_d = 2, PCA_Flag = True, M = m, Z_Norm_Flag = True, Dcf_Prior = 0.9, Calibration_Flag = False)
+
 def trainRadialBasisFunctionSVM(DTR_RAND,LTR_RAND,Load_Data=False):
     print("SVM RADIAL BASIS FUNCTION (RBF) K,C,gamma TRAINING:")
     K_values = [1.0]
@@ -450,6 +462,17 @@ def trainRadialBasisFunctionSVM(DTR_RAND,LTR_RAND,Load_Data=False):
         colors = ['b','g','y','c','r']
         #base colors: r, g, b, m, y, c, k, w
         plot.plotDCF([C_values_raw_gamma_1e5,C_values_zNorm_gamma_1e5,C_values_pca_gamma_1e5,C_values_zNormPca_gamma_1e5],[minDcfs_raw_gamma_1e5,minDcfs_zNorm_gamma_1e5,minDcfs_pca_gamma_1e5,minDcfs_zNormPca_gamma_1e5],labels,colors,xlabel='C',title='Radial Basis Function SVM')
+    
+    # K = 1     gamma = 1/e^5     C = 10^2
+    # PCA = 8 ZNorm
+    m = 8
+    print("Training Prior: Effective Prior")
+    print("DcfPrior: 0.5")
+    kfold.K_Fold_SVM_kernel_rbf(DTR_RAND,LTR_RAND,constants.K,hyperParameter_K = 1,hyperParameter_C = 100.0, hyperParameter_gamma = 1.0/numpy.exp(5),PCA_Flag = True, M = m, Z_Norm_Flag = True, Dcf_Prior = 0.5, Calibration_Flag = False)
+    print("DcfPrior: 0.1")
+    kfold.K_Fold_SVM_kernel_rbf(DTR_RAND,LTR_RAND,constants.K,hyperParameter_K = 1,hyperParameter_C = 100.0, hyperParameter_gamma = 1.0/numpy.exp(5),PCA_Flag = True, M = m, Z_Norm_Flag = True, Dcf_Prior = 0.1, Calibration_Flag = False)
+    print("DcfPrior: 0.9")
+    kfold.K_Fold_SVM_kernel_rbf(DTR_RAND,LTR_RAND,constants.K,hyperParameter_K = 1,hyperParameter_C = 100.0, hyperParameter_gamma = 1.0/numpy.exp(5),PCA_Flag = True, M = m, Z_Norm_Flag = True, Dcf_Prior = 0.9, Calibration_Flag = False)
 
 def trainGMMSameComponents(DTR_RAND,LTR_RAND,Load_Data=False):
     # BUILD INITIAL GMM (NON DOVREBBE SERVIRCI) 
