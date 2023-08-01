@@ -47,7 +47,7 @@ def svm_kernel_polynomial_K_C_c_d_parameter_testing(DTR,LTR,K=None,k_values=None
                 print("c value : " + str(c))
                 for d in d_values:
                     print("d value : " + str(d))
-                    minDcf = kfold.K_Fold_SVM_kernel_polynomial(DTR,LTR,K=K,hyperParameter_K=k_value,hyperParameter_C=C,hyperParameter_c=c,hyperParameter_d=d,PCA_Flag=PCA_Flag,M=M,Z_Norm_Flag=Z_Norm_Flag,Dcf_Prior=Dcf_Prior,Calibration_Flag=Calibration_Flag)
+                    minDcf,_,_ = kfold.K_Fold_SVM_kernel_polynomial(DTR,LTR,K=K,hyperParameter_K=k_value,hyperParameter_C=C,hyperParameter_c=c,hyperParameter_d=d,PCA_Flag=PCA_Flag,M=M,Z_Norm_Flag=Z_Norm_Flag,Dcf_Prior=Dcf_Prior,Calibration_Flag=Calibration_Flag)
                     plotUtility_list.append(PlotUtility(prior=Dcf_Prior,k=k_value,C=C,c=c,d=d,minDcf=minDcf))
     
     return plotUtility_list

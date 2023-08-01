@@ -235,7 +235,7 @@ def K_Fold_SVM_kernel_polynomial(D,L,K,hyperParameter_K,hyperParameter_C,hyperPa
             plot.compute_bayes_error_plot(scores,labels,"Polynomial Kernel SVM")
             # ----- CALIBRATION AND CALIBRATED PLOT ------
             K_Fold_Calibration(scores,labels,K=5,plt_title="Calibrated Polynomial Kernel SVM",model_fusion=False,num_models=None)
-    return minDcf
+    return minDcf,scores,labels
 
 def K_Fold_SVM_kernel_rbf(D,L,K,hyperParameter_K,hyperParameter_C,hyperParameter_gamma,PCA_Flag=None,M=None,Z_Norm_Flag=None,Dcf_Prior=None,Calibration_Flag=None):
     # Leave-One-Out Approach Con K=2325: 
