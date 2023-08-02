@@ -719,7 +719,7 @@ def trainGMMAllCombinations(DTR_RAND,LTR_RAND,Load_Data=False):
             zNormPca_tied_min_dcfs = []
             zNormPca_tied_diag_min_dcfs = []
 
-            for nSplit0 in range(0,1):
+            for nSplit0 in range(0,4):
                 print("Number of GMM Components of Class 0: " + str(2**nSplit0))
                 labels.append("minDCF G0 = " + str(2**nSplit0))
                 plot_colors.append(colors[nSplit0])
@@ -744,7 +744,7 @@ def trainGMMAllCombinations(DTR_RAND,LTR_RAND,Load_Data=False):
                 zNormPca_diag_min_dcfs_single = []
                 zNormPca_tied_min_dcfs_single = []
                 zNormPca_tied_diag_min_dcfs_single = []
-                for nSplit1 in range(0,2):
+                for nSplit1 in range(0,4):
                     # from 2 to 1024 components
                     print("Number of GMM Components of Class 1: " + str(2**nSplit1))
                     gmm_components_class_1_single.append(2**nSplit1)
@@ -945,7 +945,7 @@ def trainGMMAllCombinations(DTR_RAND,LTR_RAND,Load_Data=False):
         # ----- RAW -------
         plot.gmm_plot_all_component_combinations(gmm_components_class_1,raw_full_min_dcfs,labels,plot_colors,"Full Covariance (standard) no PCA no Znorm")
         plot.gmm_plot_all_component_combinations(gmm_components_class_1,raw_diag_min_dcfs,labels,plot_colors,"Diagonal Covariance no PCA no Znorm")
-        plot.gmm_plot_all_component_combinations(gmm_components_class_1,raw_diag_min_dcfs,labels,plot_colors,"Tied Covariance no PCA no Znorm")
+        plot.gmm_plot_all_component_combinations(gmm_components_class_1,raw_tied_min_dcfs,labels,plot_colors,"Tied Covariance no PCA no Znorm")
         plot.gmm_plot_all_component_combinations(gmm_components_class_1,raw_tied_diag_min_dcfs,labels,plot_colors,"Tied Diagonal Covariance no PCA no Znorm")
 
         # ----- zNorm -------

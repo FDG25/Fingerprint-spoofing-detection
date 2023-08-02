@@ -97,6 +97,9 @@ def EMalgorithm(X, gmm):
         (w, mu, cov) = Mstep(X, S, posterior_probabilities)
         for g in range(len(gmm)):
             # Update the model parameters that are in gmm
+            U,s,_=numpy.linalg.svd(cov[g])
+            s[s<0.01] = 0.01
+            cov[g]= numpy.dot(U, main.vcol(s)*U.T)
             gmm[g] = (w[g], mu[:, g].reshape((mu.shape[0], 1)), cov[g])
         # Compute the new log densities and the new sub-class conditional densities
         (logdens, S) = logpdf_GMM(X, gmm)
@@ -224,6 +227,9 @@ def DiagEMalgorithm(X, gmm):
         (w, mu, cov) = DiagMstep(X, S, posterior_probabilities) #CAMBIA SOLO LA FUNZIONE CHE INVOCHIAMO QUI RISPETTO A EMalgorithm NORMALE
         for g in range(len(gmm)):
             # Update the model parameters that are in gmm
+            U,s,_=numpy.linalg.svd(cov[g])
+            s[s<0.01] = 0.01
+            cov[g]= numpy.dot(U, main.vcol(s)*U.T)
             gmm[g] = (w[g], mu[:, g].reshape((mu.shape[0], 1)), cov[g])
         # Compute the new log densities and the new sub-class conditional densities
         (logdens, S) = logpdf_GMM(X, gmm)
@@ -353,6 +359,9 @@ def TiedEMalgorithm(X, gmm): #
         (w, mu, cov) = TiedMstep(X, S, posterior_probabilities) #CAMBIA SOLO LA FUNZIONE CHE INVOCHIAMO QUI RISPETTO A EMalgorithm NORMALE
         for g in range(len(gmm)):
             # Update the model parameters that are in gmm
+            U,s,_=numpy.linalg.svd(cov[g])
+            s[s<0.01] = 0.01
+            cov[g]= numpy.dot(U, main.vcol(s)*U.T)
             gmm[g] = (w[g], mu[:, g].reshape((mu.shape[0], 1)), cov[g])
         # Compute the new log densities and the new sub-class conditional densities
         (logdens, S) = logpdf_GMM(X, gmm)
@@ -388,6 +397,9 @@ def TiedDiagEMalgorithm(X, gmm):
         (w, mu, cov) = TiedDiagMstep(X, S, posterior_probabilities) #CAMBIA SOLO LA FUNZIONE CHE INVOCHIAMO QUI RISPETTO A EMalgorithm NORMALE
         for g in range(len(gmm)):
             # Update the model parameters that are in gmm
+            U,s,_=numpy.linalg.svd(cov[g])
+            s[s<0.01] = 0.01
+            cov[g]= numpy.dot(U, main.vcol(s)*U.T)
             gmm[g] = (w[g], mu[:, g].reshape((mu.shape[0], 1)), cov[g])
         # Compute the new log densities and the new sub-class conditional densities
         (logdens, S) = logpdf_GMM(X, gmm)
