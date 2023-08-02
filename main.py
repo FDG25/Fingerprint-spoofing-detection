@@ -159,13 +159,5 @@ if __name__ == '__main__':
     
     # calibration_fusion.best_model_score_calibration(DTR_RAND,LTR_RAND)
 
-    # BEST MODEL TIED DIAGONAL WITH GMM COMPONENTS = 8 FOR CLASS 0 AND GMM COMPONENTS 2 FOR CLASS 1
-    # classifier = [(gmm.LBGalgorithm,gmm.constraintSigma,"Full Covariance (standard)")]
-    # classifier = [(gmm.DiagLBGalgorithm,gmm.DiagConstraintSigma,"Diagonal Covariance"),(gmm.TiedDiagLBGalgorithm,gmm.DiagConstraintSigma,"Tied Diagonal Covariance")]
-    # minDcfs = kfold.K_Fold_GMM(DTR_RAND,LTR_RAND,constants.K,classifiers=classifier,nSplit0=1,nSplit1=2,PCA_Flag=None,M=None,Z_Norm_Flag=None,Dcf_Prior=0.5,Calibration_Flag=None)
-
-    # classifier = [(lr.LogisticRegressionWeightedQuadratic, "Logistic Regression Weighted Quadratic")]
-    # minDcfs = kfold.K_Fold_LR(DTR_RAND,LTR_RAND,K=5,classifiers=classifier,hyperParameter=0.01)
-
     # -------------- MODEL FUSION ----------------
     # calibration_fusion.model_fusion(DTR_RAND,LTR_RAND)

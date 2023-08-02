@@ -141,7 +141,7 @@ def linear_svm(DTR,LTR,DTE,LTE,k_value,C):
     #print(H_cappelletto2)
             
 
-    dual_loss, x = computeDualSVM_solution_balanced(DTR,LTR,constants.EFFECTIVE_PRIOR, C, H_cappelletto2)
+    dual_loss, x = computeDualSVM_solution(DTR, C, H_cappelletto2)
 
     #Once WE have computed the dual solution, WE can recover the primal solution through 
     #w_CAPPELLETTO* = SOMMATORIA DA i=1 A N di (αizixi_cappelletto) --> GLI αi SONO CONTENUTI IN x
@@ -184,7 +184,7 @@ def kernel_svm_polynomial(DTR,LTR,DTE,LTE,k_value,C,c,d):
     #print(H_cappelletto2)
     #print("Polynomial kernel of degree d")  
     #print("K = " + str(k_value) + "; " + "C = " + str(C) + "; " + "d = " + str(d) + "; " + "c = " + str(c))
-    dual_loss, x = computeDualSVM_solution_balanced(DTR,LTR,constants.EFFECTIVE_PRIOR, C, H_cappelletto2)
+    dual_loss, x = computeDualSVM_solution(DTR, C, H_cappelletto2)
     #In contrast with linear SVM, IN THIS CASE we are not able to compute the primal solution and its cost
     #NON USIAMO w_CAPPELLETTO_asterisco
     #NON USIAMO NEANCHE DTE_cappelletto
@@ -220,7 +220,7 @@ def kernel_svm_radial(DTR,LTR,DTE,LTE,k_value,C,gamma):
     #print(H_cappelletto2)
     #print("Radial Basis Function kernel")
     #print("K = " + str(k_value) + "; " + "C = " + str(C) + "; " + "gamma = " + str(gamma))
-    dual_loss, x = computeDualSVM_solution_balanced(DTR,LTR,constants.EFFECTIVE_PRIOR, C, H_cappelletto2)
+    dual_loss, x = computeDualSVM_solution(DTR, C, H_cappelletto2)
     #In contrast with linear SVM, IN THIS CASE we are not able to compute the primal solution and its cost
     #NON USIAMO w_CAPPELLETTO_asterisco
     #NON USIAMO NEANCHE DTE_cappelletto

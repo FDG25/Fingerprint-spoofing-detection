@@ -86,7 +86,7 @@ def K_Fold_LR(D,L,K,classifiers,lambd,PCA_Flag=None,M=None,Z_Norm_Flag=None,Dcf_
         print(f"Min DCF for {classifier_name}: {minDcf}\n")
         if Calibration_Flag:
             # ----- MISCALIBRATED PLOT --------
-            plot.compute_bayes_error_plot(scores,labels,classifier_name)
+            plot.compute_bayes_error_plot(scores,labels,"Miscalibrated " + classifier_name)
             # ----- CALIBRATION AND CALIBRATED PLOT ------
             K_Fold_Calibration(scores,labels,K=5,plt_title="Calibrated " + classifier_name,model_fusion=False,num_models=None)   
     # returns only scores and labels of the last passed classifier in classifiers
@@ -189,7 +189,7 @@ def K_Fold_SVM_linear(D,L,K,hyperParameter_K,hyperParameter_C,PCA_Flag=None,M=No
     print(f"Min DCF for Linear SVM: {minDcf}\n")
     if Calibration_Flag:
             # ----- MISCALIBRATED PLOT --------
-            plot.compute_bayes_error_plot(scores,labels,"Linear SVM")
+            plot.compute_bayes_error_plot(scores,labels,"Miscalibrated Linear SVM")
             # ----- CALIBRATION AND CALIBRATED PLOT ------
             K_Fold_Calibration(scores,labels,K=5,plt_title="Calibrated Linear SVM",model_fusion=False,num_models=None)
     return minDcf
@@ -232,7 +232,7 @@ def K_Fold_SVM_kernel_polynomial(D,L,K,hyperParameter_K,hyperParameter_C,hyperPa
     print(f"Min DCF for Polynomial Kernel SVM: {minDcf}\n")
     if Calibration_Flag:
             # ----- MISCALIBRATED PLOT --------
-            plot.compute_bayes_error_plot(scores,labels,"Polynomial Kernel SVM")
+            plot.compute_bayes_error_plot(scores,labels,"Miscalibrated Polynomial Kernel SVM")
             # ----- CALIBRATION AND CALIBRATED PLOT ------
             K_Fold_Calibration(scores,labels,K=5,plt_title="Calibrated Polynomial Kernel SVM",model_fusion=False,num_models=None)
     return minDcf,scores,labels
@@ -273,7 +273,7 @@ def K_Fold_SVM_kernel_rbf(D,L,K,hyperParameter_K,hyperParameter_C,hyperParameter
     print(f"Min DCF for RADIAL BASIS FUNCTION (RBF) Kernel SVM: {minDcf}\n")
     if Calibration_Flag:
             # ----- MISCALIBRATED PLOT --------
-            plot.compute_bayes_error_plot(scores,labels,"RBF Kernel SVM")
+            plot.compute_bayes_error_plot(scores,labels,"Miscalibrated RBF Kernel SVM")
             # ----- CALIBRATION AND CALIBRATED PLOT ------
             K_Fold_Calibration(scores,labels,K=5,plt_title="Calibrated RBF Kernel SVM",model_fusion=False,num_models=None)
     return minDcf
@@ -320,10 +320,11 @@ def K_Fold_GMM(D,L,K,classifiers,nSplit0,nSplit1=None,PCA_Flag=None,M=None,Z_Nor
         minDcfs.append(minDcf)
         print(f"Min DCF for {classifier_name}: {minDcf}\n")
         if Calibration_Flag:
+            # ALREADY CALIBRATED SO REMOVE CALIBRATION ONLY BAYES PLOT
             # ----- MISCALIBRATED PLOT --------
             plot.compute_bayes_error_plot(scores,labels,classifier_name)
             # ----- CALIBRATION AND CALIBRATED PLOT ------
-            K_Fold_Calibration(scores,labels,K=5,plt_title="Calibrated " + classifier_name,model_fusion=False,num_models=None)
+            # K_Fold_Calibration(scores,labels,K=5,plt_title="Calibrated " + classifier_name,model_fusion=False,num_models=None)
     return minDcfs,scores,labels 
 
 def optimalDecision(DTR,LTR,DTE,LTE):

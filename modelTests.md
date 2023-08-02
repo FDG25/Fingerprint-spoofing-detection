@@ -6,7 +6,12 @@
     - [Best Values Quadratic](#quadratic-lr-best-values)
 - [Linear SVM](#svm-linear-hyperparameters-k-and-c-training-prior--05)
 - [Polynomial SVM](#svm-polynomial-kccd-training-prior--05)
+    - [Best Values](#polynomial-svm-best-values)
 - [RBF SVM](#svm-radial-basis-function-rbf-kcgamma-training-prior--05)
+    - [Best Values](#svm-radial-basis-function-rbf-best-values)
+- [GMM (not all)](#gmm-all-combination-training)
+- [Score Calibration](#score-calibration)
+- [Model Fusion](#model-fusion)
 # Gaussians
 
 ## RAW (No PCA No Z_Norm)
@@ -3526,3 +3531,1107 @@ RADIAL BASIS FUNCTION (RBF) Kernel SVM results:
 Accuracy: 95.01%
 Error rate: 4.99%
 Min DCF for RADIAL BASIS FUNCTION (RBF) Kernel SVM: 0.1066302367941712
+
+# GMM all Combination Training
+
+Error rate: 5.51%
+Min DCF for Tied Covariance: 0.3577049180327869
+
+Tied Diagonal Covariance results:
+Accuracy: 92.65%
+Error rate: 7.35%
+Min DCF for Tied Diagonal Covariance: 0.41891393442622954
+
+#### RAW + PCA with M = 8
+
+Full Covariance (standard) results:
+Accuracy: 94.97%
+Error rate: 5.03%
+Min DCF for Full Covariance (standard): 0.2864549180327869
+
+Diagonal Covariance results:
+Accuracy: 94.32%
+Error rate: 5.68%
+Min DCF for Diagonal Covariance: 0.32678278688524587
+
+Tied Covariance results:
+Accuracy: 94.32%
+Error rate: 5.68%
+Min DCF for Tied Covariance: 0.33331967213114755
+
+Tied Diagonal Covariance results:
+Accuracy: 94.45%
+Error rate: 5.55%
+Min DCF for Tied Diagonal Covariance: 0.35987704918032787
+
+#### Z_Norm + PCA with M = 8
+
+Full Covariance (standard) results:
+Accuracy: 95.1%
+Error rate: 4.9%
+Min DCF for Full Covariance (standard): 0.3098770491803279
+
+Diagonal Covariance results:
+Accuracy: 94.58%
+Error rate: 5.42%
+Min DCF for Diagonal Covariance: 0.36200819672131146
+
+Tied Covariance results:
+Accuracy: 93.76%
+Error rate: 6.24%
+Min DCF for Tied Covariance: 0.3589344262295082
+
+Tied Diagonal Covariance results:
+Accuracy: 94.19%
+Error rate: 5.81%
+Min DCF for Tied Diagonal Covariance: 0.3667622950819672
+
+### Number of GMM Components of Class 1: 2
+#### RAW (No PCA No Z_Norm)
+
+Full Covariance (standard) results:
+Accuracy: 94.75%
+Error rate: 5.25%
+Min DCF for Full Covariance (standard): 0.27961065573770494
+
+Diagonal Covariance results:
+Accuracy: 93.03%
+Error rate: 6.97%
+Min DCF for Diagonal Covariance: 0.34209016393442626
+
+Tied Covariance results:
+Accuracy: 94.45%
+Error rate: 5.55%
+Min DCF for Tied Covariance: 0.3314549180327869
+
+Tied Diagonal Covariance results:
+Accuracy: 92.9%
+Error rate: 7.1%
+Min DCF for Tied Diagonal Covariance: 0.37864754098360653
+
+#### Z_Norm
+
+Full Covariance (standard) results:
+Accuracy: 94.8%
+Error rate: 5.2%
+Min DCF for Full Covariance (standard): 0.29770491803278687
+
+Diagonal Covariance results:
+Accuracy: 93.08%
+Error rate: 6.92%
+Min DCF for Diagonal Covariance: 0.36829918032786885
+
+Tied Covariance results:
+Accuracy: 94.49%
+Error rate: 5.51%
+Min DCF for Tied Covariance: 0.3577049180327869
+
+Tied Diagonal Covariance results:
+Accuracy: 92.86%
+Error rate: 7.14%
+Min DCF for Tied Diagonal Covariance: 0.38766393442622954
+
+#### RAW + PCA with M = 8
+
+Full Covariance (standard) results:
+Accuracy: 94.67%
+Error rate: 5.33%
+Min DCF for Full Covariance (standard): 0.2886270491803279
+
+Diagonal Covariance results:
+Accuracy: 94.67%
+Error rate: 5.33%
+Min DCF for Diagonal Covariance: 0.31149590163934426
+
+Tied Covariance results:
+Accuracy: 94.32%
+Error rate: 5.68%
+Min DCF for Tied Covariance: 0.33331967213114755
+
+Tied Diagonal Covariance results:
+Accuracy: 94.41%
+Error rate: 5.59%
+Min DCF for Tied Diagonal Covariance: 0.3171106557377049
+
+#### Z_Norm + PCA with M = 8
+
+Full Covariance (standard) results:
+Accuracy: 95.1%
+Error rate: 4.9%
+Min DCF for Full Covariance (standard): 0.2964754098360656
+
+Diagonal Covariance results:
+Accuracy: 94.67%
+Error rate: 5.33%
+Min DCF for Diagonal Covariance: 0.34545081967213115
+
+Tied Covariance results:
+Accuracy: 93.76%
+Error rate: 6.24%
+Min DCF for Tied Covariance: 0.3589344262295082
+
+Tied Diagonal Covariance results:
+Accuracy: 94.45%
+Error rate: 5.55%
+Min DCF for Tied Diagonal Covariance: 0.34237704918032785
+
+### Number of GMM Components of Class 1: 4
+#### RAW (No PCA No Z_Norm)
+
+Full Covariance (standard) results:
+Accuracy: 95.1%
+Error rate: 4.9%
+Min DCF for Full Covariance (standard): 0.2889344262295082
+
+Diagonal Covariance results:
+Accuracy: 92.95%
+Error rate: 7.05%
+Min DCF for Diagonal Covariance: 0.3805532786885246
+
+Tied Covariance results:
+Accuracy: 94.28%
+Error rate: 5.72%
+Min DCF for Tied Covariance: 0.3548975409836066
+
+Tied Diagonal Covariance results:
+Accuracy: 92.77%
+Error rate: 7.23%
+Min DCF for Tied Diagonal Covariance: 0.3736885245901639
+
+#### Z_Norm
+
+Full Covariance (standard) results:
+Accuracy: 94.62%
+Error rate: 5.38%
+Min DCF for Full Covariance (standard): 0.3339959016393443
+
+Diagonal Covariance results:
+Accuracy: 92.86%
+Error rate: 7.14%
+Min DCF for Diagonal Covariance: 0.4011680327868853
+
+Tied Covariance results:
+Accuracy: 94.54%
+Error rate: 5.46%
+Min DCF for Tied Covariance: 0.34866803278688524
+
+Tied Diagonal Covariance results:
+Accuracy: 92.77%
+Error rate: 7.23%
+Min DCF for Tied Diagonal Covariance: 0.39430327868852455
+
+#### RAW + PCA with M = 8
+
+Full Covariance (standard) results:
+Accuracy: 94.58%
+Error rate: 5.42%
+Min DCF for Full Covariance (standard): 0.30772540983606556
+
+Diagonal Covariance results:
+Accuracy: 94.19%
+Error rate: 5.81%
+Min DCF for Diagonal Covariance: 0.3180122950819672
+
+Tied Covariance results:
+Accuracy: 94.19%
+Error rate: 5.81%
+Min DCF for Tied Covariance: 0.34834016393442624
+
+Tied Diagonal Covariance results:
+Accuracy: 94.15%
+Error rate: 5.85%
+Min DCF for Tied Diagonal Covariance: 0.3327254098360656
+
+#### Z_Norm + PCA with M = 8
+
+Full Covariance (standard) results:
+Accuracy: 94.75%
+Error rate: 5.25%
+Min DCF for Full Covariance (standard): 0.30676229508196723
+
+Diagonal Covariance results:
+Accuracy: 94.88%
+Error rate: 5.12%
+Min DCF for Diagonal Covariance: 0.35114754098360657
+
+Tied Covariance results:
+Accuracy: 93.38%
+Error rate: 6.62%
+Min DCF for Tied Covariance: 0.37393442622950823
+
+Tied Diagonal Covariance results:
+Accuracy: 94.49%
+Error rate: 5.51%
+Min DCF for Tied Diagonal Covariance: 0.3345696721311475
+
+### Number of GMM Components of Class 1: 8
+#### RAW (No PCA No Z_Norm)
+
+Full Covariance (standard) results:
+Accuracy: 93.94%
+Error rate: 6.06%
+Min DCF for Full Covariance (standard): 0.3264549180327869
+
+Diagonal Covariance results:
+Accuracy: 92.99%
+Error rate: 7.01%
+Min DCF for Diagonal Covariance: 0.3989139344262295
+
+Tied Covariance results:
+Accuracy: 94.41%
+Error rate: 5.59%
+Min DCF for Tied Covariance: 0.36739754098360655
+
+Tied Diagonal Covariance results:
+Accuracy: 92.86%
+Error rate: 7.14%
+Min DCF for Tied Diagonal Covariance: 0.3655532786885246
+
+#### Z_Norm
+
+Full Covariance (standard) results:
+Accuracy: 93.2%
+Error rate: 6.8%
+Min DCF for Full Covariance (standard): 0.35776639344262295
+
+Diagonal Covariance results:
+Accuracy: 93.08%
+Error rate: 6.92%
+Min DCF for Diagonal Covariance: 0.4104918032786885
+
+Tied Covariance results:
+Accuracy: 93.94%
+Error rate: 6.06%
+Min DCF for Tied Covariance: 0.3455532786885246
+
+Tied Diagonal Covariance results:
+Accuracy: 92.69%
+Error rate: 7.31%
+Min DCF for Tied Diagonal Covariance: 0.3927254098360656
+
+#### RAW + PCA with M = 8
+
+Full Covariance (standard) results:
+Accuracy: 94.15%
+Error rate: 5.85%
+Min DCF for Full Covariance (standard): 0.30868852459016394
+
+Diagonal Covariance results:
+Accuracy: 93.89%
+Error rate: 6.11%
+Min DCF for Diagonal Covariance: 0.3286680327868853
+
+Tied Covariance results:
+Accuracy: 94.15%
+Error rate: 5.85%
+Min DCF for Tied Covariance: 0.34239754098360653
+
+Tied Diagonal Covariance results:
+Accuracy: 94.19%
+Error rate: 5.81%
+Min DCF for Tied Diagonal Covariance: 0.3402049180327869
+
+#### Z_Norm + PCA with M = 8
+
+Full Covariance (standard) results:
+Accuracy: 94.19%
+Error rate: 5.81%
+Min DCF for Full Covariance (standard): 0.33086065573770496
+
+Diagonal Covariance results:
+Accuracy: 94.45%
+Error rate: 5.55%
+Min DCF for Diagonal Covariance: 0.3592622950819672
+
+Tied Covariance results:
+Accuracy: 94.02%
+Error rate: 5.98%
+Min DCF for Tied Covariance: 0.40545081967213115
+
+Tied Diagonal Covariance results:
+Accuracy: 94.19%
+Error rate: 5.81%
+Min DCF for Tied Diagonal Covariance: 0.3527254098360656
+
+## Number of GMM Components of Class 0: 4
+### Number of GMM Components of Class 1: 1
+#### RAW (No PCA No Z_Norm)
+
+Full Covariance (standard) results:
+Accuracy: 95.53%
+Error rate: 4.47%
+Min DCF for Full Covariance (standard): 0.25209016393442624
+
+Diagonal Covariance results:
+Accuracy: 95.1%
+Error rate: 4.9%
+Min DCF for Diagonal Covariance: 0.27364754098360655
+
+Tied Covariance results:
+Accuracy: 95.23%
+Error rate: 4.77%
+Min DCF for Tied Covariance: 0.2646106557377049
+
+Tied Diagonal Covariance results:
+Accuracy: 94.97%
+Error rate: 5.03%
+Min DCF for Tied Diagonal Covariance: 0.2839549180327869
+
+#### Z_Norm
+
+Full Covariance (standard) results:
+Accuracy: 95.05%
+Error rate: 4.95%
+Min DCF for Full Covariance (standard): 0.2608401639344262
+
+Diagonal Covariance results:
+Accuracy: 95.05%
+Error rate: 4.95%
+Min DCF for Diagonal Covariance: 0.29301229508196724
+
+Tied Covariance results:
+Accuracy: 95.31%
+Error rate: 4.69%
+Min DCF for Tied Covariance: 0.27959016393442626
+
+Tied Diagonal Covariance results:
+Accuracy: 94.97%
+Error rate: 5.03%
+Min DCF for Tied Diagonal Covariance: 0.2892622950819672
+
+#### RAW + PCA with M = 8
+
+Full Covariance (standard) results:
+Accuracy: 95.23%
+Error rate: 4.77%
+Min DCF for Full Covariance (standard): 0.2670901639344262
+
+Diagonal Covariance results:
+Accuracy: 95.78%
+Error rate: 4.22%
+Min DCF for Diagonal Covariance: 0.2689549180327869
+
+Tied Covariance results:
+Accuracy: 95.23%
+Error rate: 4.77%
+Min DCF for Tied Covariance: 0.27959016393442626
+
+Tied Diagonal Covariance results:
+Accuracy: 95.66%
+Error rate: 4.34%
+Min DCF for Tied Diagonal Covariance: 0.2792622950819672
+
+#### Z_Norm + PCA with M = 8
+
+Full Covariance (standard) results:
+Accuracy: 95.23%
+Error rate: 4.77%
+Min DCF for Full Covariance (standard): 0.2855327868852459
+
+Diagonal Covariance results:
+Accuracy: 95.05%
+Error rate: 4.95%
+Min DCF for Diagonal Covariance: 0.2867622950819672
+
+Tied Covariance results:
+Accuracy: 95.35%
+Error rate: 4.65%
+Min DCF for Tied Covariance: 0.2905532786885246
+
+Tied Diagonal Covariance results:
+Accuracy: 95.23%
+Error rate: 4.77%
+Min DCF for Tied Diagonal Covariance: 0.29206967213114754
+
+### Number of GMM Components of Class 1: 2
+#### RAW (No PCA No Z_Norm)
+
+Full Covariance (standard) results:
+Accuracy: 95.27%
+Error rate: 4.73%
+Min DCF for Full Covariance (standard): 0.2602049180327869
+
+Diagonal Covariance results:
+Accuracy: 95.31%
+Error rate: 4.69%
+Min DCF for Diagonal Covariance: 0.27676229508196726
+
+Tied Covariance results:
+Accuracy: 95.23%
+Error rate: 4.77%
+Min DCF for Tied Covariance: 0.2646106557377049
+
+Tied Diagonal Covariance results:
+Accuracy: 95.27%
+Error rate: 4.73%
+Min DCF for Tied Diagonal Covariance: 0.28364754098360656
+
+#### Z_Norm
+
+Full Covariance (standard) results:
+Accuracy: 95.35%
+Error rate: 4.65%
+Min DCF for Full Covariance (standard): 0.27459016393442626
+
+Diagonal Covariance results:
+Accuracy: 95.14%
+Error rate: 4.86%
+Min DCF for Diagonal Covariance: 0.2727049180327869
+
+Tied Covariance results:
+Accuracy: 95.31%
+Error rate: 4.69%
+Min DCF for Tied Covariance: 0.27959016393442626
+
+Tied Diagonal Covariance results:
+Accuracy: 95.14%
+Error rate: 4.86%
+Min DCF for Tied Diagonal Covariance: 0.28737704918032786
+
+#### RAW + PCA with M = 8
+
+Full Covariance (standard) results:
+Accuracy: 95.31%
+Error rate: 4.69%
+Min DCF for Full Covariance (standard): 0.2723975409836066
+
+Diagonal Covariance results:
+Accuracy: 95.66%
+Error rate: 4.34%
+Min DCF for Diagonal Covariance: 0.25022540983606556
+
+Tied Covariance results:
+Accuracy: 95.23%
+Error rate: 4.77%
+Min DCF for Tied Covariance: 0.27959016393442626
+
+Tied Diagonal Covariance results:
+Accuracy: 95.66%
+Error rate: 4.34%
+Min DCF for Tied Diagonal Covariance: 0.2655737704918033
+
+#### Z_Norm + PCA with M = 8
+
+Full Covariance (standard) results:
+Accuracy: 95.27%
+Error rate: 4.73%
+Min DCF for Full Covariance (standard): 0.29174180327868854
+
+Diagonal Covariance results:
+Accuracy: 95.35%
+Error rate: 4.65%
+Min DCF for Diagonal Covariance: 0.2745696721311476
+
+Tied Covariance results:
+Accuracy: 95.35%
+Error rate: 4.65%
+Min DCF for Tied Covariance: 0.2905532786885246
+
+Tied Diagonal Covariance results:
+Accuracy: 95.57%
+Error rate: 4.43%
+Min DCF for Tied Diagonal Covariance: 0.2886270491803279
+
+### Number of GMM Components of Class 1: 4
+#### RAW (No PCA No Z_Norm)
+
+Full Covariance (standard) results:
+Accuracy: 95.48%
+Error rate: 4.52%
+Min DCF for Full Covariance (standard): 0.2661680327868853
+
+Diagonal Covariance results:
+Accuracy: 95.48%
+Error rate: 4.52%
+Min DCF for Diagonal Covariance: 0.27864754098360656
+
+Tied Covariance results:
+Accuracy: 95.1%
+Error rate: 4.9%
+Min DCF for Tied Covariance: 0.2617827868852459
+
+Tied Diagonal Covariance results:
+Accuracy: 95.18%
+Error rate: 4.82%
+Min DCF for Tied Diagonal Covariance: 0.28211065573770494
+
+#### Z_Norm
+
+Full Covariance (standard) results:
+Accuracy: 95.27%
+Error rate: 4.73%
+Min DCF for Full Covariance (standard): 0.2905532786885246
+
+Diagonal Covariance results:
+Accuracy: 95.31%
+Error rate: 4.69%
+Min DCF for Diagonal Covariance: 0.2886270491803279
+
+Tied Covariance results:
+Accuracy: 95.48%
+Error rate: 4.52%
+Min DCF for Tied Covariance: 0.26737704918032784
+
+Tied Diagonal Covariance results:
+Accuracy: 94.97%
+Error rate: 5.03%
+Min DCF for Tied Diagonal Covariance: 0.28989754098360654
+
+#### RAW + PCA with M = 8
+
+Full Covariance (standard) results:
+Accuracy: 95.61%
+Error rate: 4.39%
+Min DCF for Full Covariance (standard): 0.28487704918032786
+
+Diagonal Covariance results:
+Accuracy: 95.7%
+Error rate: 4.3%
+Min DCF for Diagonal Covariance: 0.25553278688524594
+
+Tied Covariance results:
+Accuracy: 95.14%
+Error rate: 4.86%
+Min DCF for Tied Covariance: 0.27678278688524593
+
+Tied Diagonal Covariance results:
+Accuracy: 95.53%
+Error rate: 4.47%
+Min DCF for Tied Diagonal Covariance: 0.2671311475409836
+
+#### Z_Norm + PCA with M = 8
+
+Full Covariance (standard) results:
+Accuracy: 95.01%
+Error rate: 4.99%
+Min DCF for Full Covariance (standard): 0.31235655737704915
+
+Diagonal Covariance results:
+Accuracy: 95.57%
+Error rate: 4.43%
+Min DCF for Diagonal Covariance: 0.2777049180327869
+
+Tied Covariance results:
+Accuracy: 95.14%
+Error rate: 4.86%
+Min DCF for Tied Covariance: 0.29360655737704916
+
+Tied Diagonal Covariance results:
+Accuracy: 95.4%
+Error rate: 4.6%
+Min DCF for Tied Diagonal Covariance: 0.27864754098360656
+
+### Number of GMM Components of Class 1: 8
+#### RAW (No PCA No Z_Norm)
+
+Full Covariance (standard) results:
+Accuracy: 94.97%
+Error rate: 5.03%
+Min DCF for Full Covariance (standard): 0.3096311475409836
+
+Diagonal Covariance results:
+Accuracy: 95.31%
+Error rate: 4.69%
+Min DCF for Diagonal Covariance: 0.29614754098360657
+
+Tied Covariance results:
+Accuracy: 95.31%
+Error rate: 4.69%
+Min DCF for Tied Covariance: 0.2849180327868852
+
+Tied Diagonal Covariance results:
+Accuracy: 95.18%
+Error rate: 4.82%
+Min DCF for Tied Diagonal Covariance: 0.2830532786885246
+
+#### Z_Norm
+
+Full Covariance (standard) results:
+Accuracy: 94.19%
+Error rate: 5.81%
+Min DCF for Full Covariance (standard): 0.3271106557377049
+
+Diagonal Covariance results:
+Accuracy: 95.14%
+Error rate: 4.86%
+Min DCF for Diagonal Covariance: 0.28897540983606557
+
+Tied Covariance results:
+Accuracy: 95.44%
+Error rate: 4.56%
+Min DCF for Tied Covariance: 0.2639549180327869
+
+Tied Diagonal Covariance results:
+Accuracy: 95.01%
+Error rate: 4.99%
+Min DCF for Tied Diagonal Covariance: 0.2895696721311476
+
+#### RAW + PCA with M = 8
+
+Full Covariance (standard) results:
+Accuracy: 94.71%
+Error rate: 5.29%
+Min DCF for Full Covariance (standard): 0.31118852459016394
+
+Diagonal Covariance results:
+Accuracy: 95.23%
+Error rate: 4.77%
+Min DCF for Diagonal Covariance: 0.2558401639344262
+
+Tied Covariance results:
+Accuracy: 94.97%
+Error rate: 5.03%
+Min DCF for Tied Covariance: 0.2670901639344262
+
+Tied Diagonal Covariance results:
+Accuracy: 95.4%
+Error rate: 4.6%
+Min DCF for Tied Diagonal Covariance: 0.2780327868852459
+
+#### Z_Norm + PCA with M = 8
+
+Full Covariance (standard) results:
+Accuracy: 94.8%
+Error rate: 5.2%
+Min DCF for Full Covariance (standard): 0.30368852459016393
+
+Diagonal Covariance results:
+Accuracy: 95.1%
+Error rate: 4.9%
+Min DCF for Diagonal Covariance: 0.3076639344262295
+
+Tied Covariance results:
+Accuracy: 95.53%
+Error rate: 4.47%
+Min DCF for Tied Covariance: 0.2973975409836066
+
+Tied Diagonal Covariance results:
+Accuracy: 95.14%
+Error rate: 4.86%
+Min DCF for Tied Diagonal Covariance: 0.27614754098360655
+
+## Number of GMM Components of Class 0: 8
+### Number of GMM Components of Class 1: 1
+#### RAW (No PCA No Z_Norm)
+
+Full Covariance (standard) results:
+Accuracy: 95.35%
+Error rate: 4.65%
+Min DCF for Full Covariance (standard): 0.2633401639344263
+
+Diagonal Covariance results:
+Accuracy: 95.35%
+Error rate: 4.65%
+Min DCF for Diagonal Covariance: 0.2589959016393443
+
+Tied Covariance results:
+Accuracy: 95.7%
+Error rate: 4.3%
+Min DCF for Tied Covariance: 0.2561475409836066
+
+Tied Diagonal Covariance results:
+Accuracy: 95.44%
+Error rate: 4.56%
+Min DCF for Tied Diagonal Covariance: 0.25928278688524586
+
+#### Z_Norm
+
+Full Covariance (standard) results:
+Accuracy: 95.27%
+Error rate: 4.73%
+Min DCF for Full Covariance (standard): 0.25522540983606556
+
+Diagonal Covariance results:
+Accuracy: 95.14%
+Error rate: 4.86%
+Min DCF for Diagonal Covariance: 0.2593032786885246
+
+Tied Covariance results:
+Accuracy: 95.4%
+Error rate: 4.6%
+Min DCF for Tied Covariance: 0.2514549180327869
+
+Tied Diagonal Covariance results:
+Accuracy: 95.1%
+Error rate: 4.9%
+Min DCF for Tied Diagonal Covariance: 0.2671106557377049
+
+#### RAW + PCA with M = 8
+
+Full Covariance (standard) results:
+Accuracy: 95.18%
+Error rate: 4.82%
+Min DCF for Full Covariance (standard): 0.2670901639344262
+
+Diagonal Covariance results:
+Accuracy: 95.31%
+Error rate: 4.69%
+Min DCF for Diagonal Covariance: 0.2689549180327869
+
+Tied Covariance results:
+Accuracy: 95.23%
+Error rate: 4.77%
+Min DCF for Tied Covariance: 0.25522540983606556
+
+Tied Diagonal Covariance results:
+Accuracy: 95.44%
+Error rate: 4.56%
+Min DCF for Tied Diagonal Covariance: 0.2611680327868853
+
+#### Z_Norm + PCA with M = 8
+
+Full Covariance (standard) results:
+Accuracy: 95.1%
+Error rate: 4.9%
+Min DCF for Full Covariance (standard): 0.2899180327868852
+
+Diagonal Covariance results:
+Accuracy: 94.88%
+Error rate: 5.12%
+Min DCF for Diagonal Covariance: 0.30303278688524593
+
+Tied Covariance results:
+Accuracy: 95.44%
+Error rate: 4.56%
+Min DCF for Tied Covariance: 0.2755327868852459
+
+Tied Diagonal Covariance results:
+Accuracy: 94.88%
+Error rate: 5.12%
+Min DCF for Tied Diagonal Covariance: 0.29174180327868854
+
+### Number of GMM Components of Class 1: 2
+#### RAW (No PCA No Z_Norm)
+
+Full Covariance (standard) results:
+Accuracy: 95.01%
+Error rate: 4.99%
+Min DCF for Full Covariance (standard): 0.2646311475409836
+
+Diagonal Covariance results:
+Accuracy: 95.44%
+Error rate: 4.56%
+Min DCF for Diagonal Covariance: 0.23522540983606557
+
+Tied Covariance results:
+Accuracy: 95.7%
+Error rate: 4.3%
+Min DCF for Tied Covariance: 0.2561475409836066
+
+Tied Diagonal Covariance results:
+Accuracy: 95.66%
+Error rate: 4.34%
+Min DCF for Tied Diagonal Covariance: 0.24459016393442623
+
+#### Z_Norm
+
+Full Covariance (standard) results:
+Accuracy: 95.23%
+Error rate: 4.77%
+Min DCF for Full Covariance (standard): 0.2780327868852459
+
+Diagonal Covariance results:
+Accuracy: 95.35%
+Error rate: 4.65%
+Min DCF for Diagonal Covariance: 0.25086065573770494
+
+Tied Covariance results:
+Accuracy: 95.4%
+Error rate: 4.6%
+Min DCF for Tied Covariance: 0.2514549180327869
+
+Tied Diagonal Covariance results:
+Accuracy: 95.27%
+Error rate: 4.73%
+Min DCF for Tied Diagonal Covariance: 0.2492827868852459
+
+#### RAW + PCA with M = 8
+
+Full Covariance (standard) results:
+Accuracy: 95.44%
+Error rate: 4.56%
+Min DCF for Full Covariance (standard): 0.27178278688524593
+
+Diagonal Covariance results:
+Accuracy: 95.78%
+Error rate: 4.22%
+Min DCF for Diagonal Covariance: 0.2527049180327869
+
+Tied Covariance results:
+Accuracy: 95.23%
+Error rate: 4.77%
+Min DCF for Tied Covariance: 0.25522540983606556
+
+Tied Diagonal Covariance results:
+Accuracy: 95.61%
+Error rate: 4.39%
+Min DCF for Tied Diagonal Covariance: 0.2464549180327869
+
+#### Z_Norm + PCA with M = 8
+
+Full Covariance (standard) results:
+Accuracy: 95.27%
+Error rate: 4.73%
+Min DCF for Full Covariance (standard): 0.30829918032786885
+
+Diagonal Covariance results:
+Accuracy: 95.23%
+Error rate: 4.77%
+Min DCF for Diagonal Covariance: 0.2864549180327869
+
+Tied Covariance results:
+Accuracy: 95.44%
+Error rate: 4.56%
+Min DCF for Tied Covariance: 0.2755327868852459
+
+Tied Diagonal Covariance results:
+Accuracy: 95.18%
+Error rate: 4.82%
+Min DCF for Tied Diagonal Covariance: 0.28518442622950824
+
+### Number of GMM Components of Class 1: 4
+#### RAW (No PCA No Z_Norm)
+
+Full Covariance (standard) results:
+Accuracy: 95.31%
+Error rate: 4.69%
+Min DCF for Full Covariance (standard): 0.28081967213114756
+
+Diagonal Covariance results:
+Accuracy: 95.44%
+Error rate: 4.56%
+Min DCF for Diagonal Covariance: 0.2552049180327869
+
+Tied Covariance results:
+Accuracy: 95.74%
+Error rate: 4.26%
+Min DCF for Tied Covariance: 0.26237704918032784
+
+Tied Diagonal Covariance results:
+Accuracy: 95.4%
+Error rate: 4.6%
+Min DCF for Tied Diagonal Covariance: 0.24772540983606559
+
+#### Z_Norm
+
+Full Covariance (standard) results:
+Accuracy: 95.18%
+Error rate: 4.82%
+Min DCF for Full Covariance (standard): 0.3089344262295082
+
+Diagonal Covariance results:
+Accuracy: 95.4%
+Error rate: 4.6%
+Min DCF for Diagonal Covariance: 0.25739754098360657
+
+Tied Covariance results:
+Accuracy: 95.48%
+Error rate: 4.52%
+Min DCF for Tied Covariance: 0.24616803278688523
+
+Tied Diagonal Covariance results:
+Accuracy: 95.14%
+Error rate: 4.86%
+Min DCF for Tied Diagonal Covariance: 0.2442827868852459
+
+#### RAW + PCA with M = 8
+
+Full Covariance (standard) results:
+Accuracy: 95.66%
+Error rate: 4.34%
+Min DCF for Full Covariance (standard): 0.2967622950819672
+
+Diagonal Covariance results:
+Accuracy: 95.83%
+Error rate: 4.17%
+Min DCF for Diagonal Covariance: 0.2527049180327869
+
+Tied Covariance results:
+Accuracy: 95.44%
+Error rate: 4.56%
+Min DCF for Tied Covariance: 0.26239754098360657
+
+Tied Diagonal Covariance results:
+Accuracy: 95.27%
+Error rate: 4.73%
+Min DCF for Tied Diagonal Covariance: 0.25987704918032783
+
+#### Z_Norm + PCA with M = 8
+
+Full Covariance (standard) results:
+Accuracy: 95.1%
+Error rate: 4.9%
+Min DCF for Full Covariance (standard): 0.30803278688524593
+
+Diagonal Covariance results:
+Accuracy: 95.35%
+Error rate: 4.65%
+Min DCF for Diagonal Covariance: 0.29924180327868855
+
+Tied Covariance results:
+Accuracy: 95.4%
+Error rate: 4.6%
+Min DCF for Tied Covariance: 0.27551229508196723
+
+Tied Diagonal Covariance results:
+Accuracy: 95.4%
+Error rate: 4.6%
+Min DCF for Tied Diagonal Covariance: 0.2755327868852459
+
+### Number of GMM Components of Class 1: 8
+#### RAW (No PCA No Z_Norm)
+
+Full Covariance (standard) results:
+Accuracy: 94.97%
+Error rate: 5.03%
+Min DCF for Full Covariance (standard): 0.32426229508196724
+
+Diagonal Covariance results:
+Accuracy: 95.61%
+Error rate: 4.39%
+Min DCF for Diagonal Covariance: 0.26586065573770495
+
+Tied Covariance results:
+Accuracy: 95.66%
+Error rate: 4.34%
+Min DCF for Tied Covariance: 0.24489754098360655
+
+Tied Diagonal Covariance results:
+Accuracy: 95.61%
+Error rate: 4.39%
+Min DCF for Tied Diagonal Covariance: 0.2574385245901639
+
+#### Z_Norm
+
+Full Covariance (standard) results:
+Accuracy: 94.54%
+Error rate: 5.46%
+Min DCF for Full Covariance (standard): 0.3395901639344262
+
+Diagonal Covariance results:
+Accuracy: 95.31%
+Error rate: 4.69%
+Min DCF for Diagonal Covariance: 0.26147540983606554
+
+Tied Covariance results:
+Accuracy: 95.66%
+Error rate: 4.34%
+Min DCF for Tied Covariance: 0.24737704918032785
+
+Tied Diagonal Covariance results:
+Accuracy: 95.18%
+Error rate: 4.82%
+Min DCF for Tied Diagonal Covariance: 0.2511475409836066
+
+#### RAW + PCA with M = 8
+
+Full Covariance (standard) results:
+Accuracy: 94.58%
+Error rate: 5.42%
+Min DCF for Full Covariance (standard): 0.3230122950819672
+
+Diagonal Covariance results:
+Accuracy: 95.61%
+Error rate: 4.39%
+Min DCF for Diagonal Covariance: 0.2702254098360656
+
+Tied Covariance results:
+Accuracy: 95.4%
+Error rate: 4.6%
+Min DCF for Tied Covariance: 0.2630122950819672
+
+Tied Diagonal Covariance results:
+Accuracy: 95.27%
+Error rate: 4.73%
+Min DCF for Tied Diagonal Covariance: 0.25553278688524594
+
+#### Z_Norm + PCA with M = 8
+
+Full Covariance (standard) results:
+Accuracy: 94.67%
+Error rate: 5.33%
+Min DCF for Full Covariance (standard): 0.3155737704918033
+
+Diagonal Covariance results:
+Accuracy: 94.88%
+Error rate: 5.12%
+Min DCF for Diagonal Covariance: 0.3271516393442623
+
+Tied Covariance results:
+Accuracy: 95.57%
+Error rate: 4.43%
+Min DCF for Tied Covariance: 0.2873975409836066
+
+Tied Diagonal Covariance results:
+Accuracy: 95.05%
+Error rate: 4.95%
+Min DCF for Tied Diagonal Covariance: 0.28987704918032786
+
+# Score Calibration
+Logistic Regression Weighted Quadratic results:
+Accuracy: 93.42%
+Error rate: 6.58%
+Min DCF for Logistic Regression Weighted Quadratic: 0.2852254098360656
+
+
+ActDCF: 0.44874118843690375
+MinDCF: 0.28527505085684085
+
+
+ActDCF: 0.30652505085684084
+MinDCF: 0.29183534796606675
+
+Polynomial Kernel SVM results:
+Accuracy: 95.31%
+Error rate: 4.69%
+Min DCF for Polynomial Kernel SVM: 0.28397540983606556
+
+
+ActDCF: 0.69
+MinDCF: 0.2840250508568408
+
+
+ActDCF: 0.29402505085684083
+MinDCF: 0.28746475374761493
+
+Diagonal Covariance results:
+Accuracy: 95.44%
+Error rate: 4.56%
+Min DCF for Diagonal Covariance: 0.23522540983606557
+
+
+ActDCF: 0.24183534796606676
+MinDCF: 0.23527505085684083
+
+# Model Fusion
+
+Logistic Regression Weighted Quadratic results:
+Accuracy: 93.42%
+Error rate: 6.58%
+Min DCF for Logistic Regression Weighted Quadratic: 0.2852254098360656
+
+Diagonal Covariance results:
+Accuracy: 95.44%
+Error rate: 4.56%
+Min DCF for Diagonal Covariance: 0.23522540983606557
+
+Polynomial Kernel SVM results:
+Accuracy: 95.31%
+Error rate: 4.69%
+Min DCF for Polynomial Kernel SVM: 0.28397540983606556
+
+## QLR + SVM
+ActDCF: 0.3015250508568408
+MinDCF: 0.28588683351219646
+
+## QLR + GMM
+ActDCF: 0.26121475374761494
+MinDCF: 0.2455853479660668
+
+## SVM + GMM
+ActDCF: 0.252154456638389
+MinDCF: 0.24027505085684084
+
+## QLR + SVM + GMM
+ActDCF: 0.24684415952916305
+MinDCF: 0.24184415952916305

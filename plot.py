@@ -206,6 +206,8 @@ def compute_bayes_error_plot(llrs,labels,plt_title):
         pi_t = 1/(1+numpy.exp(-effPriorLogOdds[i]))
         DCFs[i],_,_ = optimal_decision.computeOptimalDecisionBinaryBayesPlot(pi_t,1,1,llrs,labels)
         MIN_DCFs[i] = optimal_decision.computeMinDCF(pi_t,1,1,llrs,labels)
+    print("\nActDCF: " + str(DCFs[21]))
+    print("MinDCF: " + str(MIN_DCFs[21]) + "\n")
     # pass priorlogodd value and mindcf value to better find the point of our application inside the plot
     bayesErrorPlot(DCFs,MIN_DCFs,effPriorLogOdds,plt_title,priologodd=effPriorLogOdds[21],mindcflogodd=MIN_DCFs[21])
 
