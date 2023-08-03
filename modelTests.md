@@ -4568,40 +4568,103 @@ Error rate: 4.95%
 Min DCF for Tied Diagonal Covariance: 0.28987704918032786
 
 # Score Calibration
+
 Logistic Regression Weighted Quadratic results:
 Accuracy: 93.42%
 Error rate: 6.58%
 Min DCF for Logistic Regression Weighted Quadratic: 0.2852254098360656
 
+## Before Calibration
+### Target Working Point:
 
-ActDCF: 0.44874118843690375
-MinDCF: 0.28527505085684085
+ActDCF: 0.4487295081967213
+MinDCF: 0.28522540983606554
 
+### Unbalanced 0.1 Working Point:
 
-ActDCF: 0.30652505085684084
-MinDCF: 0.29183534796606675
+ActDCF: 0.70625
+MinDCF: 0.5927663934426229
+
+### Unbalanced 0.9 Working Point:
+
+ActDCF: 0.18457194899817853
+MinDCF: 0.10390938069216754
+
+## After Calibration
+### Target Working Point:
+
+ActDCF: 0.3064754098360655
+MinDCF: 0.29178278688524584
+
+### Unbalanced 0.1 Working Point:
+
+ActDCF: 0.7248155737704918
+MinDCF: 0.62
+
+### Unbalanced 0.9 Working Point:
+
+ActDCF: 0.10901639344262293
+MinDCF: 0.10411657559198541
 
 Polynomial Kernel SVM results:
 Accuracy: 95.31%
 Error rate: 4.69%
 Min DCF for Polynomial Kernel SVM: 0.28397540983606556
 
+## Before Calibration
+### Target Working Point:
 
 ActDCF: 0.69
-MinDCF: 0.2840250508568408
+MinDCF: 0.28397540983606556
 
+### Unbalanced 0.1 Working Point:
 
-ActDCF: 0.29402505085684083
-MinDCF: 0.28746475374761493
+ActDCF: 0.9725
+MinDCF: 0.60625
+
+### Unbalanced 0.9 Working Point:
+
+ActDCF: 0.1158082877959927
+MinDCF: 0.09526639344262292
+
+## After Calibration
+
+### Target Working Point:
+
+ActDCF: 0.2939754098360655
+MinDCF: 0.2874180327868852
+
+### Unbalanced 0.1 Working Point:
+
+ActDCF: 0.6973155737704918
+MinDCF: 0.615
+
+### Unbalanced 0.9 Working Point:
+
+ActDCF: 0.09985200364298723
+MinDCF: 0.09505919854280508
 
 Diagonal Covariance results:
 Accuracy: 95.44%
 Error rate: 4.56%
 Min DCF for Diagonal Covariance: 0.23522540983606557
 
+## Before Calibration
 
-ActDCF: 0.24183534796606676
-MinDCF: 0.23527505085684083
+### Target Working Point:
+
+ActDCF: 0.24178278688524585
+MinDCF: 0.23522540983606555
+
+### Unbalanced 0.1 Working Point:
+
+ActDCF: 0.6778483606557376
+MinDCF: 0.565
+
+### Unbalanced 0.9 Working Point:
+
+ActDCF: 0.08766621129326044
+MinDCF: 0.08496584699453551
 
 # Model Fusion
 
@@ -4621,17 +4684,65 @@ Error rate: 4.69%
 Min DCF for Polynomial Kernel SVM: 0.28397540983606556
 
 ## QLR + SVM
-ActDCF: 0.3015250508568408
-MinDCF: 0.28588683351219646
+### Target Working Point:
+
+ActDCF: 0.3014754098360656
+MinDCF: 0.28581967213114756
+
+### Unbalanced 0.1 Working Point:
+
+ActDCF: 0.6948155737704917
+MinDCF: 0.5925
+
+### Unbalanced 0.9 Working Point:
+
+ActDCF: 0.09714480874316937
+MinDCF: 0.09548041894353367
 
 ## QLR + GMM
-ActDCF: 0.26121475374761494
-MinDCF: 0.2455853479660668
+### Target Working Point:
+
+ActDCF: 0.2611680327868852
+MinDCF: 0.24553278688524588
+
+### Unbalanced 0.1 Working Point:
+
+ActDCF: 0.6498155737704918
+MinDCF: 0.59
+
+### Unbalanced 0.9 Working Point:
+
+ActDCF: 0.09016621129326044
+MinDCF: 0.08610200364298722
 
 ## SVM + GMM
-ActDCF: 0.252154456638389
-MinDCF: 0.24027505085684084
+### Target Working Point:
+
+ActDCF: 0.2521106557377049
+MinDCF: 0.24022540983606558
+
+### Unbalanced 0.1 Working Point:
+
+ActDCF: 0.6473155737704918
+MinDCF: 0.5690163934426229
+
+### Unbalanced 0.9 Working Point:
+
+ActDCF: 0.0874590163934426
+MinDCF: 0.08527322404371583
 
 ## QLR + SVM + GMM
-ActDCF: 0.24684415952916305
-MinDCF: 0.24184415952916305
+### Target Working Point:
+
+ActDCF: 0.24680327868852459
+MinDCF: 0.24180327868852455
+
+### Unbalanced 0.1 Working Point:
+
+ActDCF: 0.6498155737704918
+MinDCF: 0.567766393442623
+
+### Unbalanced 0.9 Working Point:
+
+ActDCF: 0.0899590163934426
+MinDCF: 0.08630919854280508

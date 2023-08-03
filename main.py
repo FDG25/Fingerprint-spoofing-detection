@@ -157,7 +157,7 @@ if __name__ == '__main__':
     
     # -------------- SCORE CALIBRATION -------------
     
-    # calibration_fusion.best_model_score_calibration(DTR_RAND,LTR_RAND)
+    calibration_fusion.best_model_score_calibration(DTR_RAND,LTR_RAND)
 
     # -------------- MODEL FUSION ----------------
-    # calibration_fusion.model_fusion(DTR_RAND,LTR_RAND)
+    calibration_fusion.model_fusion(DTR_RAND,LTR_RAND)

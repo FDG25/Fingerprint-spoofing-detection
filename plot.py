@@ -199,33 +199,74 @@ def gmm_plot_all_component_combinations(x, y, labels, colors, gmm_model_name):
 
 def compute_bayes_error_plot(llrs,labels,plt_title):
     n_points = 100
-    effPriorLogOdds = numpy.linspace(-4, 4, n_points)
+    effPriorLogOdds = numpy.linspace(-5, 5, n_points)
+
+    # COMPUTE effpriorlogodds FOR THESE W.P.
+    CFN = 1
+    CFP = 10
+    PRIOR_PROBABILITY = 0.5
+
+    EFFECTIVE_PRIOR = (PRIOR_PROBABILITY * CFN)/((PRIOR_PROBABILITY * CFN) + (1-PRIOR_PROBABILITY) * CFP) 
+
+    target = numpy.log(EFFECTIVE_PRIOR/(1-EFFECTIVE_PRIOR))
+
+    PRIOR_PROBABILITY = 0.1
+    EFFECTIVE_PRIOR = (PRIOR_PROBABILITY * CFN)/((PRIOR_PROBABILITY * CFN) + (1-PRIOR_PROBABILITY) * CFP) 
+
+    unbalanced_01 = numpy.log(EFFECTIVE_PRIOR/(1-EFFECTIVE_PRIOR))
+
+    PRIOR_PROBABILITY = 0.9
+    EFFECTIVE_PRIOR = (PRIOR_PROBABILITY * CFN)/((PRIOR_PROBABILITY * CFN) + (1-PRIOR_PROBABILITY) * CFP) 
+
+    unbalanced_09 = numpy.log(EFFECTIVE_PRIOR/(1-EFFECTIVE_PRIOR))
+
+    # ADD THEM TO EFFPRIORLOGODDS LIST
+    effPriorLogOdds = numpy.insert(effPriorLogOdds,numpy.abs(effPriorLogOdds - target).argmin(),target)
+    effPriorLogOdds = numpy.insert(effPriorLogOdds,numpy.abs(effPriorLogOdds - unbalanced_01).argmin(),unbalanced_01)
+    effPriorLogOdds = numpy.insert(effPriorLogOdds,numpy.abs(effPriorLogOdds - unbalanced_09).argmin(),unbalanced_09)
+    target_index = numpy.abs(effPriorLogOdds - target).argmin()
+    unbalanced_01_index = numpy.abs(effPriorLogOdds - unbalanced_01).argmin()
+    unbalanced_09_index = numpy.abs(effPriorLogOdds - unbalanced_09).argmin()
+
+    n_points += 3
+
     DCFs = [None] * n_points
     MIN_DCFs = [None] * n_points
     for i in range(0,n_points):
         pi_t = 1/(1+numpy.exp(-effPriorLogOdds[i]))
         DCFs[i],_,_ = optimal_decision.computeOptimalDecisionBinaryBayesPlot(pi_t,1,1,llrs,labels)
         MIN_DCFs[i] = optimal_decision.computeMinDCF(pi_t,1,1,llrs,labels)
-    print("\nActDCF: " + str(DCFs[21]))
-    print("MinDCF: " + str(MIN_DCFs[21]) + "\n")
-    # pass priorlogodd value and mindcf value to better find the point of our application inside the plot
-    bayesErrorPlot(DCFs,MIN_DCFs,effPriorLogOdds,plt_title,priologodd=effPriorLogOdds[21],mindcflogodd=MIN_DCFs[21])
+    
+    print("Target Working Point:\n")
+    print("ActDCF: " + str(DCFs[target_index]))
+    print("MinDCF: " + str(MIN_DCFs[target_index]) + "\n")
+    print("Unbalanced 0.1 Working Point:\n")
+    print("ActDCF: " + str(DCFs[unbalanced_01_index]))
+    print("MinDCF: " + str(MIN_DCFs[unbalanced_01_index]) + "\n")
+    print("Unbalanced 0.9 Working Point:\n")
+    print("ActDCF: " + str(DCFs[unbalanced_09_index]))
+    print("MinDCF: " + str(MIN_DCFs[unbalanced_09_index]) + "\n")
+    # pass priorlogodd value
+    bayesErrorPlot(DCFs,MIN_DCFs,effPriorLogOdds,plt_title,priorlogodd=[effPriorLogOdds[target_index],effPriorLogOdds[unbalanced_01_index],effPriorLogOdds[unbalanced_09_index]])
 
 #The normalized Bayes error plot allows assessing the performance of the
 #recognizer as we vary the application, i.e. as a function of prior log-odds ptilde
-def bayesErrorPlot(dcf, mindcf, effPriorLogOdds, plt_title, priologodd=None, mindcflogodd=None): #dcf is the array containing the DCF values, and mindcf is the array containing the minimum DCF values
+def bayesErrorPlot(dcf, mindcf, effPriorLogOdds, plt_title, priorlogodd=None): #dcf is the array containing the DCF values, and mindcf is the array containing the minimum DCF values
     global plot_index
     plt.figure()
     plt.plot(effPriorLogOdds, dcf, label='actDCF', color='b')
     plt.plot(effPriorLogOdds, mindcf, label='minDCF', linestyle='dashed' , color='r')
-    plt.plot([priologodd, priologodd], [0, mindcflogodd], 'g', linestyle='dashed')
-    plt.plot([-4, priologodd], [mindcflogodd, mindcflogodd], 'g', linestyle='dashed')
+    colors = ['yellow','cyan','green']
+    # priorlogodd: working points of 0.5,0.1,0.9
+    for i in range(0,len(colors)):
+        plt.plot([priorlogodd[i], priorlogodd[i]], [0, 1], colors[i])
+    #plt.plot([-4, priorlogodd], [mindcflogodd, mindcflogodd], 'g', linestyle='dashed')
     plt.xlabel("$log \\frac{ \\tilde{\pi}}{1-\\tilde{\pi}}$")
     plt.ylabel("DCF")
-    plt.legend()
+    plt.legend(loc='upper right')
     plt.title(plt_title)
     plt.ylim([0, 1.0])
-    plt.xlim([-4, 4])
+    plt.xlim([-5, 5])
     plt.savefig(os.path.join('output_plot_folder','plot_' + str(plot_index) + '.png'))
     plot_index+=1
     #plt.show()
