@@ -8,6 +8,7 @@ import training
 import kfold
 import calibration_fusion
 import gmm
+import evaluation
 
 #change the shape of an array from horizontal to vertical, so obtain a column vector
 def vcol(array):
@@ -131,6 +132,12 @@ if __name__ == '__main__':
     DTR_RAND,LTR_RAND = randomize(DTR,LTR)
     DTE_RAND,LTE_RAND = randomize(DTE,LTE)
 
+    # -------------------------------------------------------------
+    # -------------------------------------------------------------
+    # --------------- MODEL TRAINING ------------------------------
+    # -------------------------------------------------------------
+    # -------------------------------------------------------------
+
     # ---------------   GENERATIVE MODELS   -----------------------
 
     # training.trainGenerative(DTR_RAND,LTR_RAND)
@@ -157,7 +164,17 @@ if __name__ == '__main__':
     
     # -------------- SCORE CALIBRATION -------------
     
-    calibration_fusion.best_model_score_calibration(DTR_RAND,LTR_RAND)
+    # calibration_fusion.best_model_score_calibration(DTR_RAND,LTR_RAND)
 
     # -------------- MODEL FUSION ----------------
-    calibration_fusion.model_fusion(DTR_RAND,LTR_RAND)
+    # calibration_fusion.model_fusion(DTR_RAND,LTR_RAND)
+
+    # -------------------------------------------------------------
+    # -------------------------------------------------------------
+    # --------------- MODEL EVALUATION ----------------------------
+    # -------------------------------------------------------------
+    # -------------------------------------------------------------
+
+    # evaluation.best_model_score_calibration(DTR_RAND,LTR_RAND,DTE,LTE)
+
+    # evaluation.model_fusion(DTR_RAND,LTR_RAND,DTE,LTE)

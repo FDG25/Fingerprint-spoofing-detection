@@ -30,24 +30,24 @@ def model_fusion(DTR_RAND,LTR_RAND):
     
     # QLR + SVM
     s = [numpy.hstack(scores_lr),numpy.hstack(scores_pol_svm)]
-    s_new=numpy.vstack(s)
+    s_vstack=numpy.vstack(s)
     print("QLR + SVM")
-    kfold.K_Fold_Calibration(s_new,labels_lr,K=constants.K,plt_title="Model Fusion QLR + SVM",model_fusion=True,num_models=2)
+    kfold.K_Fold_Calibration(s_vstack,labels_lr,K=constants.K,plt_title="Model Fusion QLR + SVM",model_fusion=True,num_models=2)
     
     # QLR + GMM
     s = [numpy.hstack(scores_lr),numpy.hstack(scores_gmm)]
-    s_new=numpy.vstack(s)
+    s_vstack=numpy.vstack(s)
     print("QLR + GMM")
-    kfold.K_Fold_Calibration(s_new,labels_lr,K=constants.K,plt_title="Model Fusion QLR + GMM",model_fusion=True,num_models=2)
+    kfold.K_Fold_Calibration(s_vstack,labels_lr,K=constants.K,plt_title="Model Fusion QLR + GMM",model_fusion=True,num_models=2)
     
     # SVM + GMM
     s = [numpy.hstack(scores_pol_svm),numpy.hstack(scores_gmm)]
-    s_new=numpy.vstack(s)
+    s_vstack=numpy.vstack(s)
     print("SVM + GMM")
-    kfold.K_Fold_Calibration(s_new,labels_lr,K=constants.K,plt_title="Model Fusion SVM + GMM",model_fusion=True,num_models=2)
+    kfold.K_Fold_Calibration(s_vstack,labels_lr,K=constants.K,plt_title="Model Fusion SVM + GMM",model_fusion=True,num_models=2)
 
     # QLR + SVM + GMM
     s = [numpy.hstack(scores_lr),numpy.hstack(scores_pol_svm),numpy.hstack(scores_gmm)]
-    s_new=numpy.vstack(s)
+    s_vstack=numpy.vstack(s)
     print("QLR + SVM + GMM")
-    kfold.K_Fold_Calibration(s_new,labels_lr,K=constants.K,plt_title="Model Fusion QLR + SVM + GMM",model_fusion=True,num_models=3)
+    kfold.K_Fold_Calibration(s_vstack,labels_lr,K=constants.K,plt_title="Model Fusion QLR + SVM + GMM",model_fusion=True,num_models=3)
