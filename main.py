@@ -175,6 +175,22 @@ if __name__ == '__main__':
     # -------------------------------------------------------------
     # -------------------------------------------------------------
 
+    # -------------- SCORE CALIBRATION -------------
+
     # evaluation.best_model_score_calibration(DTR_RAND,LTR_RAND,DTE,LTE)
 
+    # -------------- MODEL FUSION ----------------
+
     # evaluation.model_fusion(DTR_RAND,LTR_RAND,DTE,LTE)
+
+    # ---------------   QLR MODEL   -----------------------
+
+    # evaluation.eval_qlr_lambda_parameter_testing(DTR_RAND,LTR_RAND,DTE,LTE,Load_Data=False)
+
+    # ---------------   POLYNOMIAL SVM MODEL   -----------------------
+
+    # evaluation.eval_svm_kernel_polynomial_C_c_parameter_testing(DTR_RAND,LTR_RAND,DTE,LTE,Load_Data=False)
+
+    # -------------- GMM --------------------
+
+    # evaluation.eval_GMMAllRawCombinations(DTR_RAND,LTR_RAND,DTE,LTE,Load_Data=False)

@@ -9,6 +9,8 @@ import constants
 import plot
 import kfold
 import main
+import pickle
+from plot_utility import PlotUtility
 
 def best_model_score_calibration(DTR_RAND,LTR_RAND,DTE,LTE):
     m = 8
@@ -162,7 +164,7 @@ def LR_Eval(DTR,LTR,DTE,LTE,classifiers,lambd,PCA_Flag=None,M=None,Z_Norm_Flag=N
     # returns only scores and labels of the last passed classifier in classifiers
     return minDcfs,scores,labels
 
-# PLO_SVM
+# POL_SVM
 def SVM_kernel_polynomial_Eval(DTR,LTR,DTE,LTE,hyperParameter_K,hyperParameter_C,hyperParameter_c,hyperParameter_d,PCA_Flag=None,M=None,Z_Norm_Flag=None,Dcf_Prior=None):
     nWrongPrediction = 0
     scores = numpy.array([])
@@ -223,3 +225,205 @@ def GMM_Eval(DTR,LTR,DTE,LTE,classifiers,nSplit0,nSplit1=None,PCA_Flag=None,M=No
         print(f"Min DCF for {classifier_name}: {minDcf}\n")
     return minDcfs,scores,labels 
 
+# ---- PARAMETERS EVALUATION FOR FINDING EVENTUAL SUB-OPTIMAL SOLUTIONS ----
+
+def eval_qlr_lambda_parameter_testing(DTR_RAND,LTR_RAND,DTE,LTE,Load_Data=False):
+    prior = 0.5    
+    lambda_values = [0.00001, 0.0001, 0.001, 0.01, 0.1, 1.0, 10.0, 100.0]
+    zNorm_quadratic_eval = []
+    classifier = [(lr.LogisticRegressionWeightedQuadratic, "Logistic Regression Weighted Quadratic Evaluation")]
+    
+    if not Load_Data:
+        for lambd in lambda_values:
+            print("lambda value : " + str(lambd))
+            minDcfs,_,_ = LR_Eval(DTR_RAND,LTR_RAND,DTE,LTE,classifier,lambd=lambd,PCA_Flag=None,M=None,Z_Norm_Flag=True,Dcf_Prior=prior)
+            zNorm_quadratic_eval.append(minDcfs[0])
+        
+        # Save the list of objects to a file
+        with open("modelData/zNorm_quadratic_lr_eval" + str(prior) + ".pkl", "wb") as f:
+            pickle.dump(zNorm_quadratic_eval, f)
+    
+    if Load_Data:
+        # Retrieve the list of objects from the file
+        with open("modelData/zNorm_quadratic_lr_eval" + str(prior) + ".pkl", "rb") as f:
+            zNorm_quadratic_eval = pickle.load(f)
+    
+    # Retrieve the list of objects from the file
+    with open("modelData/zNorm_quadratic_lr" + str(prior) + ".pkl", "rb") as f:
+        zNorm_quadratic_train = pickle.load(f)
+    
+    # ------ PLOT LR_QUADRATIC ------
+    labels = ['minDCF [eval set]','minDCF [valid set]']
+    colors = ['b','g']
+    # array of lambda values (for linear) and corresponding mindcfs
+    plot.plotDCF([lambda_values,lambda_values],[zNorm_quadratic_eval,zNorm_quadratic_train],labels,colors,'lambda',title='Quadratic Logistic Regression Evaluation')
+
+def eval_svm_kernel_polynomial_C_c_parameter_testing(DTR_RAND,LTR_RAND,DTE,LTE,Load_Data=False):
+    # BEST MODEL POLYNOMIAL SVM WITH c=1, C=10^-2, PCA + ZNORM
+    prior = 0.5
+    m = 8
+    C_values = [0.000001, 0.00001, 0.0001, 0.001, 0.01, 0.1, 1.0, 10.0, 100.0] # for C <= 10^-6 there is a significative worsening in performance 
+    c_values = [0, 1]
+    zNormPca_polynomial_eval = []
+
+    if not Load_Data:
+        for C in C_values:
+            print("C value : " + str(C))
+            for c in c_values:
+                print("c value : " + str(c))
+                minDcf,_,_ = SVM_kernel_polynomial_Eval(DTR_RAND,LTR_RAND,DTE,LTE,hyperParameter_K=1,hyperParameter_C=C,hyperParameter_c=c,hyperParameter_d=2,PCA_Flag=True,M=m,Z_Norm_Flag=True,Dcf_Prior=prior)
+                zNormPca_polynomial_eval.append(PlotUtility(prior=prior,k=1,C=C,c=c,d=2,minDcf=minDcf))
+        
+        # Save the list of objects to a file
+        with open("modelData/zNormPca_polynomial_svm_eval" + str(prior) + ".pkl", "wb") as f:
+            pickle.dump(zNormPca_polynomial_eval, f)
+    
+    if Load_Data:
+        # Retrieve the list of objects from the file
+        with open("modelData/zNormPca_polynomial_svm_eval" + str(prior) + ".pkl", "rb") as f:
+            zNormPca_polynomial_eval = pickle.load(f)
+    
+    # Retrieve the list of objects from the file
+    with open("modelData/zNormPca_polynomial_svm" + str(prior) + ".pkl", "rb") as f:
+        zNormPca_polynomial_train = pickle.load(f)
+    
+    # ----- PLOT FOR c = 0 ------
+    zNormPca_polynomial_c0_train = list(filter(lambda PlotElement: PlotElement.is_c(0), zNormPca_polynomial_train))
+    minDcfs_zNormPca_polynomial_c0_train = [PlotElement.getminDcf() for PlotElement in zNormPca_polynomial_c0_train]
+    C_values_zNormPca_polynomial_c0_train = [PlotElement.getC() for PlotElement in zNormPca_polynomial_c0_train]
+
+    zNormPca_polynomial_c0_eval = list(filter(lambda PlotElement: PlotElement.is_c(0), zNormPca_polynomial_eval))
+    minDcfs_zNormPca_polynomial_c0_eval = [PlotElement.getminDcf() for PlotElement in zNormPca_polynomial_c0_eval]
+    C_values_zNormPca_polynomial_c0_eval = [PlotElement.getC() for PlotElement in zNormPca_polynomial_c0_eval]
+
+    labels = ['minDCF [eval set]','minDCF [valid set]']
+    colors = ['b','g']
+    plot.plotDCF([C_values_zNormPca_polynomial_c0_eval,C_values_zNormPca_polynomial_c0_train],[minDcfs_zNormPca_polynomial_c0_eval,minDcfs_zNormPca_polynomial_c0_train],labels,colors,xlabel='C',title='Polynomial SVM Evaluation')
+
+
+    # ----- PLOT FOR c = 1 ------
+    zNormPca_polynomial_c1_train = list(filter(lambda PlotElement: PlotElement.is_c(1), zNormPca_polynomial_train))
+    minDcfs_zNormPca_polynomial_c1_train = [PlotElement.getminDcf() for PlotElement in zNormPca_polynomial_c1_train]
+    C_values_zNormPca_polynomial_c1_train = [PlotElement.getC() for PlotElement in zNormPca_polynomial_c1_train]
+
+    zNormPca_polynomial_c1_eval = list(filter(lambda PlotElement: PlotElement.is_c(1), zNormPca_polynomial_eval))
+    minDcfs_zNormPca_polynomial_c1_eval = [PlotElement.getminDcf() for PlotElement in zNormPca_polynomial_c1_eval]
+    C_values_zNormPca_polynomial_c1_eval = [PlotElement.getC() for PlotElement in zNormPca_polynomial_c1_eval]
+
+    labels = ['minDCF [eval set]','minDCF [valid set]']
+    colors = ['b','g']
+    plot.plotDCF([C_values_zNormPca_polynomial_c1_eval,C_values_zNormPca_polynomial_c1_train],[minDcfs_zNormPca_polynomial_c1_eval,minDcfs_zNormPca_polynomial_c1_train],labels,colors,xlabel='C',title='Polynomial SVM Evaluation')
+
+def eval_GMMAllRawCombinations(DTR_RAND,LTR_RAND,DTE,LTE,Load_Data=False):
+    # ---------- GMM WITH ALL POSSIBLE RAW COMPONENTS COMBINATION -----------
+    classifiers = [(gmm.LBGalgorithm,gmm.constraintSigma,"Full Covariance (standard) Evaluation"), (gmm.DiagLBGalgorithm,gmm.DiagConstraintSigma,"Diagonal Covariance Evaluation"), (gmm.TiedLBGalgorithm, gmm.constraintSigma, "Tied Covariance Evaluation"),(gmm.TiedDiagLBGalgorithm,gmm.DiagConstraintSigma,"Tied Diagonal Covariance Evaluation")]
+    prior = 0.5
+    if not Load_Data:
+        colors = {
+            0 : 'blue',
+            1 : 'red',
+            2 : 'green',
+            3 : 'yellow',
+            4 : 'magenta',
+            5 : 'cyan',
+            6 : 'black',
+            7 : 'white'
+        }
+        print("GMM WITH ALL POSSIBLE COMPONENTS COMBINATION")
+        labels_eval = []
+        plot_colors_eval = []
+        gmm_components_class_1_eval = []
+        # mindcfs of Full Covariance, of Diagonal Covariance, of Tied Covariance, of Tied Diagonal Covariance
+        raw_full_min_dcfs_eval = []
+        raw_diag_min_dcfs_eval = []
+        raw_tied_min_dcfs_eval = []
+        raw_tied_diag_min_dcfs_eval = []
+        for nSplit0 in range(0,4):
+            print("Number of GMM Components of Class 0: " + str(2**nSplit0))
+            labels_eval.append("minDCF G0 = " + str(2**nSplit0))
+            plot_colors_eval.append(colors[nSplit0])
+            gmm_components_class_1_single_eval = []
+
+            raw_full_min_dcfs_single_eval = []
+            raw_diag_min_dcfs_single_eval = []
+            raw_tied_min_dcfs_single_eval = []
+            raw_tied_diag_min_dcfs_single_eval = []
+            for nSplit1 in range(0,4):
+                print("Number of GMM Components of Class 1: " + str(2**nSplit1))
+                gmm_components_class_1_single_eval.append(2**nSplit1)
+                # minDcfs[0] mindcfs of Full Covariance, minDcfs[1] of Diagonal Covariance, minDcfs[2] of Tied Covariance, minDcfs[3] of Tied Diagonal Covariance
+
+                raw_minDcfs,_,_ = GMM_Eval(DTR_RAND,LTR_RAND,DTE,LTE,classifiers,nSplit0=nSplit0,nSplit1=nSplit1,PCA_Flag=None,M=None,Z_Norm_Flag=None,Dcf_Prior=prior)
+                        
+                raw_full_min_dcfs_single_eval.append(raw_minDcfs[0])
+                raw_diag_min_dcfs_single_eval.append(raw_minDcfs[1])
+                raw_tied_min_dcfs_single_eval.append(raw_minDcfs[2])
+                raw_tied_diag_min_dcfs_single_eval.append(raw_minDcfs[3])
+
+            gmm_components_class_1_eval.append(gmm_components_class_1_single_eval)
+                    
+            raw_full_min_dcfs_eval.append(raw_full_min_dcfs_single_eval)
+            raw_diag_min_dcfs_eval.append(raw_diag_min_dcfs_single_eval)
+            raw_tied_min_dcfs_eval.append(raw_tied_min_dcfs_single_eval)
+            raw_tied_diag_min_dcfs_eval.append(raw_tied_diag_min_dcfs_single_eval)
+
+            # Save the list of objects to a file
+            with open("modelData/labels_gmm_allComb_eval" + str(prior) + ".pkl", "wb") as f:
+                pickle.dump(labels_eval, f)
+                
+            # Save the list of objects to a file
+            with open("modelData/colors_gmm_allComb_eval" + str(prior) + ".pkl", "wb") as f:
+                pickle.dump(plot_colors_eval, f)
+                
+            # Save the list of objects to a file
+            with open("modelData/components_gmm_allComb_eval" + str(prior) + ".pkl", "wb") as f:
+                pickle.dump(gmm_components_class_1_eval, f)
+
+            # Save the list of objects to a file
+            with open("modelData/raw_full_gmm_allComb_eval" + str(prior) + ".pkl", "wb") as f:
+                pickle.dump(raw_full_min_dcfs_eval, f)
+            # Save the list of objects to a file
+            with open("modelData/raw_diag_gmm_allComb_eval" + str(prior) + ".pkl", "wb") as f:
+                pickle.dump(raw_diag_min_dcfs_eval, f)
+            # Save the list of objects to a file
+            with open("modelData/raw_tied_gmm_allComb_eval" + str(prior) + ".pkl", "wb") as f:
+                pickle.dump(raw_tied_min_dcfs_eval, f)
+            # Save the list of objects to a file
+            with open("modelData/raw_tied_diag_gmm_allComb_eval" + str(prior) + ".pkl", "wb") as f:
+                pickle.dump(raw_tied_diag_min_dcfs_eval, f)
+    
+    if Load_Data:
+        # Retrieve data for plotting
+
+        # Retrieve the list of objects from the file
+        with open("modelData/labels_gmm_allComb_eval" + str(prior) + ".pkl", "rb") as f:
+            labels_eval = pickle.load(f)
+            
+        # Retrieve the list of objects from the file
+        with open("modelData/colors_gmm_allComb_eval" + str(prior) + ".pkl", "rb") as f:
+            plot_colors_eval = pickle.load(f)
+            
+        # Retrieve the list of objects from the file
+        with open("modelData/components_gmm_allComb_eval" + str(prior) + ".pkl", "rb") as f:
+            gmm_components_class_1_eval = pickle.load(f)
+            
+        # Retrieve the list of objects from the file
+        with open("modelData/raw_full_gmm_allComb_eval" + str(prior) + ".pkl", "rb") as f:
+            raw_full_min_dcfs_eval = pickle.load(f)
+        # Retrieve the list of objects from the file
+        with open("modelData/raw_diag_gmm_allComb_eval" + str(prior) + ".pkl", "rb") as f:
+            raw_diag_min_dcfs_eval = pickle.load(f)
+        # Retrieve the list of objects from the file
+        with open("modelData/raw_tied_gmm_allComb_eval" + str(prior) + ".pkl", "rb") as f:
+            raw_tied_min_dcfs_eval = pickle.load(f)
+        # Retrieve the list of objects from the file
+        with open("modelData/raw_tied_diag_gmm_allComb_eval" + str(prior) + ".pkl", "rb") as f:
+            raw_tied_diag_min_dcfs_eval = pickle.load(f)
+    
+    # ----- PLOT GMMS ALL COMBINATIONS  ------
+
+    # ----- RAW -------
+    plot.gmm_plot_all_component_combinations(gmm_components_class_1_eval,raw_full_min_dcfs_eval,labels_eval,plot_colors_eval,"Full Covariance (standard) no PCA no Znorm Evaluation")
+    plot.gmm_plot_all_component_combinations(gmm_components_class_1_eval,raw_diag_min_dcfs_eval,labels_eval,plot_colors_eval,"Diagonal Covariance no PCA no Znorm Evaluation")
+    plot.gmm_plot_all_component_combinations(gmm_components_class_1_eval,raw_tied_min_dcfs_eval,labels_eval,plot_colors_eval,"Tied Covariance no PCA no Znorm Evaluation")
+    plot.gmm_plot_all_component_combinations(gmm_components_class_1_eval,raw_tied_diag_min_dcfs_eval,labels_eval,plot_colors_eval,"Tied Diagonal Covariance no PCA no Znorm Evaluation")
