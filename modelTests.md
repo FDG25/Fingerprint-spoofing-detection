@@ -4843,6 +4843,83 @@ MinDCF: 0.1111052455170102
 
 ## Model Fusion
 
+Logistic Regression Weighted Quadratic results:
+Accuracy: 93.42%
+Error rate: 6.58%
+Min DCF for Logistic Regression Weighted Quadratic: 0.2852254098360656
+
+Logistic Regression Weighted Quadratic Evaluation results:
+Accuracy: 93.69%
+Error rate: 6.31%
+Min DCF for Logistic Regression Weighted Quadratic Evaluation: 0.2938197586726998
+
+Polynomial Kernel SVM results:
+Accuracy: 95.31%
+Error rate: 4.69%
+Min DCF for Polynomial Kernel SVM: 0.28397540983606556
+
+Polynomial Kernel SVM Evaluation results:
+Accuracy: 95.39%
+Error rate: 4.61%
+Min DCF for Polynomial Kernel SVM Evaluation: 0.27801847662141776
+
+Diagonal Covariance results:
+Accuracy: 95.44%
+Error rate: 4.56%
+Min DCF for Diagonal Covariance: 0.23522540983606557
+
+Diagonal Covariance Evaluation results:
+Accuracy: 96.59%
+Error rate: 3.41%
+Min DCF for Diagonal Covariance Evaluation: 0.2182051282051282
+
+### QLR + GMM
+Target Working Point:
+
+ActDCF: 0.24783182503770737
+MinDCF: 0.21754901960784312
+
+Unbalanced 0.1 Working Point:
+
+ActDCF: 0.5460199849170437
+MinDCF: 0.48965497737556557
+
+Unbalanced 0.9 Working Point:
+
+ActDCF: 0.07392743422155185
+MinDCF: 0.07042378917378916
+
+### SVM + GMM
+Target Working Point:
+
+ActDCF: 0.22549773755656108
+MinDCF: 0.22133107088989437
+
+Unbalanced 0.1 Working Point:
+
+ActDCF: 0.5019966063348417
+MinDCF: 0.48696832579185517
+
+Unbalanced 0.9 Working Point:
+
+ActDCF: 0.07789152840623428
+MinDCF: 0.07625251382604323
+
+### QLR + SVM + GMM
+Target Working Point:
+
+ActDCF: 0.22529977375565607
+MinDCF: 0.22093514328808447
+
+Unbalanced 0.1 Working Point:
+
+ActDCF: 0.5298699095022624
+MinDCF: 0.4914366515837104
+
+Unbalanced 0.9 Working Point:
+
+ActDCF: 0.08017282554047259
+MinDCF: 0.07814018769901121
 
 ## QLR
 

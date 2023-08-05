@@ -75,44 +75,44 @@ def model_fusion(DTR_RAND,LTR_RAND,DTE,LTE):
     scores_gmm = LR_Calibration_Eval(scores_tr,labels_train,scores_ev,labels_eval,plt_title=None,Calibration_Flag=None)
 
     # QLR + SVM
-    s_eval = [numpy.hstack(scores_lr),numpy.hstack(scores_svm)]
-    s_train = [numpy.hstack(scores_train_lr),numpy.hstack(scores_pol_svm_train)]
-    s_vstack_eval = numpy.vstack(s_eval)
-    s_vstack_train = numpy.hstack(s_train)
-    print("QLR + SVM")
-    # ---- TAKE CALIBRATION OUTPUT WITHOUT PLOTTING, SINCE HSTACK IS NEEDED ----
-    qlr_svm_eval_cal = LR_Calibration_Eval(s_vstack_train,LTR_RAND,s_vstack_eval,LTE,plt_title = None,Calibration_Flag=None)
-    plot.compute_bayes_error_plot(numpy.hstack[qlr_svm_eval_cal],LTE,plt_title = "Model Fusion QLR + SVM Evaluation")
+    # s_eval = [numpy.hstack(scores_lr),numpy.hstack(scores_svm)]
+    # s_train = [numpy.hstack(scores_train_lr),numpy.hstack(scores_pol_svm_train)]
+    # s_vstack_eval = numpy.vstack(s_eval)
+    # s_vstack_train = numpy.vstack(s_train)
+    # print("QLR + SVM")
+    # # ---- TAKE CALIBRATION OUTPUT WITHOUT PLOTTING, SINCE HSTACK IS NEEDED ----
+    # qlr_svm_eval_cal = LR_Calibration_Eval(s_vstack_train,LTR_RAND,s_vstack_eval,LTE,plt_title = None,Calibration_Flag=None)
+    # plot.compute_bayes_error_plot(numpy.hstack(qlr_svm_eval_cal),LTE,plt_title = "Model Fusion QLR + SVM Evaluation")
 
     # QLR + GMM
     s_eval = [numpy.hstack(scores_lr),numpy.hstack(scores_gmm)]
     s_train = [numpy.hstack(scores_train_lr),numpy.hstack(scores_train_gmm)]
     s_vstack_eval = numpy.vstack(s_eval)
-    s_vstack_train = numpy.hstack(s_train)
+    s_vstack_train = numpy.vstack(s_train)
     print("QLR + GMM")
     # ---- TAKE CALIBRATION OUTPUT WITHOUT PLOTTING, SINCE HSTACK IS NEEDED ----
     qlr_gmm_eval_cal = LR_Calibration_Eval(s_vstack_train,LTR_RAND,s_vstack_eval,LTE,plt_title = None,Calibration_Flag=None)
-    plot.compute_bayes_error_plot(numpy.hstack[qlr_gmm_eval_cal],LTE,plt_title = "Model Fusion QLR + GMM Evaluation")
+    plot.compute_bayes_error_plot(numpy.hstack(qlr_gmm_eval_cal),LTE,plt_title = "Model Fusion QLR + GMM Evaluation")
   
     # SVM + GMM
     s_eval = [numpy.hstack(scores_svm),numpy.hstack(scores_gmm)]
     s_train = [numpy.hstack(scores_pol_svm_train),numpy.hstack(scores_train_gmm)]
     s_vstack_eval = numpy.vstack(s_eval)
-    s_vstack_train = numpy.hstack(s_train)
+    s_vstack_train = numpy.vstack(s_train)
     print("SVM + GMM")
     # ---- TAKE CALIBRATION OUTPUT WITHOUT PLOTTING, SINCE HSTACK IS NEEDED ----
     svm_gmm_eval_cal = LR_Calibration_Eval(s_vstack_train,LTR_RAND,s_vstack_eval,LTE,plt_title = None,Calibration_Flag=None)
-    plot.compute_bayes_error_plot(numpy.hstack[svm_gmm_eval_cal],LTE,plt_title = "Model Fusion SVM + GMM Evaluation")
+    plot.compute_bayes_error_plot(numpy.hstack(svm_gmm_eval_cal),LTE,plt_title = "Model Fusion SVM + GMM Evaluation")
 
     # QLR + SVM + GMM
     s_eval = [numpy.hstack(scores_lr),numpy.hstack(scores_svm),numpy.hstack(scores_gmm)]
     s_train = [numpy.hstack(scores_train_lr),numpy.hstack(scores_pol_svm_train),numpy.hstack(scores_train_gmm)]
     s_vstack_eval = numpy.vstack(s_eval)
-    s_vstack_train = numpy.hstack(s_train)
+    s_vstack_train = numpy.vstack(s_train)
     print("QLR + SVM + GMM")
     # ---- TAKE CALIBRATION OUTPUT WITHOUT PLOTTING, SINCE HSTACK IS NEEDED ----
     qlr_svm_gmm_eval_cal = LR_Calibration_Eval(s_vstack_train,LTR_RAND,s_vstack_eval,LTE,plt_title = None,Calibration_Flag=None)
-    plot.compute_bayes_error_plot(numpy.hstack[qlr_svm_gmm_eval_cal],LTE,plt_title = "Model Fusion QLR + SVM + GMM Evaluation")
+    plot.compute_bayes_error_plot(numpy.hstack(qlr_svm_gmm_eval_cal),LTE,plt_title = "Model Fusion QLR + SVM + GMM Evaluation")
 
 # CALIBRATION/FUSION LR
 def LR_Calibration_Eval(DTR,LTR,DTE,LTE,plt_title,Calibration_Flag=None):
@@ -187,9 +187,9 @@ def SVM_kernel_polynomial_Eval(DTR,LTR,DTE,LTE,hyperParameter_K,hyperParameter_C
     labels = numpy.append(labels,LTE)
     errorRate = nWrongPrediction/nSamples
     accuracy = 1 - errorRate
-    print(f"Polynomial Kernel SVM results:\nAccuracy: {round(accuracy*100, 2)}%\nError rate: {round(errorRate*100, 2)}%\n",end="")
+    print(f"Polynomial Kernel SVM Evaluation results:\nAccuracy: {round(accuracy*100, 2)}%\nError rate: {round(errorRate*100, 2)}%\n",end="")
     minDcf = optimal_decision.computeMinDCF(Dcf_Prior,constants.CFN,constants.CFP,scores,labels)
-    print(f"Min DCF for Polynomial Kernel SVM: {minDcf}\n")
+    print(f"Min DCF for Polynomial Kernel SVM Evaluation: {minDcf}\n")
     return minDcf,scores,labels
 
 # GMM
