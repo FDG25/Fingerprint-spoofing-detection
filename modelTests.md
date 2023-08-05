@@ -17,6 +17,7 @@
     - [Model Fusion](#model-fusion-1)
     - [QLR](#qlr)
     - [Pol_SVM](#pol_svm-1)
+    - [GMM](#gmm-raw-with-all-possible-components-combination)
 # Gaussians
 
 ## RAW (No PCA No Z_Norm)
@@ -5011,3 +5012,345 @@ Polynomial Kernel SVM results:
 Accuracy: 94.85%
 Error rate: 5.15%
 Min DCF for Polynomial Kernel SVM: 0.29221530920060335
+
+# GMM RAW WITH ALL POSSIBLE COMPONENTS COMBINATION
+
+## Number of GMM Components of Class 0: 1
+### Number of GMM Components of Class 1: 1
+Full Covariance (standard) Evaluation results:
+Accuracy: 95.95%
+Error rate: 4.05%
+Min DCF for Full Covariance (standard) Evaluation: 0.27637254901960784
+
+Diagonal Covariance Evaluation results:
+Accuracy: 94.15%
+Error rate: 5.85%
+Min DCF for Diagonal Covariance Evaluation: 0.3523717948717948
+
+Tied Covariance Evaluation results:
+Accuracy: 95.95%
+Error rate: 4.05%
+Min DCF for Tied Covariance Evaluation: 0.27637254901960784
+
+Tied Diagonal Covariance Evaluation results:
+Accuracy: 94.15%
+Error rate: 5.85%
+Min DCF for Tied Diagonal Covariance Evaluation: 0.3523717948717948
+
+### Number of GMM Components of Class 1: 2
+Full Covariance (standard) Evaluation results:
+Accuracy: 95.85%
+Error rate: 4.15%
+Min DCF for Full Covariance (standard) Evaluation: 0.2879034690799397
+
+Diagonal Covariance Evaluation results:
+Accuracy: 93.82%
+Error rate: 6.18%
+Min DCF for Diagonal Covariance Evaluation: 0.3386217948717949
+
+Tied Covariance Evaluation results:
+Accuracy: 95.95%
+Error rate: 4.05%
+Min DCF for Tied Covariance Evaluation: 0.27637254901960784
+
+Tied Diagonal Covariance Evaluation results:
+Accuracy: 93.78%
+Error rate: 6.22%
+Min DCF for Tied Diagonal Covariance Evaluation: 0.3384539969834087
+
+### Number of GMM Components of Class 1: 4
+Full Covariance (standard) Evaluation results:
+Accuracy: 95.6%
+Error rate: 4.4%
+Min DCF for Full Covariance (standard) Evaluation: 0.2944871794871795
+
+Diagonal Covariance Evaluation results:
+Accuracy: 93.73%
+Error rate: 6.27%
+Min DCF for Diagonal Covariance Evaluation: 0.34259049773755657
+
+Tied Covariance Evaluation results:
+Accuracy: 95.79%
+Error rate: 4.21%
+Min DCF for Tied Covariance Evaluation: 0.28839366515837106
+
+Tied Diagonal Covariance Evaluation results:
+Accuracy: 93.77%
+Error rate: 6.23%
+Min DCF for Tied Diagonal Covariance Evaluation: 0.3417873303167421
+
+### Number of GMM Components of Class 1: 8
+Full Covariance (standard) Evaluation results:
+Accuracy: 95.4%
+Error rate: 4.6%
+Min DCF for Full Covariance (standard) Evaluation: 0.31617458521870284
+
+Diagonal Covariance Evaluation results:
+Accuracy: 93.83%
+Error rate: 6.17%
+Min DCF for Diagonal Covariance Evaluation: 0.3563612368024133
+
+Tied Covariance Evaluation results:
+Accuracy: 95.69%
+Error rate: 4.31%
+Min DCF for Tied Covariance Evaluation: 0.2803921568627451
+
+Tied Diagonal Covariance Evaluation results:
+Accuracy: 93.87%
+Error rate: 6.13%
+Min DCF for Tied Diagonal Covariance Evaluation: 0.3464762443438914
+
+## Number of GMM Components of Class 0: 2
+### Number of GMM Components of Class 1: 1
+Full Covariance (standard) Evaluation results:
+Accuracy: 96.4%
+Error rate: 3.6%
+Min DCF for Full Covariance (standard) Evaluation: 0.24493589743589744
+
+Diagonal Covariance Evaluation results:
+Accuracy: 94.13%
+Error rate: 5.87%
+Min DCF for Diagonal Covariance Evaluation: 0.3369664404223228
+
+Tied Covariance Evaluation results:
+Accuracy: 95.95%
+Error rate: 4.05%
+Min DCF for Tied Covariance Evaluation: 0.27637254901960784
+
+Tied Diagonal Covariance Evaluation results:
+Accuracy: 94.37%
+Error rate: 5.63%
+Min DCF for Tied Diagonal Covariance Evaluation: 0.3434766214177979
+
+### Number of GMM Components of Class 1: 2
+Full Covariance (standard) Evaluation results:
+Accuracy: 96.29%
+Error rate: 3.71%
+Min DCF for Full Covariance (standard) Evaluation: 0.24514328808446456
+
+Diagonal Covariance Evaluation results:
+Accuracy: 94.99%
+Error rate: 5.01%
+Min DCF for Diagonal Covariance Evaluation: 0.2968306938159879
+
+Tied Covariance Evaluation results:
+Accuracy: 95.95%
+Error rate: 4.05%
+Min DCF for Tied Covariance Evaluation: 0.27637254901960784
+
+Tied Diagonal Covariance Evaluation results:
+Accuracy: 94.85%
+Error rate: 5.15%
+Min DCF for Tied Diagonal Covariance Evaluation: 0.2886331070889895
+
+### Number of GMM Components of Class 1: 4
+Full Covariance (standard) Evaluation results:
+Accuracy: 96.16%
+Error rate: 3.84%
+Min DCF for Full Covariance (standard) Evaluation: 0.2425603318250377
+
+Diagonal Covariance Evaluation results:
+Accuracy: 94.91%
+Error rate: 5.09%
+Min DCF for Diagonal Covariance Evaluation: 0.28808069381598794
+
+Tied Covariance Evaluation results:
+Accuracy: 95.79%
+Error rate: 4.21%
+Min DCF for Tied Covariance Evaluation: 0.28839366515837106
+
+Tied Diagonal Covariance Evaluation results:
+Accuracy: 94.81%
+Error rate: 5.19%
+Min DCF for Tied Diagonal Covariance Evaluation: 0.28637254901960785
+
+### Number of GMM Components of Class 1: 8
+Full Covariance (standard) Evaluation results:
+Accuracy: 95.89%
+Error rate: 4.11%
+Min DCF for Full Covariance (standard) Evaluation: 0.26889328808446455
+
+Diagonal Covariance Evaluation results:
+Accuracy: 94.91%
+Error rate: 5.09%
+Min DCF for Diagonal Covariance Evaluation: 0.310184766214178
+
+Tied Covariance Evaluation results:
+Accuracy: 95.69%
+Error rate: 4.31%
+Min DCF for Tied Covariance Evaluation: 0.2803921568627451
+
+Tied Diagonal Covariance Evaluation results:
+Accuracy: 94.82%
+Error rate: 5.18%
+Min DCF for Tied Diagonal Covariance Evaluation: 0.3005184766214178
+
+## Number of GMM Components of Class 0: 4
+### Number of GMM Components of Class 1: 1
+Full Covariance (standard) Evaluation results:
+Accuracy: 96.34%
+Error rate: 3.66%
+Min DCF for Full Covariance (standard) Evaluation: 0.22012254901960784
+
+Diagonal Covariance Evaluation results:
+Accuracy: 95.55%
+Error rate: 4.45%
+Min DCF for Diagonal Covariance Evaluation: 0.2564046003016591
+
+Tied Covariance Evaluation results:
+Accuracy: 96.37%
+Error rate: 3.63%
+Min DCF for Tied Covariance Evaluation: 0.22970588235294115
+
+Tied Diagonal Covariance Evaluation results:
+Accuracy: 95.42%
+Error rate: 4.58%
+Min DCF for Tied Diagonal Covariance Evaluation: 0.2667156862745098
+
+### Number of GMM Components of Class 1: 2
+Full Covariance (standard) Evaluation results:
+Accuracy: 96.29%
+Error rate: 3.71%
+Min DCF for Full Covariance (standard) Evaluation: 0.22937217194570136
+
+Diagonal Covariance Evaluation results:
+Accuracy: 95.96%
+Error rate: 4.04%
+Min DCF for Diagonal Covariance Evaluation: 0.2194871794871795
+
+Tied Covariance Evaluation results:
+Accuracy: 96.37%
+Error rate: 3.63%
+Min DCF for Tied Covariance Evaluation: 0.22970588235294115
+
+Tied Diagonal Covariance Evaluation results:
+Accuracy: 95.86%
+Error rate: 4.14%
+Min DCF for Tied Diagonal Covariance Evaluation: 0.23437217194570137
+
+### Number of GMM Components of Class 1: 4
+Full Covariance (standard) Evaluation results:
+Accuracy: 96.11%
+Error rate: 3.89%
+Min DCF for Full Covariance (standard) Evaluation: 0.23853883861236802
+
+Diagonal Covariance Evaluation results:
+Accuracy: 96.26%
+Error rate: 3.74%
+Min DCF for Diagonal Covariance Evaluation: 0.22775829562594269
+
+Tied Covariance Evaluation results:
+Accuracy: 96.39%
+Error rate: 3.61%
+Min DCF for Tied Covariance Evaluation: 0.23207013574660634
+
+Tied Diagonal Covariance Evaluation results:
+Accuracy: 95.89%
+Error rate: 4.11%
+Min DCF for Tied Diagonal Covariance Evaluation: 0.23349736048265463
+
+### Number of GMM Components of Class 1: 8
+Full Covariance (standard) Evaluation results:
+Accuracy: 96.21%
+Error rate: 3.79%
+Min DCF for Full Covariance (standard) Evaluation: 0.2526640271493213
+
+Diagonal Covariance Evaluation results:
+Accuracy: 96.03%
+Error rate: 3.97%
+Min DCF for Diagonal Covariance Evaluation: 0.23538273001508297
+
+Tied Covariance Evaluation results:
+Accuracy: 96.38%
+Error rate: 3.62%
+Min DCF for Tied Covariance Evaluation: 0.23305995475113123
+
+Tied Diagonal Covariance Evaluation results:
+Accuracy: 95.98%
+Error rate: 4.02%
+Min DCF for Tied Diagonal Covariance Evaluation: 0.23391402714932127
+
+## Number of GMM Components of Class 0: 8
+### Number of GMM Components of Class 1: 1
+Full Covariance (standard) Evaluation results:
+Accuracy: 96.03%
+Error rate: 3.97%
+Min DCF for Full Covariance (standard) Evaluation: 0.2279242081447964
+
+Diagonal Covariance Evaluation results:
+Accuracy: 96.12%
+Error rate: 3.88%
+Min DCF for Diagonal Covariance Evaluation: 0.23071644042232278
+
+Tied Covariance Evaluation results:
+Accuracy: 96.53%
+Error rate: 3.47%
+Min DCF for Tied Covariance Evaluation: 0.21853883861236803
+
+Tied Diagonal Covariance Evaluation results:
+Accuracy: 96.18%
+Error rate: 3.82%
+Min DCF for Tied Diagonal Covariance Evaluation: 0.23353883861236802
+
+### Number of GMM Components of Class 1: 2
+Full Covariance (standard) Evaluation results:
+Accuracy: 96.03%
+Error rate: 3.97%
+Min DCF for Full Covariance (standard) Evaluation: 0.23707013574660635
+
+Diagonal Covariance Evaluation results:
+Accuracy: 96.59%
+Error rate: 3.41%
+Min DCF for Diagonal Covariance Evaluation: 0.2182051282051282
+
+Tied Covariance Evaluation results:
+Accuracy: 96.53%
+Error rate: 3.47%
+Min DCF for Tied Covariance Evaluation: 0.21853883861236803
+
+Tied Diagonal Covariance Evaluation results:
+Accuracy: 96.59%
+Error rate: 3.41%
+Min DCF for Tied Diagonal Covariance Evaluation: 0.21415346907993968
+
+### Number of GMM Components of Class 1: 4
+Full Covariance (standard) Evaluation results:
+Accuracy: 95.99%
+Error rate: 4.01%
+Min DCF for Full Covariance (standard) Evaluation: 0.24571644042232277
+
+Diagonal Covariance Evaluation results:
+Accuracy: 96.59%
+Error rate: 3.41%
+Min DCF for Diagonal Covariance Evaluation: 0.2252262443438914
+
+Tied Covariance Evaluation results:
+Accuracy: 96.55%
+Error rate: 3.45%
+Min DCF for Tied Covariance Evaluation: 0.21670625942684768
+
+Tied Diagonal Covariance Evaluation results:
+Accuracy: 96.52%
+Error rate: 3.48%
+Min DCF for Tied Diagonal Covariance Evaluation: 0.21829939668174964
+
+### Number of GMM Components of Class 1: 8
+Full Covariance (standard) Evaluation results:
+Accuracy: 95.98%
+Error rate: 4.02%
+Min DCF for Full Covariance (standard) Evaluation: 0.26480957767722474
+
+Diagonal Covariance Evaluation results:
+Accuracy: 96.48%
+Error rate: 3.52%
+Min DCF for Diagonal Covariance Evaluation: 0.22463235294117645
+
+Tied Covariance Evaluation results:
+Accuracy: 96.52%
+Error rate: 3.48%
+Min DCF for Tied Covariance Evaluation: 0.21523755656108595
+
+Tied Diagonal Covariance Evaluation results:
+Accuracy: 96.47%
+Error rate: 3.53%
+Min DCF for Tied Diagonal Covariance Evaluation: 0.22339366515837103

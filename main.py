@@ -128,6 +128,7 @@ if __name__ == '__main__':
     #plot.plot_Heatmap_Whole_Dataset(DTR)
     #plot.plot_Heatmap_Spoofed_Authentic(DTR,LTR,Class_Label=0)
     #plot.plot_Heatmap_Spoofed_Authentic(DTR,LTR,Class_Label=1)
+    
     # RANDOMIZE DATASET BEFORE K-FOLD
     DTR_RAND,LTR_RAND = randomize(DTR,LTR)
     DTE_RAND,LTE_RAND = randomize(DTE,LTE)
@@ -146,11 +147,6 @@ if __name__ == '__main__':
 
     # training.trainLR(DTR_RAND,LTR_RAND,Load_Data=True)
     
-    #print("No Weight")
-    #lr.LogisticRegressionWeighted(DTR,LTR,DTE,LTE)
-    #print("Weight")
-    #lr.LogisticRegression(DTR,LTR,DTE,LTE)
-
     # ---------------   SVM MODELS   -----------------------
 
     # training.trainLinearSVM(DTR_RAND,LTR_RAND,Load_Data=True)
@@ -193,4 +189,4 @@ if __name__ == '__main__':
 
     # -------------- GMM --------------------
 
-    # evaluation.eval_GMMAllRawCombinations(DTR_RAND,LTR_RAND,DTE,LTE,Load_Data=False)
+    # evaluation.eval_GMMAllRawCombinations(DTR_RAND,LTR_RAND,DTE,LTE,Load_Data=True)
