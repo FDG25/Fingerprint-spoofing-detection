@@ -40,7 +40,7 @@ def best_model_score_calibration(DTR_RAND,LTR_RAND,DTE,LTE):
     # BEST MODEL RAW DIAGONAL WITH GMM COMPONENTS = 8 FOR CLASS 0 AND GMM COMPONENTS 2 FOR CLASS 1
     # HERE CALIBRATION NOT NEEDED, SO ONLY EVAL FOR FIRST BAYES ERROR PLOT
     classifiers = [(gmm.DiagLBGalgorithm,gmm.DiagConstraintSigma,"Diagonal Covariance Evaluation")]
-    _,scores_eval,labels_eval = GMM_Eval(DTR_RAND,LTR_RAND,DTE,LTE,classifiers,nSplit0=3,nSplit1=1,PCA_Flag=None,M=None,Z_Norm_Flag=None,Dcf_Prior=0.5,Calibration_Flag=True)
+    _,scores_eval,labels_eval = GMM_Eval(DTR_RAND,LTR_RAND,DTE,LTE,classifiers,nSplit0=3,nSplit1=1,PCA_Flag=None,M=None,Z_Norm_Flag=None,Dcf_Prior=0.5)
     # ----- ALREADY CALIBRATED PLOT --------
     plot.compute_bayes_error_plot(scores_eval,labels_eval,"Diagonal Covariance Evaluation")
 
@@ -296,7 +296,7 @@ def eval_svm_kernel_polynomial_C_c_parameter_testing(DTR_RAND,LTR_RAND,DTE,LTE,L
     minDcfs_zNormPca_polynomial_c0_eval = [PlotElement.getminDcf() for PlotElement in zNormPca_polynomial_c0_eval]
     C_values_zNormPca_polynomial_c0_eval = [PlotElement.getC() for PlotElement in zNormPca_polynomial_c0_eval]
 
-    labels = ['minDCF [eval set]','minDCF [valid set]']
+    labels = ['minDCF [eval set] c = 0','minDCF [valid set] c = 0']
     colors = ['b','g']
     plot.plotDCF([C_values_zNormPca_polynomial_c0_eval,C_values_zNormPca_polynomial_c0_train],[minDcfs_zNormPca_polynomial_c0_eval,minDcfs_zNormPca_polynomial_c0_train],labels,colors,xlabel='C',title='Polynomial SVM Evaluation')
 
@@ -310,7 +310,7 @@ def eval_svm_kernel_polynomial_C_c_parameter_testing(DTR_RAND,LTR_RAND,DTE,LTE,L
     minDcfs_zNormPca_polynomial_c1_eval = [PlotElement.getminDcf() for PlotElement in zNormPca_polynomial_c1_eval]
     C_values_zNormPca_polynomial_c1_eval = [PlotElement.getC() for PlotElement in zNormPca_polynomial_c1_eval]
 
-    labels = ['minDCF [eval set]','minDCF [valid set]']
+    labels = ['minDCF [eval set] c = 1','minDCF [valid set] c = 1']
     colors = ['b','g']
     plot.plotDCF([C_values_zNormPca_polynomial_c1_eval,C_values_zNormPca_polynomial_c1_train],[minDcfs_zNormPca_polynomial_c1_eval,minDcfs_zNormPca_polynomial_c1_train],labels,colors,xlabel='C',title='Polynomial SVM Evaluation')
 

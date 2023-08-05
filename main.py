@@ -185,11 +185,11 @@ if __name__ == '__main__':
 
     # ---------------   QLR MODEL   -----------------------
 
-    # evaluation.eval_qlr_lambda_parameter_testing(DTR_RAND,LTR_RAND,DTE,LTE,Load_Data=False)
+    # evaluation.eval_qlr_lambda_parameter_testing(DTR_RAND,LTR_RAND,DTE,LTE,Load_Data=True)
 
     # ---------------   POLYNOMIAL SVM MODEL   -----------------------
 
-    # evaluation.eval_svm_kernel_polynomial_C_c_parameter_testing(DTR_RAND,LTR_RAND,DTE,LTE,Load_Data=False)
+    # evaluation.eval_svm_kernel_polynomial_C_c_parameter_testing(DTR_RAND,LTR_RAND,DTE,LTE,Load_Data=True)
 
     # -------------- GMM --------------------
 

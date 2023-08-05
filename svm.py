@@ -108,15 +108,15 @@ def computeScoresNonLinear(x, DTR, LTR, LTE, kernelFunctionTest):
 
 def linear_svm(DTR,LTR,DTE,LTE,k_value,C):
     #################################################
-    
+    ltr = numpy.zeros_like(LTR)
     #INNANZITUTTO CALCOLIAMO tutti gli zi
-    for i in range(0,LTR.size):
+    for i in range(0,ltr.size):
         if LTR[i] == 0:
             # class 0, assign z_i = -1
-            LTR[i] = -1
+            ltr[i] = -1
         else:
             # class 1, assign z_i = 1
-            LTR[i] = 1
+            ltr[i] = 1
 
     # compute DTR_cappelletto
     DTR_cappelletto = numpy.vstack((DTR, numpy.zeros(DTR.shape[1])+k_value))
@@ -129,14 +129,14 @@ def linear_svm(DTR,LTR,DTE,LTE,k_value,C):
     # H_cappelletto1 = numpy.zeros((DTR.shape[1], DTR.shape[1]))
     # for i in range(0,DTR.shape[1]):
     #     for j in range(0,DTR.shape[1]):
-    #         H_cappelletto1[i, j] = LTR[i] * LTR[j] * numpy.dot((DTR_cappelletto[:, i]).transpose(), DTR_cappelletto[:, j])
+    #         H_cappelletto1[i, j] = ltr[i] * ltr[j] * numpy.dot((DTR_cappelletto[:, i]).transpose(), DTR_cappelletto[:, j])
     # print(H_cappelletto1)
         
     #2)WE can speed up computations exploiting numpy.dot to compute the matrix G_cappelletto
     #from DTR_cappelletto in a single call, and broadcasting to compute H_cappelletto from G_cappelletto:
     Gij = numpy.dot(DTR_cappelletto.T, DTR_cappelletto)
-    # To compute zi*zj WE need to reshape LTR as a matrix with one column/row and then do the dot product
-    zizj = numpy.dot(LTR.reshape(LTR.size, 1), LTR.reshape(1, LTR.size))
+    # To compute zi*zj WE need to reshape ltr as a matrix with one column/row and then do the dot product
+    zizj = numpy.dot(ltr.reshape(ltr.size, 1), ltr.reshape(1, ltr.size))
     H_cappelletto2 = zizj*Gij
     #print(H_cappelletto2)
             
@@ -145,8 +145,8 @@ def linear_svm(DTR,LTR,DTE,LTE,k_value,C):
 
     #Once WE have computed the dual solution, WE can recover the primal solution through 
     #w_CAPPELLETTO* = SOMMATORIA DA i=1 A N di (αizixi_cappelletto) --> GLI αi SONO CONTENUTI IN x
-    w_CAPPELLETTO_asterisco = numpy.sum((x*LTR).reshape(1, DTR.shape[1])*DTR_cappelletto, axis=1) #.reshape(1, DTR.shape[1]) SI PUò OMETTERE!
-    primal_loss = computePrimalSVM_solution_through_dual_SVM_formulation(DTR_cappelletto, LTR, w_CAPPELLETTO_asterisco, C)
+    w_CAPPELLETTO_asterisco = numpy.sum((x*ltr).reshape(1, DTR.shape[1])*DTR_cappelletto, axis=1) #.reshape(1, DTR.shape[1]) SI PUò OMETTERE!
+    primal_loss = computePrimalSVM_solution_through_dual_SVM_formulation(DTR_cappelletto, ltr, w_CAPPELLETTO_asterisco, C)
     #print(f"PRIMAL LOSS --> {round(primal_loss, 6)}") 
     duality_gap = computeDualityGap(primal_loss, dual_loss)
     #print("DUALITY GAP --> " + str(duality_gap)) 
@@ -161,15 +161,15 @@ def linear_svm(DTR,LTR,DTE,LTE,k_value,C):
 
 def kernel_svm_polynomial(DTR,LTR,DTE,LTE,k_value,C,c,d):
     #################################################
-    
+    ltr = numpy.zeros_like(LTR)
     #INNANZITUTTO CALCOLIAMO tutti gli zi
-    for i in range(0,LTR.size):
+    for i in range(0,ltr.size):
         if LTR[i] == 0:
             # class 0, assign z_i = -1
-            LTR[i] = -1
+            ltr[i] = -1
         else:
             # class 1, assign z_i = 1
-            LTR[i] = 1
+            ltr[i] = 1
     #################################################
     #2)KERNEL SVM (non-linear SVM) --> SVMs allow for non-linear classification through an implicit expansion of the features in a higher dimensional space.
     #a)Polynomial kernel of degree d
@@ -178,7 +178,7 @@ def kernel_svm_polynomial(DTR,LTR,DTE,LTE,k_value,C,c,d):
     # compute H_cappelletto --> 2 MODI PER FARLO
     #NON USIAMO Gij --> we want to compute the scalar product between the expanded features k(x1, x2) = φ(x1)T φ(x2). Function k is called kernel function.
     # To compute zi*zj WE need to reshape LTR as a matrix with one column/row and then do the dot product
-    zizj = numpy.dot(LTR.reshape(LTR.size, 1), LTR.reshape(1, LTR.size))
+    zizj = numpy.dot(ltr.reshape(ltr.size, 1), ltr.reshape(1, ltr.size))
     polynomial_kernel = (numpy.dot(DTR.T, DTR)+c)**d + k_value**2
     H_cappelletto2 = zizj*polynomial_kernel
     #print(H_cappelletto2)
@@ -189,33 +189,33 @@ def kernel_svm_polynomial(DTR,LTR,DTE,LTE,k_value,C,c,d):
     #NON USIAMO w_CAPPELLETTO_asterisco
     #NON USIAMO NEANCHE DTE_cappelletto
     polynomial_kernel_TEST = ((numpy.dot(DTR.T, DTE)+c)**d + k_value) #qui K non viene elevato al quadrato
-    scores,correct_predictions = computeScoresNonLinear(x, DTR, LTR, LTE, polynomial_kernel_TEST) #UTILIZZIAMO LA DUAL SVM SOLUTION PER CALCOLARE GLI SCORE
+    scores,correct_predictions = computeScoresNonLinear(x, DTR, ltr, LTE, polynomial_kernel_TEST) #UTILIZZIAMO LA DUAL SVM SOLUTION PER CALCOLARE GLI SCORE
     return (scores,correct_predictions)
 
 def kernel_svm_radial(DTR,LTR,DTE,LTE,k_value,C,gamma):
     #################################################
-    
+    ltr = numpy.zeros_like(LTR)
     #INNANZITUTTO CALCOLIAMO tutti gli zi
-    for i in range(0,LTR.size):
+    for i in range(0,ltr.size):
         if LTR[i] == 0:
             # class 0, assign z_i = -1
-            LTR[i] = -1
+            ltr[i] = -1
         else:
             # class 1, assign z_i = 1
-            LTR[i] = 1
+            ltr[i] = 1
     #b)Radial Basis Function kernel
     # NON USIAMO DTR_cappelletto, MA DTR NORMALE!
     # compute H_cappelletto --> 2 MODI PER FARLO
     #NON USIAMO Gij --> we want to compute the scalar product between the expanded features k(x1, x2) = φ(x1)T φ(x2). Function k is called kernel function.
-    # To compute zi*zj WE need to reshape LTR as a matrix with one column/row and then do the dot product
-    zizj = numpy.dot(LTR.reshape(LTR.size, 1), LTR.reshape(1, LTR.size))
+    # To compute zi*zj WE need to reshape ltr as a matrix with one column/row and then do the dot product
+    zizj = numpy.dot(ltr.reshape(ltr.size, 1), ltr.reshape(1, ltr.size))
     rbf_kernel = numpy.zeros((DTR.shape[1], DTR.shape[1]))
     for i in range(DTR.shape[1]):
         for j in range(DTR.shape[1]):
             rbf_kernel[i,j] = numpy.exp(-gamma*(numpy.linalg.norm(DTR[:, i]-DTR[:, j])**2))+k_value**2
-    # To compute zi*zj I need to reshape LTR as a matrix with one column/row
+    # To compute zi*zj I need to reshape ltr as a matrix with one column/row
     # and then do the dot product
-    zizj = numpy.dot(LTR.reshape(LTR.size, 1), LTR.reshape(1, LTR.size))
+    zizj = numpy.dot(ltr.reshape(ltr.size, 1), ltr.reshape(1, ltr.size))
     H_cappelletto2 = zizj*rbf_kernel
     #print(H_cappelletto2)
     #print("Radial Basis Function kernel")
@@ -228,5 +228,5 @@ def kernel_svm_radial(DTR,LTR,DTE,LTE,k_value,C,gamma):
     for i in range(DTR.shape[1]):
         for j in range(DTE.shape[1]):
             rbf_kernel[i,j] = numpy.exp(-gamma*(numpy.linalg.norm(DTR[:, i]-DTE[:, j])**2))+k_value**2
-    scores,correct_predictions = computeScoresNonLinear(x, DTR, LTR, LTE, rbf_kernel) #UTILIZZIAMO LA DUAL SVM SOLUTION PER CALCOLARE GLI SCORE
+    scores,correct_predictions = computeScoresNonLinear(x, DTR, ltr, LTE, rbf_kernel) #UTILIZZIAMO LA DUAL SVM SOLUTION PER CALCOLARE GLI SCORE
     return (scores,correct_predictions)
