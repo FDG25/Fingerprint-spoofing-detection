@@ -233,6 +233,31 @@ def eval_qlr_lambda_parameter_testing(DTR_RAND,LTR_RAND,DTE,LTE,Load_Data=False)
     zNorm_quadratic_eval = []
     classifier = [(lr.LogisticRegressionWeightedQuadratic, "Logistic Regression Weighted Quadratic Evaluation")]
     
+    # BEST CONFIGURATION TRAINING lambda = 10^-3, ZNorm and no PCA
+    # TRY lambda = 10^-3, 10^-2, 10^-1 with 3 working points
+    # print("Training Prior: Effective Prior")
+    # print("Lambda 10^-3")
+    # print("DcfPrior: 0.5")
+    # LR_Eval(DTR_RAND,LTR_RAND,DTE,LTE,classifier,lambd=0.001,PCA_Flag=None,M=None,Z_Norm_Flag=True,Dcf_Prior=0.5)
+    # print("DcfPrior: 0.1")
+    # LR_Eval(DTR_RAND,LTR_RAND,DTE,LTE,classifier,lambd=0.001,PCA_Flag=None,M=None,Z_Norm_Flag=True,Dcf_Prior=0.1)
+    # print("DcfPrior: 0.9")
+    # LR_Eval(DTR_RAND,LTR_RAND,DTE,LTE,classifier,lambd=0.001,PCA_Flag=None,M=None,Z_Norm_Flag=True,Dcf_Prior=0.9)
+    # print("Lambda 10^-2")
+    # print("DcfPrior: 0.5")
+    # LR_Eval(DTR_RAND,LTR_RAND,DTE,LTE,classifier,lambd=0.01,PCA_Flag=None,M=None,Z_Norm_Flag=True,Dcf_Prior=0.5)
+    # print("DcfPrior: 0.1")
+    # LR_Eval(DTR_RAND,LTR_RAND,DTE,LTE,classifier,lambd=0.01,PCA_Flag=None,M=None,Z_Norm_Flag=True,Dcf_Prior=0.1)
+    # print("DcfPrior: 0.9")
+    # LR_Eval(DTR_RAND,LTR_RAND,DTE,LTE,classifier,lambd=0.01,PCA_Flag=None,M=None,Z_Norm_Flag=True,Dcf_Prior=0.9)
+    # print("Lambda 10^-1")
+    # print("DcfPrior: 0.5")
+    # LR_Eval(DTR_RAND,LTR_RAND,DTE,LTE,classifier,lambd=0.1,PCA_Flag=None,M=None,Z_Norm_Flag=True,Dcf_Prior=0.5)
+    # print("DcfPrior: 0.1")
+    # LR_Eval(DTR_RAND,LTR_RAND,DTE,LTE,classifier,lambd=0.1,PCA_Flag=None,M=None,Z_Norm_Flag=True,Dcf_Prior=0.1)
+    # print("DcfPrior: 0.9")
+    # LR_Eval(DTR_RAND,LTR_RAND,DTE,LTE,classifier,lambd=0.1,PCA_Flag=None,M=None,Z_Norm_Flag=True,Dcf_Prior=0.9)
+
     if not Load_Data:
         for lambd in lambda_values:
             print("lambda value : " + str(lambd))
@@ -264,55 +289,65 @@ def eval_svm_kernel_polynomial_C_c_parameter_testing(DTR_RAND,LTR_RAND,DTE,LTE,L
     m = 8
     C_values = [0.000001, 0.00001, 0.0001, 0.001, 0.01, 0.1, 1.0, 10.0, 100.0] # for C <= 10^-6 there is a significative worsening in performance 
     c_values = [0, 1]
-    zNormPca_polynomial_eval = []
+    minDCFs_zNormPca_polynomial_eval_c1 = []
+    minDCFS_Pca_polynomial_eval_c0 = []
 
+    # c = 1,C = 10−2, with both ZNorm and PCA applied.
+    # c = 0, PCA applied and no ZNorm.
     if not Load_Data:
         for C in C_values:
             print("C value : " + str(C))
             for c in c_values:
                 print("c value : " + str(c))
-                minDcf,_,_ = SVM_kernel_polynomial_Eval(DTR_RAND,LTR_RAND,DTE,LTE,hyperParameter_K=1,hyperParameter_C=C,hyperParameter_c=c,hyperParameter_d=2,PCA_Flag=True,M=m,Z_Norm_Flag=True,Dcf_Prior=prior)
-                zNormPca_polynomial_eval.append(PlotUtility(prior=prior,k=1,C=C,c=c,d=2,minDcf=minDcf))
+                if c == 1:
+                    minDcf,_,_ = SVM_kernel_polynomial_Eval(DTR_RAND,LTR_RAND,DTE,LTE,hyperParameter_K=1,hyperParameter_C=C,hyperParameter_c=c,hyperParameter_d=2,PCA_Flag=True,M=m,Z_Norm_Flag=True,Dcf_Prior=prior)
+                    minDCFs_zNormPca_polynomial_eval_c1.append(minDcf)
+                if c == 0:
+                    minDcf,_,_ = SVM_kernel_polynomial_Eval(DTR_RAND,LTR_RAND,DTE,LTE,hyperParameter_K=1,hyperParameter_C=C,hyperParameter_c=c,hyperParameter_d=2,PCA_Flag=True,M=m,Z_Norm_Flag=None,Dcf_Prior=prior)
+                    minDCFS_Pca_polynomial_eval_c0.append(minDcf)
         
         # Save the list of objects to a file
-        with open("modelData/zNormPca_polynomial_svm_eval" + str(prior) + ".pkl", "wb") as f:
-            pickle.dump(zNormPca_polynomial_eval, f)
+        with open("modelData/zNormPca_polynomial_svm_eval_c1" + str(prior) + ".pkl", "wb") as f:
+            pickle.dump(minDCFs_zNormPca_polynomial_eval_c1, f)
+        
+        # Save the list of objects to a file
+        with open("modelData/Pca_polynomial_svm_eval_c0" + str(prior) + ".pkl", "wb") as f:
+            pickle.dump(minDCFS_Pca_polynomial_eval_c0, f)
     
     if Load_Data:
         # Retrieve the list of objects from the file
-        with open("modelData/zNormPca_polynomial_svm_eval" + str(prior) + ".pkl", "rb") as f:
-            zNormPca_polynomial_eval = pickle.load(f)
+        with open("modelData/zNormPca_polynomial_svm_eval_c1" + str(prior) + ".pkl", "rb") as f:
+            minDCFs_zNormPca_polynomial_eval_c1 = pickle.load(f)
+        
+        # Retrieve the list of objects from the file
+        with open("modelData/Pca_polynomial_svm_eval_c0" + str(prior) + ".pkl", "rb") as f:
+            minDCFS_Pca_polynomial_eval_c0 = pickle.load(f)
     
     # Retrieve the list of objects from the file
     with open("modelData/zNormPca_polynomial_svm" + str(prior) + ".pkl", "rb") as f:
-        zNormPca_polynomial_train = pickle.load(f)
+        minDCFs_zNormPca_polynomial_train_c1 = pickle.load(f)
+    
+    # Retrieve the list of objects from the file
+    with open("modelData/pca_polynomial_svm" + str(prior) + ".pkl", "rb") as f:
+        minDCFs_Pca_polynomial_train_c0 = pickle.load(f)
     
     # ----- PLOT FOR c = 0 ------
-    zNormPca_polynomial_c0_train = list(filter(lambda PlotElement: PlotElement.is_c(0), zNormPca_polynomial_train))
-    minDcfs_zNormPca_polynomial_c0_train = [PlotElement.getminDcf() for PlotElement in zNormPca_polynomial_c0_train]
-    C_values_zNormPca_polynomial_c0_train = [PlotElement.getC() for PlotElement in zNormPca_polynomial_c0_train]
-
-    zNormPca_polynomial_c0_eval = list(filter(lambda PlotElement: PlotElement.is_c(0), zNormPca_polynomial_eval))
-    minDcfs_zNormPca_polynomial_c0_eval = [PlotElement.getminDcf() for PlotElement in zNormPca_polynomial_c0_eval]
-    C_values_zNormPca_polynomial_c0_eval = [PlotElement.getC() for PlotElement in zNormPca_polynomial_c0_eval]
+    Pca_polynomial_c0_train = list(filter(lambda PlotElement: PlotElement.is_c(0), minDCFs_Pca_polynomial_train_c0))
+    minDcfs_Pca_polynomial_c0_train = [PlotElement.getminDcf() for PlotElement in Pca_polynomial_c0_train]
+    C_values_Pca_polynomial_c0_train = [PlotElement.getC() for PlotElement in Pca_polynomial_c0_train]
 
     labels = ['minDCF [eval set] c = 0','minDCF [valid set] c = 0']
     colors = ['b','g']
-    plot.plotDCF([C_values_zNormPca_polynomial_c0_eval,C_values_zNormPca_polynomial_c0_train],[minDcfs_zNormPca_polynomial_c0_eval,minDcfs_zNormPca_polynomial_c0_train],labels,colors,xlabel='C',title='Polynomial SVM Evaluation')
-
+    plot.plotDCF([C_values,C_values_Pca_polynomial_c0_train],[minDCFS_Pca_polynomial_eval_c0,minDcfs_Pca_polynomial_c0_train],labels,colors,xlabel='C',title='Polynomial SVM Evaluation')
 
     # ----- PLOT FOR c = 1 ------
-    zNormPca_polynomial_c1_train = list(filter(lambda PlotElement: PlotElement.is_c(1), zNormPca_polynomial_train))
+    zNormPca_polynomial_c1_train = list(filter(lambda PlotElement: PlotElement.is_c(1), minDCFs_zNormPca_polynomial_train_c1))
     minDcfs_zNormPca_polynomial_c1_train = [PlotElement.getminDcf() for PlotElement in zNormPca_polynomial_c1_train]
     C_values_zNormPca_polynomial_c1_train = [PlotElement.getC() for PlotElement in zNormPca_polynomial_c1_train]
 
-    zNormPca_polynomial_c1_eval = list(filter(lambda PlotElement: PlotElement.is_c(1), zNormPca_polynomial_eval))
-    minDcfs_zNormPca_polynomial_c1_eval = [PlotElement.getminDcf() for PlotElement in zNormPca_polynomial_c1_eval]
-    C_values_zNormPca_polynomial_c1_eval = [PlotElement.getC() for PlotElement in zNormPca_polynomial_c1_eval]
-
     labels = ['minDCF [eval set] c = 1','minDCF [valid set] c = 1']
     colors = ['b','g']
-    plot.plotDCF([C_values_zNormPca_polynomial_c1_eval,C_values_zNormPca_polynomial_c1_train],[minDcfs_zNormPca_polynomial_c1_eval,minDcfs_zNormPca_polynomial_c1_train],labels,colors,xlabel='C',title='Polynomial SVM Evaluation')
+    plot.plotDCF([C_values,C_values_zNormPca_polynomial_c1_train],[minDCFs_zNormPca_polynomial_eval_c1,minDcfs_zNormPca_polynomial_c1_train],labels,colors,xlabel='C',title='Polynomial SVM Evaluation')
 
 def eval_GMMAllRawCombinations(DTR_RAND,LTR_RAND,DTE,LTE,Load_Data=False):
     # ---------- GMM WITH ALL POSSIBLE RAW COMPONENTS COMBINATION -----------

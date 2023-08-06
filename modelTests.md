@@ -16,6 +16,7 @@
     - [Score Calibration](#score-calibration-1)
     - [Model Fusion](#model-fusion-1)
     - [QLR](#qlr)
+        - [Best Values](#best-values-qlr-training-prior-effective-prior)
     - [Pol_SVM](#pol_svm-1)
     - [GMM](#gmm-raw-with-all-possible-components-combination)
 # Gaussians
@@ -4992,124 +4993,183 @@ Accuracy: 68.85%
 Error rate: 31.15%
 Min DCF for Logistic Regression Weighted Quadratic Evaluation: 0.3310086726998491
 
+## Best Values QLR (Training Prior: Effective Prior)
+
+### Lambda 10^-3
+#### DcfPrior: 0.5
+Logistic Regression Weighted Quadratic Evaluation results:
+Accuracy: 93.69%
+Error rate: 6.31%
+Min DCF for Logistic Regression Weighted Quadratic Evaluation: 0.2938197586726998
+
+#### DcfPrior: 0.1
+Logistic Regression Weighted Quadratic Evaluation results:
+Accuracy: 93.69%
+Error rate: 6.31%
+Min DCF for Logistic Regression Weighted Quadratic Evaluation: 0.5482899698340874
+
+#### DcfPrior: 0.9
+Logistic Regression Weighted Quadratic Evaluation results:
+Accuracy: 93.69%
+Error rate: 6.31%
+Min DCF for Logistic Regression Weighted Quadratic Evaluation: 0.11357989777107425
+
+### Lambda 10^-2
+#### DcfPrior: 0.5
+Logistic Regression Weighted Quadratic Evaluation results:
+Accuracy: 92.71%
+Error rate: 7.29%
+Min DCF for Logistic Regression Weighted Quadratic Evaluation: 0.2644664404223228
+
+#### DcfPrior: 0.1
+Logistic Regression Weighted Quadratic Evaluation results:
+Accuracy: 92.71%
+Error rate: 7.29%
+Min DCF for Logistic Regression Weighted Quadratic Evaluation: 0.51625
+
+#### DcfPrior: 0.9
+Logistic Regression Weighted Quadratic Evaluation results:
+Accuracy: 92.71%
+Error rate: 7.29%
+Min DCF for Logistic Regression Weighted Quadratic Evaluation: 0.1054721803251215
+
+### Lambda 10^-1
+#### DcfPrior: 0.5
+Logistic Regression Weighted Quadratic Evaluation results:
+Accuracy: 84.18%
+Error rate: 15.82%
+Min DCF for Logistic Regression Weighted Quadratic Evaluation: 0.2621323529411765
+
+#### DcfPrior: 0.1
+Logistic Regression Weighted Quadratic Evaluation results:
+Accuracy: 84.18%
+Error rate: 15.82%
+Min DCF for Logistic Regression Weighted Quadratic Evaluation: 0.5260199849170437
+
+#### DcfPrior: 0.9
+Logistic Regression Weighted Quadratic Evaluation results:
+Accuracy: 84.18%
+Error rate: 15.82%
+Min DCF for Logistic Regression Weighted Quadratic Evaluation: 0.10337962962962963
+
 ## Pol_SVM
 
 ### C value : 1e-06
 c value : 0
-Polynomial Kernel SVM results:
+Polynomial Kernel SVM Evaluation results:
 Accuracy: 68.85%
 Error rate: 31.15%
-Min DCF for Polynomial Kernel SVM: 1.0
+Min DCF for Polynomial Kernel SVM Evaluation: 1.0
 
 c value : 1
-Polynomial Kernel SVM results:
+Polynomial Kernel SVM Evaluation results:
 Accuracy: 68.85%
 Error rate: 31.15%
-Min DCF for Polynomial Kernel SVM: 1.0
+Min DCF for Polynomial Kernel SVM Evaluation: 1.0
 
 ### C value : 1e-05
 c value : 0
-Polynomial Kernel SVM results:
+Polynomial Kernel SVM Evaluation results:
 Accuracy: 68.85%
 Error rate: 31.15%
-Min DCF for Polynomial Kernel SVM: 1.0
+Min DCF for Polynomial Kernel SVM Evaluation: 1.0
 
 c value : 1
-Polynomial Kernel SVM results:
+Polynomial Kernel SVM Evaluation results:
 Accuracy: 68.85%
 Error rate: 31.15%
-Min DCF for Polynomial Kernel SVM: 1.0
+Min DCF for Polynomial Kernel SVM Evaluation: 1.0
 
 ### C value : 0.0001
 c value : 0
-Polynomial Kernel SVM results:
-Accuracy: 78.06%
-Error rate: 21.94%
-Min DCF for Polynomial Kernel SVM: 0.6539555052790348
+Polynomial Kernel SVM Evaluation results:
+Accuracy: 95.42%
+Error rate: 4.58%
+Min DCF for Polynomial Kernel SVM Evaluation: 0.26610105580693816
 
 c value : 1
-Polynomial Kernel SVM results:
+Polynomial Kernel SVM Evaluation results:
 Accuracy: 94.47%
 Error rate: 5.53%
-Min DCF for Polynomial Kernel SVM: 0.27485105580693814
+Min DCF for Polynomial Kernel SVM Evaluation: 0.27485105580693814
 
 ### C value : 0.001
 c value : 0
-Polynomial Kernel SVM results:
-Accuracy: 87.79%
-Error rate: 12.21%
-Min DCF for Polynomial Kernel SVM: 0.7027771493212669
+Polynomial Kernel SVM Evaluation results:
+Accuracy: 95.39%
+Error rate: 4.61%
+Min DCF for Polynomial Kernel SVM Evaluation: 0.2694551282051282
 
 c value : 1
-Polynomial Kernel SVM results:
+Polynomial Kernel SVM Evaluation results:
 Accuracy: 95.3%
 Error rate: 4.7%
-Min DCF for Polynomial Kernel SVM: 0.2757371794871795
+Min DCF for Polynomial Kernel SVM Evaluation: 0.2757371794871795
 
 ### C value : 0.01
 c value : 0
-Polynomial Kernel SVM results:
-Accuracy: 88.59%
-Error rate: 11.41%
-Min DCF for Polynomial Kernel SVM: 0.6319004524886878
+Polynomial Kernel SVM Evaluation results:
+Accuracy: 95.59%
+Error rate: 4.41%
+Min DCF for Polynomial Kernel SVM Evaluation: 0.26544494720965306
 
 c value : 1
-Polynomial Kernel SVM results:
+Polynomial Kernel SVM Evaluation results:
 Accuracy: 95.39%
 Error rate: 4.61%
-Min DCF for Polynomial Kernel SVM: 0.27801847662141776
+Min DCF for Polynomial Kernel SVM Evaluation: 0.27801847662141776
 
 ### C value : 0.1
 c value : 0
-Polynomial Kernel SVM results:
-Accuracy: 88.55%
-Error rate: 11.45%
-Min DCF for Polynomial Kernel SVM: 0.6183182503770739
+Polynomial Kernel SVM Evaluation results:
+Accuracy: 95.64%
+Error rate: 4.36%
+Min DCF for Polynomial Kernel SVM Evaluation: 0.26316365007541476
 
 c value : 1
-Polynomial Kernel SVM results:
+Polynomial Kernel SVM Evaluation results:
 Accuracy: 94.98%
 Error rate: 5.02%
-Min DCF for Polynomial Kernel SVM: 0.2790497737556561
+Min DCF for Polynomial Kernel SVM Evaluation: 0.2790497737556561
 
 ### C value : 1.0
 c value : 0
-Polynomial Kernel SVM results:
-Accuracy: 88.34%
-Error rate: 11.66%
-Min DCF for Polynomial Kernel SVM: 0.6207767722473605
+Polynomial Kernel SVM Evaluation results:
+Accuracy: 88.06%
+Error rate: 11.94%
+Min DCF for Polynomial Kernel SVM Evaluation: 0.6272549019607844
 
 c value : 1
-Polynomial Kernel SVM results:
+Polynomial Kernel SVM Evaluation results:
 Accuracy: 94.89%
 Error rate: 5.11%
-Min DCF for Polynomial Kernel SVM: 0.28388197586727
+Min DCF for Polynomial Kernel SVM Evaluation: 0.28388197586727
 
 ### C value : 10.0
 c value : 0
-Polynomial Kernel SVM results:
-Accuracy: 88.37%
-Error rate: 11.63%
-Min DCF for Polynomial Kernel SVM: 0.6188914027149321
+Polynomial Kernel SVM Evaluation results:
+Accuracy: 83.32%
+Error rate: 16.68%
+Min DCF for Polynomial Kernel SVM Evaluation: 0.8456429110105581
 
 c value : 1
-Polynomial Kernel SVM results:
+Polynomial Kernel SVM Evaluation results:
 Accuracy: 94.79%
 Error rate: 5.21%
-Min DCF for Polynomial Kernel SVM: 0.2894758672699849
+Min DCF for Polynomial Kernel SVM Evaluation: 0.2894758672699849
 
 ### C value : 100.0
 c value : 0
-Polynomial Kernel SVM results:
-Accuracy: 88.33%
-Error rate: 11.67%
-Min DCF for Polynomial Kernel SVM: 0.622724358974359
+Polynomial Kernel SVM Evaluation results:
+Accuracy: 86.59%
+Error rate: 13.41%
+Min DCF for Polynomial Kernel SVM Evaluation: 0.6391515837104073
 
 c value : 1
-Polynomial Kernel SVM results:
+Polynomial Kernel SVM Evaluation results:
 Accuracy: 94.85%
 Error rate: 5.15%
-Min DCF for Polynomial Kernel SVM: 0.29221530920060335
+Min DCF for Polynomial Kernel SVM Evaluation: 0.29221530920060335
 
 # GMM RAW WITH ALL POSSIBLE COMPONENTS COMBINATION
 
