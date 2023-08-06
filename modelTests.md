@@ -4758,7 +4758,6 @@ MinDCF: 0.08630919854280508
 ## Score Calibration
 
 ### QLR
-
 Logistic Regression Weighted Quadratic results:
 Accuracy: 93.42%
 Error rate: 6.58%
@@ -4769,77 +4768,99 @@ Accuracy: 93.69%
 Error rate: 6.31%
 Min DCF for Logistic Regression Weighted Quadratic Evaluation: 0.2938197586726998
 
-Target Working Point:
+#### Target Working Point:
 
 ActDCF: 0.45280165912518855
 MinDCF: 0.2938197586726999
 
-Unbalanced 0.1 Working Point:
+#### Unbalanced 0.1 Working Point:
 
 ActDCF: 0.6916666666666667
 MinDCF: 0.5482899698340875
 
-Unbalanced 0.9 Working Point:
+#### Unbalanced 0.9 Working Point:
 
 ActDCF: 0.1956929780459192
 MinDCF: 0.11357989777107423
 
-Target Working Point:
+#### Target Working Point:
 
 ActDCF: 0.3013518099547511
 MinDCF: 0.2938197586726999
 
-Unbalanced 0.1 Working Point:
+#### Unbalanced 0.1 Working Point:
 
 ActDCF: 0.5637066365007541
 MinDCF: 0.5482899698340875
 
-Unbalanced 0.9 Working Point:
+#### Unbalanced 0.9 Working Point:
 
 ActDCF: 0.11593032512150157
 MinDCF: 0.11357989777107423
 
-### Pol_SVM
+# Pol_SVM
 
 Polynomial Kernel SVM results:
 Accuracy: 95.31%
 Error rate: 4.69%
 Min DCF for Polynomial Kernel SVM: 0.28397540983606556
 
-Polynomial Kernel SVM results:
+Polynomial Kernel SVM Evaluation results:
 Accuracy: 95.39%
 Error rate: 4.61%
-Min DCF for Polynomial Kernel SVM: 0.27801847662141776
+Min DCF for Polynomial Kernel SVM Evaluation: 0.27801847662141776
 
-Target Working Point:
+#### Target Working Point:
 
 ActDCF: 0.61375
 MinDCF: 0.27801847662141776
 
-Unbalanced 0.1 Working Point:
+#### Unbalanced 0.1 Working Point:
 
 ActDCF: 0.9545833333333335
 MinDCF: 0.5281749622926093
 
-Unbalanced 0.9 Working Point:
+#### Unbalanced 0.9 Working Point:
 
 ActDCF: 0.12016591251885368
 MinDCF: 0.1111052455170102
 
-Target Working Point:
+#### Target Working Point:
 
 ActDCF: 0.2847473604826546
 MinDCF: 0.27801847662141776
 
-Unbalanced 0.1 Working Point:
+#### Unbalanced 0.1 Working Point:
 
 ActDCF: 0.5788499245852187
 MinDCF: 0.5281749622926093
 
-Unbalanced 0.9 Working Point:
+#### Unbalanced 0.9 Working Point:
 
 ActDCF: 0.11154034690799393
 MinDCF: 0.1111052455170102
+
+# GMM
+
+Diagonal Covariance Evaluation results:
+Accuracy: 96.59%
+Error rate: 3.41%
+Min DCF for Diagonal Covariance Evaluation: 0.2182051282051282
+
+#### Target Working Point:
+
+ActDCF: 0.2276018099547511
+MinDCF: 0.21820512820512813
+
+#### Unbalanced 0.1 Working Point:
+
+ActDCF: 0.5652865761689292
+MinDCF: 0.4904883107088989
+
+#### Unbalanced 0.9 Working Point:
+
+ActDCF: 0.07165535444947209
+MinDCF: 0.07022812971342382
 
 ## Model Fusion
 
