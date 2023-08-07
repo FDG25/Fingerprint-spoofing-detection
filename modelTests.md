@@ -18,6 +18,7 @@
     - [QLR](#qlr)
         - [Best Values](#best-values-qlr-training-prior-effective-prior)
     - [Pol_SVM](#pol_svm-1)
+        - [Best Values](#pol-svm-evalution-best-values)
     - [GMM](#gmm-raw-with-all-possible-components-combination)
 # Gaussians
 
@@ -5171,6 +5172,124 @@ Accuracy: 94.85%
 Error rate: 5.15%
 Min DCF for Polynomial Kernel SVM Evaluation: 0.29221530920060335
 
+# Pol SVM Evalution Best Values
+
+## c = 1 PCA + ZNorm
+### C=10^-3
+DcfPrior: 0.5
+Polynomial Kernel SVM Evaluation results:
+Accuracy: 95.3%
+Error rate: 4.7%
+Min DCF for Polynomial Kernel SVM Evaluation: 0.2757371794871795
+
+DcfPrior: 0.1
+Polynomial Kernel SVM Evaluation results:
+Accuracy: 95.3%
+Error rate: 4.7%
+Min DCF for Polynomial Kernel SVM Evaluation: 0.5049566365007542
+
+DcfPrior: 0.9
+Polynomial Kernel SVM Evaluation results:
+Accuracy: 95.3%
+Error rate: 4.7%
+Min DCF for Polynomial Kernel SVM Evaluation: 0.10276269482151835
+
+### C=10^-2
+DcfPrior: 0.5
+Polynomial Kernel SVM Evaluation results:
+Accuracy: 95.39%
+Error rate: 4.61%
+Min DCF for Polynomial Kernel SVM Evaluation: 0.27801847662141776
+
+DcfPrior: 0.1
+Polynomial Kernel SVM Evaluation results:
+Accuracy: 95.39%
+Error rate: 4.61%
+Min DCF for Polynomial Kernel SVM Evaluation: 0.5281749622926093
+
+DcfPrior: 0.9
+Polynomial Kernel SVM Evaluation results:
+Accuracy: 95.39%
+Error rate: 4.61%
+Min DCF for Polynomial Kernel SVM Evaluation: 0.11110524551701022
+
+### C=10^-1
+DcfPrior: 0.5
+Polynomial Kernel SVM Evaluation results:
+Accuracy: 94.98%
+Error rate: 5.02%
+Min DCF for Polynomial Kernel SVM Evaluation: 0.2790497737556561
+
+DcfPrior: 0.1
+Polynomial Kernel SVM Evaluation results:
+Accuracy: 94.98%
+Error rate: 5.02%
+Min DCF for Polynomial Kernel SVM Evaluation: 0.5374566365007541
+
+DcfPrior: 0.9
+Polynomial Kernel SVM Evaluation results:
+Accuracy: 94.98%
+Error rate: 5.02%
+Min DCF for Polynomial Kernel SVM Evaluation: 0.11712962962962961
+
+## c=0, PCA no ZNorm
+### C=10^-3
+DcfPrior: 0.5
+Polynomial Kernel SVM Evaluation results:
+Accuracy: 95.39%
+Error rate: 4.61%
+Min DCF for Polynomial Kernel SVM Evaluation: 0.2694551282051282
+
+DcfPrior: 0.1
+Polynomial Kernel SVM Evaluation results:
+Accuracy: 95.39%
+Error rate: 4.61%
+Min DCF for Polynomial Kernel SVM Evaluation: 0.5527149321266969
+
+DcfPrior: 0.9
+Polynomial Kernel SVM Evaluation results:
+Accuracy: 95.39%
+Error rate: 4.61%
+Min DCF for Polynomial Kernel SVM Evaluation: 0.10649656443774089
+
+### C=10^-2
+DcfPrior: 0.5
+Polynomial Kernel SVM Evaluation results:
+Accuracy: 95.59%
+Error rate: 4.41%
+Min DCF for Polynomial Kernel SVM Evaluation: 0.26544494720965306
+
+DcfPrior: 0.1
+Polynomial Kernel SVM Evaluation results:
+Accuracy: 95.59%
+Error rate: 4.41%
+Min DCF for Polynomial Kernel SVM Evaluation: 0.5755165912518853
+
+DcfPrior: 0.9
+Polynomial Kernel SVM Evaluation results:
+Accuracy: 95.59%
+Error rate: 4.41%
+Min DCF for Polynomial Kernel SVM Evaluation: 0.10314940506116976
+
+### C=10^-1
+DcfPrior: 0.5
+Polynomial Kernel SVM Evaluation results:
+Accuracy: 95.64%
+Error rate: 4.36%
+Min DCF for Polynomial Kernel SVM Evaluation: 0.26316365007541476
+
+DcfPrior: 0.1
+Polynomial Kernel SVM Evaluation results:
+Accuracy: 95.64%
+Error rate: 4.36%
+Min DCF for Polynomial Kernel SVM Evaluation: 0.5605165912518852
+
+DcfPrior: 0.9
+Polynomial Kernel SVM Evaluation results:
+Accuracy: 95.64%
+Error rate: 4.36%
+Min DCF for Polynomial Kernel SVM Evaluation: 0.09876633986928103
+
 # GMM RAW WITH ALL POSSIBLE COMPONENTS COMBINATION
 
 ## Number of GMM Components of Class 0: 1
@@ -5180,20 +5299,28 @@ Accuracy: 95.95%
 Error rate: 4.05%
 Min DCF for Full Covariance (standard) Evaluation: 0.27637254901960784
 
+Act DCF for Full Covariance (standard) Evaluation: 0.2834144042232277
+
 Diagonal Covariance Evaluation results:
 Accuracy: 94.15%
 Error rate: 5.85%
 Min DCF for Diagonal Covariance Evaluation: 0.3523717948717948
+
+Act DCF for Diagonal Covariance Evaluation: 0.3577978883861237
 
 Tied Covariance Evaluation results:
 Accuracy: 95.95%
 Error rate: 4.05%
 Min DCF for Tied Covariance Evaluation: 0.27637254901960784
 
+Act DCF for Tied Covariance Evaluation: 0.2834144042232277
+
 Tied Diagonal Covariance Evaluation results:
 Accuracy: 94.15%
 Error rate: 5.85%
 Min DCF for Tied Diagonal Covariance Evaluation: 0.3523717948717948
+
+Act DCF for Tied Diagonal Covariance Evaluation: 0.3577978883861237
 
 ### Number of GMM Components of Class 1: 2
 Full Covariance (standard) Evaluation results:
@@ -5201,20 +5328,28 @@ Accuracy: 95.85%
 Error rate: 4.15%
 Min DCF for Full Covariance (standard) Evaluation: 0.2879034690799397
 
+Act DCF for Full Covariance (standard) Evaluation: 0.29383107088989446
+
 Diagonal Covariance Evaluation results:
 Accuracy: 93.82%
 Error rate: 6.18%
 Min DCF for Diagonal Covariance Evaluation: 0.3386217948717949
+
+Act DCF for Diagonal Covariance Evaluation: 0.342183257918552
 
 Tied Covariance Evaluation results:
 Accuracy: 95.95%
 Error rate: 4.05%
 Min DCF for Tied Covariance Evaluation: 0.27637254901960784
 
+Act DCF for Tied Covariance Evaluation: 0.2834144042232277
+
 Tied Diagonal Covariance Evaluation results:
 Accuracy: 93.78%
 Error rate: 6.22%
 Min DCF for Tied Diagonal Covariance Evaluation: 0.3384539969834087
+
+Act DCF for Tied Diagonal Covariance Evaluation: 0.343433257918552
 
 ### Number of GMM Components of Class 1: 4
 Full Covariance (standard) Evaluation results:
@@ -5222,20 +5357,28 @@ Accuracy: 95.6%
 Error rate: 4.4%
 Min DCF for Full Covariance (standard) Evaluation: 0.2944871794871795
 
+Act DCF for Full Covariance (standard) Evaluation: 0.302341628959276
+
 Diagonal Covariance Evaluation results:
 Accuracy: 93.73%
 Error rate: 6.27%
 Min DCF for Diagonal Covariance Evaluation: 0.34259049773755657
+
+Act DCF for Diagonal Covariance Evaluation: 0.3634954751131222
 
 Tied Covariance Evaluation results:
 Accuracy: 95.79%
 Error rate: 4.21%
 Min DCF for Tied Covariance Evaluation: 0.28839366515837106
 
+Act DCF for Tied Covariance Evaluation: 0.2904769984917044
+
 Tied Diagonal Covariance Evaluation results:
 Accuracy: 93.77%
 Error rate: 6.23%
 Min DCF for Tied Diagonal Covariance Evaluation: 0.3417873303167421
+
+Act DCF for Tied Diagonal Covariance Evaluation: 0.34926659125188536
 
 ### Number of GMM Components of Class 1: 8
 Full Covariance (standard) Evaluation results:
@@ -5243,20 +5386,28 @@ Accuracy: 95.4%
 Error rate: 4.6%
 Min DCF for Full Covariance (standard) Evaluation: 0.31617458521870284
 
+Act DCF for Full Covariance (standard) Evaluation: 0.3268834841628959
+
 Diagonal Covariance Evaluation results:
 Accuracy: 93.83%
 Error rate: 6.17%
 Min DCF for Diagonal Covariance Evaluation: 0.3563612368024133
+
+Act DCF for Diagonal Covariance Evaluation: 0.3596625188536953
 
 Tied Covariance Evaluation results:
 Accuracy: 95.69%
 Error rate: 4.31%
 Min DCF for Tied Covariance Evaluation: 0.2803921568627451
 
+Act DCF for Tied Covariance Evaluation: 0.29321644042232275
+
 Tied Diagonal Covariance Evaluation results:
 Accuracy: 93.87%
 Error rate: 6.13%
 Min DCF for Tied Diagonal Covariance Evaluation: 0.3464762443438914
+
+Act DCF for Tied Diagonal Covariance Evaluation: 0.352183257918552
 
 ## Number of GMM Components of Class 0: 2
 ### Number of GMM Components of Class 1: 1
@@ -5265,20 +5416,28 @@ Accuracy: 96.4%
 Error rate: 3.6%
 Min DCF for Full Covariance (standard) Evaluation: 0.24493589743589744
 
+Act DCF for Full Covariance (standard) Evaluation: 0.24701923076923077
+
 Diagonal Covariance Evaluation results:
 Accuracy: 94.13%
 Error rate: 5.87%
 Min DCF for Diagonal Covariance Evaluation: 0.3369664404223228
+
+Act DCF for Diagonal Covariance Evaluation: 0.3516836349924585
 
 Tied Covariance Evaluation results:
 Accuracy: 95.95%
 Error rate: 4.05%
 Min DCF for Tied Covariance Evaluation: 0.27637254901960784
 
+Act DCF for Tied Covariance Evaluation: 0.2834144042232277
+
 Tied Diagonal Covariance Evaluation results:
 Accuracy: 94.37%
 Error rate: 5.63%
 Min DCF for Tied Diagonal Covariance Evaluation: 0.3434766214177979
+
+Act DCF for Tied Diagonal Covariance Evaluation: 0.3661934389140271
 
 ### Number of GMM Components of Class 1: 2
 Full Covariance (standard) Evaluation results:
@@ -5286,20 +5445,28 @@ Accuracy: 96.29%
 Error rate: 3.71%
 Min DCF for Full Covariance (standard) Evaluation: 0.24514328808446456
 
+Act DCF for Full Covariance (standard) Evaluation: 0.2599566365007542
+
 Diagonal Covariance Evaluation results:
 Accuracy: 94.99%
 Error rate: 5.01%
 Min DCF for Diagonal Covariance Evaluation: 0.2968306938159879
+
+Act DCF for Diagonal Covariance Evaluation: 0.30195512820512815
 
 Tied Covariance Evaluation results:
 Accuracy: 95.95%
 Error rate: 4.05%
 Min DCF for Tied Covariance Evaluation: 0.27637254901960784
 
+Act DCF for Tied Covariance Evaluation: 0.2834144042232277
+
 Tied Diagonal Covariance Evaluation results:
 Accuracy: 94.85%
 Error rate: 5.15%
 Min DCF for Tied Diagonal Covariance Evaluation: 0.2886331070889895
+
+Act DCF for Tied Diagonal Covariance Evaluation: 0.302434012066365
 
 ### Number of GMM Components of Class 1: 4
 Full Covariance (standard) Evaluation results:
@@ -5307,20 +5474,28 @@ Accuracy: 96.16%
 Error rate: 3.84%
 Min DCF for Full Covariance (standard) Evaluation: 0.2425603318250377
 
+Act DCF for Full Covariance (standard) Evaluation: 0.27892533936651587
+
 Diagonal Covariance Evaluation results:
 Accuracy: 94.91%
 Error rate: 5.09%
 Min DCF for Diagonal Covariance Evaluation: 0.28808069381598794
+
+Act DCF for Diagonal Covariance Evaluation: 0.291038838612368
 
 Tied Covariance Evaluation results:
 Accuracy: 95.79%
 Error rate: 4.21%
 Min DCF for Tied Covariance Evaluation: 0.28839366515837106
 
+Act DCF for Tied Covariance Evaluation: 0.2904769984917044
+
 Tied Diagonal Covariance Evaluation results:
 Accuracy: 94.81%
 Error rate: 5.19%
 Min DCF for Tied Diagonal Covariance Evaluation: 0.28637254901960785
+
+Act DCF for Tied Diagonal Covariance Evaluation: 0.3047153092006033
 
 ### Number of GMM Components of Class 1: 8
 Full Covariance (standard) Evaluation results:
@@ -5328,20 +5503,28 @@ Accuracy: 95.89%
 Error rate: 4.11%
 Min DCF for Full Covariance (standard) Evaluation: 0.26889328808446455
 
+Act DCF for Full Covariance (standard) Evaluation: 0.30122737556561086
+
 Diagonal Covariance Evaluation results:
 Accuracy: 94.91%
 Error rate: 5.09%
 Min DCF for Diagonal Covariance Evaluation: 0.310184766214178
+
+Act DCF for Diagonal Covariance Evaluation: 0.3173717948717949
 
 Tied Covariance Evaluation results:
 Accuracy: 95.69%
 Error rate: 4.31%
 Min DCF for Tied Covariance Evaluation: 0.2803921568627451
 
+Act DCF for Tied Covariance Evaluation: 0.29321644042232275
+
 Tied Diagonal Covariance Evaluation results:
 Accuracy: 94.82%
 Error rate: 5.18%
 Min DCF for Tied Diagonal Covariance Evaluation: 0.3005184766214178
+
+Act DCF for Tied Diagonal Covariance Evaluation: 0.31348604826546
 
 ## Number of GMM Components of Class 0: 4
 ### Number of GMM Components of Class 1: 1
@@ -5350,20 +5533,28 @@ Accuracy: 96.34%
 Error rate: 3.66%
 Min DCF for Full Covariance (standard) Evaluation: 0.22012254901960784
 
+Act DCF for Full Covariance (standard) Evaluation: 0.23988310708898944
+
 Diagonal Covariance Evaluation results:
 Accuracy: 95.55%
 Error rate: 4.45%
 Min DCF for Diagonal Covariance Evaluation: 0.2564046003016591
+
+Act DCF for Diagonal Covariance Evaluation: 0.2721945701357466
 
 Tied Covariance Evaluation results:
 Accuracy: 96.37%
 Error rate: 3.63%
 Min DCF for Tied Covariance Evaluation: 0.22970588235294115
 
+Act DCF for Tied Covariance Evaluation: 0.24150829562594267
+
 Tied Diagonal Covariance Evaluation results:
 Accuracy: 95.42%
 Error rate: 4.58%
 Min DCF for Tied Diagonal Covariance Evaluation: 0.2667156862745098
+
+Act DCF for Tied Diagonal Covariance Evaluation: 0.27030920060331826
 
 ### Number of GMM Components of Class 1: 2
 Full Covariance (standard) Evaluation results:
@@ -5371,20 +5562,28 @@ Accuracy: 96.29%
 Error rate: 3.71%
 Min DCF for Full Covariance (standard) Evaluation: 0.22937217194570136
 
+Act DCF for Full Covariance (standard) Evaluation: 0.24194570135746604
+
 Diagonal Covariance Evaluation results:
 Accuracy: 95.96%
 Error rate: 4.04%
 Min DCF for Diagonal Covariance Evaluation: 0.2194871794871795
+
+Act DCF for Diagonal Covariance Evaluation: 0.22915346907993966
 
 Tied Covariance Evaluation results:
 Accuracy: 96.37%
 Error rate: 3.63%
 Min DCF for Tied Covariance Evaluation: 0.22970588235294115
 
+Act DCF for Tied Covariance Evaluation: 0.24150829562594267
+
 Tied Diagonal Covariance Evaluation results:
 Accuracy: 95.86%
 Error rate: 4.14%
 Min DCF for Tied Diagonal Covariance Evaluation: 0.23437217194570137
+
+Act DCF for Tied Diagonal Covariance Evaluation: 0.23752828054298641
 
 ### Number of GMM Components of Class 1: 4
 Full Covariance (standard) Evaluation results:
@@ -5392,20 +5591,28 @@ Accuracy: 96.11%
 Error rate: 3.89%
 Min DCF for Full Covariance (standard) Evaluation: 0.23853883861236802
 
+Act DCF for Full Covariance (standard) Evaluation: 0.24962292609351433
+
 Diagonal Covariance Evaluation results:
 Accuracy: 96.26%
 Error rate: 3.74%
 Min DCF for Diagonal Covariance Evaluation: 0.22775829562594269
+
+Act DCF for Diagonal Covariance Evaluation: 0.23538273001508297
 
 Tied Covariance Evaluation results:
 Accuracy: 96.39%
 Error rate: 3.61%
 Min DCF for Tied Covariance Evaluation: 0.23207013574660634
 
+Act DCF for Tied Covariance Evaluation: 0.254445701357466
+
 Tied Diagonal Covariance Evaluation results:
 Accuracy: 95.89%
 Error rate: 4.11%
 Min DCF for Tied Diagonal Covariance Evaluation: 0.23349736048265463
+
+Act DCF for Tied Diagonal Covariance Evaluation: 0.2377262443438914
 
 ### Number of GMM Components of Class 1: 8
 Full Covariance (standard) Evaluation results:
@@ -5413,20 +5620,28 @@ Accuracy: 96.21%
 Error rate: 3.79%
 Min DCF for Full Covariance (standard) Evaluation: 0.2526640271493213
 
+Act DCF for Full Covariance (standard) Evaluation: 0.2664460784313725
+
 Diagonal Covariance Evaluation results:
 Accuracy: 96.03%
 Error rate: 3.97%
 Min DCF for Diagonal Covariance Evaluation: 0.23538273001508297
+
+Act DCF for Diagonal Covariance Evaluation: 0.23954939668174963
 
 Tied Covariance Evaluation results:
 Accuracy: 96.38%
 Error rate: 3.62%
 Min DCF for Tied Covariance Evaluation: 0.23305995475113123
 
+Act DCF for Tied Covariance Evaluation: 0.24019607843137253
+
 Tied Diagonal Covariance Evaluation results:
 Accuracy: 95.98%
 Error rate: 4.02%
 Min DCF for Tied Diagonal Covariance Evaluation: 0.23391402714932127
+
+Act DCF for Tied Diagonal Covariance Evaluation: 0.2404242081447964
 
 ## Number of GMM Components of Class 0: 8
 ### Number of GMM Components of Class 1: 1
@@ -5435,20 +5650,28 @@ Accuracy: 96.03%
 Error rate: 3.97%
 Min DCF for Full Covariance (standard) Evaluation: 0.2279242081447964
 
+Act DCF for Full Covariance (standard) Evaluation: 0.23262254901960783
+
 Diagonal Covariance Evaluation results:
 Accuracy: 96.12%
 Error rate: 3.88%
 Min DCF for Diagonal Covariance Evaluation: 0.23071644042232278
+
+Act DCF for Diagonal Covariance Evaluation: 0.2369664404223228
 
 Tied Covariance Evaluation results:
 Accuracy: 96.53%
 Error rate: 3.47%
 Min DCF for Tied Covariance Evaluation: 0.21853883861236803
 
+Act DCF for Tied Covariance Evaluation: 0.23150829562594266
+
 Tied Diagonal Covariance Evaluation results:
 Accuracy: 96.18%
 Error rate: 3.82%
 Min DCF for Tied Diagonal Covariance Evaluation: 0.23353883861236802
+
+Act DCF for Tied Diagonal Covariance Evaluation: 0.23841440422322777
 
 ### Number of GMM Components of Class 1: 2
 Full Covariance (standard) Evaluation results:
@@ -5456,20 +5679,28 @@ Accuracy: 96.03%
 Error rate: 3.97%
 Min DCF for Full Covariance (standard) Evaluation: 0.23707013574660635
 
+Act DCF for Full Covariance (standard) Evaluation: 0.2403205128205128
+
 Diagonal Covariance Evaluation results:
 Accuracy: 96.59%
 Error rate: 3.41%
 Min DCF for Diagonal Covariance Evaluation: 0.2182051282051282
+
+Act DCF for Diagonal Covariance Evaluation: 0.22760180995475113
 
 Tied Covariance Evaluation results:
 Accuracy: 96.53%
 Error rate: 3.47%
 Min DCF for Tied Covariance Evaluation: 0.21853883861236803
 
+Act DCF for Tied Covariance Evaluation: 0.23150829562594266
+
 Tied Diagonal Covariance Evaluation results:
 Accuracy: 96.59%
 Error rate: 3.41%
 Min DCF for Tied Diagonal Covariance Evaluation: 0.21415346907993968
+
+Act DCF for Tied Diagonal Covariance Evaluation: 0.23012254901960782
 
 ### Number of GMM Components of Class 1: 4
 Full Covariance (standard) Evaluation results:
@@ -5477,20 +5708,28 @@ Accuracy: 95.99%
 Error rate: 4.01%
 Min DCF for Full Covariance (standard) Evaluation: 0.24571644042232277
 
+Act DCF for Full Covariance (standard) Evaluation: 0.24988310708898945
+
 Diagonal Covariance Evaluation results:
 Accuracy: 96.59%
 Error rate: 3.41%
 Min DCF for Diagonal Covariance Evaluation: 0.2252262443438914
+
+Act DCF for Diagonal Covariance Evaluation: 0.23387254901960786
 
 Tied Covariance Evaluation results:
 Accuracy: 96.55%
 Error rate: 3.45%
 Min DCF for Tied Covariance Evaluation: 0.21670625942684768
 
+Act DCF for Tied Covariance Evaluation: 0.22289404223227752
+
 Tied Diagonal Covariance Evaluation results:
 Accuracy: 96.52%
 Error rate: 3.48%
 Min DCF for Tied Diagonal Covariance Evaluation: 0.21829939668174964
+
+Act DCF for Tied Diagonal Covariance Evaluation: 0.2303205128205128
 
 ### Number of GMM Components of Class 1: 8
 Full Covariance (standard) Evaluation results:
@@ -5498,17 +5737,25 @@ Accuracy: 95.98%
 Error rate: 4.02%
 Min DCF for Full Covariance (standard) Evaluation: 0.26480957767722474
 
+Act DCF for Full Covariance (standard) Evaluation: 0.2673623680241327
+
 Diagonal Covariance Evaluation results:
 Accuracy: 96.48%
 Error rate: 3.52%
 Min DCF for Diagonal Covariance Evaluation: 0.22463235294117645
+
+Act DCF for Diagonal Covariance Evaluation: 0.23591440422322776
 
 Tied Covariance Evaluation results:
 Accuracy: 96.52%
 Error rate: 3.48%
 Min DCF for Tied Covariance Evaluation: 0.21523755656108595
 
+Act DCF for Tied Covariance Evaluation: 0.22519607843137257
+
 Tied Diagonal Covariance Evaluation results:
 Accuracy: 96.47%
 Error rate: 3.53%
 Min DCF for Tied Diagonal Covariance Evaluation: 0.22339366515837103
+
+Act DCF for Tied Diagonal Covariance Evaluation: 0.22339366515837103

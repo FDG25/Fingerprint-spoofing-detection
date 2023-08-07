@@ -221,8 +221,10 @@ def GMM_Eval(DTR,LTR,DTE,LTE,classifiers,nSplit0,nSplit1=None,PCA_Flag=None,M=No
         accuracy = 1 - errorRate
         print(f"{classifier_name} results:\nAccuracy: {round(accuracy*100, 2)}%\nError rate: {round(errorRate*100, 2)}%\n",end="")
         minDcf = optimal_decision.computeMinDCF(Dcf_Prior,constants.CFN,constants.CFP,scores,labels)
+        actDcf,_,_ = optimal_decision.computeOptimalDecisionBinaryBayesPlot(Dcf_Prior,constants.CFN,constants.CFP,scores,labels)
         minDcfs.append(minDcf)
         print(f"Min DCF for {classifier_name}: {minDcf}\n")
+        print(f"Act DCF for {classifier_name}: {actDcf}\n")
     return minDcfs,scores,labels 
 
 # ---- PARAMETERS EVALUATION FOR FINDING EVENTUAL SUB-OPTIMAL SOLUTIONS ----
@@ -291,6 +293,52 @@ def eval_svm_kernel_polynomial_C_c_parameter_testing(DTR_RAND,LTR_RAND,DTE,LTE,L
     c_values = [0, 1]
     minDCFs_zNormPca_polynomial_eval_c1 = []
     minDCFS_Pca_polynomial_eval_c0 = []
+
+    # print("c = 1 PCA + ZNorm")
+    # print("C=10^-3")
+    # print("DcfPrior: 0.5")
+    # SVM_kernel_polynomial_Eval(DTR_RAND,LTR_RAND,DTE,LTE,hyperParameter_K=1,hyperParameter_C=0.001,hyperParameter_c=1,hyperParameter_d=2,PCA_Flag=True,M=m,Z_Norm_Flag=True,Dcf_Prior=0.5)
+    # print("DcfPrior: 0.1")
+    # SVM_kernel_polynomial_Eval(DTR_RAND,LTR_RAND,DTE,LTE,hyperParameter_K=1,hyperParameter_C=0.001,hyperParameter_c=1,hyperParameter_d=2,PCA_Flag=True,M=m,Z_Norm_Flag=True,Dcf_Prior=0.1)
+    # print("DcfPrior: 0.9")
+    # SVM_kernel_polynomial_Eval(DTR_RAND,LTR_RAND,DTE,LTE,hyperParameter_K=1,hyperParameter_C=0.001,hyperParameter_c=1,hyperParameter_d=2,PCA_Flag=True,M=m,Z_Norm_Flag=True,Dcf_Prior=0.9)
+    # print("C=10^-2")
+    # print("DcfPrior: 0.5")
+    # SVM_kernel_polynomial_Eval(DTR_RAND,LTR_RAND,DTE,LTE,hyperParameter_K=1,hyperParameter_C=0.01,hyperParameter_c=1,hyperParameter_d=2,PCA_Flag=True,M=m,Z_Norm_Flag=True,Dcf_Prior=0.5)
+    # print("DcfPrior: 0.1")
+    # SVM_kernel_polynomial_Eval(DTR_RAND,LTR_RAND,DTE,LTE,hyperParameter_K=1,hyperParameter_C=0.01,hyperParameter_c=1,hyperParameter_d=2,PCA_Flag=True,M=m,Z_Norm_Flag=True,Dcf_Prior=0.1)
+    # print("DcfPrior: 0.9")
+    # SVM_kernel_polynomial_Eval(DTR_RAND,LTR_RAND,DTE,LTE,hyperParameter_K=1,hyperParameter_C=0.01,hyperParameter_c=1,hyperParameter_d=2,PCA_Flag=True,M=m,Z_Norm_Flag=True,Dcf_Prior=0.9)
+    # print("C=10^-1")
+    # print("DcfPrior: 0.5")
+    # SVM_kernel_polynomial_Eval(DTR_RAND,LTR_RAND,DTE,LTE,hyperParameter_K=1,hyperParameter_C=0.1,hyperParameter_c=1,hyperParameter_d=2,PCA_Flag=True,M=m,Z_Norm_Flag=True,Dcf_Prior=0.5)
+    # print("DcfPrior: 0.1")
+    # SVM_kernel_polynomial_Eval(DTR_RAND,LTR_RAND,DTE,LTE,hyperParameter_K=1,hyperParameter_C=0.1,hyperParameter_c=1,hyperParameter_d=2,PCA_Flag=True,M=m,Z_Norm_Flag=True,Dcf_Prior=0.1)
+    # print("DcfPrior: 0.9")
+    # SVM_kernel_polynomial_Eval(DTR_RAND,LTR_RAND,DTE,LTE,hyperParameter_K=1,hyperParameter_C=0.1,hyperParameter_c=1,hyperParameter_d=2,PCA_Flag=True,M=m,Z_Norm_Flag=True,Dcf_Prior=0.9)    
+
+    # print("c=0, PCA no ZNorm")
+    # print("C=10^-3")
+    # print("DcfPrior: 0.5")
+    # SVM_kernel_polynomial_Eval(DTR_RAND,LTR_RAND,DTE,LTE,hyperParameter_K=1,hyperParameter_C=0.001,hyperParameter_c=0,hyperParameter_d=2,PCA_Flag=True,M=m,Z_Norm_Flag=None,Dcf_Prior=0.5)
+    # print("DcfPrior: 0.1")
+    # SVM_kernel_polynomial_Eval(DTR_RAND,LTR_RAND,DTE,LTE,hyperParameter_K=1,hyperParameter_C=0.001,hyperParameter_c=0,hyperParameter_d=2,PCA_Flag=True,M=m,Z_Norm_Flag=None,Dcf_Prior=0.1)
+    # print("DcfPrior: 0.9")
+    # SVM_kernel_polynomial_Eval(DTR_RAND,LTR_RAND,DTE,LTE,hyperParameter_K=1,hyperParameter_C=0.001,hyperParameter_c=0,hyperParameter_d=2,PCA_Flag=True,M=m,Z_Norm_Flag=None,Dcf_Prior=0.9)
+    # print("C=10^-2")
+    # print("DcfPrior: 0.5")
+    # SVM_kernel_polynomial_Eval(DTR_RAND,LTR_RAND,DTE,LTE,hyperParameter_K=1,hyperParameter_C=0.01,hyperParameter_c=0,hyperParameter_d=2,PCA_Flag=True,M=m,Z_Norm_Flag=None,Dcf_Prior=0.5)
+    # print("DcfPrior: 0.1")
+    # SVM_kernel_polynomial_Eval(DTR_RAND,LTR_RAND,DTE,LTE,hyperParameter_K=1,hyperParameter_C=0.01,hyperParameter_c=0,hyperParameter_d=2,PCA_Flag=True,M=m,Z_Norm_Flag=None,Dcf_Prior=0.1)
+    # print("DcfPrior: 0.9")
+    # SVM_kernel_polynomial_Eval(DTR_RAND,LTR_RAND,DTE,LTE,hyperParameter_K=1,hyperParameter_C=0.01,hyperParameter_c=0,hyperParameter_d=2,PCA_Flag=True,M=m,Z_Norm_Flag=None,Dcf_Prior=0.9)
+    # print("C=10^-1")
+    # print("DcfPrior: 0.5")
+    # SVM_kernel_polynomial_Eval(DTR_RAND,LTR_RAND,DTE,LTE,hyperParameter_K=1,hyperParameter_C=0.1,hyperParameter_c=0,hyperParameter_d=2,PCA_Flag=True,M=m,Z_Norm_Flag=None,Dcf_Prior=0.5)
+    # print("DcfPrior: 0.1")
+    # SVM_kernel_polynomial_Eval(DTR_RAND,LTR_RAND,DTE,LTE,hyperParameter_K=1,hyperParameter_C=0.1,hyperParameter_c=0,hyperParameter_d=2,PCA_Flag=True,M=m,Z_Norm_Flag=None,Dcf_Prior=0.1)
+    # print("DcfPrior: 0.9")
+    # SVM_kernel_polynomial_Eval(DTR_RAND,LTR_RAND,DTE,LTE,hyperParameter_K=1,hyperParameter_C=0.1,hyperParameter_c=0,hyperParameter_d=2,PCA_Flag=True,M=m,Z_Norm_Flag=None,Dcf_Prior=0.9)
 
     # c = 1,C = 10−2, with both ZNorm and PCA applied.
     # c = 0, PCA applied and no ZNorm.
