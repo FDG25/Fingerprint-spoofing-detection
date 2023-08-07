@@ -680,6 +680,39 @@ def trainGMMSameComponents(DTR_RAND,LTR_RAND,Load_Data=False):
 
 def trainGMMAllCombinations(DTR_RAND,LTR_RAND,Load_Data=False):
     # ---------- GMM WITH ALL POSSIBLE COMPONENTS COMBINATION -----------
+    # classifier = [(gmm.LBGalgorithm,gmm.constraintSigma,"Full Covariance (standard)")]
+    # print("Raw Full Cov G0=4 G1=1")
+    # print("DcfPrior: 0.5")
+    # kfold.K_Fold_GMM(DTR_RAND,LTR_RAND,K=constants.K,classifiers=classifier,nSplit0=2,nSplit1=0,PCA_Flag=None,M=None,Z_Norm_Flag=None,Dcf_Prior=0.5,Calibration_Flag=None)
+    # print("DcfPrior: 0.1")
+    # kfold.K_Fold_GMM(DTR_RAND,LTR_RAND,K=constants.K,classifiers=classifier,nSplit0=2,nSplit1=0,PCA_Flag=None,M=None,Z_Norm_Flag=None,Dcf_Prior=0.1,Calibration_Flag=None)
+    # print("DcfPrior: 0.9")
+    # kfold.K_Fold_GMM(DTR_RAND,LTR_RAND,K=constants.K,classifiers=classifier,nSplit0=2,nSplit1=0,PCA_Flag=None,M=None,Z_Norm_Flag=None,Dcf_Prior=0.9,Calibration_Flag=None)
+    # classifier = [(gmm.DiagLBGalgorithm,gmm.DiagConstraintSigma,"Diagonal Covariance")]
+    # print("Raw Diag Cov G0=8 G1=2")
+    # print("DcfPrior: 0.5")
+    # kfold.K_Fold_GMM(DTR_RAND,LTR_RAND,K=constants.K,classifiers=classifier,nSplit0=3,nSplit1=1,PCA_Flag=None,M=None,Z_Norm_Flag=None,Dcf_Prior=0.5,Calibration_Flag=None)
+    # print("DcfPrior: 0.1")
+    # kfold.K_Fold_GMM(DTR_RAND,LTR_RAND,K=constants.K,classifiers=classifier,nSplit0=3,nSplit1=1,PCA_Flag=None,M=None,Z_Norm_Flag=None,Dcf_Prior=0.1,Calibration_Flag=None)
+    # print("DcfPrior: 0.9")
+    # kfold.K_Fold_GMM(DTR_RAND,LTR_RAND,K=constants.K,classifiers=classifier,nSplit0=3,nSplit1=1,PCA_Flag=None,M=None,Z_Norm_Flag=None,Dcf_Prior=0.9,Calibration_Flag=None)
+    # classifier = [(gmm.TiedLBGalgorithm, gmm.constraintSigma, "Tied Covariance")]
+    # print("Raw Tied Cov G0=8 G1=8")
+    # print("DcfPrior: 0.5")
+    # kfold.K_Fold_GMM(DTR_RAND,LTR_RAND,K=constants.K,classifiers=classifier,nSplit0=3,nSplit1=3,PCA_Flag=None,M=None,Z_Norm_Flag=None,Dcf_Prior=0.5,Calibration_Flag=None)
+    # print("DcfPrior: 0.1")
+    # kfold.K_Fold_GMM(DTR_RAND,LTR_RAND,K=constants.K,classifiers=classifier,nSplit0=3,nSplit1=3,PCA_Flag=None,M=None,Z_Norm_Flag=None,Dcf_Prior=0.1,Calibration_Flag=None)
+    # print("DcfPrior: 0.9")
+    # kfold.K_Fold_GMM(DTR_RAND,LTR_RAND,K=constants.K,classifiers=classifier,nSplit0=3,nSplit1=3,PCA_Flag=None,M=None,Z_Norm_Flag=None,Dcf_Prior=0.9,Calibration_Flag=None)
+    # classifier = [(gmm.TiedDiagLBGalgorithm,gmm.DiagConstraintSigma,"Tied Diagonal Covariance")]
+    # print("Raw Tied Diag Cov G0=8 G1=2")
+    # print("DcfPrior: 0.5")
+    # kfold.K_Fold_GMM(DTR_RAND,LTR_RAND,K=constants.K,classifiers=classifier,nSplit0=3,nSplit1=1,PCA_Flag=None,M=None,Z_Norm_Flag=None,Dcf_Prior=0.5,Calibration_Flag=None)
+    # print("DcfPrior: 0.1")
+    # kfold.K_Fold_GMM(DTR_RAND,LTR_RAND,K=constants.K,classifiers=classifier,nSplit0=3,nSplit1=1,PCA_Flag=None,M=None,Z_Norm_Flag=None,Dcf_Prior=0.1,Calibration_Flag=None)
+    # print("DcfPrior: 0.9")
+    # kfold.K_Fold_GMM(DTR_RAND,LTR_RAND,K=constants.K,classifiers=classifier,nSplit0=3,nSplit1=1,PCA_Flag=None,M=None,Z_Norm_Flag=None,Dcf_Prior=0.9,Calibration_Flag=None)
+
     classifiers = [(gmm.LBGalgorithm,gmm.constraintSigma,"Full Covariance (standard)"), (gmm.DiagLBGalgorithm,gmm.DiagConstraintSigma,"Diagonal Covariance"), (gmm.TiedLBGalgorithm, gmm.constraintSigma, "Tied Covariance"),(gmm.TiedDiagLBGalgorithm,gmm.DiagConstraintSigma,"Tied Diagonal Covariance")]
     for prior in constants.DCFS_PRIORS:
         if not Load_Data:

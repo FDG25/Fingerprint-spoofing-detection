@@ -10,6 +10,7 @@
 - [RBF SVM](#svm-radial-basis-function-rbf-kcgamma-training-prior--05)
     - [Best Values](#svm-radial-basis-function-rbf-best-values)
 - [GMM (not all)](#gmm-all-combination-training)
+    - [Best Values](#gmm-best-values-training)
 - [Score Calibration](#score-calibration)
 - [Model Fusion](#model-fusion)
 - [Evaluation](#evaluation)
@@ -20,6 +21,7 @@
     - [Pol_SVM](#pol_svm-1)
         - [Best Values](#pol-svm-evalution-best-values)
     - [GMM](#gmm-raw-with-all-possible-components-combination)
+        - [Best Values](#gmm-best-values-evaluation)
 # Gaussians
 
 ## RAW (No PCA No Z_Norm)
@@ -4575,6 +4577,83 @@ Accuracy: 95.05%
 Error rate: 4.95%
 Min DCF for Tied Diagonal Covariance: 0.28987704918032786
 
+# GMM Best Values Training
+
+## Raw Full Cov G0=4 G1=1
+### DcfPrior: 0.5
+Full Covariance (standard) results:
+Accuracy: 95.53%
+Error rate: 4.47%
+Min DCF for Full Covariance (standard): 0.25209016393442624
+
+### DcfPrior: 0.1
+Full Covariance (standard) results:
+Accuracy: 95.53%
+Error rate: 4.47%
+Min DCF for Full Covariance (standard): 0.47125
+
+### DcfPrior: 0.9
+Full Covariance (standard) results:
+Accuracy: 95.53%
+Error rate: 4.47%
+Min DCF for Full Covariance (standard): 0.08505236794171218
+
+## Raw Diag Cov G0=8 G1=2
+### DcfPrior: 0.5
+Diagonal Covariance results:
+Accuracy: 95.44%
+Error rate: 4.56%
+Min DCF for Diagonal Covariance: 0.23522540983606557
+
+### DcfPrior: 0.1
+Diagonal Covariance results:
+Accuracy: 95.44%
+Error rate: 4.56%
+Min DCF for Diagonal Covariance: 0.565
+
+### DcfPrior: 0.9
+Diagonal Covariance results:
+Accuracy: 95.44%
+Error rate: 4.56%
+Min DCF for Diagonal Covariance: 0.08496584699453552
+
+## Raw Tied Cov G0=8 G1=8
+### DcfPrior: 0.5
+Tied Covariance results:
+Accuracy: 95.66%
+Error rate: 4.34%
+Min DCF for Tied Covariance: 0.24489754098360655
+
+### DcfPrior: 0.1
+Tied Covariance results:
+Accuracy: 95.66%
+Error rate: 4.34%
+Min DCF for Tied Covariance: 0.55125
+
+### DcfPrior: 0.9
+Tied Covariance results:
+Accuracy: 95.66%
+Error rate: 4.34%
+Min DCF for Tied Covariance: 0.08465163934426229
+
+## Raw Tied Diag Cov G0=8 G1=2
+### DcfPrior: 0.5
+Tied Diagonal Covariance results:
+Accuracy: 95.66%
+Error rate: 4.34%
+Min DCF for Tied Diagonal Covariance: 0.24459016393442623
+
+### DcfPrior: 0.1
+Tied Diagonal Covariance results:
+Accuracy: 95.66%
+Error rate: 4.34%
+Min DCF for Tied Diagonal Covariance: 0.5177663934426229
+
+### DcfPrior: 0.9
+Tied Diagonal Covariance results:
+Accuracy: 95.66%
+Error rate: 4.34%
+Min DCF for Tied Diagonal Covariance: 0.08141621129326047
 # Score Calibration
 
 Logistic Regression Weighted Quadratic results:
@@ -5759,3 +5838,105 @@ Error rate: 3.53%
 Min DCF for Tied Diagonal Covariance Evaluation: 0.22339366515837103
 
 Act DCF for Tied Diagonal Covariance Evaluation: 0.22339366515837103
+
+# GMM Best Values Evaluation
+
+## Raw Full Cov G0=4 G1=1
+### DcfPrior: 0.5
+Full Covariance (standard) Evaluation results:
+Accuracy: 96.34%
+Error rate: 3.66%
+Min DCF for Full Covariance (standard) Evaluation: 0.22012254901960784
+
+Act DCF for Full Covariance (standard) Evaluation: 0.23988310708898944
+
+### DcfPrior: 0.1
+Full Covariance (standard) Evaluation results:
+Accuracy: 96.34%
+Error rate: 3.66%
+Min DCF for Full Covariance (standard) Evaluation: 0.47287330316742093
+
+Act DCF for Full Covariance (standard) Evaluation: 0.4827582956259427
+
+### DcfPrior: 0.9
+Full Covariance (standard) Evaluation results:
+Accuracy: 96.34%
+Error rate: 3.66%
+Min DCF for Full Covariance (standard) Evaluation: 0.07583584715937657
+
+Act DCF for Full Covariance (standard) Evaluation: 0.07770739064856712
+
+## Raw Diag Cov G0=8 G1=2
+### DcfPrior: 0.5
+Diagonal Covariance Evaluation results:
+Accuracy: 96.59%
+Error rate: 3.41%
+Min DCF for Diagonal Covariance Evaluation: 0.2182051282051282
+
+Act DCF for Diagonal Covariance Evaluation: 0.22760180995475113
+
+### DcfPrior: 0.1
+Diagonal Covariance Evaluation results:
+Accuracy: 96.59%
+Error rate: 3.41%
+Min DCF for Diagonal Covariance Evaluation: 0.490488310708899
+
+Act DCF for Diagonal Covariance Evaluation: 0.5652865761689292
+
+### DcfPrior: 0.9
+Diagonal Covariance Evaluation results:
+Accuracy: 96.59%
+Error rate: 3.41%
+Min DCF for Diagonal Covariance Evaluation: 0.07022812971342382
+
+Act DCF for Diagonal Covariance Evaluation: 0.07165535444947209
+
+## Raw Tied Cov G0=8 G1=8
+### DcfPrior: 0.5
+Tied Covariance Evaluation results:
+Accuracy: 96.52%
+Error rate: 3.48%
+Min DCF for Tied Covariance Evaluation: 0.21523755656108595
+
+Act DCF for Tied Covariance Evaluation: 0.22519607843137257
+
+### DcfPrior: 0.1
+Tied Covariance Evaluation results:
+Accuracy: 96.52%
+Error rate: 3.48%
+Min DCF for Tied Covariance Evaluation: 0.48150829562594266
+
+Act DCF for Tied Covariance Evaluation: 0.48150829562594266
+
+### DcfPrior: 0.9
+Tied Covariance Evaluation results:
+Accuracy: 96.52%
+Error rate: 3.48%
+Min DCF for Tied Covariance Evaluation: 0.07419913691972514
+
+Act DCF for Tied Covariance Evaluation: 0.07808949220713926
+
+## Raw Tied Diag Cov G0=8 G1=2
+### DcfPrior: 0.5
+Tied Diagonal Covariance Evaluation results:
+Accuracy: 96.59%
+Error rate: 3.41%
+Min DCF for Tied Diagonal Covariance Evaluation: 0.21415346907993968
+
+Act DCF for Tied Diagonal Covariance Evaluation: 0.23012254901960782
+
+### DcfPrior: 0.1
+Tied Diagonal Covariance Evaluation results:
+Accuracy: 96.59%
+Error rate: 3.41%
+Min DCF for Tied Diagonal Covariance Evaluation: 0.4982899698340876
+
+Act DCF for Tied Diagonal Covariance Evaluation: 0.5474849170437405
+
+### DcfPrior: 0.9
+Tied Diagonal Covariance Evaluation results:
+Accuracy: 96.59%
+Error rate: 3.41%
+Min DCF for Tied Diagonal Covariance Evaluation: 0.06979533266297971
+
+Act DCF for Tied Diagonal Covariance Evaluation: 0.07249099212334506

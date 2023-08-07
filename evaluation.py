@@ -399,6 +399,40 @@ def eval_svm_kernel_polynomial_C_c_parameter_testing(DTR_RAND,LTR_RAND,DTE,LTE,L
 
 def eval_GMMAllRawCombinations(DTR_RAND,LTR_RAND,DTE,LTE,Load_Data=False):
     # ---------- GMM WITH ALL POSSIBLE RAW COMPONENTS COMBINATION -----------
+    
+    # classifier = [(gmm.LBGalgorithm,gmm.constraintSigma,"Full Covariance (standard) Evaluation")]
+    # print("Raw Full Cov G0=4 G1=1")
+    # print("DcfPrior: 0.5")
+    # GMM_Eval(DTR_RAND,LTR_RAND,DTE,LTE,classifier,nSplit0=2,nSplit1=0,PCA_Flag=None,M=None,Z_Norm_Flag=None,Dcf_Prior=0.5)
+    # print("DcfPrior: 0.1")
+    # GMM_Eval(DTR_RAND,LTR_RAND,DTE,LTE,classifier,nSplit0=2,nSplit1=0,PCA_Flag=None,M=None,Z_Norm_Flag=None,Dcf_Prior=0.1)
+    # print("DcfPrior: 0.9")
+    # GMM_Eval(DTR_RAND,LTR_RAND,DTE,LTE,classifier,nSplit0=2,nSplit1=0,PCA_Flag=None,M=None,Z_Norm_Flag=None,Dcf_Prior=0.9)
+    # classifier = [(gmm.DiagLBGalgorithm,gmm.DiagConstraintSigma,"Diagonal Covariance Evaluation")]
+    # print("Raw Diag Cov G0=8 G1=2")
+    # print("DcfPrior: 0.5")
+    # GMM_Eval(DTR_RAND,LTR_RAND,DTE,LTE,classifier,nSplit0=3,nSplit1=1,PCA_Flag=None,M=None,Z_Norm_Flag=None,Dcf_Prior=0.5)
+    # print("DcfPrior: 0.1")
+    # GMM_Eval(DTR_RAND,LTR_RAND,DTE,LTE,classifier,nSplit0=3,nSplit1=1,PCA_Flag=None,M=None,Z_Norm_Flag=None,Dcf_Prior=0.1)
+    # print("DcfPrior: 0.9")
+    # GMM_Eval(DTR_RAND,LTR_RAND,DTE,LTE,classifier,nSplit0=3,nSplit1=1,PCA_Flag=None,M=None,Z_Norm_Flag=None,Dcf_Prior=0.9)
+    # classifier = [(gmm.TiedLBGalgorithm, gmm.constraintSigma, "Tied Covariance Evaluation")]
+    # print("Raw Tied Cov G0=8 G1=8")
+    # print("DcfPrior: 0.5")
+    # GMM_Eval(DTR_RAND,LTR_RAND,DTE,LTE,classifier,nSplit0=3,nSplit1=3,PCA_Flag=None,M=None,Z_Norm_Flag=None,Dcf_Prior=0.5)
+    # print("DcfPrior: 0.1")
+    # GMM_Eval(DTR_RAND,LTR_RAND,DTE,LTE,classifier,nSplit0=3,nSplit1=3,PCA_Flag=None,M=None,Z_Norm_Flag=None,Dcf_Prior=0.1)
+    # print("DcfPrior: 0.9")
+    # GMM_Eval(DTR_RAND,LTR_RAND,DTE,LTE,classifier,nSplit0=3,nSplit1=3,PCA_Flag=None,M=None,Z_Norm_Flag=None,Dcf_Prior=0.9)
+    # classifier = [(gmm.TiedDiagLBGalgorithm,gmm.DiagConstraintSigma,"Tied Diagonal Covariance Evaluation")]
+    # print("Raw Tied Diag Cov G0=8 G1=2")
+    # print("DcfPrior: 0.5")
+    # GMM_Eval(DTR_RAND,LTR_RAND,DTE,LTE,classifier,nSplit0=3,nSplit1=1,PCA_Flag=None,M=None,Z_Norm_Flag=None,Dcf_Prior=0.5)
+    # print("DcfPrior: 0.1")
+    # GMM_Eval(DTR_RAND,LTR_RAND,DTE,LTE,classifier,nSplit0=3,nSplit1=1,PCA_Flag=None,M=None,Z_Norm_Flag=None,Dcf_Prior=0.1)
+    # print("DcfPrior: 0.9")
+    # GMM_Eval(DTR_RAND,LTR_RAND,DTE,LTE,classifier,nSplit0=3,nSplit1=1,PCA_Flag=None,M=None,Z_Norm_Flag=None,Dcf_Prior=0.9)
+
     classifiers = [(gmm.LBGalgorithm,gmm.constraintSigma,"Full Covariance (standard) Evaluation"), (gmm.DiagLBGalgorithm,gmm.DiagConstraintSigma,"Diagonal Covariance Evaluation"), (gmm.TiedLBGalgorithm, gmm.constraintSigma, "Tied Covariance Evaluation"),(gmm.TiedDiagLBGalgorithm,gmm.DiagConstraintSigma,"Tied Diagonal Covariance Evaluation")]
     prior = 0.5
     if not Load_Data:
